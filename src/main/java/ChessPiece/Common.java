@@ -43,7 +43,7 @@ public abstract class Common implements ChessPiece
         }
         if(ID >= 200-8 && ID <= 200+8)
         {
-            return 'K';
+            return 'k';
         }
         if(ID >= 300-8 && ID <= 300+8)
         {

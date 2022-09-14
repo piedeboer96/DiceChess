@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="Setup of the project">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Die/DieThrow.java" afterDir="false" />
+    <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="pretty much finished ChessPieces">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Die/Roll.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Bishop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/ChessPiece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Common.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Common.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/King.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Knight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Queen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Rook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Die/DieThrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Die/DieThrow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,8 +23,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -92,7 +86,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1663149947461</updated>
-      <workItem from="1663172215821" duration="9447000" />
+      <workItem from="1663172215821" duration="10087000" />
     </task>
     <task id="LOCAL-00001" summary="Setup of the project">
       <created>1663150081286</created>
@@ -101,7 +95,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663150081286</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="pretty much finished ChessPieces">
+      <created>1663187019588</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1663187019588</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,6 +122,7 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Setup of the project" />
-    <option name="LAST_COMMIT_MESSAGE" value="Setup of the project" />
+    <MESSAGE value="pretty much finished ChessPieces" />
+    <option name="LAST_COMMIT_MESSAGE" value="pretty much finished ChessPieces" />
   </component>
 </project>
