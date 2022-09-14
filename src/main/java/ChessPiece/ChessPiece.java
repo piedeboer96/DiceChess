@@ -1,11 +1,14 @@
 package ChessPiece;
 
+import java.util.List;
+
 public interface ChessPiece
 {
     public int[] getPosition();
-    public int[] legalMoves();
-    public void setPosition();
-    public int getTeam();
-    public int getType();
+    public List legalMoves();
+    public void setPosition(int x, int y);
+    public char getTeam();
+    public char getType();
+    public int getNumber();
 
 }

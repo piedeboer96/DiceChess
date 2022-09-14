@@ -5,17 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="Setup of the project">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Bishop.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/ChessPiece.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Common.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/King.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Knight.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Pawn.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Queen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Rook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Die/DieThrow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Bishop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/ChessPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Common.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Common.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Knight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Rook.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,8 +29,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -49,11 +48,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/recourses" />
@@ -87,6 +92,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1663149947461</updated>
+      <workItem from="1663172215821" duration="9447000" />
     </task>
     <task id="LOCAL-00001" summary="Setup of the project">
       <created>1663150081286</created>
@@ -97,6 +103,9 @@
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

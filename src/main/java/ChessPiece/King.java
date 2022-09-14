@@ -1,44 +1,44 @@
 package ChessPiece;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class King extends Common
 {
-public int king_ID = 10000;
+    public int king_ID;
+    private static int number = 0;
 
-    @Override
-    public int[] getPosition()
+    public King(boolean isWhite)
     {
-        int[] position = new int[2];
+        if(isWhite)
+        {
+            king_ID = 10000 + number;
+        }
+        else
+        {
+            king_ID = -10000 - number;
+        }
+        number++;
 
-        for(int i = 0; i < field.length; i++)
-      {
-          for(int j = 0; j < field[0].length; j++)
-          {
-            if(field[i][j] == king_ID)
-            {
-               position[0] = i;
-               position[1] = j;
-               return position;
-            }
-          }
-      }
-        return null;
+        super.ID = king_ID;
+        super.n = number;
     }
 
+
+
     @Override
-    public int[] legalMoves()
+    public List legalMoves(int x, int y)
     {
-        int[] currentPos = getPosition();
-        int x = currentPos[0];
-        int y = currentPos[1];
-
-
+        List moves = new ArrayList<>();
             for(int i = -1; i < 2; i++)
             {
                 for(int j = 1; j > -2; j--)
                 {
                     try
                     {
-                        
+                        int temp = field[x+i][y+j];
+                        moves.add(x+i);
+                        moves.add(y+j);
                     }
                     catch (ArrayIndexOutOfBoundsException e)
                     {
@@ -47,23 +47,7 @@ public int king_ID = 10000;
                 }
             }
 
-
-        int[] moves = {1,1,1,0,1,-1,0,1,0,-1,-1,1,-1,0,-1,-1};
         return moves;
     }
 
-    @Override
-    public void setPosition() {
-
-    }
-
-    @Override
-    public int getTeam() {
-        return 0;
-    }
-
-    @Override
-    public int getType() {
-        return 0;
-    }
 }
