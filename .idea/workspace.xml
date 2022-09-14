@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="Setup of the project">
-      <change afterPath="$PROJECT_DIR$/src/recourses/chess-piece-test.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/gametest/GameTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Bishop.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/ChessPiece.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Common.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/King.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Knight.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Pawn.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Queen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ChessPiece/Rook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/HelloWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/HelloWorld.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +30,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -41,14 +49,11 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/recourses" />
