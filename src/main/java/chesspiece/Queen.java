@@ -1,30 +1,28 @@
-package ChessPiece;
+package chesspiece;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bishop extends Common
+public class Queen extends Common
 {
-    public int bishop_ID;
+    public int queen_ID;
     private static int number = 0;
 
-    public Bishop(boolean isWhite)
+    public Queen(boolean isWhite)
     {
         if(isWhite)
         {
-            bishop_ID = 300 + number;
+            queen_ID = 500 + number;
         }
         else
         {
-            bishop_ID = -300 - number;
+            queen_ID = -500 - number;
         }
         number++;
 
-        super.ID =  bishop_ID;
+        super.ID =  queen_ID;
         super.n = number;
     }
-
-
 
     @Override
     public List legalMoves(int x, int y)
@@ -33,6 +31,10 @@ public class Bishop extends Common
         boolean dir2 = true;
         boolean dir3 = true;
         boolean dir4 = true;
+        boolean dir5 = true;
+        boolean dir6 = true;
+        boolean dir7 = true;
+        boolean dir8 = true;
         List moves = new ArrayList<>();
 
         for(int i = 1; i <= 8; i++)
@@ -90,8 +92,60 @@ public class Bishop extends Common
                 }
             }
 
+            if(dir5)
+            {
+                try
+                {
+                    int temp = field[x+i][y];
+                    moves.add(x+i);
+                    moves.add(y);
+                }
+                catch (ArrayIndexOutOfBoundsException e)
+                {
+                    dir5 = false;
+                }
+            }
+            if(dir6)
+            {
+                try
+                {
+                    int temp = field[x-i][y];
+                    moves.add(x-i);
+                    moves.add(y);
+                }
+                catch (ArrayIndexOutOfBoundsException e)
+                {
+                    dir6 = false;
+                }
+            }
+            if(dir7)
+            {
+                try
+                {
+                    int temp = field[x][y+i];
+                    moves.add(x);
+                    moves.add(y+i);
+                }
+                catch (ArrayIndexOutOfBoundsException e)
+                {
+                    dir7 = false;
+                }
+            }
+            if(dir8)
+            {
+                try
+                {
+                    int temp = field[x][y-i];
+                    moves.add(x);
+                    moves.add(y-i);
+                }
+                catch (ArrayIndexOutOfBoundsException e)
+                {
+                    dir8 = false;
+                }
+            }
+
         }
         return moves;
     }
-
 }

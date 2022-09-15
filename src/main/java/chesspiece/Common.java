@@ -1,4 +1,4 @@
-package ChessPiece;
+package chesspiece;
 
 public abstract class Common implements ChessPiece
 {

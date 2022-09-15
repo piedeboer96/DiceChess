@@ -1,28 +1,29 @@
-package ChessPiece;
+package chesspiece;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rook extends Common
+public class Bishop extends Common
 {
-    public int rook_ID;
+    public int bishop_ID;
     private static int number = 0;
 
-    public Rook(boolean isWhite)
+    public Bishop(boolean isWhite)
     {
         if(isWhite)
         {
-            rook_ID = 400 + number;
+            bishop_ID = 300 + number;
         }
         else
         {
-            rook_ID = -400 - number;
+            bishop_ID = -300 - number;
         }
         number++;
 
-        super.ID =  rook_ID;
+        super.ID =  bishop_ID;
         super.n = number;
     }
+
 
     @Override
     public List legalMoves(int x, int y)
@@ -39,9 +40,9 @@ public class Rook extends Common
             {
                 try
                 {
-                    int temp = field[x+i][y];
+                    int temp = field[x+i][y+i];
                     moves.add(x+i);
-                    moves.add(y);
+                    moves.add(y+i);
                 }
                 catch (ArrayIndexOutOfBoundsException e)
                 {
@@ -52,9 +53,9 @@ public class Rook extends Common
             {
                 try
                 {
-                    int temp = field[x-i][y];
-                    moves.add(x-i);
-                    moves.add(y);
+                    int temp = field[x+i][y-i];
+                    moves.add(x+i);
+                    moves.add(y-i);
                 }
                 catch (ArrayIndexOutOfBoundsException e)
                 {
@@ -65,8 +66,8 @@ public class Rook extends Common
             {
                 try
                 {
-                    int temp = field[x][y+i];
-                    moves.add(x);
+                    int temp = field[x-i][y+i];
+                    moves.add(x-i);
                     moves.add(y+i);
                 }
                 catch (ArrayIndexOutOfBoundsException e)
@@ -78,8 +79,8 @@ public class Rook extends Common
             {
                 try
                 {
-                    int temp = field[x][y-i];
-                    moves.add(x);
+                    int temp = field[x-i][y-i];
+                    moves.add(x-i);
                     moves.add(y-i);
                 }
                 catch (ArrayIndexOutOfBoundsException e)
@@ -91,4 +92,5 @@ public class Rook extends Common
         }
         return moves;
     }
+
 }

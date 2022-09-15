@@ -1,4 +1,4 @@
-package Die;
+package die;
 
 public interface DieThrow
 {
