@@ -1,5 +1,6 @@
 package board;
 
+import utility.Images;
 import utility.Vector2d;
 
 import javax.swing.*;
@@ -10,6 +11,7 @@ import java.awt.*;
  **/
 public abstract class Board extends JPanel {
     private Vector2d[] positions2highlight;
+    protected final Images images;
     public final Color boardColor1 = new Color(80, 60, 60);
     public final Color boardColor2 = new Color(190, 180, 170);
     public final Color highlightColor = new Color(120, 240, 120, 90);
@@ -17,6 +19,12 @@ public abstract class Board extends JPanel {
     public final int xEndPoint, yEndPoint;
     public final int tileWidth, tileHeight;
 
+    /**
+     * @param xOffset The x-coordinate of the board's top-left corner.
+     * @param yOffset The y-coordinate of the board's top-left corner.
+     * @param tileWidth The width of each tile on the board.
+     * @param tileHeight The height of each tile on the board.
+     **/
     public Board(int xOffset, int yOffset, int tileWidth, int tileHeight){
         this.xOffset = xOffset;
         this.yOffset = yOffset;
@@ -25,9 +33,12 @@ public abstract class Board extends JPanel {
 
         xEndPoint = xOffset + 8 * tileWidth;
         yEndPoint = yOffset + 8 * tileHeight;
+
+        images = new Images();
     }
 
     /**
+     * Converts a mouse position to a (board) coordinate.
      * @return A 2-dimensional vector representing the tile on which the (mouse) position is located.
      *         Null if the position is outside of board boundary.
      **/
@@ -56,8 +67,14 @@ public abstract class Board extends JPanel {
         return coordinate;
     }
 
+    /**
+     * When overwritten, draws the chess pieces on the board.
+     **/
     protected abstract void drawChessPieces(Graphics g);
 
+    /**
+     * Highlights tiles.
+     **/
     protected void drawHighlights(Graphics g){
         if (positions2highlight == null){ return; }
         g.setColor(highlightColor);
@@ -69,6 +86,9 @@ public abstract class Board extends JPanel {
         }
     }
 
+    /**
+     * Draws the outlines of all tiles (i.e, draws the board).
+     **/
     protected void drawOutlines(Graphics g){
         g.drawLine(xOffset, yOffset, xEndPoint, yOffset);
         g.drawLine(xOffset, yOffset, xOffset, yEndPoint);
@@ -82,6 +102,9 @@ public abstract class Board extends JPanel {
         g.drawLine(xEndPoint, yOffset, xEndPoint, yEndPoint);
     }
 
+    /**
+     * Draws the tiles on the board.
+     **/
     protected void drawTiles(Graphics g){
         for (int i = 0; i < 8; i++){
             int yi = yOffset + tileHeight * i;
@@ -94,8 +117,12 @@ public abstract class Board extends JPanel {
         }
     }
 
-    public void highlight(Vector2d[] positions){
-        positions2highlight = positions;
+    /**
+     * Highlights tiles at located at the provided coordinates.
+     * Remark: Previously highlighted tiles will be cleared.
+     **/
+    public void highlightTiles(Vector2d[] coordinates){
+        positions2highlight = coordinates;
         updateUI();
     }
 }

@@ -6,19 +6,22 @@
 
 package board;
 
-import utility.Images;
-
 import java.awt.*;
 
 /**
  * Provides a chessboard for the Swing-frame that displays chess pieces using FEN-strings.
  **/
 public class FenBoard extends Board {
-    private final Images images;
     private String state;
+
+    /**
+     * @param xOffset The x-coordinate of the board's top-left corner.
+     * @param yOffset The y-coordinate of the board's top-left corner.
+     * @param tileWidth The width of each tile on the board.
+     * @param tileHeight The height of each tile on the board.
+     **/
     public FenBoard(int xOffset, int yOffset, int tileWidth, int tileHeight) {
         super(xOffset, yOffset, tileWidth, tileHeight);
-        images = new Images();
     }
 
     /**
@@ -50,6 +53,10 @@ public class FenBoard extends Board {
         }
     }
 
+    /**
+     * Finds the image that is linked with each chess piece character in a fen-notation.
+     * @exception IllegalArgumentException Thrown when a character does not get recognized as a chess piece notation.
+     **/
     private Image findImage(char c){
         switch (c){
             case 'p':

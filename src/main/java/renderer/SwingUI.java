@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Provides a swing
+ * Extends JFrame to support additional functionality.
  **/
 public class SwingUI extends JFrame {
     private final Dimension screenSize;
@@ -21,6 +21,9 @@ public class SwingUI extends JFrame {
         screenSize = kit.getScreenSize();
     }
 
+    /**
+     * Centers the frame to the middle of the screen.
+     **/
     public void center(){
         Dimension size = getSize();
         int x = (screenSize.width - size.width) / 2;
