@@ -5,26 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="pretty much finished ChessPieces">
-      <change afterPath="$PROJECT_DIR$/src/main/java/audio/SoundFX.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/board/Board.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/board/FENparser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/AlphaBetaPruning.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/ChessGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/Evaluation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/Run.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/renderer/GUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/board/FenBoard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/board/FenBoardListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/chesspiece/ChessPieceInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/renderer/SwingUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/utility/Images.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/utility/Vector2d.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/black-bishop.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/black-king.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/black-knight.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/black-pawn.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/black-queen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/black-rook.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/white-bishop.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/white-king.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/white-knight.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/white-pawn.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/white-queen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/white-rook.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Bishop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/ChessPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Common.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Common.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/King.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Knight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Queen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChessPiece/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Rook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Die/DieThrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/die/DieThrow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Die/Roll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/die/Roll.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/HelloWorld.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/board/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/board/FENparser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Bishop.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/ChessPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Common.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/King.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Knight.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Queen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Rook.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/renderer/GUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/recourses/chess-piece-test.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,25 +71,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Projects/DiceChess/src",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\DiceChess\src" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/recourses" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="game.Game" />
+    <configuration name="SwingUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="renderer.SwingUI" />
       <module name="DiceChess.main" />
       <extension name="coverage">
         <pattern>
@@ -90,7 +107,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Game" />
+        <item itemvalue="Application.SwingUI" />
       </list>
     </recent_temporary>
   </component>
