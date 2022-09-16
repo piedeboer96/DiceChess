@@ -5,39 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="pretty much finished ChessPieces">
-      <change afterPath="$PROJECT_DIR$/src/main/java/board/FenBoard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/board/FenBoardListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/chesspiece/ChessPieceInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/renderer/SwingUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utility/Images.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utility/Vector2d.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/black-bishop.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/black-king.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/black-knight.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/black-pawn.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/black-queen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/black-rook.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/white-bishop.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/white-king.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/white-knight.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/white-pawn.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/white-queen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/white-rook.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/board/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/FENparser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Bishop.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/ChessPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Common.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/King.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Knight.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Queen.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Rook.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/renderer/GUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/recourses/chess-piece-test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Common.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Common.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +53,8 @@
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -120,6 +94,7 @@
       <option name="presentableId" value="Default" />
       <updated>1663149947461</updated>
       <workItem from="1663172215821" duration="10087000" />
+      <workItem from="1663328467507" duration="2061000" />
     </task>
     <task id="LOCAL-00001" summary="Setup of the project">
       <created>1663150081286</created>

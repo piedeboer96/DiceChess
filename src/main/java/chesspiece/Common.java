@@ -63,5 +63,35 @@ public abstract class Common implements ChessPiece
         }
     }
 
+    @Override
+    public int getNumber()
+    {
+        char type = getType();
+        if(type == 'P')
+        {
+            return ID - 100;
+        }
+        else if(type == 'k')
+        {
+            return ID - 100;
+        }
+        else if(type == 'B')
+        {
+            return ID - 100;
+        }
+        else if(type == 'R')
+        {
+            return ID - 300;
+        }
+        else if(type == 'Q')
+        {
+            return ID - 500;
+        }
+        else
+        {
+            return ID - 10000;
+        }
+    }
+
 
 }

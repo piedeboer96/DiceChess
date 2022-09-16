@@ -6,7 +6,7 @@ public interface ChessPiece
 {
 
     public int[] getPosition();
-    public List legalMoves();
+    public List legalMoves(int x, int y);
     public void setPosition(int x, int y);
     public char getTeam();
     public char getType();
