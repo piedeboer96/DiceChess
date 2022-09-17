@@ -7,28 +7,44 @@ import java.util.List;
 
 public class Rook extends Common
 {
-    public int rook_ID;
-    private static int number = 0;
+    private static int numberWhite = 0;
+    private static int numberBlack = 0;
     private static Converter calculator = new Converter();
 
-    public Rook(boolean isWhite)
+    public Rook(boolean isWhite, int position)
     {
         if(isWhite)
         {
-            rook_ID = 400 + number;
+            ID = 400 + numberWhite;
+            numberWhite++;
         }
         else
         {
-            rook_ID = -400 - number;
+            ID = -400 - numberBlack;
+            numberBlack++;
         }
-        number++;
+        a = position;
+        field[a] = ID;
+    }
 
-        super.ID =  rook_ID;
-        super.n = number;
+    public Rook(boolean isWhite, int[] coords)
+    {
+        if(isWhite)
+        {
+            ID = 400 + numberWhite;
+            numberWhite++;
+        }
+        else
+        {
+            ID = -400 - numberBlack;
+            numberBlack++;
+        }
+        a = calculator.TwoToOne(coords);
+        field[a] = ID;
     }
 
     @Override
-    public List legalMoves(int a)
+    public List legalMoves()
     {
         List<Vector2d> vectors = new ArrayList<Vector2d>();
 
@@ -90,28 +106,6 @@ public class Rook extends Common
 
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //        while(dir1 || dir2 || dir3 || dir4)
 //        {
 //            iterator++;
@@ -172,20 +166,24 @@ public class Rook extends Common
 
     public static void main(String[] args)
     {
-        ArrayList x = new ArrayList<>();
-        ArrayList y = new ArrayList<>();
-        Rook r = new Rook(true);
-        List<Vector2d> moves = r.legalMoves(31);
-        for(int i = 0; i < moves.size(); i++)
-        {
-            x.add(moves.get(i).x);
-            y.add(moves.get(i).y);
-        }
-
-        for(int i = 0; i < x.size(); i++)
-        {
-            System.out.println(x.get(i) + " " + y.get(i));
-            System.out.println();
-        }
+//        ArrayList x = new ArrayList<>();
+//        ArrayList y = new ArrayList<>();
+//        Rook r = new Rook(true, 31);
+//        List<Vector2d> moves = r.legalMoves();
+//        for(int i = 0; i < moves.size(); i++)
+//        {
+//            x.add(moves.get(i).x);
+//            y.add(moves.get(i).y);
+//        }
+//
+//        for(int i = 0; i < x.size(); i++)
+//        {
+//            System.out.println(x.get(i) + " " + y.get(i));
+//            System.out.println();
+//        }
+        Rook k = new Rook(false, 41);
+        System.out.println(k.getType() + ": Type");
+        System.out.println(k.getTeam()+ ": Team");
+        System.out.println(k.getPosition()+ ": Position");
     }
 }

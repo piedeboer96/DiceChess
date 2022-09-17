@@ -3,26 +3,23 @@ package chesspiece;
 public abstract class Common implements ChessPiece
 {
     int ID;
-    int n;
-    int x;
-    int y;
+    int[] coords;
     int a;                                               //position on the 1D array
 
     public static int[] field = new int[64];            //this is the field in which the game is played
 
 
 
-    public int[] getPosition()
+    public int getPosition()                  //can return coords[]
     {
-        int[] pos = {x,y};
-        return pos;
+        return a;
     }
 
     @Override
-    public void setPosition(int x, int y)
+    public void setPosition(int a)
     {
-        this.x = x;
-        this.y = y;
+        field[this.a] = 0;
+        field[a] = ID;
     }
     @Override
     public char getTeam()
@@ -40,23 +37,23 @@ public abstract class Common implements ChessPiece
     @Override
     public char getType()
     {
-        if(ID >= 100-8 && ID <= 100+8)
+        if(Math.abs(ID) >= 100-8 && Math.abs(ID) <= 100+8)
         {
             return 'P';
         }
-        if(ID >= 200-8 && ID <= 200+8)
+        if(Math.abs(ID) >= 200-8 && Math.abs(ID) <= 200+8)
         {
             return 'k';
         }
-        if(ID >= 300-8 && ID <= 300+8)
+        if(Math.abs(ID) >= 300-8 && Math.abs(ID) <= 300+8)
         {
             return 'B';
         }
-        if(ID >= 400-8 && ID <= 400+8)
+        if(Math.abs(ID) >= 400-8 && Math.abs(ID) <= 400+8)
         {
             return 'R';
         }
-        if(ID >= 500-8 && ID <= 500+8)
+        if(Math.abs(ID) >= 500-8 && Math.abs(ID) <= 500+8)
         {
             return 'Q';
         }
@@ -76,15 +73,15 @@ public abstract class Common implements ChessPiece
         }
         else if(type == 'k')
         {
-            return ID - 100;
+            return ID - 200;
         }
         else if(type == 'B')
         {
-            return ID - 100;
+            return ID - 300;
         }
         else if(type == 'R')
         {
-            return ID - 300;
+            return ID - 400;
         }
         else if(type == 'Q')
         {
@@ -96,7 +93,7 @@ public abstract class Common implements ChessPiece
         }
     }
 
-    public int[] getDomain(int a)
+    public int[] getDomain(int a)                                   //unused
     {
         int[] domain = new int[4];
         int i = 0;

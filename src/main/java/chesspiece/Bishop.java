@@ -7,29 +7,45 @@ import java.util.List;
 
 public class Bishop extends Common
 {
-    public int bishop_ID;
-    private static int number = 0;
+    private static int numberWhite = 0;
+    private static int numberBlack = 0;
     private static Converter calculator = new Converter();
 
-    public Bishop(boolean isWhite)
+    public Bishop(boolean isWhite, int position)
     {
         if(isWhite)
         {
-            bishop_ID = 300 + number;
+            ID = 300 + numberWhite;
+            numberWhite++;
         }
         else
         {
-            bishop_ID = -300 - number;
+            ID = -300 - numberBlack;
+            numberBlack++;
         }
-        number++;
+        a = position;
+        field[a] = ID;
 
-        super.ID =  bishop_ID;
-        super.n = number;
     }
 
+    public Bishop(boolean isWhite, int[] coords)
+    {
+        if(isWhite)
+        {
+            ID = 300 + numberWhite;
+            numberWhite++;
+        }
+        else
+        {
+            ID = -300 - numberBlack;
+            numberBlack++;
+        }
+        a = calculator.TwoToOne(coords);
+        field[a] = ID;
+    }
 
     @Override
-    public List legalMoves(int a)
+    public List legalMoves()
     {
         boolean dir1 = true;
         boolean dir2 = true;
@@ -90,32 +106,6 @@ public class Bishop extends Common
                 }
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //        while(dir1 || dir2 || dir3 || dir4)
@@ -183,20 +173,26 @@ public class Bishop extends Common
 
     public static void main(String[] args)
     {
-        ArrayList x = new ArrayList<>();
-        ArrayList y = new ArrayList<>();
-        Bishop b = new Bishop(true);
-        List<Vector2d> moves = b.legalMoves(27);
-        for(int i = 0; i < moves.size(); i++)
-        {
-            x.add(moves.get(i).x);
-            y.add(moves.get(i).y);
-        }
+//        ArrayList x = new ArrayList<>();
+//        ArrayList y = new ArrayList<>();
+//        Bishop b = new Bishop(true, 31);
+//        List<Vector2d> moves = b.legalMoves();
+//        for(int i = 0; i < moves.size(); i++)
+//        {
+//            x.add(moves.get(i).x);
+//            y.add(moves.get(i).y);
+//        }
+//
+//        for(int i = 0; i < x.size(); i++)
+//        {
+//            System.out.println(x.get(i) + " " + y.get(i));
+//            System.out.println();
+//        }
 
-        for(int i = 0; i < x.size(); i++)
-        {
-            System.out.println(x.get(i) + " " + y.get(i));
-            System.out.println();
-        }
+        Bishop k = new Bishop(true, 54);
+        System.out.println(k.getType() + ": Type");
+        System.out.println(k.getTeam()+ ": Team");
+        System.out.println(k.getPosition()+ ": Position");
+
     }
 }

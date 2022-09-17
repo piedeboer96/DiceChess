@@ -7,30 +7,45 @@ import java.util.List;
 
 public class King extends Common
 {
-    public int king_ID;
-    private static int number = 0;
+    private static int numberWhite = 0;
+    private static int numberBlack = 0;
     private static Converter calculator = new Converter();
 
-    public King(boolean isWhite)
+    public King(boolean isWhite,  int position)
     {
         if(isWhite)
         {
-            king_ID = 10000 + number;
+            ID = 10000 + numberWhite;
+            numberWhite++;
         }
         else
         {
-            king_ID = -10000 - number;
+            ID = -10000 - numberBlack;
+            numberBlack++;
         }
-        number++;
-
-        super.ID = king_ID;
-        super.n = number;
+        a = position;
+        field[a] = ID;
+    }
+    public King(boolean isWhite, int coords[])
+    {
+        if(isWhite)
+        {
+            ID = 10000 + numberWhite;
+            numberWhite++;
+        }
+        else
+        {
+            ID = -10000 - numberBlack;
+            numberBlack++;
+        }
+        a = calculator.TwoToOne(coords);
+        field[a] = ID;
     }
 
 
 
     @Override
-    public List legalMoves(int a)
+    public List legalMoves()
     {
         List<Vector2d> vectors = new ArrayList<Vector2d>();
         int[] current = calculator.OneToTwo(a);
@@ -123,20 +138,25 @@ public class King extends Common
 
     public static void main(String[] args)
     {
-        ArrayList x = new ArrayList<>();
-        ArrayList y = new ArrayList<>();
-        King k = new King(true);
-        List<Vector2d> moves = k.legalMoves(31);
-        for(int i = 0; i < moves.size(); i++)
-        {
-            x.add(moves.get(i).x);
-            y.add(moves.get(i).y);
-        }
+//        ArrayList x = new ArrayList<>();
+//        ArrayList y = new ArrayList<>();
 
-        for(int i = 0; i < x.size(); i++)
-        {
-            System.out.println(x.get(i) + " " + y.get(i));
-            System.out.println();
-        }
+//        List<Vector2d> moves = k.legalMoves();
+//        for(int i = 0; i < moves.size(); i++)
+//        {
+//            x.add(moves.get(i).x);
+//            y.add(moves.get(i).y);
+//        }
+//
+//        for(int i = 0; i < x.size(); i++)
+//        {
+//            System.out.println(x.get(i) + " " + y.get(i));
+//            System.out.println();
+//        }
+        King k = new King(false, 63);
+        System.out.println(k.getType() + ": Type");
+        System.out.println(k.getTeam()+ ": Team");
+        System.out.println(k.getPosition()+ ": Position");
+
     }
 }

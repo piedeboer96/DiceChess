@@ -7,29 +7,44 @@ import java.util.List;
 
 public class Queen extends Common
 {
-    public int queen_ID;
-    private static int number = 0;
+    private static int numberWhite = 0;
+    private static int numberBlack = 0;
 
     private static Converter calculator = new Converter();
 
-    public Queen(boolean isWhite)
+    public Queen(boolean isWhite, int position)
     {
         if(isWhite)
         {
-            queen_ID = 500 + number;
+            ID = 500 + numberWhite;
+            numberWhite++;
         }
         else
         {
-            queen_ID = -500 - number;
+            ID = -500 - numberBlack;
+            numberBlack++;
         }
-        number++;
-
-        super.ID =  queen_ID;
-        super.n = number;
+        a = position;
+        field[a] = ID;
+    }
+    public Queen(boolean isWhite, int[] coords)
+    {
+        if(isWhite)
+        {
+            ID = 500 + numberWhite;
+            numberWhite++;
+        }
+        else
+        {
+            ID = -500 - numberBlack;
+            numberBlack++;
+        }
+        a = calculator.TwoToOne(coords);
+        field[a] = ID;
     }
 
     @Override
-    public List legalMoves(int a)
+    public List legalMoves()
     {
         List<Vector2d> vectors = new ArrayList<Vector2d>();
 
@@ -138,48 +153,6 @@ public class Queen extends Common
             }
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //        while(dir1 || dir2 || dir3 || dir4 || dir5 || dir6 || dir7 || dir8)
 //        {
@@ -290,20 +263,24 @@ public class Queen extends Common
 
     public static void main(String[] args)
     {
-        ArrayList x = new ArrayList<>();
-        ArrayList y = new ArrayList<>();
-        Queen q = new Queen(true);
-        List<Vector2d> moves = q.legalMoves(31);
-        for(int i = 0; i < moves.size(); i++)
-        {
-            x.add(moves.get(i).x);
-            y.add(moves.get(i).y);
-        }
-
-        for(int i = 0; i < x.size(); i++)
-        {
-            System.out.println(x.get(i) + " " + y.get(i));
-            System.out.println();
-        }
+//        ArrayList x = new ArrayList<>();
+//        ArrayList y = new ArrayList<>();
+//        Queen q = new Queen(true,31);
+//        List<Vector2d> moves = q.legalMoves();
+//        for(int i = 0; i < moves.size(); i++)
+//        {
+//            x.add(moves.get(i).x);
+//            y.add(moves.get(i).y);
+//        }
+//
+//        for(int i = 0; i < x.size(); i++)
+//        {
+//            System.out.println(x.get(i) + " " + y.get(i));
+//            System.out.println();
+//        }
+        Queen k = new Queen(true, 14);
+        System.out.println(k.getType() + ": Type");
+        System.out.println(k.getTeam()+ ": Team");
+        System.out.println(k.getPosition()+ ": Position");
     }
 }

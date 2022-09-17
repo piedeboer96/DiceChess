@@ -5,12 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24639d53-c67f-4d12-b9c3-94954eb4a0c7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022,_08_50_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Bishop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/ChessPiece.java" afterDir="false" />
@@ -61,7 +55,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Queen">
+  <component name="RunManager" selected="Application.Pawn">
     <configuration name="Bishop" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="chesspiece.Bishop" />
       <module name="DiceChess.main" />
@@ -75,8 +69,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="King" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="chesspiece.King" />
+    <configuration name="Knight" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chesspiece.Knight" />
       <module name="DiceChess.main" />
       <extension name="coverage">
         <pattern>
@@ -88,8 +82,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Knight" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="chesspiece.Knight" />
+    <configuration name="Pawn" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chesspiece.Pawn" />
       <module name="DiceChess.main" />
       <extension name="coverage">
         <pattern>
@@ -129,11 +123,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Pawn" />
         <item itemvalue="Application.Queen" />
         <item itemvalue="Application.Rook" />
-        <item itemvalue="Application.King" />
-        <item itemvalue="Application.Bishop" />
         <item itemvalue="Application.Knight" />
+        <item itemvalue="Application.Bishop" />
       </list>
     </recent_temporary>
   </component>
@@ -147,6 +141,7 @@
       <updated>1663349065905</updated>
       <workItem from="1663349067845" duration="8741000" />
       <workItem from="1663417974812" duration="17086000" />
+      <workItem from="1663444020127" duration="5244000" />
     </task>
     <servers />
   </component>
@@ -167,17 +162,49 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/chesspiece/Rook.java</url>
-          <line>172</line>
+          <line>166</line>
           <properties class="chesspiece.Rook" method="main">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java</url>
+          <line>98</line>
+          <properties class="chesspiece.Pawn" method="main">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/chesspiece/King.java</url>
+          <line>138</line>
+          <properties class="chesspiece.King" method="main">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/chesspiece/Knight.java</url>
+          <line>180</line>
+          <properties class="chesspiece.Knight" method="main">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/chesspiece/Converter.java</url>
           <line>4</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/chesspiece/Bishop.java</url>
+          <line>174</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
