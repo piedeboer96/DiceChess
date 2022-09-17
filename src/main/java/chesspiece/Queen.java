@@ -1,5 +1,7 @@
 package chesspiece;
 
+import utility.Vector2d;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,8 @@ public class Queen extends Common
 {
     public int queen_ID;
     private static int number = 0;
+
+    private static Converter calculator = new Converter();
 
     public Queen(boolean isWhite)
     {
@@ -25,8 +29,10 @@ public class Queen extends Common
     }
 
     @Override
-    public List legalMoves(int x, int y)
+    public List legalMoves(int a)
     {
+        List<Vector2d> vectors = new ArrayList<Vector2d>();
+
         boolean dir1 = true;
         boolean dir2 = true;
         boolean dir3 = true;
@@ -35,117 +41,269 @@ public class Queen extends Common
         boolean dir6 = true;
         boolean dir7 = true;
         boolean dir8 = true;
-        List moves = new ArrayList<>();
+        int iterator = 0;
+        int[] current = calculator.OneToTwo(a);
 
-        for(int i = 1; i <= 8; i++)
+
+        while(dir1 || dir2 || dir3 || dir4 || dir5 || dir6 || dir7 || dir8)
         {
+            iterator++;
             if(dir1)
             {
-                try
+                if(checkDomain(current,iterator,0))
                 {
-                    int temp = field[x+i][y+i];
-                    moves.add(x+i);
-                    moves.add(y+i);
+                    vectors.add(new Vector2d(iterator,0));
                 }
-                catch (ArrayIndexOutOfBoundsException e)
+                else
                 {
                     dir1 = false;
                 }
             }
             if(dir2)
             {
-                try
+                if(checkDomain(current,-iterator,0))
                 {
-                    int temp = field[x+i][y-i];
-                    moves.add(x+i);
-                    moves.add(y-i);
+                    vectors.add(new Vector2d(-iterator,0));
                 }
-                catch (ArrayIndexOutOfBoundsException e)
+                else
                 {
                     dir2 = false;
                 }
             }
             if(dir3)
             {
-                try
+                if(checkDomain(current,0,iterator))
                 {
-                    int temp = field[x-i][y+i];
-                    moves.add(x-i);
-                    moves.add(y+i);
+                    vectors.add(new Vector2d(0,iterator));
                 }
-                catch (ArrayIndexOutOfBoundsException e)
+                else
                 {
                     dir3 = false;
                 }
             }
             if(dir4)
             {
-                try
+                if(checkDomain(current,0,-iterator))
                 {
-                    int temp = field[x-i][y-i];
-                    moves.add(x-i);
-                    moves.add(y-i);
+                    vectors.add(new Vector2d(0,-iterator));
                 }
-                catch (ArrayIndexOutOfBoundsException e)
+                else
                 {
                     dir4 = false;
                 }
             }
-
             if(dir5)
             {
-                try
+                if(checkDomain(current, iterator, iterator))
                 {
-                    int temp = field[x+i][y];
-                    moves.add(x+i);
-                    moves.add(y);
+                    vectors.add(new Vector2d(iterator, iterator));
                 }
-                catch (ArrayIndexOutOfBoundsException e)
+                else
                 {
                     dir5 = false;
                 }
             }
             if(dir6)
             {
-                try
+                if(checkDomain(current, -iterator, iterator))
                 {
-                    int temp = field[x-i][y];
-                    moves.add(x-i);
-                    moves.add(y);
+                    vectors.add(new Vector2d(-iterator, iterator));
                 }
-                catch (ArrayIndexOutOfBoundsException e)
+                else
                 {
                     dir6 = false;
                 }
             }
             if(dir7)
             {
-                try
+                if(checkDomain(current, iterator, -iterator))
                 {
-                    int temp = field[x][y+i];
-                    moves.add(x);
-                    moves.add(y+i);
+                    vectors.add(new Vector2d(iterator, -iterator));
                 }
-                catch (ArrayIndexOutOfBoundsException e)
+                else
                 {
                     dir7 = false;
                 }
             }
             if(dir8)
             {
-                try
+                if(checkDomain(current, -iterator, -iterator))
                 {
-                    int temp = field[x][y-i];
-                    moves.add(x);
-                    moves.add(y-i);
+                    vectors.add(new Vector2d(-iterator, -iterator));
                 }
-                catch (ArrayIndexOutOfBoundsException e)
+                else
                 {
                     dir8 = false;
                 }
             }
 
         }
-        return moves;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        while(dir1 || dir2 || dir3 || dir4 || dir5 || dir6 || dir7 || dir8)
+//        {
+//            iterator++;
+//            if(dir1)
+//            {
+//                try
+//                {
+//                    int temp = field[a+7*iterator];
+//                    vectors.add(calculator.OneToVector(a,a+7*iterator));
+//                }
+//                catch (ArrayIndexOutOfBoundsException e)
+//                {
+//                    dir1 = false;
+//                }
+//            }
+//            if(dir2)
+//            {
+//                try
+//                {
+//                    int temp = field[a-7*iterator];
+//                    vectors.add(calculator.OneToVector(a,a-7*iterator));
+//                }
+//                catch (ArrayIndexOutOfBoundsException e)
+//                {
+//                    dir2 = false;
+//                }
+//            }
+//            if(dir3)
+//            {
+//                try
+//                {
+//                    int temp = field[a+9*iterator];
+//                    vectors.add(calculator.OneToVector(a,a+9*iterator));
+//                }
+//                catch (ArrayIndexOutOfBoundsException e)
+//                {
+//                    dir3 = false;
+//                }
+//            }
+//            if(dir4)
+//            {
+//                try
+//                {
+//                    int temp = field[a-9*iterator];
+//                    vectors.add(calculator.OneToVector(a,a-9*iterator));
+//                }
+//                catch (ArrayIndexOutOfBoundsException e)
+//                {
+//                    dir4 = false;
+//                }
+//            }
+//
+//            if(dir5)
+//            {
+//                try
+//                {
+//                    int temp = field[a+iterator];
+//                    vectors.add(calculator.OneToVector(a,a+iterator));
+//                }
+//                catch (ArrayIndexOutOfBoundsException e)
+//                {
+//                    dir5 = false;
+//                }
+//            }
+//            if(dir6)
+//            {
+//                try
+//                {
+//                    int temp = field[a-iterator];
+//                    vectors.add(calculator.OneToVector(a,a-iterator));
+//                }
+//                catch (ArrayIndexOutOfBoundsException e)
+//                {
+//                    dir6 = false;
+//                }
+//            }
+//            if(dir7)
+//            {
+//                try
+//                {
+//                    int temp = field[a-8*iterator];
+//                    vectors.add(calculator.OneToVector(a,a-8*iterator));
+//                }
+//                catch (ArrayIndexOutOfBoundsException e)
+//                {
+//                    dir7 = false;
+//                }
+//            }
+//            if(dir8)
+//            {
+//                try
+//                {
+//                    int temp = field[a+8*iterator];
+//                    vectors.add(calculator.OneToVector(a,a+8*iterator));
+//                }
+//                catch (ArrayIndexOutOfBoundsException e)
+//                {
+//                    dir8 = false;
+//                }
+//            }
+//        }
+
+
+
+        return vectors;
+    }
+
+    public static void main(String[] args)
+    {
+        ArrayList x = new ArrayList<>();
+        ArrayList y = new ArrayList<>();
+        Queen q = new Queen(true);
+        List<Vector2d> moves = q.legalMoves(31);
+        for(int i = 0; i < moves.size(); i++)
+        {
+            x.add(moves.get(i).x);
+            y.add(moves.get(i).y);
+        }
+
+        for(int i = 0; i < x.size(); i++)
+        {
+            System.out.println(x.get(i) + " " + y.get(i));
+            System.out.println();
+        }
     }
 }

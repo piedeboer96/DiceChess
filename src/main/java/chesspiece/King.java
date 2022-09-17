@@ -1,5 +1,7 @@
 package chesspiece;
 
+import utility.Vector2d;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ public class King extends Common
 {
     public int king_ID;
     private static int number = 0;
+    private static Converter calculator = new Converter();
 
     public King(boolean isWhite)
     {
@@ -27,27 +30,113 @@ public class King extends Common
 
 
     @Override
-    public List legalMoves(int x, int y)
+    public List legalMoves(int a)
     {
-        List moves = new ArrayList<>();
-            for(int i = -1; i < 2; i++)
-            {
-                for(int j = 1; j > -2; j--)
-                {
-                    try
-                    {
-                        int temp = field[x+i][y+j];
-                        moves.add(x+i);
-                        moves.add(y+j);
-                    }
-                    catch (ArrayIndexOutOfBoundsException e)
-                    {
+        List<Vector2d> vectors = new ArrayList<Vector2d>();
+        int[] current = calculator.OneToTwo(a);
 
-                    }
-                }
-            }
+        if(checkDomain(current,1,1))
+        {
+            vectors.add(new Vector2d(1,1));
+        }
+        if(checkDomain(current,-1,1))
+        {
+            vectors.add(new Vector2d(-1,1));
+        }
+        if(checkDomain(current,1,-1))
+        {
+            vectors.add(new Vector2d(1,-1));
+        }
+        if(checkDomain(current,-1,-1))
+        {
+            vectors.add(new Vector2d(-1,-1));
+        }
+        if(checkDomain(current,1,0))
+        {
+            vectors.add(new Vector2d(1,0));
+        }
+        if(checkDomain(current,-1,0))
+        {
+            vectors.add(new Vector2d(-1,0));
+        }
+        if(checkDomain(current,0,1))
+        {
+            vectors.add(new Vector2d(0,1));
+        }
+        if(checkDomain(current,0,-1))
+        {
+            vectors.add(new Vector2d(0,-1));
+        }
 
-        return moves;
+
+
+
+//        for(int j = -9; j < -6; j++)
+//                {
+//                    try
+//                    {
+//                        int temp = field[a+j];
+//                        vectors.add(calculator.OneToVector(a,a+j));
+//                    }
+//                    catch (ArrayIndexOutOfBoundsException e)
+//                    {
+//
+//                    }
+//                }
+//        for(int j = 9; j > 6; j--)
+//        {
+//            try
+//            {
+//                int temp = field[a+j];
+//                vectors.add(calculator.OneToVector(a,a+j));
+//            }
+//            catch (ArrayIndexOutOfBoundsException e)
+//            {
+//
+//            }
+//        }
+//
+//        try
+//        {
+//            int temp = field[a+1];
+//            vectors.add(calculator.OneToVector(a,a+1));
+//        }
+//        catch (ArrayIndexOutOfBoundsException e)
+//        {
+//
+//        }
+//
+//        try
+//        {
+//            int temp = field[a-1];
+//            vectors.add(calculator.OneToVector(a,a-1));
+//        }
+//        catch (ArrayIndexOutOfBoundsException e)
+//        {
+//
+//        }
+
+
+        return vectors;
     }
 
+
+    public static void main(String[] args)
+    {
+        ArrayList x = new ArrayList<>();
+        ArrayList y = new ArrayList<>();
+        King k = new King(true);
+        List<Vector2d> moves = k.legalMoves(31);
+        for(int i = 0; i < moves.size(); i++)
+        {
+            x.add(moves.get(i).x);
+            y.add(moves.get(i).y);
+        }
+
+        for(int i = 0; i < x.size(); i++)
+        {
+            System.out.println(x.get(i) + " " + y.get(i));
+            System.out.println();
+        }
+    }
 }

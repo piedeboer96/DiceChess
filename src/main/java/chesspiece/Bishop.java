@@ -1,5 +1,7 @@
 package chesspiece;
 
+import utility.Vector2d;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ public class Bishop extends Common
 {
     public int bishop_ID;
     private static int number = 0;
+    private static Converter calculator = new Converter();
 
     public Bishop(boolean isWhite)
     {
@@ -26,71 +29,174 @@ public class Bishop extends Common
 
 
     @Override
-    public List legalMoves(int x, int y)
+    public List legalMoves(int a)
     {
         boolean dir1 = true;
         boolean dir2 = true;
         boolean dir3 = true;
         boolean dir4 = true;
-        List moves = new ArrayList<>();
+        List<Vector2d> vectors = new ArrayList<Vector2d>();
+        int iterator = 0;
+        int[] current = calculator.OneToTwo(a);
 
-        for(int i = 1; i <= 8; i++)
+
+
+        while(dir1 || dir2 || dir3 || dir4)
         {
+            iterator++;
+
             if(dir1)
             {
-                try
+                if(checkDomain(current, iterator, iterator))
                 {
-                    int temp = field[x+i][y+i];
-                    moves.add(x+i);
-                    moves.add(y+i);
+                    vectors.add(new Vector2d(iterator, iterator));
                 }
-                catch (ArrayIndexOutOfBoundsException e)
+                else
                 {
                     dir1 = false;
                 }
             }
             if(dir2)
             {
-                try
+                if(checkDomain(current, -iterator, iterator))
                 {
-                    int temp = field[x+i][y-i];
-                    moves.add(x+i);
-                    moves.add(y-i);
+                    vectors.add(new Vector2d(-iterator, iterator));
                 }
-                catch (ArrayIndexOutOfBoundsException e)
+                else
                 {
                     dir2 = false;
                 }
             }
             if(dir3)
             {
-                try
+                if(checkDomain(current, iterator, -iterator))
                 {
-                    int temp = field[x-i][y+i];
-                    moves.add(x-i);
-                    moves.add(y+i);
+                    vectors.add(new Vector2d(iterator, -iterator));
                 }
-                catch (ArrayIndexOutOfBoundsException e)
+                else
                 {
                     dir3 = false;
                 }
             }
             if(dir4)
             {
-                try
+                if(checkDomain(current, -iterator, -iterator))
                 {
-                    int temp = field[x-i][y-i];
-                    moves.add(x-i);
-                    moves.add(y-i);
+                    vectors.add(new Vector2d(-iterator, -iterator));
                 }
-                catch (ArrayIndexOutOfBoundsException e)
+                else
                 {
                     dir4 = false;
                 }
             }
-
         }
-        return moves;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        while(dir1 || dir2 || dir3 || dir4)
+//        {
+//            iterator++;
+//            if(dir1)
+//            {
+//                try
+//                {
+//                    int temp = field[a+7*iterator];
+//                    vectors.add(calculator.OneToVector(a,a+7*iterator));
+//                }
+//                catch (ArrayIndexOutOfBoundsException e)
+//                {
+//                    dir1 = false;
+//
+//                }
+//            }
+//            if(dir2)
+//            {
+//                try
+//                {
+//                    int temp = field[a-7*iterator];
+//                    vectors.add(calculator.OneToVector(a,a-7*iterator));
+//                }
+//                catch (ArrayIndexOutOfBoundsException e)
+//                {
+//                    dir2 = false;
+//
+//                }
+//            }
+//            if(dir3)
+//            {
+//                try
+//                {
+//                    int temp = field[a+9*iterator];
+//                    vectors.add(calculator.OneToVector(a,a+9*iterator));
+//                }
+//                catch (ArrayIndexOutOfBoundsException e)
+//                {
+//                    dir3 = false;
+//
+//                }
+//            }
+//            if(dir4)
+//            {
+//                try
+//                {
+//                    int temp = field[a-9*iterator];
+//                    vectors.add(calculator.OneToVector(a,a-9*iterator));
+//                }
+//                catch (ArrayIndexOutOfBoundsException e)
+//                {
+//                    dir4 = false;
+//
+//                }
+//            }
+//        }
+
+
+
+        return vectors;
     }
 
+
+    public static void main(String[] args)
+    {
+        ArrayList x = new ArrayList<>();
+        ArrayList y = new ArrayList<>();
+        Bishop b = new Bishop(true);
+        List<Vector2d> moves = b.legalMoves(27);
+        for(int i = 0; i < moves.size(); i++)
+        {
+            x.add(moves.get(i).x);
+            y.add(moves.get(i).y);
+        }
+
+        for(int i = 0; i < x.size(); i++)
+        {
+            System.out.println(x.get(i) + " " + y.get(i));
+            System.out.println();
+        }
+    }
 }

@@ -6,8 +6,11 @@ public abstract class Common implements ChessPiece
     int n;
     int x;
     int y;
+    int a;                                               //position on the 1D array
 
-    public static int[][] field = new int[8][8];       //this is the field in which the game is played
+    public static int[] field = new int[64];            //this is the field in which the game is played
+
+
 
     public int[] getPosition()
     {
@@ -91,6 +94,43 @@ public abstract class Common implements ChessPiece
         {
             return ID - 10000;
         }
+    }
+
+    public int[] getDomain(int a)
+    {
+        int[] domain = new int[4];
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        int l = 0;
+
+    while(Math.floor((a-i)/8) == Math.floor(a/8))
+    {
+        i++;
+    }
+    while(Math.floor((a+j)/8) == Math.floor(a/8))
+    {
+        j++;
+    }
+    while(a-k*8 > 0)
+    {
+        k++;
+    }
+    while(a+l*8 < 64)
+    {
+        l++;
+    }
+    domain[0] = i;
+    domain[1] = j;
+    domain[2] = k;
+    domain[3] = l;
+    return domain;
+    }
+
+
+    public boolean checkDomain(int[] a, int dx, int dy)
+    {
+        return a[0]+dx >= 0  &&  a[0]+dx <= 7  &&  a[1]+dy >= 0 &&  a[1]+dy <= 7;
     }
 
 

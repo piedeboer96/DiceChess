@@ -4,13 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="pretty much finished ChessPieces">
+    <list default="true" id="24639d53-c67f-4d12-b9c3-94954eb4a0c7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022,_08_50_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Bishop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/ChessPiece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Common.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Common.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Knight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Rook.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +34,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -36,42 +44,82 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2EkqUZZVrb7savdPOZ7liEtWeLy" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2ErM5Nh1neYSszwrnpDcc5J1vPz" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Projects/DiceChess/src",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Saman/IdeaProjects/DiceChess1D&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
   }
-}]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Projects\DiceChess\src" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/recourses" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="SwingUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="renderer.SwingUI" />
+}</component>
+  <component name="RunManager" selected="Application.Queen">
+    <configuration name="Bishop" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chesspiece.Bishop" />
       <module name="DiceChess.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="game.*" />
+          <option name="PATTERN" value="chesspiece.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="King" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chesspiece.King" />
+      <module name="DiceChess.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chesspiece.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Knight" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chesspiece.Knight" />
+      <module name="DiceChess.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chesspiece.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Queen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chesspiece.Queen" />
+      <module name="DiceChess.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chesspiece.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Rook" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chesspiece.Rook" />
+      <module name="DiceChess.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chesspiece.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -81,56 +129,57 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SwingUI" />
+        <item itemvalue="Application.Queen" />
+        <item itemvalue="Application.Rook" />
+        <item itemvalue="Application.King" />
+        <item itemvalue="Application.Bishop" />
+        <item itemvalue="Application.Knight" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="" />
-      <created>1663149947461</created>
+      <changelist id="24639d53-c67f-4d12-b9c3-94954eb4a0c7" name="Changes" comment="" />
+      <created>1663349065905</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1663149947461</updated>
-      <workItem from="1663172215821" duration="10087000" />
-      <workItem from="1663328467507" duration="2061000" />
+      <updated>1663349065905</updated>
+      <workItem from="1663349067845" duration="8741000" />
+      <workItem from="1663417974812" duration="17086000" />
     </task>
-    <task id="LOCAL-00001" summary="Setup of the project">
-      <created>1663150081286</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1663150081286</updated>
-    </task>
-    <task id="LOCAL-00002" summary="pretty much finished ChessPieces">
-      <created>1663187019588</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1663187019588</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Setup of the project" />
-    <MESSAGE value="pretty much finished ChessPieces" />
-    <option name="LAST_COMMIT_MESSAGE" value="pretty much finished ChessPieces" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/chesspiece/Converter.java</url>
+          <line>130</line>
+          <properties class="chesspiece.Converter" method="main">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/chesspiece/Rook.java</url>
+          <line>172</line>
+          <properties class="chesspiece.Rook" method="main">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/chesspiece/Converter.java</url>
+          <line>4</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
