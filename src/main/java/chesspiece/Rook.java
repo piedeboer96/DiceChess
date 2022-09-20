@@ -1,94 +1,123 @@
 package chesspiece;
 
+import game.Team;
+import utility.Tile;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rook extends Common
-{
-    public int rook_ID;
-    private static int number = 0;
+public class Rook extends ChessPiece {
+    private final char fen;
 
-    public Rook(boolean isWhite)
-    {
-        if(isWhite)
-        {
-            rook_ID = 400 + number;
-        }
-        else
-        {
-            rook_ID = -400 - number;
-        }
-        number++;
-
-        super.ID =  rook_ID;
-        super.n = number;
+    public Rook(Team team, Tile tile) {
+        super(team, tile, 500);
+        if (team == Team.BLACK) { fen = 'r'; }
+        else { fen = 'R'; }
     }
 
-    @Override
-    public List legalMoves(int x, int y)
-    {
-        boolean dir1 = true;
-        boolean dir2 = true;
-        boolean dir3 = true;
-        boolean dir4 = true;
-        List moves = new ArrayList<>();
-
-        for(int i = 1; i <= 8; i++)
-        {
-            if(dir1)
-            {
-                try
-                {
-                    int temp = field[x+i][y];
-                    moves.add(x+i);
-                    moves.add(y);
-                }
-                catch (ArrayIndexOutOfBoundsException e)
-                {
-                    dir1 = false;
-                }
+    @Override public List<Tile> determineMoves(ChessPiece[] board) {
+        // Checking whether the team's king is in danger if the piece were to move
+        // Checking the vertical axis
+        ChessPiece north = lookNorth(board);
+        ChessPiece south = lookSouth(board);
+        if (north != null && south != null && north.team != south.team) {
+            if (north instanceof King && north.team == team && (south instanceof Queen || south instanceof Rook)) {
+                return new ArrayList<>();
+            } else if (south instanceof King && south.team == team && (north instanceof Queen || north instanceof Rook)) {
+                return new ArrayList<>();
             }
-            if(dir2)
-            {
-                try
-                {
-                    int temp = field[x-i][y];
-                    moves.add(x-i);
-                    moves.add(y);
-                }
-                catch (ArrayIndexOutOfBoundsException e)
-                {
-                    dir2 = false;
-                }
-            }
-            if(dir3)
-            {
-                try
-                {
-                    int temp = field[x][y+i];
-                    moves.add(x);
-                    moves.add(y+i);
-                }
-                catch (ArrayIndexOutOfBoundsException e)
-                {
-                    dir3 = false;
-                }
-            }
-            if(dir4)
-            {
-                try
-                {
-                    int temp = field[x][y-i];
-                    moves.add(x);
-                    moves.add(y-i);
-                }
-                catch (ArrayIndexOutOfBoundsException e)
-                {
-                    dir4 = false;
-                }
-            }
-
         }
-        return moves;
+
+        // Checking the horizontal axis
+        ChessPiece east = lookEast(board);
+        ChessPiece west = lookWest(board);
+        if (east != null && west != null && east.team != west.team) {
+            if (east instanceof King && east.team == team && (west instanceof Queen || west instanceof Rook)) {
+                return new ArrayList<>();
+            } else if (west instanceof King && west.team == team && (east instanceof Queen || east instanceof Rook)) {
+                return new ArrayList<>();
+            }
+        }
+
+        // Checking the 1st diagonal axis
+        ChessPiece northEast = lookNorthEast(board);
+        ChessPiece southWest = lookSouthWest(board);
+        if (northEast != null && southWest != null && northEast.team != southWest.team) {
+            if (northEast instanceof King && northEast.team == team && (southWest instanceof Queen || southWest instanceof Bishop)) {
+                return new ArrayList<>();
+            } else if (southWest instanceof King && southWest.team == team && (northEast instanceof Queen || northEast instanceof Bishop)) {
+                return new ArrayList<>();
+            }
+        }
+
+        // Checking the 2nd diagonal axis
+        ChessPiece northWest = lookNorthWest(board);
+        ChessPiece southEast = lookSouthEast(board);
+        if (northWest != null && southEast != null && northWest.team != southEast.team) {
+            if (northWest instanceof King && northWest.team == team && (southEast instanceof Queen || southEast instanceof Bishop)) {
+                return new ArrayList<>();
+            } else if (southEast instanceof King && southEast.team == team && (northWest instanceof Queen || northWest instanceof Bishop)) {
+                return new ArrayList<>();
+            }
+        }
+
+        // Determining available moves now
+        List<Tile> moves = new ArrayList<>();
+        int row = position.row();
+        int column = position.column();
+
+        // Determines the moves towards the northern direction
+        int limit = -1;
+        if (north != null) {
+            Tile tile = north.position;
+            limit = tile.row();
+            if (north.team != team) { moves.add(tile); }
+        }
+        for (int i = row - 1; i > limit; i--) {
+            Tile tile = new Tile(i, column);
+            moves.add(tile);
+        }
+
+        // Determining the moves towards the southern direction
+        limit = 8;
+        if (south != null) {
+            Tile tile = south.position;
+            limit = tile.row();
+            if (south.team != team) { moves.add(tile); }
+        }
+        for (int i = row + 1; i < limit; i++) {
+            Tile tile = new Tile(i, column);
+            moves.add(tile);
+        }
+
+        // Determining the moves towards the eastern direction
+        limit = -1;
+        if (east != null) {
+            Tile tile = east.position;
+            limit = tile.column();
+            if (east.team != team) { moves.add(tile); }
+        }
+        for (int j = column - 1; j > limit; j--) {
+            Tile tile = new Tile(row, j);
+            moves.add(tile);
+        }
+
+        // Determining the moves towards the western direction
+        limit = 8;
+        if (west != null) {
+            Tile tile = west.position;
+            limit = tile.column();
+            if (west.team != team) { moves.add(tile); }
+        }
+        for (int j = column + 1; j < limit; j++) {
+            Tile tile = new Tile(row, j);
+            moves.add(tile);
+        }
+
+        return  moves;
+    }
+
+    @Override public char toFen() {
+        return fen;
     }
 }
