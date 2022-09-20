@@ -5,29 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="Combined, modified and refactored ideas, logic and design from 'Dice Chess Logic' + 'Dice Chess Moves Finished' to the main project.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Program.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/board/SwingBoard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/board/SwingBoardListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/game/Team.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utility/ChessPieceFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utility/Tile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/Board.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/FenBoard.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/FenBoardListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Bishop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/ChessPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Common.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/King.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Knight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Queen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Rook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Match.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/renderer/SwingUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/renderer/SwingUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utility/Images.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utility/ImageFinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utility/Vector2d.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Program.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +107,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663187019588</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Combined, modified and refactored ideas, logic and design from 'Dice Chess Logic' + 'Dice Chess Moves Finished' to the main project.">
+      <created>1663717632967</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1663717632967</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

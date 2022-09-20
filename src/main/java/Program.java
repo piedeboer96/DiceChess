@@ -10,7 +10,7 @@ public class Program {
         SwingBoard board = new SwingBoard(360, 50, 64, 64);
         board.setPieces(match.board);
 
-        SwingBoardListener listener = new SwingBoardListener(board, match);
+        new SwingBoardListener(board, match);
         SwingUI frame = new SwingUI(1280, 720);
         frame.add(board);
         frame.setVisible(true);
