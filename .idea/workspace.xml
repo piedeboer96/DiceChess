@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="Long story short: Base chess game is nearly done.&#10;&#10;Combined, modified and refactored ideas, logic and design from 'Dice Chess Logic' + 'Dice Chess Moves Finished' to the main project.&#10;&#10;Some renaming, documentation and prob more is done as well.">
+    <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="Added en-passant option to the Pawn and movement bug is fixed.">
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" afterDir="false" />
@@ -122,7 +122,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663717757006</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added en-passant option to the Pawn and movement bug is fixed.">
+      <created>1663746279965</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1663746279965</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,6 +152,7 @@
     <MESSAGE value="pretty much finished ChessPieces" />
     <MESSAGE value="Combined, modified and refactored ideas, logic and design from 'Dice Chess Logic' + 'Dice Chess Moves Finished' to the main project." />
     <MESSAGE value="Long story short: Base chess game is nearly done.&#10;&#10;Combined, modified and refactored ideas, logic and design from 'Dice Chess Logic' + 'Dice Chess Moves Finished' to the main project.&#10;&#10;Some renaming, documentation and prob more is done as well." />
-    <option name="LAST_COMMIT_MESSAGE" value="Long story short: Base chess game is nearly done.&#10;&#10;Combined, modified and refactored ideas, logic and design from 'Dice Chess Logic' + 'Dice Chess Moves Finished' to the main project.&#10;&#10;Some renaming, documentation and prob more is done as well." />
+    <MESSAGE value="Added en-passant option to the Pawn and movement bug is fixed." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added en-passant option to the Pawn and movement bug is fixed." />
   </component>
 </project>

@@ -108,11 +108,11 @@ public class Pawn extends ChessPiece {
             }
             if (southEast != null) {
                 Tile tile = southEast.position;
-                if (row - tile.row() == 1 && southEast.team != team) { moves.add(tile); }
+                if (tile.row() - row == 1 && southEast.team != team) { moves.add(tile); }
             }
             if (southWest != null) {
                 Tile tile = southWest.position;
-                if (row - tile.row() == 1 && southWest.team != team) { moves.add(tile); }
+                if (tile.row() - row == 1 && southWest.team != team) { moves.add(tile); }
             }
         }
         return moves;
