@@ -10,6 +10,7 @@ public class SwingUI extends JFrame {
     private final Dimension screenSize;
 
     public SwingUI(int width, int height){
+
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(width, height);
         setTitle("Dice Chess");

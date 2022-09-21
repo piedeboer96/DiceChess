@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="Added en-passant option to the Pawn and movement bug is fixed.">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" beforeDir="false" />
+    <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="Refactoring, added structure and added TODOs">
+      <change afterPath="$PROJECT_DIR$/src/main/java/engine/hce/PieceSquareTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Bishop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Knight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/Evaluation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/renderer/SwingUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/renderer/SwingUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +24,23 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="DiceChess" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -52,6 +75,9 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
   }
 }</component>

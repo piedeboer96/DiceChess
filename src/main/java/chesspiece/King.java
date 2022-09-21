@@ -10,7 +10,7 @@ public class King extends ChessPiece {
     private final char fen;
 
     public King(Team team, Tile tile) {
-        super(team, tile, 9000);
+        super(team, tile, 20000);
         if (team == Team.BLACK) { fen = 'k'; }
         else { fen = 'K'; }
     }

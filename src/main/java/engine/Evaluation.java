@@ -6,4 +6,6 @@ public class Evaluation {
     // Tomasz Michniewski's Simplified Evaluation Function
     // - piece values
     // - piece square table
+
+
 }
