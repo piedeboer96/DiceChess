@@ -9,6 +9,7 @@ public class PieceSquareTable {
     // 1. MATERIAL COST / PIECE VALUES
     // 2. PIECE SQUARE TABLE
 
+    // Generally I would like to give bonuses for pieces standing well and penalties for pieces standing badly
 
     //TODO:
     //  - PST for all pieces
