@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="Refactoring, added structure and added TODOs">
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/hce/PieceSquareTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="Update piece square table">
+      <change afterPath="$PROJECT_DIR$/src/main/java/engine/hce/Mobility.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Bishop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/King.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Knight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Queen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/engine/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/Evaluation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/renderer/SwingUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/renderer/SwingUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/hce/PieceSquareTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/hce/PieceSquareTable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +150,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663746279965</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Updated piece values and added piece square tables according to Simplified Evalution Function">
+      <created>1663749605087</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1663749605087</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -179,6 +181,8 @@
     <MESSAGE value="Combined, modified and refactored ideas, logic and design from 'Dice Chess Logic' + 'Dice Chess Moves Finished' to the main project." />
     <MESSAGE value="Long story short: Base chess game is nearly done.&#10;&#10;Combined, modified and refactored ideas, logic and design from 'Dice Chess Logic' + 'Dice Chess Moves Finished' to the main project.&#10;&#10;Some renaming, documentation and prob more is done as well." />
     <MESSAGE value="Added en-passant option to the Pawn and movement bug is fixed." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added en-passant option to the Pawn and movement bug is fixed." />
+    <MESSAGE value="Updated piece values and added piece square tables according to Simplified Evalution Function" />
+    <MESSAGE value="Update piece square table" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update piece square table" />
   </component>
 </project>
