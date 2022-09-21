@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="Combined, modified and refactored ideas, logic and design from 'Dice Chess Logic' + 'Dice Chess Moves Finished' to the main project.">
+    <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="Long story short: Base chess game is nearly done.&#10;&#10;Combined, modified and refactored ideas, logic and design from 'Dice Chess Logic' + 'Dice Chess Moves Finished' to the main project.&#10;&#10;Some renaming, documentation and prob more is done as well.">
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Program.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +115,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663717632967</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Long story short: Base chess game is nearly done.&#10;&#10;Combined, modified and refactored ideas, logic and design from 'Dice Chess Logic' + 'Dice Chess Moves Finished' to the main project.&#10;&#10;Some renaming, documentation and prob more is done as well.">
+      <created>1663717757006</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1663717757006</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -136,6 +144,7 @@
     <MESSAGE value="Setup of the project" />
     <MESSAGE value="pretty much finished ChessPieces" />
     <MESSAGE value="Combined, modified and refactored ideas, logic and design from 'Dice Chess Logic' + 'Dice Chess Moves Finished' to the main project." />
-    <option name="LAST_COMMIT_MESSAGE" value="Combined, modified and refactored ideas, logic and design from 'Dice Chess Logic' + 'Dice Chess Moves Finished' to the main project." />
+    <MESSAGE value="Long story short: Base chess game is nearly done.&#10;&#10;Combined, modified and refactored ideas, logic and design from 'Dice Chess Logic' + 'Dice Chess Moves Finished' to the main project.&#10;&#10;Some renaming, documentation and prob more is done as well." />
+    <option name="LAST_COMMIT_MESSAGE" value="Long story short: Base chess game is nearly done.&#10;&#10;Combined, modified and refactored ideas, logic and design from 'Dice Chess Logic' + 'Dice Chess Moves Finished' to the main project.&#10;&#10;Some renaming, documentation and prob more is done as well." />
   </component>
 </project>

@@ -70,8 +70,51 @@ public class Pawn extends ChessPiece {
 
         // Determining available moves now
         List<Tile> moves = new ArrayList<>();
-        Tile tile = new Tile(position.row() + step, position.column());
-        moves.add(tile);
+        int row = position.row();
+        int column = position.column();
+
+        if (step == -1) {
+            if (north != null) {
+                Tile tile = north.position;
+                if (row - tile.row() > 1) {
+                    Tile move = new Tile(row + step, column);
+                    moves.add(move);
+                }
+            }
+            else {
+                Tile tile = new Tile(row + step, column);
+                moves.add(tile);
+            }
+            if (northEast != null) {
+                Tile tile = northEast.position;
+                if (row - tile.row() == 1 && northEast.team != team) { moves.add(tile); }
+            }
+            if (northWest != null) {
+                Tile tile = northWest.position;
+                if (row - tile.row() == 1 && northWest.team != team) { moves.add(tile); }
+            }
+        }
+        else {
+            if (south != null) {
+                Tile tile = south.position;
+                if (tile.row() - row > 1) {
+                    Tile move = new Tile(row + step, column);
+                    moves.add(move);
+                }
+            }
+            else {
+                Tile tile = new Tile(row + step, column);
+                moves.add(tile);
+            }
+            if (southEast != null) {
+                Tile tile = southEast.position;
+                if (row - tile.row() == 1 && southEast.team != team) { moves.add(tile); }
+            }
+            if (southWest != null) {
+                Tile tile = southWest.position;
+                if (row - tile.row() == 1 && southWest.team != team) { moves.add(tile); }
+            }
+        }
         return moves;
     }
 
