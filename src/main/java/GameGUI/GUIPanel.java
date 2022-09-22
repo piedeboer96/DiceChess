@@ -1,25 +1,22 @@
-package board;
-
-
+package GameGUI;
 import chesspiece.ChessPiece;
+import game.Match;
 import utility.ImageFinder;
 import utility.Tile;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
-/**
- * Provides a chess board for the Swing-framework.
- **/
-public class SwingBoard extends JPanel {
-    private ImageFinder finder;
-    private List<Tile> highlights;
+public class GUIPanel extends JPanel {
+    private final ImageFinder finder;
+    private  List<Tile> highlights;
     private ChessPiece[] pieces;
 
-    public final Color BOARD_COLOR1 = new Color(60, 50, 50);
-    public final Color BOARD_COLOR2 = new Color(180, 160, 150);
-    public final Color HIGHLIGHT_COLOR = new Color(120, 255, 120, 75);
+    public final Color BOARD_COLOR1 = new Color(235,235,208);
+    public final Color BOARD_COLOR2 = new Color(119,148,85);
+    public final Color HIGHLIGHT_COLOR = new Color(0, 0, 140, 75);
 
     public final int ENDPOINT_X, ENDPOINT_Y;
     public final int OFFSET_X, OFFSET_Y;
@@ -28,7 +25,7 @@ public class SwingBoard extends JPanel {
 
 
 
-    public SwingBoard(int x, int y, int tileWidth, int tileHeight) {
+    public GUIPanel(int x, int y, int tileWidth, int tileHeight) {
         finder = new ImageFinder();
         WIDTH = tileWidth * 8;
         HEIGHT = tileHeight * 8;
@@ -118,6 +115,69 @@ public class SwingBoard extends JPanel {
                 else { g.setColor(BOARD_COLOR2); }
                 g.fillRect(x + 1, y + 1, TILE_WIDTH - 1, TILE_HEIGHT - 1);
             }
+        }
+    }
+
+    public static class SwingBoardListener implements MouseListener{
+        private final GUIPanel board;
+        private final Match match;
+        private List<Tile> moves;
+        private Tile selected;
+
+        public SwingBoardListener(GUIPanel board, Match match) {
+            this.board = board;
+            this.match = match;
+            board.addMouseListener(this);
+        }
+        @Override
+        public void mouseClicked(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            int x = e.getX();
+            int y = e.getY();
+            Tile tile = board.determineTile(x, y);
+            if (tile == null) {
+                selected = null;
+                moves = null;
+                board.setHighlights(null);
+            }
+            else if (selected == null) {
+                selected = tile;
+                moves = match.getMoves(selected);
+                moves.add(selected);
+                board.setHighlights(moves);
+            }
+            else {
+                moves.remove(selected);
+                for (Tile move : moves) {
+                    if (tile.equals(move)){
+                        match.play(selected, move);
+                    }
+                }
+                selected = null;
+                moves = null;
+                board.setHighlights(null);
+            }
+
+            board.updateUI();
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
         }
     }
 

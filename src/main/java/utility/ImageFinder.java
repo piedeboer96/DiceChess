@@ -15,19 +15,19 @@ public class ImageFinder {
      * @exception java.io.IOException Thrown when (a) the file does not exist or (b) something goes wrong while loading the images.
      **/
     public ImageFinder() {
-        BLACK_BISHOP = new ImageIcon("src/resources/black-bishop.png");
-        BLACK_KING = new ImageIcon("src/resources/black-king.png");
-        BLACK_KNIGHT = new ImageIcon("src/resources/black-knight.png");
-        BLACK_PAWN = new ImageIcon("src/resources/black-pawn.png");
-        BLACK_QUEEN = new ImageIcon("src/resources/black-queen.png");
-        BLACK_ROOK = new ImageIcon("src/resources/black-rook.png");
+        BLACK_BISHOP = new ImageIcon("src/resources/bb.png");
+        BLACK_KING = new ImageIcon("src/resources/bk.png");
+        BLACK_KNIGHT = new ImageIcon("src/resources/bn.png");
+        BLACK_PAWN = new ImageIcon("src/resources/bp.png");
+        BLACK_QUEEN = new ImageIcon("src/resources/bq.png");
+        BLACK_ROOK = new ImageIcon("src/resources/br.png");
 
-        WHITE_BISHOP = new ImageIcon("src/resources/white-bishop.png");
-        WHITE_KING = new ImageIcon("src/resources/white-king.png");
-        WHITE_KNIGHT = new ImageIcon("src/resources/white-knight.png");
-        WHITE_PAWN = new ImageIcon("src/resources/white-pawn.png");
-        WHITE_QUEEN = new ImageIcon("src/resources/white-queen.png");
-        WHITE_ROOK = new ImageIcon("src/resources/white-rook.png");
+        WHITE_BISHOP = new ImageIcon("src/resources/wb.png");
+        WHITE_KING = new ImageIcon("src/resources/wk.png");
+        WHITE_KNIGHT = new ImageIcon("src/resources/wn.png");
+        WHITE_PAWN = new ImageIcon("src/resources/wp.png");
+        WHITE_QUEEN = new ImageIcon("src/resources/wq.png");
+        WHITE_ROOK = new ImageIcon("src/resources/wr.png");
     }
 
     /**
