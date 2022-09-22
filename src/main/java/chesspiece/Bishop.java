@@ -9,7 +9,7 @@ import java.util.List;
 public class Bishop extends ChessPiece {
     private final char fen;
     public Bishop(Team team, Tile tile) {
-        super(team, tile, 500);
+        super(team, tile, 330);
         if (team == Team.BLACK) { fen = 'b'; }
         else { fen = 'B'; }
     }

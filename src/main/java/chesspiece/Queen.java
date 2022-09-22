@@ -9,7 +9,7 @@ import java.util.List;
 public class Queen extends ChessPiece {
     private final char fen;
     public Queen(Team team, Tile tile) {
-        super(team, tile, 700);
+        super(team, tile, 900);
         if (team == Team.BLACK) { fen = 'q'; }
         else { fen = 'Q'; }
     }

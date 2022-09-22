@@ -10,7 +10,7 @@ public class Knight extends ChessPiece {
     private final char fen;
 
     public Knight(Team team, Tile tile) {
-        super(team, tile, 400);
+        super(team, tile, 320);
         if (team == Team.BLACK) { fen = 'n'; }
         else { fen = 'N'; }
     }

@@ -4,43 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="Setup of the project">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GameGUI/GUIFrame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GameGUI/GUIPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/RunGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/bb.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/bk.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/bn.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/bp.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/bq.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/br.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/wb.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/wk.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/wn.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/wp.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/wq.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/wr.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022,_08_50_[Changes]/shelved.patch" beforeDir="false" />
+    <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="Added en-passant option to the Pawn and movement bug is fixed.">
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Program.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/SwingBoard.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/SwingBoardListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/renderer/SwingUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utility/ImageFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utility/ImageFinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/black-bishop.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/black-king.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/black-knight.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/black-pawn.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/black-queen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/black-rook.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/white-bishop.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/white-king.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/white-knight.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/white-pawn.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/white-queen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/white-rook.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,22 +42,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/mobasha/OneDrive/Bureaublad/DiceChess",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Projects/DiceChess/src&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Projects\DiceChess\src" />
@@ -99,9 +63,9 @@
       <recent name="$PROJECT_DIR$/src/recourses" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.RunGame">
     <configuration name="Program" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="RunGame" />
+      <option name="MAIN_CLASS_NAME" value="Program" />
       <module name="DiceChess.main" />
       <extension name="coverage">
         <pattern>
@@ -113,8 +77,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RunGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="RunGame" />
+      <module name="DiceChess.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.RunGame" />
         <item itemvalue="Application.Program" />
       </list>
     </recent_temporary>
