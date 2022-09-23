@@ -36,22 +36,20 @@ public class ImageFinder {
      * @exception IllegalArgumentException Thrown when the character is unrecognized.
      **/
     public Image getImage(char fen) {
-        return switch (fen) {
-            case 'b' -> BLACK_BISHOP.getImage();
-            case 'k' -> BLACK_KING.getImage();
-            case 'n' -> BLACK_KNIGHT.getImage();
-            case 'p' -> BLACK_PAWN.getImage();
-            case 'q' -> BLACK_QUEEN.getImage();
-            case 'r' -> BLACK_ROOK.getImage();
-
-            case 'B' -> WHITE_BISHOP.getImage();
-            case 'K' -> WHITE_KING.getImage();
-            case 'N' -> WHITE_KNIGHT.getImage();
-            case 'P' -> WHITE_PAWN.getImage();
-            case 'Q' -> WHITE_QUEEN.getImage();
-            case 'R' -> WHITE_ROOK.getImage();
-
-            default  -> throw new IllegalArgumentException("Character " + fen + " is unrecognized.");
-        };
+        switch (fen) {
+            case 'b' : return BLACK_BISHOP.getImage();
+            case 'k' : return BLACK_KING.getImage();
+            case 'n' : return BLACK_KNIGHT.getImage();
+            case 'p' : return BLACK_PAWN.getImage();
+            case 'q' : return BLACK_QUEEN.getImage();
+            case 'r' : return BLACK_ROOK.getImage();
+            case 'B' : return WHITE_BISHOP.getImage();
+            case 'K' : return WHITE_KING.getImage();
+            case 'N' : return WHITE_KNIGHT.getImage();
+            case 'P' : return WHITE_PAWN.getImage();
+            case 'Q' : return WHITE_QUEEN.getImage();
+            case 'R' : return WHITE_ROOK.getImage();
+            default : throw new IllegalArgumentException("Character " + fen + " is unrecognized.");
+        }
     }
 }

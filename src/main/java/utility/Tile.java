@@ -1,10 +1,15 @@
 package utility;
 
-/**
- * Provides a non-mutable coordinate system using board tiles.
- **/
-public record Tile(int row, int column) {
-
+public class Tile
+{
+    private int row, column;
+    public Tile(int row, int column)
+    {
+        this.row = row;
+        this.column = column;
+    }
+    public int column() { return column; }
+    public int row() { return row; }
     /**
      * Compares the location of both tiles with each other.
      * @return True, if the location of both tiles is the same. False, otherwise.
