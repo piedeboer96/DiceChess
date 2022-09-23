@@ -16,7 +16,7 @@ public class GUIPanel extends JPanel {
 
     public final Color BOARD_COLOR1 = new Color(235,235,208);
     public final Color BOARD_COLOR2 = new Color(119,148,85);
-    public final Color HIGHLIGHT_COLOR = new Color(0, 0, 140, 75);
+    public final Color HIGHLIGHT_COLOR = new Color(200, 200, 1, 100);
 
     public final int ENDPOINT_X, ENDPOINT_Y;
     public final int OFFSET_X, OFFSET_Y;
