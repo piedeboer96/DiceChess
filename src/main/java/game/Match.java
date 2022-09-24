@@ -85,11 +85,15 @@ public class Match {
             if(ghostStorage.get(i).turnsPassed > 0)
             {
                 Tile ghostPostion = ghostStorage.get(i).getPosition();
-                if(board[ghostPostion.row()*8 + ghostPostion.column()].getValue() == 101 || board[ghostPostion.row()*8 + ghostPostion.column()].getValue() == -101)
+                if(board[ghostPostion.row()*8 + ghostPostion.column()] != null)
                 {
-                    board[ghostPostion.row()*8 + ghostPostion.column()] = null;
-                    ghostStorage.remove(i);
+                    if(board[ghostPostion.row()*8 + ghostPostion.column()].getValue() == 101 || board[ghostPostion.row()*8 + ghostPostion.column()].getValue() == -101)
+                    {
+                        board[ghostPostion.row()*8 + ghostPostion.column()] = null;
+                        ghostStorage.remove(i);
+                    }
                 }
+
             }
         }
 
