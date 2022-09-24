@@ -43,6 +43,7 @@ public class ImageFinder {
             case 'p' -> BLACK_PAWN.getImage();
             case 'q' -> BLACK_QUEEN.getImage();
             case 'r' -> BLACK_ROOK.getImage();
+            case 'g' -> BLACK_PAWN.getImage();
 
             case 'B' -> WHITE_BISHOP.getImage();
             case 'K' -> WHITE_KING.getImage();
@@ -50,6 +51,7 @@ public class ImageFinder {
             case 'P' -> WHITE_PAWN.getImage();
             case 'Q' -> WHITE_QUEEN.getImage();
             case 'R' -> WHITE_ROOK.getImage();
+            case 'G' -> WHITE_PAWN.getImage();
 
             default  -> throw new IllegalArgumentException("Character " + fen + " is unrecognized.");
         };

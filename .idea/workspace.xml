@@ -5,13 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a01f24c2-48b5-4df0-a317-f3afbde29663" name="Changes" comment="Update piece square table">
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/RandomBot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/hce/MinMax.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/chesspiece/GhostPawn.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/img.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022,_08_50_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_09_2022__08_50__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/AlphaBetaPruning.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/ChessGame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/hce/Mobility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/hce/Mobility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/hce/PieceSquareTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/hce/PieceSquareTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/ChessPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chesspiece/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chesspiece/Rook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Match.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Match.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utility/ImageFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utility/ImageFinder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +95,8 @@
   </component>
   <component name="RunManager">
     <configuration name="Program" type="Application" factoryName="Application" temporary="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../../../Program Files/Java/jdk-19" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="Program" />
       <module name="DiceChess.main" />
       <extension name="coverage">
@@ -117,6 +125,11 @@
       <updated>1663149947461</updated>
       <workItem from="1663172215821" duration="10087000" />
       <workItem from="1663328467507" duration="2061000" />
+      <workItem from="1663870664251" duration="1181000" />
+      <workItem from="1663874985572" duration="266000" />
+      <workItem from="1663875264361" duration="4774000" />
+      <workItem from="1663947648295" duration="7361000" />
+      <workItem from="1664012183303" duration="1672000" />
     </task>
     <task id="LOCAL-00001" summary="Setup of the project">
       <created>1663150081286</created>

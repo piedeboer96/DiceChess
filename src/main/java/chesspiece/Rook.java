@@ -9,6 +9,7 @@ import java.util.List;
 public class Rook extends ChessPiece {
     private final char fen;
 
+
     public Rook(Team team, Tile tile) {
         super(team, tile, 500);
         if (team == Team.BLACK) { fen = 'r'; }

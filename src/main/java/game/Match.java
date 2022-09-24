@@ -1,6 +1,8 @@
 package game;
 
 import chesspiece.ChessPiece;
+import chesspiece.GhostPawn;
+import chesspiece.Queen;
 import utility.ChessPieceFactory;
 import utility.Tile;
 
@@ -15,7 +17,10 @@ public class Match {
     private int fullMoves;
     private int halfMoves;
     private Team player;
+
+    public ArrayList<ChessPiece> ghostStorage = new ArrayList<ChessPiece>();
     public ChessPiece[] board;
+
 
     public Match(String fen) {
         board = new ChessPiece[64];
@@ -55,10 +60,103 @@ public class Match {
     public void play(Tile selected, Tile clicked) {
         int index = selected.row() * 8 + selected.column();
         ChessPiece piece = board[index];
+        if(board[clicked.row() * 8 + clicked.column()] != null)
+        {
+            if(board[clicked.row() * 8 + clicked.column()].getValue() == 101)
+            {
+                board[(clicked.row()-1) * 8 + clicked.column()] = null;
+            }
+            if(board[clicked.row() * 8 + clicked.column()].getValue() == -101)
+            {
+                board[(clicked.row()+1) * 8 + clicked.column()] = null;
+            }
+
+        }
         piece.setPosition(clicked);
         board[clicked.row() * 8 + clicked.column()] = piece;
+
+
+
+
+
+        for(int i = 0; i < ghostStorage.size(); i++)
+        {
+            ghostStorage.get(i).turnsPassed++;
+            if(ghostStorage.get(i).turnsPassed > 0)
+            {
+                Tile ghostPostion = ghostStorage.get(i).getPosition();
+                if(board[ghostPostion.row()*8 + ghostPostion.column()].getValue() == 101 || board[ghostPostion.row()*8 + ghostPostion.column()].getValue() == -101)
+                {
+                    board[ghostPostion.row()*8 + ghostPostion.column()] = null;
+                    ghostStorage.remove(i);
+                }
+            }
+        }
+
+
+
+        if(twoSteps(selected,clicked,index))
+        {
+            if(board[clicked.row() * 8 + clicked.column()].getTeam() == Team.WHITE)
+            {
+                ghostStorage.add(new GhostPawn(Team.WHITE, new Tile((clicked.row()+1), clicked.column())));
+                board[(clicked.row()+1) * 8 + clicked.column()] = ghostStorage.get(ghostStorage.size()-1);
+            }
+            if(board[clicked.row() * 8 + clicked.column()].getTeam() == Team.BLACK)
+            {
+                ghostStorage.add(new GhostPawn(Team.BLACK, new Tile((clicked.row()-1), clicked.column())));
+                board[(clicked.row()-1) * 8 + clicked.column()] = ghostStorage.get(ghostStorage.size()-1);
+            }
+        }
         board[index] = null;
+        if(piece.getValue() == 100 || piece.getValue() == -100 || piece.getValue() == 500 || piece.getValue() == -500 || piece.getValue() == 20000 || piece.getValue() == -20000)
+        {
+            piece.firstStepSet = true;
+        }
+        pawnUpgrade();
+
         endTurn();
+
+    }
+
+
+
+
+    public void pawnUpgrade()
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            if(board[i] != null && board[i].getValue() == 100)
+            {
+                board[i] = null;
+                board[i] = new Queen(Team.WHITE, new Tile(0,i));
+            }
+            if(board[63-i] != null && board[63-i].getValue() == -100)
+            {
+                board[63-i] = null;
+                board[63-i] = new Queen(Team.BLACK, new Tile(7, 7-i));
+            }
+        }
+
+    }
+
+    public boolean twoSteps(Tile selected, Tile clicked, int index)
+    {
+        if (board[index] != null)
+        {
+            if(board[index].getValue() == 100 || board[index].getValue() == -100)
+            {
+                if(selected.row()-clicked.row() == 2 || selected.row()-clicked.row() == -2)
+                {
+                    System.out.println(selected.row()-clicked.row() == 2 || selected.row()-clicked.row() == -2);
+                    return true;
+                }
+                System.out.println("1");
+            }
+            System.out.println("2");
+        }
+        System.out.println(false);
+     return false;
     }
 
     /**

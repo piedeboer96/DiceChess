@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Pawn extends ChessPiece {
     private final char fen;
+
     private final int step;
     public Pawn(Team team, Tile tile) {
         super(team, tile, 100);
@@ -73,12 +74,22 @@ public class Pawn extends ChessPiece {
         int row = position.row();
         int column = position.column();
 
-        if (step == -1) {
-            if (north != null) {
+        if (step == -1)
+        {
+            if (north != null)
+            {
                 Tile tile = north.position;
                 if (row - tile.row() > 1) {
                     Tile move = new Tile(row + step, column);
                     moves.add(move);
+                }
+
+                if(!firstStepSet)
+                {
+                    if (row - tile.row() > 2) {
+                        Tile move = new Tile(row + -2, column);
+                        moves.add(move);
+                    }
                 }
             }
             else {
@@ -95,12 +106,23 @@ public class Pawn extends ChessPiece {
             }
         }
         else {
-            if (south != null) {
+            if (south != null)
+            {
                 Tile tile = south.position;
-                if (tile.row() - row > 1) {
+                if (tile.row() - row > 1)
+                {
                     Tile move = new Tile(row + step, column);
                     moves.add(move);
                 }
+
+                if(!firstStepSet)
+                {
+                    if (tile.row() - row > 2) {
+                        Tile move = new Tile(row + 2, column);
+                        moves.add(move);
+                    }
+                }
+
             }
             else {
                 Tile tile = new Tile(row + step, column);

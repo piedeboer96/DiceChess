@@ -10,6 +10,10 @@ public abstract class ChessPiece {
     protected Team team;
     protected Tile position;
 
+    public int turnsPassed = 0;
+
+    public boolean firstStepSet = false;
+
     /**
      * @param team The team the chess piece is in.
      * @param tile The location of the chess piece on the board.
