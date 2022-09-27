@@ -131,6 +131,8 @@ public class ChessMatch extends ChessBoard implements IChessMatch
 
     public void playMove(IChessPiece piece, IChessBoardSquare destination)
     {
+        if (piece.team() != player) { throw new IllegalArgumentException("It is not allowed to move the opponent's chess piece."); }
+
         // Starting with getting the index on which the chess piece is currently stored and
         // the index where the piece is going to move to.
         int currentIndex = piece.toIndex();

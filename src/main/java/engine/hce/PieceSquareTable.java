@@ -13,6 +13,7 @@ public class PieceSquareTable {
 
     //TODO:
     //  - PST for all pieces
+    //  -
 
     int pst_PAWN[][] = {{0,  0,  0,  0,  0,  0,  0,  0},
                         {50, 50, 50, 50, 50, 50, 50, 50},
