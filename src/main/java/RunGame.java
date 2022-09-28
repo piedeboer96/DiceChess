@@ -9,5 +9,6 @@ public class RunGame
         IChessMatch match = new ChessMatch();
         Window window = new Window();
         window.displayMatch(match);
+
     }
 }
