@@ -31,5 +31,16 @@ public class ChessMove implements IChessMove
 
     public IChessPiece owner() { return owner; }
 
-    public List<IChessBoardSquare> possibilities() { return destinations; }
+    public List<IChessBoardSquare> possibilities() { return destinations; 
+    
+    }
+
+	@Override
+	public String toString() {
+		final int maxLen = 10;
+		return "ChessMove [owner=" + owner + ", destinations="
+				+ (destinations != null ? destinations.subList(0, Math.min(destinations.size(), maxLen)) : null) + "]";
+	}
+    
+    
 }

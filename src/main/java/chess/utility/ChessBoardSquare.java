@@ -20,5 +20,12 @@ public class ChessBoardSquare implements IChessBoardSquare
 
     public int rank() { return rank; }
 
-    public int toIndex() { return (rank * 8) + file; }
+    public int toIndex() { return (rank * 8) + file; 
+    
+    }
+
+	@Override
+	public String toString() {
+		return "ChessBoardSquare [file=" + file + ", rank=" + rank + "]";
+	}
 }
