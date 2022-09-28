@@ -120,13 +120,14 @@ public class ChessMatch extends ChessBoard implements IChessMatch
     /**
      * Gives the turn to play to the opposition.
      **/
-    private void nextPlayer()
+    public int nextPlayer()
     {
         if (player == 1)
         {
             player = 0;
             fullMoves++;
         } else { player = 1; }
+        return player;
     }
 
     public void playMove(IChessPiece piece, IChessBoardSquare destination)
