@@ -81,5 +81,14 @@ public abstract class ChessPiece implements IChessPiece
 
     public char toFen() { return fen; }
 
-    public int toIndex() { return (rank * 8) + file; }
+    public int toIndex() { return (rank * 8) + file; 
+    
+    
+    }
+
+	@Override
+	public String toString() {
+		return "ChessPiece [fen=" + fen + ", team=" + team + ", file=" + file +  ", rank=" + rank
+				+ "]";
+	}
 }
