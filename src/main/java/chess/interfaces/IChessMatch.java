@@ -47,4 +47,13 @@ public interface IChessMatch extends IChessBoard
      * Translate the current state of the match to a fen-string.
      **/
     String toFen();
+    
+    
+    /**
+     * @author pierrepaulcharbonnier
+     *
+     * Move to the next player
+     * @return the next player 
+     */
+    int  nextPlayer();
 }
