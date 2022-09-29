@@ -4,6 +4,7 @@ import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessPiece;
 import die.Roll;
+import engine.test.DumyRuleEngine;
 import gui.Window;
 import gui.utility.Player;
 
@@ -30,7 +31,7 @@ public class RunGameByDummyAI {
 
 		
 		int i=0;
-		int maxMove=50;
+		int maxMove=100;
 		
 		while (i++ < maxMove) {
 			currentPlayer = match.getPlayer();
@@ -40,7 +41,7 @@ public class RunGameByDummyAI {
 
 			List<IChessMove> moves = match.legalMovesOf(currentPlayer);
 
-			dumpMoves(moves);
+			//dumpMoves(moves);
 			window.displayMatch(match);
 
 			System.out.println("Roll " + res);
@@ -55,7 +56,7 @@ public class RunGameByDummyAI {
 				}
 			}
 
-			dumpMoves(realMoves);
+			//dumpMoves(realMoves);
 
 			if (realMoves.isEmpty())
 			{
@@ -89,11 +90,12 @@ public class RunGameByDummyAI {
 
 	private IChessMove chooseMyMove(List<IChessMove> realMoves) {
 
-		return realMoves.get(0);
+		DumyRuleEngine dumyRuleEngine = new DumyRuleEngine (realMoves);
+		return dumyRuleEngine.getNextMove();
 
 	}
 
-	private static void dumpMoves(List<IChessMove> moves) {
+	public static  void dumpMoves(List<IChessMove> moves) {
 		System.out.println("Dumping Moves :");
 		for (IChessMove iChessMove : moves) {
 			System.out.println(iChessMove);
