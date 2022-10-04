@@ -20,4 +20,7 @@ public class PickFirstRule {
     public void choose() {
         System.out.println("choosinng ");
     }
+    
+    
+    
 }

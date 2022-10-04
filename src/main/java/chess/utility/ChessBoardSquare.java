@@ -5,6 +5,7 @@ import chess.interfaces.IChessBoardSquare;
 public class ChessBoardSquare implements IChessBoardSquare
 {
     private final int file, rank;
+	private int score;
 
     public ChessBoardSquare(int file, int rank)
     {
@@ -27,5 +28,14 @@ public class ChessBoardSquare implements IChessBoardSquare
 	@Override
 	public String toString() {
 		return "ChessBoardSquare [file=" + file + ", rank=" + rank + "]";
+	}
+	@Override
+	public void addScore(int score) {
+		this.score = score;
+	}
+
+	@Override
+	public int getScore() {
+		return score;
 	}
 }

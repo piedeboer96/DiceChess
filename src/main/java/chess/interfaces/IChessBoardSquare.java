@@ -25,4 +25,11 @@ public interface IChessBoardSquare
      * Converts the (file, rank) coordinate into a single index that can be used by the chessboard representation.
      **/
     int toIndex();
+    /**
+	 * This field will contains the score given to a piece , high score are better
+	 * moves then lower score .
+	 **/
+	void addScore(int score);
+
+	int getScore();
 }

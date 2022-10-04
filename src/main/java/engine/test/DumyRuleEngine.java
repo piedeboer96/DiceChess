@@ -69,6 +69,7 @@ public class DumyRuleEngine {
 	
 	public   void dumpMoves(List<IChessMove> moves) {
 		System.out.println("Dumping Moves :");
+		if(moves!=null)
 		for (IChessMove iChessMove : moves) {
 			System.out.println(iChessMove);
 
