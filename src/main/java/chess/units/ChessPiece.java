@@ -116,5 +116,13 @@ public abstract class ChessPiece implements IChessPiece {
 		return "ChessPiece [fen=" + fen + ", team=" + team + ", file=" + file + ", rank=" + rank + "]";
 	}
 
-	
+	@Override
+	public int getScore() {
+
+		return score;
+	}
+
+	public void addScore(int score) {
+		this.score = this.score + score;
+	}
 }
