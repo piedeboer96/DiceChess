@@ -45,7 +45,16 @@ public class ChessEngine implements IChessEngine
             IChessPlayer player = players[turnOwner];
 
             // Let the player play.
-            player.play();
+            try { player.play(); }
+            // If there is an exception, then it means the player has no moves to play.
+            catch (IllegalStateException ignored)
+            {
+                // Call the onNoMovesLeft() method so the match can update its state according to how it has ended.
+                match.onNoMovesLeft();
+
+                // Break out of the loop since there is no more purpose in staying inside it.s
+                break;
+            }
 
             // If the player is a human wait till he is done playing while the game is not terminated.
             boolean playerIsHuman = player instanceof IHumanPlayer;
@@ -56,7 +65,7 @@ public class ChessEngine implements IChessEngine
                 {
                     // Delay a bit to give the computer enough time to finish its operations
                     // in the background thread that is managing the user input.
-                    sleep(3);
+                    sleep(10);
                     break;
                 }
                 else { sleep(1); }
@@ -66,7 +75,7 @@ public class ChessEngine implements IChessEngine
             graphics.updateUI();
 
             // If desired we can delay here to follow AI movements turn by turn.
-            sleep(2);
+            sleep(5);
         }
     }
 

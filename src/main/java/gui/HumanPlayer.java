@@ -86,8 +86,11 @@ public class HumanPlayer implements IHumanPlayer
 
     public void play()
     {
-        if (team == -1) { legalMoves = match.generateMovesOf(match.getPlayer()); }
-        else { legalMoves = match.generateMovesOf(team); }
+        if (team == -1) { legalMoves = match.legalMovesOf(match.getPlayer()); }
+        else { legalMoves = match.legalMovesOf(team); }
+
+        // If there are no moves left, the game is over.
+        if (legalMoves.size() == 0) { throw new IllegalStateException("Have no moves left."); }
     }
 
     public void playIn(int team, IChessMatch match)

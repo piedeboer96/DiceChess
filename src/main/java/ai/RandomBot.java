@@ -36,8 +36,11 @@ public class RandomBot implements IChessPlayer
         // If it is allowed, then we are getting its moves.
         // When team = -1, it means this bot can just get the moves of the current player (turn owner).
         // Basically team = -1, means we won't throw an error due to not being my turn to play.
-        else if (team == -1) { possibleMoves = match.generateMovesOf(match.getPlayer()); }
-        else { possibleMoves = match.generateMovesOf(team); }
+        else if (team == -1) { possibleMoves = match.legalMovesOf(match.getPlayer()); }
+        else { possibleMoves = match.legalMovesOf(team); }
+
+        // If there are no moves left, the game is over.
+        if (possibleMoves.size() == 0) { throw new IllegalStateException("Have no moves left."); }
 
         // Getting a random move index.
         int moveIndex = random.nextInt(0, possibleMoves.size());

@@ -221,8 +221,8 @@ public class ChessMatch extends ChessBoard implements IChessMatch
         else if (piece instanceof Rook)
         {
             // Checking whether we were on the king side or queen side and whether we had the opportunity to castle.
-            if (piece.file() == 0 && canCastleKingSide[player]) { canCastleQueenSide[player] = false; }
-            else if (piece.file() == 7 && canCastleQueenSide[player]) { canCastleQueenSide[player] = false; }
+            if (piece.file() == 0 && canCastleQueenSide[player]) { canCastleQueenSide[player] = false; }
+            else if (piece.file() == 7 && canCastleKingSide[player]) { canCastleKingSide[player] = false; }
             halfMoves++;
         }
         // Else only increment half move counter.
@@ -237,6 +237,17 @@ public class ChessMatch extends ChessBoard implements IChessMatch
 
         // Closing the play with giving the turn to the next player.
         nextPlayer();
+    }
+
+    public void onNoMovesLeft()
+    {
+        if (playerIsCheckMated(player))
+        {
+            // If we are checked mated as black, then white must have won.
+            if (player == 0) { state = MatchState.WHITE_WON; }
+            // Else black must have won.
+            else { state = MatchState.BLACK_WON; }
+        } else { state = MatchState.DRAW; }
     }
 
     public void promote(IChessPiece piece, IChessPiece target)

@@ -260,4 +260,21 @@ public abstract class ChessBoard implements IChessBoard
     }
 
     public List<IChessPiece> pieces() { return pieces; }
+
+    public boolean playerIsCheckMated(int team)
+    {
+        int opponent;
+        if (team == 0) { opponent = 1; }
+        else { opponent = 0; }
+
+        List<IChessMove> opponentMoves = generateMovesOf(opponent);
+        for (IChessMove opponentMove : opponentMoves)
+        {
+            if (opponentMove.canReach(kings[team]))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

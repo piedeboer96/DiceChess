@@ -44,4 +44,10 @@ public interface IChessBoard
      * @return A list containing all active "black and white coloured" chess pieces.
      **/
     List<IChessPiece> pieces();
+
+    /**
+     * Determines whether a team is checkmated.
+     * Remark: Should only be called when there are no moves left.
+     **/
+    boolean playerIsCheckMated(int team);
 }
