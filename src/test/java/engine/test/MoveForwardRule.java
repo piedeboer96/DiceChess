@@ -46,7 +46,6 @@ public class MoveForwardRule {
 
 	@Condition
 	public boolean isMoveForwad(@Fact("move") ChessMove move) {
-		
 
 		if (move.possibilities().size() > 0)
 			return true;
@@ -62,18 +61,20 @@ public class MoveForwardRule {
 		int team = move.owner().team();
 		if (team == 1) {
 			List<IChessBoardSquare> possibilities = move.possibilities();
-			for (IChessBoardSquare iChessBoardSquare : possibilities) {
-				if (move.owner().rank() < iChessBoardSquare.rank()) {
-					iChessBoardSquare.addScore(1);
+			for (IChessBoardSquare possibleMove : possibilities) {
+				if (move.owner().rank() < possibleMove.rank()) {
+					possibleMove.addScore(1);
+					System.out.println("increasing score for" + possibleMove);
 
 				}
 			}
 
 		} else {
 			List<IChessBoardSquare> possibilities = move.possibilities();
-			for (IChessBoardSquare iChessBoardSquare : possibilities) {
-				if (move.owner().rank() > iChessBoardSquare.rank()) {
-					iChessBoardSquare.addScore(1);
+			for (IChessBoardSquare possibleMove : possibilities) {
+				if (move.owner().rank() > possibleMove.rank()) {
+					possibleMove.addScore(1);
+					System.out.println("decrease score for" + possibleMove);
 
 				}
 			}

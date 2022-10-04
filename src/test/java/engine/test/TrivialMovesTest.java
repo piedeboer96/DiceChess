@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jeasy.rules.api.Facts;
+import org.jeasy.rules.api.Rules;
+import org.jeasy.rules.api.RulesEngine;
+import org.jeasy.rules.core.DefaultRulesEngine;
 import org.junit.jupiter.api.Test;
 
 import chess.interfaces.IChessBoardSquare;
@@ -43,7 +46,9 @@ class TrivialMovesTest {
 	@Test
 	void test() {
 		Facts facts = new Facts();
+		ChessMove best = new ChessMove(new Pawn('P', 4, 6), new ArrayList<IChessBoardSquare>());
 
+		facts.put("best", best);
 		IChessPiece piece = new Pawn('P', 0, 6);
 		List<IChessBoardSquare> destinations = new ArrayList<IChessBoardSquare>();
 		destinations.add(new ChessBoardSquare(0, 5));
@@ -72,6 +77,12 @@ class TrivialMovesTest {
 		destinations.add(new ChessBoardSquare(3, 5));
 		move1 = new ChessMove(piece, destinations);
 		facts.put("move", move1);
+		Rules rules = new Rules();
+		MoveForwardRule move = new MoveForwardRule();
+		rules.register(move);
+
+		RulesEngine rulesEngine = new DefaultRulesEngine();
+		rulesEngine.fire(rules, facts);
 
 	}
 
