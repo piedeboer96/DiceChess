@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jeasy.rules.api.Fact;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
@@ -46,40 +47,60 @@ class TrivialMovesTest {
 	@Test
 	void test() {
 		Facts facts = new Facts();
+		/*
 		ChessMove best = new ChessMove(new Pawn('P', 4, 6), new ArrayList<IChessBoardSquare>());
 
 		facts.put("best", best);
+		*/
+		
+		Fact<ChessMove> fact=null;
+		
 		IChessPiece piece = new Pawn('P', 0, 6);
 		List<IChessBoardSquare> destinations = new ArrayList<IChessBoardSquare>();
 		destinations.add(new ChessBoardSquare(0, 5));
 		destinations.add(new ChessBoardSquare(0, 4));
 		ChessMove move1 = new ChessMove(piece, destinations);
-		facts.put("move", move1);
-		System.out.println(move1);
+		
+		fact =new Fact<ChessMove>("move1", move1);
+		facts.add(fact);
+		
+		
 
-		piece = new Pawn('P', 1, 6);
+		piece = new Pawn('p', 1, 6);
 		destinations = new ArrayList<IChessBoardSquare>();
 		destinations.add(new ChessBoardSquare(1, 4));
 		destinations.add(new ChessBoardSquare(1, 5));
 		move1 = new ChessMove(piece, destinations);
-		facts.put("move", move1);
+		//facts.put("move", move1);
+		fact =new Fact<ChessMove>("move2", move1);
+		facts.add(fact);
+		
 
 		piece = new Pawn('P', 2, 6);
 		destinations = new ArrayList<IChessBoardSquare>();
 		destinations.add(new ChessBoardSquare(2, 4));
 		destinations.add(new ChessBoardSquare(2, 5));
 		move1 = new ChessMove(piece, destinations);
-		facts.put("move", move1);
+		//facts.put("move", move1);
+		fact =new Fact<ChessMove>("move3", move1);
+		facts.add(fact);
+		
 
 		piece = new Pawn('P', 3, 6);
 		destinations = new ArrayList<IChessBoardSquare>();
 		destinations.add(new ChessBoardSquare(3, 4));
 		destinations.add(new ChessBoardSquare(3, 5));
+		
 		move1 = new ChessMove(piece, destinations);
-		facts.put("move", move1);
+		fact =new Fact<ChessMove>("move4", move1);
+		facts.add(fact);
+		
+		
+		
+		
 		Rules rules = new Rules();
-		MoveForwardRule move = new MoveForwardRule();
-		rules.register(move);
+		MoveForwardRule moveRules = new MoveForwardRule();
+		rules.register(moveRules);
 
 		RulesEngine rulesEngine = new DefaultRulesEngine();
 		rulesEngine.fire(rules, facts);
