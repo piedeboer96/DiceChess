@@ -1,7 +1,10 @@
 package ai.easyrules;
 
+import java.lang.reflect.Array;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
@@ -46,29 +49,27 @@ public class MoveForwardRule {
 		ChessMove best=facts.get("best");
 		
 		
-		for (Iterator<org.jeasy.rules.api.Fact<?>> iterator2 = facts.iterator(); iterator2.hasNext();) {
-			Object o = iterator2.next();
-			if (o instanceof org.jeasy.rules.api.Fact) {
-				@SuppressWarnings("rawtypes")
-				org.jeasy.rules.api.Fact f = (org.jeasy.rules.api.Fact) o;
-				Object value = f.getValue();
-				if (value instanceof ChessMove) {
+		Map<String, Object> maps = facts.asMap();
+		Collection<Object> values = maps.values();
+		for (Object o : values) {
+			if (o instanceof ChessMove) {
 
-					ChessMove chessMove = (ChessMove) value;
-					System.out.println("********Evaluating ********");
-					System.out.println(chessMove);
-					evaluateMove(chessMove);
-					best=checkIfBest(facts, chessMove,best);
-					System.out.println("***************************");
-					System.out.println("");
-
-				}
+				ChessMove chessMove = (ChessMove) o;
+				System.out.println("********Evaluating ********");
+				System.out.println(chessMove);
+				evaluateMove(chessMove);
+				best=checkIfBest(facts, chessMove,best);
+				facts.put("best", best);
+				System.out.println("***************************");
+				System.out.println("");
 
 			}
-
+			else
+				System.err.println("skipping "+o);
 		}
-		System.out.println("current best is "+best);
-		facts.put("best", best);
+		
+				System.out.println("current best is "+best);
+		
 
 	}
 
