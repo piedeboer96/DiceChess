@@ -3,12 +3,13 @@ package gui.utility;
 import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessPiece;
 import chess.utility.ChessBoardSquare;
+import gui.interfaces.IChessBoardGraphics;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class ChessBoardGraphics extends JPanel
+public class ChessBoardGraphics extends JPanel implements IChessBoardGraphics
 {
     /**
      * Provides access to the chess piece images.
@@ -135,7 +136,7 @@ public class ChessBoardGraphics extends JPanel
     /**
      * Draws the chess pieces on the board.
      **/
-    public void drawChessPieces(Graphics g)
+    private void drawChessPieces(Graphics g)
     {
         if (pieces == null) { return; }
         for (IChessPiece piece : pieces)
@@ -148,7 +149,7 @@ public class ChessBoardGraphics extends JPanel
     /**
      * Draws the squares with their respective color on the board.
      **/
-    public void drawSquares(Graphics g)
+    private void drawSquares(Graphics g)
     {
         for (int i = 0; i < 8; i++)
         {
@@ -164,7 +165,7 @@ public class ChessBoardGraphics extends JPanel
     /**
      * Highlights the last clicked square.
      **/
-    public void highlightClick(Graphics g)
+    private void highlightClick(Graphics g)
     {
         if (lastClicked == null) { return; }
         g.setColor(highlightColor1);
@@ -177,7 +178,7 @@ public class ChessBoardGraphics extends JPanel
     /**
      * Highlights the possibilities the chess piece on the last clicked square has.
      **/
-    public void highlightPossibleMoves(Graphics g)
+    private void highlightPossibleMoves(Graphics g)
     {
         if (possibleMoves == null) { return; }
         g.setColor(highlightColor2);
@@ -210,5 +211,5 @@ public class ChessBoardGraphics extends JPanel
      * Remark: When letting the AI play a move instead of a player. You must call the refresh/update method of the window
      * containing this component, so it can actually display the move that has been played.
      **/
-    public void trackChessPieceList(List<IChessPiece> pieces) { this.pieces = pieces; }
+    public void trackChessPieces(List<IChessPiece> pieces) { this.pieces = pieces; }
 }

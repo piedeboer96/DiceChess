@@ -1,5 +1,7 @@
 package chess.interfaces;
 
+import chess.MatchState;
+
 /**
  * Represents a chess match.
  * Remark: This is your main access point to the chess game, its board state (the displacement of the pieces on the board),
@@ -13,6 +15,11 @@ public interface IChessMatch extends IChessBoard
      * @return An integer that is either 0 for team black or 1 for team white.
      **/
     int getPlayer();
+
+    /**
+     * Gets the state of the match.
+     **/
+    MatchState getState();
 
     /**
      * Interprets a fen-string and updates the match accordingly.

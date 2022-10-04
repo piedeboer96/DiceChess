@@ -1,4 +1,4 @@
-package engine.hce;
+package ai.hce;
 
 public class MinMax {
 

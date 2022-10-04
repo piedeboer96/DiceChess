@@ -1,6 +1,4 @@
-package engine.test;
-
-import static org.junit.jupiter.api.Assertions.*;
+package ai.test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessPiece;
-import chess.units.ChessPiece;
 import chess.units.Pawn;
 import chess.utility.ChessBoardSquare;
 import chess.utility.ChessMove;

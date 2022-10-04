@@ -1,4 +1,4 @@
-package engine.test;
+package ai.test;
 
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;

@@ -1,13 +1,11 @@
-package engine.test;
+package ai.test;
 
 import java.util.List;
 
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.core.DefaultRulesEngine;
 
-import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessMove;
 
 public class DumyRuleEngine {

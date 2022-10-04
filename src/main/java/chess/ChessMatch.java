@@ -33,12 +33,18 @@ public class ChessMatch extends ChessBoard implements IChessMatch
     private int player;
 
     /**
+     * Represents the state of the match.
+     **/
+    private MatchState state;
+
+    /**
      * Creates a new clean chess match.
      **/
     public ChessMatch()
     {
         super();
         factory = new Factory();
+        state = MatchState.ONGOING;
 
         // Interprets the fen-string of a new fresh game.
         interpret("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
@@ -54,8 +60,9 @@ public class ChessMatch extends ChessBoard implements IChessMatch
         interpret(fen);
     }
 
-
     public int getPlayer() { return player; }
+
+    public MatchState getState() { return state; }
 
     public void interpret(String fen)
     {
