@@ -5,6 +5,8 @@ import chess.utility.ChessMoveInfo;
 
 public class King extends ChessPiece
 {
+    public int pointValueK = 100000;
+
     private final IChessMoveInfo[] movementInfo;
 
     public King(char fen, int file, int rank)

@@ -1,4 +1,4 @@
-package ai.hce;
+package ai.evaluation;
 
 public class AttackingKingZone {
     int kingZoneDistance = 2;

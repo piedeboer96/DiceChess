@@ -27,7 +27,6 @@ public class EasyRuleEngine {
 			DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
 			rulesEngine.fire(rules, facts);
 			checkIFisTheBestMove(move);
-
 		}
 
 	}

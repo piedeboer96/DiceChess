@@ -5,6 +5,8 @@ import chess.utility.ChessMoveInfo;
 
 public class Knight extends ChessPiece
 {
+    public int pointValueN = 350;
+
     private final IChessMoveInfo[] movementInfo;
 
     public Knight(char fen, int file, int rank)

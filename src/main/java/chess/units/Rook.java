@@ -5,6 +5,7 @@ import chess.utility.ChessMoveInfo;
 
 public class Rook extends ChessPiece
 {
+    public int pointValueR = 525;
     private final IChessMoveInfo[] movementInfo;
 
     public Rook(char fen, int file, int rank)

@@ -6,6 +6,8 @@ import chess.utility.ChessMoveInfo;
 
 public class Pawn extends ChessPiece
 {
+    private int pointValueP = 100;
+
     private final IChessMoveInfo[] movementInfo;
     private final int promotionRank, step;
     private boolean doubleStepIsAllowed;
