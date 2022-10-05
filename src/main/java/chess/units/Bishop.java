@@ -5,6 +5,9 @@ import chess.utility.ChessMoveInfo;
 
 public class Bishop extends ChessPiece
 {
+
+    public int pointValueB = 350;
+
     private final IChessMoveInfo[] movementInfo;
 
     public Bishop(char fen, int file, int rank)
@@ -18,4 +21,6 @@ public class Bishop extends ChessPiece
     }
 
     public IChessMoveInfo[] movementInfo() { return movementInfo; }
+
+
 }

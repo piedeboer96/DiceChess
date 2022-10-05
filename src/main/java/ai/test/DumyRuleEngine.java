@@ -10,8 +10,6 @@ import chess.interfaces.IChessMove;
 
 public class DumyRuleEngine {
 
-	
-	
 	private List<IChessMove> realMoves;
  
 	private Facts facts;

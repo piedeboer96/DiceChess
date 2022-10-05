@@ -33,7 +33,10 @@ public abstract class ChessPiece implements IChessPiece {
 	 **/
 	protected int rank;
 
-	private int score;
+	/**
+	 * Piece score to use for material cost evaluation.
+	 */
+	protected int pointValue;
 
 	/**
 	 * @param fen  The fen-representation of the chess piece and the team it belongs
@@ -118,11 +121,10 @@ public abstract class ChessPiece implements IChessPiece {
 
 	@Override
 	public int getScore() {
-
-		return score;
+		return pointValue;
 	}
 
 	public void addScore(int score) {
-		this.score = this.score + score;
+		this.pointValue = this.pointValue + score;
 	}
 }

@@ -1,4 +1,4 @@
-package ai.hce;
+package ai.evaluation;
 
 import chess.utility.ChessBoard;
 import chess.interfaces.*;

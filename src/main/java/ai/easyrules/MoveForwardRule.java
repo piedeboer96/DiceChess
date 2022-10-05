@@ -57,12 +57,20 @@ public class MoveForwardRule {
 		// team 1 white
 		if (team == 1) {
 			List<IChessBoardSquare> possibilities = move.possibilities();
+
 			for (IChessBoardSquare possibleMove : possibilities) {
+				//if it progresses on the board (increase the rank)
+
+
+
 				if (move.owner().rank() > possibleMove.rank()) {
-					possibleMove.addScore(1);
+
+					possibleMove.addScore(1);			// include your evaluation features into the scoring mechanism
+
 					System.out.println("increasing score for team 1" + possibleMove);
 
 				} else
+
 					System.out.println("No Scores score for" + possibleMove);
 			}
 
