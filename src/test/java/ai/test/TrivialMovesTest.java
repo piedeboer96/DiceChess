@@ -10,6 +10,7 @@ import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.core.DefaultRulesEngine;
 import org.junit.jupiter.api.Test;
 
+import ai.easyrules.MoveForwardRule;
 import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessPiece;
 import chess.units.Pawn;

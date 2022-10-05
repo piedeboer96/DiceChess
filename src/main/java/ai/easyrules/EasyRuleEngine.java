@@ -30,6 +30,7 @@ public class EasyRuleEngine {
 		}
 
 	}
+	
 
 	private void checkIFisTheBestMove(IChessMove move) {
 

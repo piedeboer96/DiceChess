@@ -9,6 +9,12 @@ import org.jeasy.rules.annotation.Rule;
 
 import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessMove;
+import chess.units.Bishop;
+import chess.units.King;
+import chess.units.Knight;
+import chess.units.Pawn;
+import chess.units.Queen;
+import chess.units.Rook;
 
 /*
   
@@ -23,8 +29,8 @@ import chess.interfaces.IChessMove;
  */
 
 @Rule
-public class MoveForwardRule {
-	static final String MOVE_FORWARD = "Move forward";
+public class MoveByValueRule {
+	static final String MOVE_BY_VALUE = "Move in the high value ";
 
 	@Condition
 	public boolean when(@Fact("ChessMove") IChessMove move) {
@@ -36,9 +42,7 @@ public class MoveForwardRule {
 	public void increaseRanking(@Fact("ChessMove") IChessMove chessMove) {
 		/*
 		 * 
-		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6],
-		 * destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare
-		 * [file=0,rank=4]]]
+		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
 		 * 
 		 */
 
@@ -52,37 +56,51 @@ public class MoveForwardRule {
 	}
 
 	private void evaluateMove(IChessMove move) {
-		int team = move.owner().team();
-		System.out.println("Evaluating team " + team);
-		// team 1 white
-		if (team == 1) {
-			List<IChessBoardSquare> possibilities = move.possibilities();
+		char fen = move.owner().toFen();
+		List<IChessBoardSquare> possibilities = move.possibilities();
 
-			for (IChessBoardSquare possibleMove : possibilities) {
-				// if it progresses on the board (increase the rank)
+		switch (fen) {
+		case 'P':
+		case 'p':
 
-				if (move.owner().rank() > possibleMove.rank()) {
+			for (IChessBoardSquare iChessBoardSquare : possibilities)
+				iChessBoardSquare.addScore(-Pawn.pointValue);
 
-					possibleMove.addScore(1); // include your evaluation features into the scoring mechanism
+			break;
+		case 'B':
+		case 'b':
 
-					System.out.println("increasing score for team 1" + possibleMove);
+			for (IChessBoardSquare iChessBoardSquare : possibilities)
+				iChessBoardSquare.addScore(-Bishop.pointValue);
 
-				} else
+			break;
+		case 'K':
+		case 'k':
 
-					System.out.println("No Scores score for" + possibleMove);
-			}
+			for (IChessBoardSquare iChessBoardSquare : possibilities)
+				iChessBoardSquare.addScore(-King.pointValue);
 
-		} else {
-			List<IChessBoardSquare> possibilities = move.possibilities();
-			for (IChessBoardSquare possibleMove : possibilities) {
-				if (move.owner().rank() < possibleMove.rank()) {
-					possibleMove.addScore(1);
-					System.out.println("increasing  score for team 0 " + possibleMove);
+			break;
+		case 'N':
+		case 'n':
 
-				} else
-					System.out.println("No Scores score for" + possibleMove);
-			}
+			for (IChessBoardSquare iChessBoardSquare : possibilities)
+				iChessBoardSquare.addScore(-Knight.pointValue);
+			break;
+		case 'Q':
+		case 'q':
 
+			for (IChessBoardSquare iChessBoardSquare : possibilities)
+				iChessBoardSquare.addScore(-Queen.pointValue);
+
+			break;
+		case 'R':
+		case 'r':
+
+			for (IChessBoardSquare iChessBoardSquare : possibilities)
+				iChessBoardSquare.addScore(-Rook.pointValue);
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + fen);
 		}
 	}
 }

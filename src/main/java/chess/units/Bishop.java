@@ -6,7 +6,7 @@ import chess.utility.ChessMoveInfo;
 public class Bishop extends ChessPiece
 {
 
-    public int pointValueB = 350;
+	 public final static int pointValue = 350;
 
     private final IChessMoveInfo[] movementInfo;
 

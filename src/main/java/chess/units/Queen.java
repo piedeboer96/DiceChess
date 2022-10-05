@@ -5,7 +5,7 @@ import chess.utility.ChessMoveInfo;
 
 public class Queen extends ChessPiece
 {
-    public int pointValueQ = 1000;
+	 public final static int pointValue = 1000;
     private final IChessMoveInfo[] movementInfo;
 
     public Queen(char fen, int file, int rank)

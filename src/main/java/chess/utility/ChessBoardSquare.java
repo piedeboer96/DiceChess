@@ -27,7 +27,7 @@ public class ChessBoardSquare implements IChessBoardSquare
 
 	@Override
 	public String toString() {
-		return "ChessBoardSquare [file=" + file + ", rank=" + rank + "]";
+		return "ChessBoardSquare [file=" + file + ", rank=" + rank + ", score=" + score + "]";
 	}
 	@Override
 	public void addScore(int score) {

@@ -5,7 +5,7 @@ import chess.utility.ChessMoveInfo;
 
 public class Knight extends ChessPiece
 {
-    public int pointValueN = 350;
+	 public final static int pointValue = 350;
 
     private final IChessMoveInfo[] movementInfo;
 
