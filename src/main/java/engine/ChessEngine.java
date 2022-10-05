@@ -40,6 +40,7 @@ public class ChessEngine implements IChessEngine
         {
             // Get the turn owner.
             int turnOwner = match.getPlayer();
+            System.out.println("Player: " + turnOwner);
 
             // Get the player.
             IChessPlayer player = players[turnOwner];

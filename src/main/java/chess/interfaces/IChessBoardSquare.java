@@ -26,7 +26,7 @@ public interface IChessBoardSquare
      **/
     int toIndex();
     /**
-	 * This field will contains the score given to a piece , high score are better
+	 * This field will contain the score given to a piece , high score are better
 	 * moves then lower score .
 	 **/
 	void addScore(int score);
