@@ -1,4 +1,4 @@
-package examples;
+package gui.examples;
 
 import chess.ChessMatch;
 import chess.interfaces.IChessBoardSquare;

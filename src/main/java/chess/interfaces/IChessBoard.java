@@ -28,6 +28,11 @@ public interface IChessBoard
     IChessPiece get(IChessBoardSquare square);
 
     /**
+     * Gets the king of the provided team.
+     **/
+    IChessPiece getKing(int team);
+
+    /**
      * Generates the legal moves of a team.
      * Remark: This is your go-to method to access all legal moves a team has.
      *         The list contains every move a chess piece is allowed to make independently.

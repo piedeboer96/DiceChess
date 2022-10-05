@@ -7,7 +7,9 @@ import chess.interfaces.IChessPiece;
 import chess.units.Queen;
 import gui.interfaces.IChessBoardGraphics;
 import gui.interfaces.IHumanPlayer;
+import gui.interfaces.IPromotionWindow;
 import gui.utility.ChessBoardGraphics;
+import gui.utility.PromotionWindow;
 
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -68,6 +70,16 @@ public class HumanPlayer implements IHumanPlayer
                 {
                     IChessPiece selected = match.get(lastClicked);
                     match.playMove(selected, square);
+
+                    if (selected.promotable())
+                    {
+                        //Todo: Ask to what type to promote.
+                        IPromotionWindow window = new PromotionWindow();
+                        char fen = window.getSelection();
+                        if (team == 1) { fen = Character.toUpperCase(fen); }
+                        IChessPiece queen = new Queen(fen, selected.file(), selected.rank());
+                        match.promote(selected, queen);
+                    }
                     break;
                 }
             }

@@ -188,6 +188,8 @@ public abstract class ChessBoard implements IChessBoard
 
     public IChessPiece get(IChessBoardSquare square) { return squares[square.toIndex()]; }
 
+    public IChessPiece getKing(int team) { return kings[team]; }
+
     public List<IChessMove> legalMovesOf(int team)
     {
         // Reminder: You must have called loadKings after the board construction, so the kings are properly tracked...

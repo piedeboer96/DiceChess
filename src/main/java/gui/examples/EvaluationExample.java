@@ -1,4 +1,4 @@
-package examples;
+package gui.examples;
 
 import chess.interfaces.IChessPiece;
 import chess.units.Pawn;
