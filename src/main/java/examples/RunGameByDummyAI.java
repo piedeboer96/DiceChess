@@ -1,23 +1,17 @@
 package examples;
-import chess.ChessMatch;
-import chess.interfaces.IChessBoardSquare;
-import chess.interfaces.IChessMatch;
-import chess.interfaces.IChessMove;
-import chess.interfaces.IChessPiece;
- 
-import die.Roll;
-import gui.ChessGameWindow;
-import gui.interfaces.IChessGameWindow;
-
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import ai.easyrules.EasyRuleEngine;
 import ai.easyrules.Utils;
+import chess.ChessMatch;
+import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessMatch;
+import chess.interfaces.IChessMove;
+import chess.interfaces.IChessPiece;
+import die.Die;
+import gui.ChessGameWindow;
+import gui.interfaces.IChessGameWindow;
 
 public class RunGameByDummyAI {
 	public static void main(String[] args) {
@@ -51,8 +45,8 @@ public class RunGameByDummyAI {
 		while (i++ < maxMove) {
 			currentPlayer = match.getPlayer();
 			// first we need fire the roll
-			Roll myRoll = new Roll();
-			char res = myRoll.roll();
+			Die myRoll = new Die();
+			char res = myRoll.roll(currentPlayer);
 
 			List<IChessMove> moves = match.legalMovesOf(currentPlayer);
 
