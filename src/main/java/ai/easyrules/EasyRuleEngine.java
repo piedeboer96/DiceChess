@@ -5,75 +5,68 @@ import java.util.List;
 
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.core.DefaultRulesEngine;
 
 import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessMove;
-import chess.units.Pawn;
 import chess.utility.ChessMove;
 
 public class EasyRuleEngine {
 
-	
-	
-	 
- 
-	private Facts facts;
-
-	private Rules rules;
-
-	private DefaultRulesEngine rulesEngine;
+	IChessMove bestMove = null;
 
 	public EasyRuleEngine(List<IChessMove> realMoves) {
-		
-		System.out.println("Adding facts to  rule Enginne");
 
-		Integer i=0;
-		facts = new Facts();
-		
-		//adding the best move 
-		ChessMove best = new ChessMove(new Pawn('P', 4, 6), new ArrayList<IChessBoardSquare>());
-		facts.put("best", best);
-		
-		for (IChessMove chessMove : realMoves) {
-			facts.put("ChessMove"+i++, chessMove);
-			
+		Rules rules = loaRules();
+
+		System.out.println("Evaluating " + realMoves.size() + " moves");
+
+		for (IChessMove move : realMoves) {
+			Facts facts = new Facts();
+			facts.put("ChessMove", move);
+			DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
+			rulesEngine.fire(rules, facts);
+			checkIFisTheBestMove(move);
+
 		}
-		
-		intEngine();
+
 	}
 
+	private void checkIFisTheBestMove(IChessMove move) {
 
-	public void intEngine() {
-		
-		rules = new Rules();
-	
-	    // define rules
+		List<IChessBoardSquare> possibilities = move.possibilities();
+		for (IChessBoardSquare poss : possibilities) {
+			if (bestMove == null || bestMove.possibilities().get(0).getScore() < poss.getScore())
+				assignBestMove(move, poss);
+		}
+
+	}
+
+	private void assignBestMove(IChessMove move, IChessBoardSquare poss) {
+		bestMove = new ChessMove(move.owner(), new ArrayList<IChessBoardSquare>());
+		bestMove.possibilities().add(poss);
+
+	}
+
+	public Rules loaRules() {
+
+		Rules rules = new Rules();
+
+		// load all rules ..
+
+		//this simple rules assign 1 score if the piece can be moved FWD
 		MoveForwardRule moveRules = new MoveForwardRule();
-        rules.register(moveRules);
+		
+		
+		rules.register(moveRules);
 
-        // fire rules on known facts
-         rulesEngine = new DefaultRulesEngine();
-        
+		return rules;
+
 	}
-	
-
 
 	public IChessMove getNextMove() {
-		
-		rulesEngine.fire(rules, facts);
-		ChessMove bestMove  = facts.get("best");
-		System.err.println("The best move is "+bestMove);	
+		System.err.println("The best move is " + bestMove);
 		return bestMove;
 	}
-	
-	public   void dumpMoves(List<IChessMove> moves) {
-		System.out.println("Dumping Moves :");
-		if(moves!=null)
-		for (IChessMove iChessMove : moves) {
-			System.out.println(iChessMove);
 
-		}
-	}
 }
