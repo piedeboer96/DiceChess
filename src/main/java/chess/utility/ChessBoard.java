@@ -213,26 +213,92 @@ public abstract class ChessBoard implements IChessBoard
             List<IChessBoardSquare> valid = new ArrayList<>();
             for (IChessBoardSquare destination : teamMove.possibilities())
             {
-                mate.ghostTo(destination);
                 int destinationIndex = destination.toIndex();
-                IChessPiece indexOccupier = squares[destinationIndex];
-                if (indexOccupier != null) { indexOccupier.hide(); }
-                squares[destinationIndex] = mate;
-
-                List<IChessMove> opponentResponses = generateMovesOf(opponent);
-                boolean safeToPlay = true;
-                for (IChessMove response : opponentResponses)
+                if(mate instanceof King && (actualIndex-destinationIndex == -2 || actualIndex-destinationIndex == 2))
                 {
-                    if (response.canReach(king))
+                    if(actualIndex-destinationIndex == -2)
                     {
-                        safeToPlay = false;
-                        break;
-                    }
-                }
+                        boolean safeToPlay = true;
+                        for(int i = 1; i < 3; i++)
+                        {
 
-                if (indexOccupier != null) { indexOccupier.show(); }
-                squares[destinationIndex] = indexOccupier;
-                if (safeToPlay) { valid.add(destination); }
+                            IChessBoardSquare additionalSquare = new ChessBoardSquare(mate.file()+1, mate.rank());
+                            int additionalIndex = additionalSquare.toIndex();
+                            mate.ghostTo(additionalSquare);
+                            IChessPiece indexOccupier = squares[additionalIndex];
+                            if (indexOccupier != null) { indexOccupier.hide(); }
+                            squares[additionalIndex] = mate;
+                            List<IChessMove> opponentResponses = generateMovesOf(opponent);
+
+                            for (IChessMove response : opponentResponses)
+                            {
+                                if (response.canReach(king))
+                                {
+                                    safeToPlay = false;
+                                    break;
+                                }
+                            }
+
+                            if (indexOccupier != null) { indexOccupier.show(); }
+                            squares[additionalIndex] = indexOccupier;
+                        }
+                        if (safeToPlay) { valid.add(destination); }
+
+                    }
+                    else
+                    {
+                        boolean safeToPlay = true;
+                        for(int i = 1; i < 3; i++)
+                    {
+
+                        IChessBoardSquare additionalSquare = new ChessBoardSquare(mate.file()-i, mate.rank());
+                        int additionalIndex = additionalSquare.toIndex();
+                        mate.ghostTo(additionalSquare);
+                        IChessPiece indexOccupier = squares[additionalIndex];
+                        if (indexOccupier != null) { indexOccupier.hide(); }
+                        squares[additionalIndex] = mate;
+                        List<IChessMove> opponentResponses = generateMovesOf(opponent);
+
+                        for (IChessMove response : opponentResponses)
+                        {
+                            if (response.canReach(king))
+                            {
+                                safeToPlay = false;
+                                break;
+                            }
+                        }
+                        if (indexOccupier != null) { indexOccupier.show(); }
+                        squares[additionalIndex] = indexOccupier;
+
+                    }
+                        if (safeToPlay) { valid.add(destination); }
+                    }
+
+
+
+                }
+                else
+                {
+                    mate.ghostTo(destination);
+                    IChessPiece indexOccupier = squares[destinationIndex];
+                    if (indexOccupier != null) { indexOccupier.hide(); }
+                    squares[destinationIndex] = mate;
+
+                    List<IChessMove> opponentResponses = generateMovesOf(opponent);
+                    boolean safeToPlay = true;
+                    for (IChessMove response : opponentResponses)
+                    {
+                        if (response.canReach(king))
+                        {
+                            safeToPlay = false;
+                            break;
+                        }
+                    }
+
+                    if (indexOccupier != null) { indexOccupier.show(); }
+                    squares[destinationIndex] = indexOccupier;
+                    if (safeToPlay) { valid.add(destination); }
+                }
             }
 
             mate.ghostTo(actualSquare);
