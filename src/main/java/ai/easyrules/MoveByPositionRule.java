@@ -30,7 +30,7 @@ import chess.units.Rook;
  */
 
 @Rule
-public class MoveByPosition {
+public class MoveByPositionRule {
 	static final String MOVE_BY_POSITION = "Move in the high value for the position ";
 
 	@Condition
@@ -68,7 +68,7 @@ public class MoveByPosition {
 			for (IChessBoardSquare iChessBoardSquare : possibilities) {
 				int rank = iChessBoardSquare.rank();
 				int file = iChessBoardSquare.file();
-				int bestScore = pieceSquareTable.pst_PAWN[file][rank];
+				int bestScore = pieceSquareTable.pst_PAWN[rank][file];
 				iChessBoardSquare.addScore(bestScore);
 			}
 
@@ -79,7 +79,7 @@ public class MoveByPosition {
 			for (IChessBoardSquare iChessBoardSquare : possibilities) {
 				int rank = iChessBoardSquare.rank();
 				int file = iChessBoardSquare.file();
-				int bestScore = pieceSquareTable.pst_BISCHOP[file][rank];
+				int bestScore = pieceSquareTable.pst_BISCHOP[rank][file];
 				iChessBoardSquare.addScore(bestScore);
 
 			}
@@ -91,7 +91,7 @@ public class MoveByPosition {
 			for (IChessBoardSquare iChessBoardSquare : possibilities) {
 				int rank = iChessBoardSquare.rank();
 				int file = iChessBoardSquare.file();
-				int bestScore = pieceSquareTable.pst_KING_MIDGAME[file][rank];
+				int bestScore = pieceSquareTable.pst_KING_MIDGAME[rank][file];
 				iChessBoardSquare.addScore(bestScore);
 			}
 
@@ -102,7 +102,7 @@ public class MoveByPosition {
 			for (IChessBoardSquare iChessBoardSquare : possibilities) {
 				int rank = iChessBoardSquare.rank();
 				int file = iChessBoardSquare.file();
-				int bestScore = pieceSquareTable.pst_KNIGHT[file][rank];
+				int bestScore = pieceSquareTable.pst_KNIGHT[rank][file];
 				iChessBoardSquare.addScore(bestScore);
 			}
 			break;
@@ -112,7 +112,7 @@ public class MoveByPosition {
 			for (IChessBoardSquare iChessBoardSquare : possibilities) {
 				int rank = iChessBoardSquare.rank();
 				int file = iChessBoardSquare.file();
-				int bestScore = pieceSquareTable.pst_QUEEN[file][rank];
+				int bestScore = pieceSquareTable.pst_QUEEN[rank][file];
 				iChessBoardSquare.addScore(bestScore);
 			}
 			break;
@@ -122,7 +122,7 @@ public class MoveByPosition {
 			for (IChessBoardSquare iChessBoardSquare : possibilities) {
 				int rank = iChessBoardSquare.rank();
 				int file = iChessBoardSquare.file();
-				int bestScore = pieceSquareTable.pst_ROOKS[file][rank];
+				int bestScore = pieceSquareTable.pst_ROOKS[rank][file];
 				iChessBoardSquare.addScore(bestScore);
 			}
 			break;
