@@ -7,6 +7,7 @@ import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
 
+import ai.evaluation.PieceSquareTable;
 import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessMove;
 import chess.units.Bishop;
@@ -58,47 +59,73 @@ public class MoveByPosition {
 	private void evaluateMove(IChessMove move) {
 		char fen = move.owner().toFen();
 		List<IChessBoardSquare> possibilities = move.possibilities();
+		PieceSquareTable pieceSquareTable = new PieceSquareTable();
 
 		switch (fen) {
 		case 'P':
 		case 'p':
 
-			for (IChessBoardSquare iChessBoardSquare : possibilities)
-				iChessBoardSquare.addScore(-Pawn.pointValue);
+			for (IChessBoardSquare iChessBoardSquare : possibilities) {
+				int rank = iChessBoardSquare.rank();
+				int file = iChessBoardSquare.file();
+				int bestScore = pieceSquareTable.pst_PAWN[file][rank];
+				iChessBoardSquare.addScore(bestScore);
+			}
 
 			break;
 		case 'B':
 		case 'b':
 
-			for (IChessBoardSquare iChessBoardSquare : possibilities)
-				iChessBoardSquare.addScore(-Bishop.pointValue);
+			for (IChessBoardSquare iChessBoardSquare : possibilities) {
+				int rank = iChessBoardSquare.rank();
+				int file = iChessBoardSquare.file();
+				int bestScore = pieceSquareTable.pst_BISCHOP[file][rank];
+				iChessBoardSquare.addScore(bestScore);
+
+			}
 
 			break;
 		case 'K':
 		case 'k':
 
-			for (IChessBoardSquare iChessBoardSquare : possibilities)
-				iChessBoardSquare.addScore(-King.pointValue);
+			for (IChessBoardSquare iChessBoardSquare : possibilities) {
+				int rank = iChessBoardSquare.rank();
+				int file = iChessBoardSquare.file();
+				int bestScore = pieceSquareTable.pst_KING_MIDGAME[file][rank];
+				iChessBoardSquare.addScore(bestScore);
+			}
 
 			break;
 		case 'N':
 		case 'n':
 
-			for (IChessBoardSquare iChessBoardSquare : possibilities)
-				iChessBoardSquare.addScore(-Knight.pointValue);
+			for (IChessBoardSquare iChessBoardSquare : possibilities) {
+				int rank = iChessBoardSquare.rank();
+				int file = iChessBoardSquare.file();
+				int bestScore = pieceSquareTable.pst_KNIGHT[file][rank];
+				iChessBoardSquare.addScore(bestScore);
+			}
 			break;
 		case 'Q':
 		case 'q':
 
-			for (IChessBoardSquare iChessBoardSquare : possibilities)
-				iChessBoardSquare.addScore(-Queen.pointValue);
-
+			for (IChessBoardSquare iChessBoardSquare : possibilities) {
+				int rank = iChessBoardSquare.rank();
+				int file = iChessBoardSquare.file();
+				int bestScore = pieceSquareTable.pst_QUEEN[file][rank];
+				iChessBoardSquare.addScore(bestScore);
+			}
 			break;
 		case 'R':
 		case 'r':
 
-			for (IChessBoardSquare iChessBoardSquare : possibilities)
-				iChessBoardSquare.addScore(-Rook.pointValue);
+			for (IChessBoardSquare iChessBoardSquare : possibilities) {
+				int rank = iChessBoardSquare.rank();
+				int file = iChessBoardSquare.file();
+				int bestScore = pieceSquareTable.pst_ROOKS[file][rank];
+				iChessBoardSquare.addScore(bestScore);
+			}
+			break;
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + fen);
 		}
