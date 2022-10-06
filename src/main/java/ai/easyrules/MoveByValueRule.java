@@ -99,8 +99,10 @@ public class MoveByValueRule {
 
 			for (IChessBoardSquare iChessBoardSquare : possibilities)
 				iChessBoardSquare.addScore(-Rook.pointValue);
+			break;
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + fen);
+
 		}
 	}
 }

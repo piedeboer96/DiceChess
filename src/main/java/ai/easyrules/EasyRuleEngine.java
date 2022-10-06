@@ -30,7 +30,6 @@ public class EasyRuleEngine {
 		}
 
 	}
-	
 
 	private void checkIFisTheBestMove(IChessMove move) {
 
@@ -54,10 +53,13 @@ public class EasyRuleEngine {
 
 		// load all rules ..
 
-		//this simple rules assign 1 score if the piece can be moved FWD
+		// this simple rules assign 1 score if the piece can be moved FWD
 		MoveForwardRule moveRules = new MoveForwardRule();
-		
-		
+		MoveByPositionRule moveByposition = new MoveByPositionRule();
+		MoveByValueRule moveByValue = new MoveByValueRule();
+
+		rules.register(moveByposition);
+		rules.register(moveByValue);
 		rules.register(moveRules);
 
 		return rules;

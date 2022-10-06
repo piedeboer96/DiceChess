@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import ai.easyrules.MoveByPositionRule;
 import ai.easyrules.MoveByValueRule;
+import ai.easyrules.Utils;
 import ai.evaluation.PieceSquareTable;
 import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessPiece;
@@ -61,11 +62,13 @@ class CombinedTest {
 		RulesEngine rulesEngine = new DefaultRulesEngine();
 		rulesEngine.fire(rules, facts);
 		System.out.println("move = " + move);
-		int expected = PieceSquareTable.pst_PAWN[5][0] + Pawn.pointValue;
+		int expected = PieceSquareTable.pst_PAWN[5][0] - Pawn.pointValue;
 		assertEquals(expected, move.possibilities().get(0).getScore());
 		System.err.println(expected);
-		int expected2 = PieceSquareTable.pst_PAWN[4][0] + Pawn.pointValue;
+		int expected2 = PieceSquareTable.pst_PAWN[4][0] - Pawn.pointValue;
 		assertEquals(expected2, move.possibilities().get(1).getScore());
+		int findMaxScore = Utils.findMaxScore(move);
+		assertEquals(expected, findMaxScore);
 
 	}
 
@@ -95,7 +98,10 @@ class CombinedTest {
 		RulesEngine rulesEngine = new DefaultRulesEngine();
 		rulesEngine.fire(rules, facts);
 		System.out.println("move = " + move);
-		assertEquals(PieceSquareTable.pst_KING_MIDGAME[5][0] + King.pointValue, -move.possibilities().get(0).getScore());
+		int expected = PieceSquareTable.pst_KING_MIDGAME[5][0] - King.pointValue;
+		System.err.println(expected);
+		assertEquals(expected, move.possibilities().get(0).getScore());
+
 	}
 
 }
