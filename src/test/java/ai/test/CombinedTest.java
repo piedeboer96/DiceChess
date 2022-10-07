@@ -59,7 +59,9 @@ class CombinedTest {
 		rules.register(moveByposition);
 		rules.register(moveByValue);
 
+
 		RulesEngine rulesEngine = new DefaultRulesEngine();
+				
 		rulesEngine.fire(rules, facts);
 		System.out.println("move = " + move);
 		int expected = PieceSquareTable.pst_PAWN[5][0] - Pawn.pointValue;

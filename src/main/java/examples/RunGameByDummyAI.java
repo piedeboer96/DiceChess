@@ -63,27 +63,18 @@ public class RunGameByDummyAI {
 				currentPlayer = match.nextPlayer();
 			}
 			else {
-				IChessMove chooseMyMove = chooseMyMove(moves);
-
-				System.out.println("chessMove piece " + chooseMyMove);
-				IChessBoardSquare destinationBoard=Utils.findMaxPossibilites(chooseMyMove.possibilities());
-				IChessPiece piece=chooseMyMove.owner();
-				System.out.println("");
-				System.err.println("AI decide to move   "+ piece+ "  ----to--->>>  "+destinationBoard);
-				System.out.println("Press Enter to continue");
+				
+				EasyRuleEngine dumyRuleEngine = new EasyRuleEngine (match);
+				dumyRuleEngine.play();
 				/*
 				try{System.in.read();}
 				catch(Exception e){}
-				*/
+				 */
 				sleep(1);
-				match.playMove(piece,destinationBoard);
 				window.displayMatch(match);
 				currentPlayer = match.getPlayer();
 
 			}
-
-			 
-			
 			System.out.println("New player is " + currentPlayer);
 		}
 
@@ -97,18 +88,7 @@ public class RunGameByDummyAI {
 		}
 	}
 
-	private IChessMove chooseMyMove(List<IChessMove> realMoves) {
+	
 
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine (realMoves);
-		return dumyRuleEngine.getNextMove();
 
-	}
-
-	public static  void dumpMoves(List<IChessMove> moves) {
-		System.out.println("Dumping Moves :");
-		for (IChessMove iChessMove : moves) {
-			System.out.println(iChessMove);
-
-		}
-	}
 }
