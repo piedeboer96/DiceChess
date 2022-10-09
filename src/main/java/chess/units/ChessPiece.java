@@ -5,16 +5,12 @@ import chess.interfaces.IChessPiece;
 
 public abstract class ChessPiece implements IChessPiece {
 	/**
-	 * The fen representation of the chess piece and the team it belongs to. So, the
-	 * pieces with a black color have a character from the set { b, k, n, p, q ,r }
-	 * and the pieces with a white color have a character from the set { B, K, N, P,
-	 * Q, R }.
+	 * The fen representation of the chess piece and the team it belongs to. So, the pieces with a black color have a character from the set { b, k, n, p, q ,r } and the pieces with a white color have a character from the set { B, K, N, P, Q, R }.
 	 **/
 	private final char fen;
 
 	/**
-	 * Represents the team the chess piece belongs to. See team() for more
-	 * information.
+	 * Represents the team the chess piece belongs to. See team() for more information.
 	 **/
 	protected final int team;
 
@@ -36,11 +32,10 @@ public abstract class ChessPiece implements IChessPiece {
 	/**
 	 * Piece score to use for material cost evaluation.
 	 */
-	protected int pointValue;
+	protected int score;
 
 	/**
-	 * @param fen  The fen-representation of the chess piece and the team it belongs
-	 *             to.
+	 * @param fen  The fen-representation of the chess piece and the team it belongs to.
 	 * @param file The column number the chess piece is located in.
 	 * @param rank The row number the chess piece is located in.
 	 **/
@@ -121,10 +116,16 @@ public abstract class ChessPiece implements IChessPiece {
 
 	@Override
 	public int getScore() {
-		return pointValue;
+		return score;
 	}
 
 	public void addScore(int score) {
-		this.pointValue = this.pointValue + score;
+		this.score = this.score + score;
+	}
+
+	@Override
+	public void resetScore() {
+		this.score = 0;
+
 	}
 }

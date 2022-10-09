@@ -21,7 +21,7 @@ public class EasyRuleEngineTest {
 
         // Creating a new match.
         IChessMatch match = new ChessMatch();
-        EasyRuleEngine dumyRuleEngine = new EasyRuleEngine (match);
+        EasyRuleEngine dumyRuleEngine = new EasyRuleEngine (match, 'p');
 		dumyRuleEngine.play();
 
 	}
@@ -31,7 +31,7 @@ public class EasyRuleEngineTest {
 	public void testSplitMoves() {
 		
 		     IChessMatch match = new ChessMatch();
-	        EasyRuleEngine dumyRuleEngine = new EasyRuleEngine (match);
+	        EasyRuleEngine dumyRuleEngine = new EasyRuleEngine (match,'p');
 	        
 	        IChessPiece piece = new Pawn('P', 0, 6);
 			List<IChessBoardSquare> destinations = new ArrayList<IChessBoardSquare>();

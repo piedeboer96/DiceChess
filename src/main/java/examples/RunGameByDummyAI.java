@@ -1,4 +1,5 @@
 package examples;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -23,54 +24,48 @@ public class RunGameByDummyAI {
 
 	public void mailLoop() {
 
-        // Creating a new window.
-        IChessGameWindow window = new ChessGameWindow();
+		// Creating a new window.
+		IChessGameWindow window = new ChessGameWindow();
 
-        // Creating a new match.
-        IChessMatch match = new ChessMatch();
+		// Creating a new match.
+		IChessMatch match = new ChessMatch();
 
-        // Displays the match
-        window.displayMatch(match);
+		// Displays the match
+		window.displayMatch(match);
 
-        
-		
 		// Getting the moves of the current player easily by
 
 		int currentPlayer;
 
-		
-		int i=0;
-		int maxMove=100;
-		
+		int i = 0;
+		int maxMove = 1000;
+
 		while (i++ < maxMove) {
 			currentPlayer = match.getPlayer();
 			// first we need fire the roll
 			Die myRoll = new Die();
-			char res = myRoll.roll(currentPlayer);
+			char rollTheDie = myRoll.roll(currentPlayer);
+			System.err.println(rollTheDie);
 
 			List<IChessMove> moves = match.legalMovesOf(currentPlayer);
 
-			//dumpMoves(moves);
+			// dumpMoves(moves);
 			window.displayMatch(match);
 
-			
-			
-			
-
-			if (moves.isEmpty())
-			{
+			if (moves.isEmpty()) {
 				System.out.println("I cant move any pieces .... :(");
 				currentPlayer = match.nextPlayer();
-			}
-			else {
-				
-				EasyRuleEngine dumyRuleEngine = new EasyRuleEngine (match);
+			} else {
+
+				EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match,rollTheDie);
 				dumyRuleEngine.play();
-				/*
-				try{System.in.read();}
-				catch(Exception e){}
-				 */
-				sleep(1);
+
+//				try {
+//					System.in.read();
+//				} catch (Exception e) {
+//				}
+
+				sleep(500);
 				window.displayMatch(match);
 				currentPlayer = match.getPlayer();
 
@@ -82,13 +77,10 @@ public class RunGameByDummyAI {
 
 	private void sleep(int sec) {
 		try {
-			TimeUnit.SECONDS.sleep(sec);
+			TimeUnit.MILLISECONDS.sleep(sec);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
-
-	
-
 
 }

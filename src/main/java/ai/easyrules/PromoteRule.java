@@ -1,11 +1,14 @@
 package ai.easyrules;
 
+import java.util.List;
+
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
+import ai.evaluation.PieceSquareTable;
 import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessMove;
 
@@ -21,31 +24,37 @@ import chess.interfaces.IChessMove;
   
  */
 
-@Rule(name = "Move Forward Rule ", description = "Add 1 score if we can move forward", priority = 1)
-public class MoveForwardRule {
+@Rule(name = "my promote rule", description = "Promote the pawn in the first opponent line ", priority = 1)
+public class PromoteRule {
 
+	int currentScore = 0;
 	private IChessMove chessMove;
 
 	@Condition
 	public boolean when(@Fact("ChessMove") IChessMove move, @Fact("ROLL") char roll) {
-		if (move.owner().toFen() == roll) {
-			return true;
-
+		if (move.owner().toFen() != roll) {
+			return false;
 		}
+		int rank = move.possibilities().get(0).rank();
+		char pawn = move.owner().toFen();
+		if (pawn == 'p' && rank == 7) {
+			return true;
+		} else if (pawn == 'P' && rank == 0) {
+			return true;
+		}
+		;
 		return false;
 	}
 
 	@Action(order = 1)
-	public void increaseRanking(@Fact("ChessMove") IChessMove chessMove) {
+	public void bestPromote(@Fact("ChessMove") IChessMove chessMove) {
 		/*
 		 * 
 		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
 		 * 
 		 */
-
 		this.chessMove = chessMove;
 		evaluateMove(chessMove);
-
 	}
 
 	@Action(order = 2)
@@ -57,46 +66,11 @@ public class MoveForwardRule {
 				|| best.possibilities().get(0).getScore() < chessMove.possibilities().get(0).getScore())
 			facts.put(EasyRuleEngine.BEST_MOVE, chessMove);
 
-		facts.put(EasyRuleEngine.ACTION, ai.easyrules.Action.ONLY_MOVE);
+		facts.put(EasyRuleEngine.ACTION, ai.easyrules.Action.MOVE_AND_PROMOTE);
+
 	}
 
 	private void evaluateMove(IChessMove move) {
-		int team = move.owner().team();
-		System.out.println("Evaluating team " + team);
-		// team 1 white
-		IChessBoardSquare possibleMove = move.possibilities().get(0);
-		int rank = possibleMove.rank();
-		int file = possibleMove.file();
-		int oldscore = possibleMove.getScore();
-
-		if (team == 1) {
-
-			// if it progresses on the board (increase the rank)
-
-			if (move.owner().rank() > rank) {
-
-				possibleMove.addScore(1); // include your evaluation features into the scoring mechanism
-
-//					System.out.println("increasing score for "+move.owner().toFen()+" rank = "+rank +" file= "+file+" old score "+oldscore+" new score "+possibleMove.getScore());
-
-			}
-//				else
-
-//					System.out.println("No Scores score for" + possibleMove);
-
-		} else {
-
-			{
-				if (move.owner().rank() < rank) {
-
-					possibleMove.addScore(1);
-//					System.out.println("increasing score for "+move.owner().toFen()+" rank = "+rank +" file= "+file+" old score "+oldscore+" new score "+possibleMove.getScore());
-
-				}
-//				else
-//					System.out.println("No Scores score for" + possibleMove);
-			}
-
-		}
+		move.possibilities().get(0).addScore(1500);
 	}
 }

@@ -24,15 +24,19 @@ import chess.interfaces.IChessMove;
   
  */
 
-@Rule(name = "my rule", description = "Move in the high value for the position ", priority = 1)
+@Rule(name = "Move By Position Rule", description = "Move in the high value for the position ", priority = 1)
 public class MoveByPositionRule {
-	 
-	int currentScore=0;
-	private IChessMove chessMove;
-	@Condition
-	public boolean when(@Fact("ChessMove") IChessMove move) {
 
-		return true;
+	int currentScore = 0;
+	private IChessMove chessMove;
+
+	@Condition
+	public boolean when(@Fact("ChessMove") IChessMove move, @Fact("ROLL") char roll) {
+		if (move.owner().toFen() == roll) {
+			return true;
+
+		}
+		return false;
 	}
 
 	@Action(order = 1)
@@ -45,26 +49,25 @@ public class MoveByPositionRule {
 		this.chessMove = chessMove;
 		evaluateMove(chessMove);
 	}
-	  
-    @Action(order = 2)
-    public void Finally(Facts facts) throws Exception {
-    	
-    	IChessMove best = facts.get(EasyRuleEngine.BEST_MOVE);
-    	
-    	if (best.owner()==null || best.possibilities().get(0).getScore()<chessMove.possibilities().get(0).getScore())
-    		facts.put(EasyRuleEngine.BEST_MOVE, chessMove);
-    	
-    	facts.put(EasyRuleEngine.ACTION, ai.easyrules.Action.ONLY_MOVE);
-    }
-	
 
-	
+	@Action(order = 2)
+	public void Finally(Facts facts) throws Exception {
+
+		IChessMove best = facts.get(EasyRuleEngine.BEST_MOVE);
+
+		if (best.owner() == null
+				|| best.possibilities().get(0).getScore() < chessMove.possibilities().get(0).getScore())
+			facts.put(EasyRuleEngine.BEST_MOVE, chessMove);
+
+		facts.put(EasyRuleEngine.ACTION, ai.easyrules.Action.ONLY_MOVE);
+	}
+
 	private void evaluateMove(IChessMove move) {
 		char fen = move.owner().toFen();
 		List<IChessBoardSquare> possibilities = move.possibilities();
-		if(possibilities.size()>1)
+		if (possibilities.size() > 1)
 			throw new RuntimeException("Should not happes");
-		
+
 		IChessBoardSquare possibleMove = possibilities.get(0);
 		int rank = possibleMove.rank();
 		int file = possibleMove.file();
@@ -100,10 +103,10 @@ public class MoveByPositionRule {
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + fen);
 		}
-		
-		int oldscore=possibleMove.getScore();
+
+		int oldscore = possibleMove.getScore();
 		possibleMove.addScore(bestScore);
-		System.out.println("increasing score for PAWN rank = "+rank +" file= "+file+" old score "+oldscore+" new score "+possibleMove.getScore());
+//		System.out.println("increasing score for PAWN rank = "+rank +" file= "+file+" old score "+oldscore+" new score "+possibleMove.getScore());
 
 	}
 }

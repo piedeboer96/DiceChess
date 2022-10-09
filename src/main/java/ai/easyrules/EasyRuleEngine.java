@@ -13,121 +13,128 @@ import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessPiece;
+import chess.units.ChessPiece;
+import chess.units.Queen;
 import chess.utility.ChessMove;
 
 public class EasyRuleEngine {
 
-	
 	public static final String BEST_MOVE = "BestMove";
 	public static final String ACTION = "Action";
-	
+
 	private IChessMatch match;
 	private Rules rules;
 	private Facts facts;
 	private DefaultRulesEngine rulesEngine;
 	private int currentPlayer;
-	private Action action=Action.UNKNOWN;
-	private IChessMove bestMove ;
+	private Action action = Action.NO_MOVE;
+	private IChessMove bestMove;
+	private char rollTheDie;
 
-	public EasyRuleEngine(IChessMatch match) {
-		
+	public EasyRuleEngine(IChessMatch match, char res) {
+
 		this.match = match;
-		 rules = loaRules();
-		 facts = new Facts();
-		 rulesEngine = new DefaultRulesEngine();
-		 currentPlayer = match.getPlayer();
-		 facts.put(ACTION, action);
+		this.rollTheDie = res;
+		rules = loaRules();
+		facts = new Facts();
+		rulesEngine = new DefaultRulesEngine();
+		currentPlayer = match.getPlayer();
+		facts.put(ACTION, action);
 
-		 bestMove=new ChessMove(null,new ArrayList<IChessBoardSquare>());
-		 facts.put(BEST_MOVE, bestMove);
-		 
-		 RuleListener myRuleListener = new RuleListener() {
-				@Override
-				public void onSuccess(Rule rule, Facts facts) {
-					
-					
-					System.out.println("rule " + rule.getDescription());
-					System.out.println(rule.getName());
-					System.out.println("Facts " + facts);
-				}
-			};
-		
+		bestMove = new ChessMove(null, new ArrayList<IChessBoardSquare>());
+		facts.put(BEST_MOVE, bestMove);
+
+		RuleListener myRuleListener = new RuleListener() {
+			@Override
+			public void onSuccess(Rule rule, Facts facts) {
+
+//				System.out.println("rule " + rule.getDescription());
+//				System.out.println(rule.getName());
+//				System.out.println("Facts " + facts);
+			}
+		};
+
 		rulesEngine.registerRuleListener(myRuleListener);
 	}
-	
+
 	public void play() {
-		
-		// this is the main loop to determine witch move we are going to choose 
-		
-		//Step .1 let's find the all the legal moves 
-		
+
+		// this is the main loop to determine witch move we are going to choose
+
+		// Step .1 let's find the all the legal moves
+
 		List<IChessMove> moves = match.legalMovesOf(currentPlayer);
-		
-		//Step .2 if we want to have simple rules we need to split and do not have more then one possible move for each owner 
-		
-		
+
+		// Step .2 if we want to have simple rules we need to split and do not have more then one possible move for each owner
+
 		List<IChessMove> movesSplitted = splitMoves(moves);
 
-		//Step .3 foreach legal move we got the score base on rules 
-		
+		// Step .3 adding the roll to the
+		facts.put("ROLL", rollTheDie);
+		// Step .4 foreach legal move we got the score base on rules
 		for (IChessMove move : movesSplitted) {
 			facts.put("ChessMove", move);
 			rulesEngine.fire(rules, facts);
-			
+
 		}
-		
-		//Step .4 now we fetch from facts the Action and we execute our game
-		
-		Action action=facts.get(ACTION);
+
+		// Step .5 now we fetch from facts the Action and we execute our game
+
+		Action action = facts.get(ACTION);
 		switch (action) {
-		case ONLY_MOVE: 
-			System.out.println("ONLY_MOVE");
+		case ONLY_MOVE:
+//			System.out.println("ONLY_MOVE");
 			IChessMove bestMove = facts.get(BEST_MOVE);
-			System.out.println("The best move is "+bestMove);
-			match.playMove(bestMove.owner(),bestMove.possibilities().get(0));
+//			System.out.println("The best move is " + bestMove);
+			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
 			break;
-		case MOVE_AND_UPGRADE: 
-			System.out.println("MOVE_AND_UPGRADE");
+		case MOVE_AND_PROMOTE:
+			ChessPiece newQueen = null;
+//			System.out.println("MOVE_AND_PROMOTE");
+			bestMove = facts.get(BEST_MOVE);
+			int file = bestMove.possibilities().get(0).file();
+			int rank = bestMove.possibilities().get(0).rank();
+			if (bestMove.owner().toFen() == 'P') {
+
+				newQueen = new Queen('Q', file, rank);
+			} else {
+				newQueen = new Queen('q', file, rank);
+			}
+			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
+			match.promote(bestMove.owner(), newQueen);
 			break;
+		case NO_MOVE:
 			
+			System.out.println("no move for this turn");
+			break;
+
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + action);
 		}
 
 		/*
-		IChessMove chooseMyMove = chooseMyMove(moves);
-		System.out.println("chessMove piece " + chooseMyMove);
-		IChessBoardSquare destinationBoard=Utils.findMaxPossibilites(chooseMyMove.possibilities());
-		IChessPiece piece=chooseMyMove.owner();
-		System.out.println("");
-		System.err.println("AI decide to move   "+ piece+ "  ----to--->>>  "+destinationBoard);
-		System.out.println("Press Enter to continue");
-		match.playMove(piece,destinationBoard);
-*/
-		
+		 * IChessMove chooseMyMove = chooseMyMove(moves); System.out.println("chessMove piece " + chooseMyMove); IChessBoardSquare destinationBoard=Utils.findMaxPossibilites(chooseMyMove.possibilities()); IChessPiece piece=chooseMyMove.owner(); System.out.println("");
+		 * System.err.println("AI decide to move   "+ piece+ "  ----to--->>>  "+destinationBoard); System.out.println("Press Enter to continue"); match.playMove(piece,destinationBoard);
+		 */
+
 	}
 
-	
-	
-	
-
 	public List<IChessMove> splitMoves(List<IChessMove> moves) {
-		List<IChessMove> splittedMoves= new ArrayList<IChessMove>();
-		
+		List<IChessMove> splittedMoves = new ArrayList<IChessMove>();
+
 		for (IChessMove move : moves) {
 			IChessPiece owner = move.owner();
 			List<IChessBoardSquare> possibilities = move.possibilities();
-			for (IChessBoardSquare possiblity : possibilities) {
+			for (IChessBoardSquare possibility : possibilities) {
+				possibility.resetScore();
 				ArrayList<IChessBoardSquare> list = new ArrayList<IChessBoardSquare>();
-				list.add(possiblity);
+				list.add(possibility);
 				splittedMoves.add(new ChessMove(owner, list));
 			}
 		}
-		
+
 		return splittedMoves;
 	}
- 
-
 
 	private Rules loaRules() {
 
@@ -138,28 +145,18 @@ public class EasyRuleEngine {
 		// this simple rules assign 1 score if the piece can be moved FWD
 		MoveForwardRule moveRules = new MoveForwardRule();
 		rules.register(moveRules);
- 		
+
 		MoveByPositionRule moveByposition = new MoveByPositionRule();
 		rules.register(moveByposition);
 
 		MoveByValueRule moveByValue = new MoveByValueRule();
 		rules.register(moveByValue);
 
- 
+		PromoteRule promoteRule = new PromoteRule();
+		rules.register(promoteRule);
+
 		return rules;
 
 	}
-
-	public IChessMove getNextMove() {
-		System.err.println("The best move is " + bestMove);
-		return bestMove;
-	}
-
-	
-
-	
-	
-	
-	
 
 }

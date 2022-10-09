@@ -44,6 +44,12 @@ public class ChessBoardSquare implements IChessBoardSquare {
 	}
 
 	@Override
+	public void resetScore() {
+		this.score = 0;
+
+	}
+
+	@Override
 	public int getScore() {
 		return score;
 	}

@@ -30,6 +30,6 @@ public interface IChessBoardSquare
 	 * moves then lower score .
 	 **/
 	void addScore(int score);
-
+	void resetScore();
 	int getScore();
 }
