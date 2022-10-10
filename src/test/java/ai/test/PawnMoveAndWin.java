@@ -21,11 +21,14 @@ class PawnMoveAndWin {
 		for (IChessMove mv : moves) {
 			if (mv.owner().toFen() == 'p')
 				System.out.println(mv);
-		}
-
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'p');
-		dumyRuleEngine.play();
-
+			}
+			
+			
+ 		
+			EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'p');
+			dumyRuleEngine.play();
+ 
+	 
 	}
 
 }
