@@ -40,19 +40,20 @@ public class RunGameByDummyAI {
 			// first we need fire the roll
 			Die myRoll = new Die();
 			char rollTheDie = myRoll.roll(currentPlayer);
-	
 
 			// dumpMoves(moves);
 			window.displayMatch(match);
 
-
 			EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, rollTheDie);
 			dumyRuleEngine.play();
 
-//				try {
-//					System.in.read();
-//				} catch (Exception e) {
-//				}
+			while (((ChessGameWindow) window).getPause())
+				try {
+
+					sleep(100);
+
+				} catch (Exception e) {
+				}
 
 			sleep(1000);
 			window.displayMatch(match);
