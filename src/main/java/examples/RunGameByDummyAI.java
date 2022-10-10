@@ -1,15 +1,10 @@
 package examples;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import ai.easyrules.EasyRuleEngine;
-import ai.easyrules.Utils;
 import chess.ChessMatch;
-import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessMatch;
-import chess.interfaces.IChessMove;
-import chess.interfaces.IChessPiece;
 import die.Die;
 import gui.ChessGameWindow;
 import gui.interfaces.IChessGameWindow;
