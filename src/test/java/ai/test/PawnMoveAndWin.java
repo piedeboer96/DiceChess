@@ -25,10 +25,10 @@ class PawnMoveAndWin {
 			}
 			
 			
-			
+/*			
 			EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'p');
 			dumyRuleEngine.play();
-
+*/
 	 
 	}
 

@@ -52,7 +52,7 @@ public class Factory
                 {
                     int digit = Character.getNumericValue(c);
                     // Emptying the board on every empty square we have interpreted.
-                    for (int k = 0; k < digit; k++) { squares[index + k] = null; }
+                    for (int k = file; k < digit; k++) { squares[index + k] = null; }
 
                     // Updating the file number as we have added a few empty squares.
                     file = file + digit;
