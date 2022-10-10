@@ -62,7 +62,7 @@ public class MoveForwardRule {
 
 	private void evaluateMove(IChessMove move) {
 		int team = move.owner().team();
-		System.out.println("Evaluating team " + team);
+//		System.out.println("Evaluating team " + team);
 		// team 1 white
 		IChessBoardSquare possibleMove = move.possibilities().get(0);
 		int rank = possibleMove.rank();

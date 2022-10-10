@@ -106,7 +106,8 @@ public class EasyRuleEngine {
 			break;
 		case NO_MOVE:
 
-			System.out.println("no move for this turn");
+			System.out.println("no move for this turn for " + currentPlayer);
+			currentPlayer = match.nextPlayer();
 			break;
 
 		default:

@@ -45,34 +45,24 @@ public class RunGameByDummyAI {
 			// first we need fire the roll
 			Die myRoll = new Die();
 			char rollTheDie = myRoll.roll(currentPlayer);
-			System.err.println(rollTheDie);
-
-			List<IChessMove> moves = match.legalMovesOf(currentPlayer);
+			System.err.println(rollTheDie + " for player " + currentPlayer);
 
 			// dumpMoves(moves);
 			window.displayMatch(match);
 
-			if (moves.isEmpty()) {
-				System.out.println("I cant move any pieces .... :(");
-				currentPlayer = match.nextPlayer();
-			} else {
 
-				EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match,rollTheDie);
-				dumyRuleEngine.play();
+			EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, rollTheDie);
+			dumyRuleEngine.play();
 
 //				try {
 //					System.in.read();
 //				} catch (Exception e) {
 //				}
 
-				sleep(1000);
-				window.displayMatch(match);
-				currentPlayer = match.getPlayer();
+			sleep(1000);
+			window.displayMatch(match);
 
-			}
-			System.out.println("New player is " + currentPlayer);
 		}
-
 	}
 
 	private void sleep(int sec) {
