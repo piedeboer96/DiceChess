@@ -26,10 +26,11 @@ public interface IChessBoardSquare
      **/
     int toIndex();
     /**
-	 * This field will contain the score given to a piece , high score are better
+	 * This field will contain the score given to a piece, high score are better
 	 * moves then lower score .
 	 **/
 	void addScore(int score);
 	void resetScore();
 	int getScore();
+    boolean checkEnemy(int file, int rank);
 }
