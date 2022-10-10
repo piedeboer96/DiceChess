@@ -1,21 +1,16 @@
 package ai.easyrules;
 
-import java.util.List;
-
+import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessMove;
+import chess.interfaces.IChessPiece;
+import chess.units.*;
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
-import chess.interfaces.IChessBoardSquare;
-import chess.interfaces.IChessMove;
-import chess.units.Bishop;
-import chess.units.King;
-import chess.units.Knight;
-import chess.units.Pawn;
-import chess.units.Queen;
-import chess.units.Rook;
+import java.util.List;
 
 /*
   
@@ -29,8 +24,8 @@ import chess.units.Rook;
   
  */
 
-@Rule(name = "Move By Value Rule ", description = "Add a score according to the type of fen", priority = 1)
-public class MoveByValueRule {
+@Rule(name = "Attack Rule ", description = "Add a score according to capturing a piece", priority = 1)
+public class AttackRule {
 
 	@Condition
 	public boolean when(@Fact("ChessMove") IChessMove move, @Fact("ROLL") char roll) {
@@ -41,7 +36,7 @@ public class MoveByValueRule {
 	}
 
 	@Action(order = 1)
-	public void increaseRanking(@Fact("ChessMove") IChessMove chessMove) {
+	public void attackMove(@Fact("ChessMove") IChessMove chessMove) {
 		/*
 		 * 
 		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
@@ -56,24 +51,52 @@ public class MoveByValueRule {
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
 
+		// need to change ENUM to  ATTACK
 		facts.put(EasyRuleEngine.ACTION, ai.easyrules.Action.ONLY_MOVE);
 	}
 
 	private void evaluateMove(IChessMove move) {
 		char fen = move.owner().toFen();
+
+		IChessPiece owner = move.owner();  						// the owner of the move
+
 		List<IChessBoardSquare> possibilities = move.possibilities();
 
 		switch (fen) {
+
 		case 'P':
 		case 'p':
 
 			for (IChessBoardSquare iChessBoardSquare : possibilities) {
+
+				IChessPiece pieceOnTargetDestination = null;					//HOW DO I GET THIS?
+				boolean isEnemy = owner.opponentOf(pieceOnTargetDestination);
+
+				if (isEnemy) {
+
+					// piece in that position has a score field
+					// add this score to the move
+				} else {
+					System.out.println("Friendly piece...");
+				}
+
+
 				int rank = iChessBoardSquare.rank();
 				int file = iChessBoardSquare.file();
-				int oldscore = iChessBoardSquare.getScore();
-				iChessBoardSquare.addScore(-Pawn.pointValue);
+
+
+				//int oldscore = iChessBoardSquare.getScore();
+
+				// we want to check all possible attacks by our pawn
+				// which other pieces are on the reachable destinations of the pawn
+
+
+
+
+//				iChessBoardSquare.addScore(-Pawn.pointValue);
 //				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
 //						+ oldscore + " new score " + iChessBoardSquare.getScore());
+
 			}
 
 			break;

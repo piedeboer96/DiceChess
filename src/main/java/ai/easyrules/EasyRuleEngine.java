@@ -75,7 +75,6 @@ public class EasyRuleEngine {
 		for (IChessMove move : movesSplitted) {
 			facts.put("ChessMove", move);
 			rulesEngine.fire(rules, facts);
-
 		}
 
 		// Step .5 now we fetch from facts the Action and we execute our game

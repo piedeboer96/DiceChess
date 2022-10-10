@@ -106,7 +106,6 @@ public abstract class ChessPiece implements IChessPiece {
 
 	public int toIndex() {
 		return (rank * 8) + file;
-
 	}
 
 	@Override
