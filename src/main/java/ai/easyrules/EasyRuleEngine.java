@@ -87,8 +87,8 @@ public class EasyRuleEngine {
 //			System.out.println("ONLY_MOVE");
 			IChessMove bestMove = facts.get(BEST_MOVE);
 //			System.out.println("The best move is " + bestMove);
-			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
 			System.out.println("Player "+currentPlayer + " with rool "+rollTheDie +" move " +bestMove.owner()+ "  ----to--->>>  "+bestMove.possibilities());
+			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
 			break;
 		case MOVE_AND_PROMOTE:
 			ChessPiece newQueen = null;
@@ -102,9 +102,9 @@ public class EasyRuleEngine {
 			} else {
 				newQueen = new Queen('q', file, rank);
 			}
+			System.out.println("Player "+currentPlayer + " with rool "+rollTheDie +" move " +bestMove.owner()+ "  ----to--->>>  "+bestMove.possibilities() + " and promote Queen");
 			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
 			match.promote(bestMove.owner(), newQueen);
-			System.out.println("Player "+currentPlayer + " with rool "+rollTheDie +" move " +bestMove.owner()+ "  ----to--->>>  "+bestMove.possibilities() + " and promote Queen");
 			break;
 		case NO_MOVE:
 
