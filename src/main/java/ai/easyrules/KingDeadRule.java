@@ -60,13 +60,8 @@ public class KingDeadRule {
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
 
-		IChessMove best = facts.get(EasyRuleEngine.BEST_MOVE);
-
-		if (best.owner() == null
-				|| best.possibilities().get(0).getScore() < chessMove.possibilities().get(0).getScore())
-			facts.put(EasyRuleEngine.BEST_MOVE, chessMove);
-
-		facts.put(EasyRuleEngine.ACTION, ai.easyrules.Action.FINISH_MATCH);
+            facts.put(EasyRuleEngine.BEST_MOVE, chessMove);
+			facts.put(EasyRuleEngine.ACTION, ai.easyrules.Action.FINISH_MATCH);
 
 	}
 

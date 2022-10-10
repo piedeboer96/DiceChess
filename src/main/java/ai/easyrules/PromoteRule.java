@@ -63,10 +63,10 @@ public class PromoteRule {
 		IChessMove best = facts.get(EasyRuleEngine.BEST_MOVE);
 
 		if (best.owner() == null
-				|| best.possibilities().get(0).getScore() < chessMove.possibilities().get(0).getScore())
+				|| best.possibilities().get(0).getScore() < chessMove.possibilities().get(0).getScore()) {
 			facts.put(EasyRuleEngine.BEST_MOVE, chessMove);
-
-		facts.put(EasyRuleEngine.ACTION, ai.easyrules.Action.MOVE_AND_PROMOTE);
+			facts.put(EasyRuleEngine.ACTION, ai.easyrules.Action.MOVE_AND_PROMOTE);
+		}
 
 	}
 

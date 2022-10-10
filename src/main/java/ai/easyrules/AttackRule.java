@@ -28,6 +28,7 @@ import java.util.List;
 @Rule(name = "Attack Rule ", description = "Add a score according to capturing a piece", priority = 1)
 public class AttackRule {
 	private IChessPiece opponentPiece;
+	private IChessMove chessMove;
 
 	@Condition
 	public boolean when(@Fact("ChessMove") IChessMove move, @Fact("Match") IChessMatch match, @Fact("ROLL") char roll) {
@@ -42,6 +43,7 @@ public class AttackRule {
 
 	@Action(order = 1)
 	public void attackMove(@Fact("ChessMove") IChessMove chessMove) {
+		this.chessMove = chessMove;
 		/*
 		 * 
 		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
@@ -56,8 +58,13 @@ public class AttackRule {
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
 
-		// need to change ENUM to ATTACK
-		facts.put(EasyRuleEngine.ACTION, ai.easyrules.Action.ONLY_MOVE);
+		IChessMove best = facts.get(EasyRuleEngine.BEST_MOVE);
+
+		if (best.owner() == null
+				|| best.possibilities().get(0).getScore() < chessMove.possibilities().get(0).getScore()) {
+			facts.put(EasyRuleEngine.BEST_MOVE, chessMove);
+			facts.put(EasyRuleEngine.ACTION, ai.easyrules.Action.ONLY_MOVE);
+		}
 	}
 
 	private void evaluateMove(IChessMove move) {
