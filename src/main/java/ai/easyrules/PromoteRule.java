@@ -25,7 +25,7 @@ import chess.interfaces.IChessMove;
  */
 
 
-@Rule(name = "- Promote to Queen -", description = "Promote the pawn in the first opponent line ", priority = 1)
+@Rule(name = "- Promote to Queen -", description = "Promote the pawn in the first opponent line ", priority = 9)
 public class PromoteRule {
 
 	int currentScore = 0;

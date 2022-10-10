@@ -63,7 +63,7 @@ public class RunGameByDummyAI {
 			while (((ChessGameWindow) window).getPause())
 				try {
 
-					sleep(100);
+					sleep(10);
 
 				} catch (Exception e) {
 				}
