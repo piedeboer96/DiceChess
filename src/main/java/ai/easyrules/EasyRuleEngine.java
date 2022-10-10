@@ -115,7 +115,7 @@ public class EasyRuleEngine {
 			break;
 		case FINISH_MATCH:
 			System.out.println("The game is over you won ");
-
+			break;
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + action);
 		}
