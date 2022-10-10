@@ -1,17 +1,19 @@
 package ai.easyrules;
 
-import chess.interfaces.IChessBoardSquare;
-import chess.interfaces.IChessMatch;
-import chess.interfaces.IChessMove;
-import chess.interfaces.IChessPiece;
-import chess.units.*;
+import java.util.List;
+
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
-import java.util.List;
+import ai.evaluation.PieceSquareTable;
+import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessMatch;
+import chess.interfaces.IChessMove;
+import chess.interfaces.IChessPiece;
+import chess.units.King;
 
 /*
   
@@ -25,14 +27,18 @@ import java.util.List;
   
  */
 
-@Rule(name = "Attack Rule ", description = "Add a score according to capturing a piece", priority = 1)
-public class AttackRule {
+@Rule(name = "king dead", description = "End of the game because the king is dead ", priority = 1)
+public class KingDeadRule {
+
+	int currentScore = 0;
+	private IChessMove chessMove;
 	private IChessPiece opponentPiece;
 
 	@Condition
 	public boolean when(@Fact("ChessMove") IChessMove move, @Fact("Match") IChessMatch match, @Fact("ROLL") char roll) {
 		opponentPiece = match.get(move.possibilities().get(0));
-		if (move.owner().toFen() == roll && opponentPiece != null) {
+		if (move.owner().toFen() == roll && opponentPiece != null
+				&& (opponentPiece.toFen() == 'K' || opponentPiece.toFen() == 'k')) {
 
 			return true;
 
@@ -41,66 +47,30 @@ public class AttackRule {
 	}
 
 	@Action(order = 1)
-	public void attackMove(@Fact("ChessMove") IChessMove chessMove) {
+	public void kingIsDead(@Fact("ChessMove") IChessMove chessMove) {
 		/*
 		 * 
 		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
 		 * 
 		 */
-//		System.out.println("");
+		this.chessMove = chessMove;
 		evaluateMove(chessMove);
-//		System.out.println("");
-
 	}
 
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
 
-		// need to change ENUM to ATTACK
-		facts.put(EasyRuleEngine.ACTION, ai.easyrules.Action.ONLY_MOVE);
+		IChessMove best = facts.get(EasyRuleEngine.BEST_MOVE);
+
+		if (best.owner() == null
+				|| best.possibilities().get(0).getScore() < chessMove.possibilities().get(0).getScore())
+			facts.put(EasyRuleEngine.BEST_MOVE, chessMove);
+
+		facts.put(EasyRuleEngine.ACTION, ai.easyrules.Action.FINISH_MATCH);
+
 	}
 
 	private void evaluateMove(IChessMove move) {
-		char fen = opponentPiece.toFen();
-
-		List<IChessBoardSquare> possibilities = move.possibilities();
-
-		switch (fen) {
-
-		case 'P':
-		case 'p':
-			possibilities.get(0).addScore(2*Pawn.pointValue);
-			break;
-		case 'B':
-		case 'b':
-
-			possibilities.get(0).addScore(2*Bishop.pointValue);
-			break;
-		case 'K':
-		case 'k':
-
-			possibilities.get(0).addScore(2*King.pointValue);
-			break;
-		case 'N':
-		case 'n':
-
-			possibilities.get(0).addScore(2*Knight.pointValue);
-
-			break;
-		case 'Q':
-		case 'q':
-			possibilities.get(0).addScore(2*Queen.pointValue);
-
-			break;
-		case 'R':
-		case 'r':
-
-			possibilities.get(0).addScore(2*Rook.pointValue);
-
-			break;
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + fen);
-
-		}
+		move.possibilities().get(0).addScore(100000);
 	}
 }

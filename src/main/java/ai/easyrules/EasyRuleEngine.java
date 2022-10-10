@@ -22,6 +22,7 @@ public class EasyRuleEngine {
 	public static final String BEST_MOVE = "BestMove";
 	public static final String ACTION = "Action";
 	private static final String MATCH = "Match";
+	private static final String FINISH_MATCH = null;
 
 	private IChessMatch match;
 	private Rules rules;
@@ -45,6 +46,7 @@ public class EasyRuleEngine {
 		facts.put(MATCH, match);
 		bestMove = new ChessMove(null, new ArrayList<IChessBoardSquare>());
 		facts.put(BEST_MOVE, bestMove);
+		
 
 		RuleListener myRuleListener = new RuleListener() {
 			@Override
@@ -111,6 +113,9 @@ public class EasyRuleEngine {
 			System.out.println("Player "+currentPlayer + " with rool "+rollTheDie +" can't move any piece ");
 			currentPlayer = match.nextPlayer();
 			break;
+		case FINISH_MATCH:
+			System.out.println("The game is over you won ");
+			match.playerIsCheckMated(match.nextPlayer());
 
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + action);
@@ -161,7 +166,8 @@ public class EasyRuleEngine {
 		rules.register(promoteRule);
 		AttackRule attackRule = new AttackRule();
 		rules.register(attackRule);
-
+		KingDeadRule kingDeadRule = new KingDeadRule();
+		rules.register(kingDeadRule);
 		return rules;
 
 	}
