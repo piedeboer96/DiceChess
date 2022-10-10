@@ -46,22 +46,20 @@ public class EasyRuleEngine {
 		facts.put(MATCH, match);
 		bestMove = new ChessMove(null, new ArrayList<IChessBoardSquare>());
 		facts.put(BEST_MOVE, bestMove);
-		
 
 		RuleListener myRuleListener = new RuleListener() {
 			@Override
 			public void onSuccess(Rule rule, Facts facts) {
 
-				System.out.println("rule " + rule.getDescription());
-				System.out.println(rule.getName());
-				System.out.println("Facts " + facts);
+				System.out.println("rule ->" + rule.getDescription() + "name ->" + rule.getName());
+//				System.out.println("Facts " + facts);
 			}
 		};
 
 		rulesEngine.registerRuleListener(myRuleListener);
 	}
 
-	public void play() {
+	public Action play() {
 
 		// this is the main loop to determine witch move we are going to choose
 
@@ -89,7 +87,8 @@ public class EasyRuleEngine {
 //			System.out.println("ONLY_MOVE");
 			IChessMove bestMove = facts.get(BEST_MOVE);
 //			System.out.println("The best move is " + bestMove);
-			System.out.println("Player "+currentPlayer + " with rool "+rollTheDie +" move " +bestMove.owner()+ "  ----to--->>>  "+bestMove.possibilities());
+			System.out.println("Player " + currentPlayer + " with rool " + rollTheDie + " move " + bestMove.owner()
+					+ "  ----to--->>>  " + bestMove.possibilities());
 			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
 			break;
 		case MOVE_AND_PROMOTE:
@@ -104,28 +103,23 @@ public class EasyRuleEngine {
 			} else {
 				newQueen = new Queen('q', file, rank);
 			}
-			System.out.println("Player "+currentPlayer + " with rool "+rollTheDie +" move " +bestMove.owner()+ "  ----to--->>>  "+bestMove.possibilities() + " and promote Queen");
+			System.out.println("Player " + currentPlayer + " with rool " + rollTheDie + " move " + bestMove.owner()
+					+ "  ----to--->>>  " + bestMove.possibilities() + " and promote Queen");
 			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
 			match.promote(bestMove.owner(), newQueen);
 			break;
 		case NO_MOVE:
 
-			System.out.println("Player "+currentPlayer + " with rool "+rollTheDie +" can't move any piece ");
+			System.out.println("Player " + currentPlayer + " with rool " + rollTheDie + " can't move any piece ");
 			currentPlayer = match.nextPlayer();
 			break;
 		case FINISH_MATCH:
 			System.out.println("The game is over you won ");
-			match.playerIsCheckMated(match.nextPlayer());
 
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + action);
 		}
-
-		
-		  
-		   
-		  
-		
+		return action;
 
 	}
 

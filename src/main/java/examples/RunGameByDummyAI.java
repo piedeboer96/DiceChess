@@ -2,6 +2,7 @@ package examples;
 
 import java.util.concurrent.TimeUnit;
 
+import ai.easyrules.Action;
 import ai.easyrules.EasyRuleEngine;
 import chess.ChessMatch;
 import chess.interfaces.IChessMatch;
@@ -23,10 +24,11 @@ public class RunGameByDummyAI {
 		ChessGameWindow window = new ChessGameWindow();
 
 		String startPos;
-		//full pieces
-		startPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-		
+		// full pieces
 		startPos = "8/8/8/p/1K6/8/8/k w - - 0 1";
+		startPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
+
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
 		match.loadKings();
@@ -40,7 +42,6 @@ public class RunGameByDummyAI {
 
 		int i = 0;
 		int maxMove = 1000;
-
 		while (i++ < maxMove) {
 			currentPlayer = match.getPlayer();
 			// first we need fire the roll
@@ -48,10 +49,14 @@ public class RunGameByDummyAI {
 			char rollTheDie = myRoll.roll(currentPlayer);
 
 			// dumpMoves(moves);
-	
 
 			EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, rollTheDie);
-			dumyRuleEngine.play();
+			Action play = dumyRuleEngine.play();
+			if (play == Action.FINISH_MATCH) {
+				while (true) {
+					sleep(500);
+				}
+			}
 			window.updateUI();
 
 			while (((ChessGameWindow) window).getPause())
