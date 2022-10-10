@@ -51,7 +51,8 @@ public class EasyRuleEngine {
 			@Override
 			public void onSuccess(Rule rule, Facts facts) {
 
-				System.out.println("rule ->" + rule.getDescription() + "name ->" + rule.getName());
+				Object bestScore = facts.get(BEST_MOVE);
+				System.out.println("Rule   "+ rule.getName()+ " "+bestScore);
 //				System.out.println("Facts " + facts);
 			}
 		};

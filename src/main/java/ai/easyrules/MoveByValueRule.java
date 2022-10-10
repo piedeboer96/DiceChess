@@ -29,7 +29,8 @@ import chess.units.Rook;
   
  */
 
-@Rule(name = "Move By Value Rule ", description = "Add a score according to the type of fen", priority = 1)
+
+@Rule(name = "- Move By Value    -", description = "Add a score according to the type of fen", priority = 1)
 public class MoveByValueRule {
 
 	private IChessMove chessMove;

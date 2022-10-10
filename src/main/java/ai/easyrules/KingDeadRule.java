@@ -27,7 +27,9 @@ import chess.units.King;
   
  */
 
-@Rule(name = "king dead", description = "End of the game because the king is dead ", priority = 1)
+
+
+@Rule(name = "- King  Dead       -", description = "End of the game because the king is dead ", priority = 1)
 public class KingDeadRule {
 
 	int currentScore = 0;

@@ -24,7 +24,7 @@ import chess.interfaces.IChessMove;
   
  */
 
-@Rule(name = "Move By Position Rule", description = "Move in the high value for the position ", priority = 1)
+@Rule(name = "- Move By Position -", description = "Move in the high value for the position ", priority = 1)
 public class MoveByPositionRule {
 
 	int currentScore = 0;

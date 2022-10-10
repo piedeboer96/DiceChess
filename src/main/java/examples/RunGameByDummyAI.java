@@ -54,6 +54,7 @@ public class RunGameByDummyAI {
 			Action play = dumyRuleEngine.play();
 			if (play == Action.FINISH_MATCH) {
 				while (true) {
+					window.updateUI();
 					sleep(500);
 				}
 			}

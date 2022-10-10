@@ -21,7 +21,8 @@ import chess.interfaces.IChessMove;
   
  */
 
-@Rule(name = "Move Forward Rule ", description = "Add 1 score if we can move forward", priority = 1)
+ 
+@Rule(name = "- Move Forward     -", description = "Add 1 score if we can move forward", priority = 1)
 public class MoveForwardRule {
 
 	private IChessMove chessMove;
