@@ -18,11 +18,11 @@ public class RunGameByDummyAI {
 	public static void main(String[] args) {
 
 		RunGameByDummyAI runGame = new RunGameByDummyAI();
-		runGame.mailLoop();
+		runGame.mainLoop();
 
 	}
 
-	public void mailLoop() {
+	public void mainLoop() {
 
 		// Creating a new window.
 		IChessGameWindow window = new ChessGameWindow();
@@ -65,7 +65,7 @@ public class RunGameByDummyAI {
 //				} catch (Exception e) {
 //				}
 
-				sleep(500);
+				sleep(1000);
 				window.displayMatch(match);
 				currentPlayer = match.getPlayer();
 
