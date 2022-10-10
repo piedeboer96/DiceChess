@@ -22,8 +22,14 @@ public class RunGameByDummyAI {
 		// Creating a new window.
 		ChessGameWindow window = new ChessGameWindow();
 
+		String startPos;
+		//full pieces
+		startPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+		
+		startPos = "8/8/8/p/1K6/8/8/k w - - 0 1";
 		// Creating a new match.
-		IChessMatch match = new ChessMatch();
+		ChessMatch match = new ChessMatch(startPos);
+		match.loadKings();
 
 		// Displays the match
 		window.displayMatch(match);

@@ -24,6 +24,7 @@ public class ChessGameWindow implements IChessGameWindow {
 		frame.setBounds(200, 50, 617, 655);
 		frame.setResizable(false);
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		MouseListener mouseClick = new MouseListener() {
 
@@ -108,3 +109,5 @@ public class ChessGameWindow implements IChessGameWindow {
 		player.setPlayground(null);
 	}
 }
+
+

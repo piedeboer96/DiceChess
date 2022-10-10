@@ -52,9 +52,9 @@ public class EasyRuleEngine {
 			@Override
 			public void onSuccess(Rule rule, Facts facts) {
 
-//				System.out.println("rule " + rule.getDescription());
-//				System.out.println(rule.getName());
-//				System.out.println("Facts " + facts);
+				System.out.println("rule " + rule.getDescription());
+				System.out.println(rule.getName());
+				System.out.println("Facts " + facts);
 			}
 		};
 

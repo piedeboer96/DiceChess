@@ -316,7 +316,7 @@ public abstract class ChessBoard implements IChessBoard
      * Sets a reference in the king array for the king of each time.
      * This method should be called after each new board construction from the factory.
      **/
-    protected void loadKings()
+    public void loadKings()
     {
         for (IChessPiece piece : pieces)
         {
