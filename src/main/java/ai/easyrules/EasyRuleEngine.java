@@ -32,11 +32,11 @@ public class EasyRuleEngine {
 	private IChessMove bestMove;
 	private char rollTheDie;
 
-	public EasyRuleEngine(IChessMatch match, char res) {
+	public EasyRuleEngine(IChessMatch match, char roll) {
 
 		this.match = match;
 
-		this.rollTheDie = res;
+		this.rollTheDie = roll;
 		rules = loaRules();
 		facts = new Facts();
 		rulesEngine = new DefaultRulesEngine();
@@ -88,6 +88,7 @@ public class EasyRuleEngine {
 			IChessMove bestMove = facts.get(BEST_MOVE);
 //			System.out.println("The best move is " + bestMove);
 			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
+			System.out.println("Player "+currentPlayer + " with rool "+rollTheDie +" move " +bestMove.owner()+ "  ----to--->>>  "+bestMove.possibilities());
 			break;
 		case MOVE_AND_PROMOTE:
 			ChessPiece newQueen = null;
@@ -103,10 +104,11 @@ public class EasyRuleEngine {
 			}
 			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
 			match.promote(bestMove.owner(), newQueen);
+			System.out.println("Player "+currentPlayer + " with rool "+rollTheDie +" move " +bestMove.owner()+ "  ----to--->>>  "+bestMove.possibilities() + " and promote Queen");
 			break;
 		case NO_MOVE:
 
-			System.out.println("no move for this turn for " + currentPlayer);
+			System.out.println("Player "+currentPlayer + " with rool "+rollTheDie +" can't move any piece ");
 			currentPlayer = match.nextPlayer();
 			break;
 
@@ -114,10 +116,11 @@ public class EasyRuleEngine {
 			throw new IllegalArgumentException("Unexpected value: " + action);
 		}
 
-		/*
-		 * IChessMove chooseMyMove = chooseMyMove(moves); System.out.println("chessMove piece " + chooseMyMove); IChessBoardSquare destinationBoard=Utils.findMaxPossibilites(chooseMyMove.possibilities()); IChessPiece piece=chooseMyMove.owner(); System.out.println("");
-		 * System.err.println("AI decide to move   "+ piece+ "  ----to--->>>  "+destinationBoard); System.out.println("Press Enter to continue"); match.playMove(piece,destinationBoard);
-		 */
+		
+		  
+		   
+		  
+		
 
 	}
 

@@ -40,7 +40,7 @@ public class RunGameByDummyAI {
 			// first we need fire the roll
 			Die myRoll = new Die();
 			char rollTheDie = myRoll.roll(currentPlayer);
-			System.err.println(rollTheDie + " for player " + currentPlayer);
+	
 
 			// dumpMoves(moves);
 			window.displayMatch(match);
