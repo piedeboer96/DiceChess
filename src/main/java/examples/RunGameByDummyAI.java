@@ -20,7 +20,7 @@ public class RunGameByDummyAI {
 	public void mainLoop() {
 
 		// Creating a new window.
-		IChessGameWindow window = new ChessGameWindow();
+		ChessGameWindow window = new ChessGameWindow();
 
 		// Creating a new match.
 		IChessMatch match = new ChessMatch();
@@ -42,10 +42,11 @@ public class RunGameByDummyAI {
 			char rollTheDie = myRoll.roll(currentPlayer);
 
 			// dumpMoves(moves);
-			window.displayMatch(match);
+	
 
 			EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, rollTheDie);
 			dumyRuleEngine.play();
+			window.updateUI();
 
 			while (((ChessGameWindow) window).getPause())
 				try {

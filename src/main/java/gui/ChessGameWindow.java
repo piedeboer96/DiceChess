@@ -68,7 +68,7 @@ public class ChessGameWindow implements IChessGameWindow {
 
 		boardGraphics = new ChessBoardGraphics(10, 10, 73, 75);
 		frame.add(boardGraphics);
-		boardGraphics.updateUI();
+		updateUI();
 	}
 
 	protected void setPause(boolean pause) {
@@ -88,6 +88,10 @@ public class ChessGameWindow implements IChessGameWindow {
 
 	public void displayMatch(IChessMatch match) {
 		boardGraphics.trackChessPieces(match.pieces());
+		updateUI();
+	}
+
+	public void updateUI() {
 		boardGraphics.updateUI();
 	}
 
