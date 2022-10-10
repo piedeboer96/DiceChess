@@ -21,6 +21,7 @@ public class EasyRuleEngine {
 
 	public static final String BEST_MOVE = "BestMove";
 	public static final String ACTION = "Action";
+	private static final String MATCH = "Match";
 
 	private IChessMatch match;
 	private Rules rules;
@@ -34,13 +35,14 @@ public class EasyRuleEngine {
 	public EasyRuleEngine(IChessMatch match, char res) {
 
 		this.match = match;
+
 		this.rollTheDie = res;
 		rules = loaRules();
 		facts = new Facts();
 		rulesEngine = new DefaultRulesEngine();
 		currentPlayer = match.getPlayer();
 		facts.put(ACTION, action);
-
+		facts.put(MATCH, match);
 		bestMove = new ChessMove(null, new ArrayList<IChessBoardSquare>());
 		facts.put(BEST_MOVE, bestMove);
 
@@ -103,7 +105,7 @@ public class EasyRuleEngine {
 			match.promote(bestMove.owner(), newQueen);
 			break;
 		case NO_MOVE:
-			
+
 			System.out.println("no move for this turn");
 			break;
 
@@ -153,6 +155,8 @@ public class EasyRuleEngine {
 
 		PromoteRule promoteRule = new PromoteRule();
 		rules.register(promoteRule);
+		AttackRule attackRule = new AttackRule();
+		rules.register(attackRule);
 
 		return rules;
 

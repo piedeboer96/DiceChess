@@ -32,5 +32,5 @@ public interface IChessBoardSquare
 	void addScore(int score);
 	void resetScore();
 	int getScore();
-    boolean checkEnemy(int file, int rank);
+  
 }

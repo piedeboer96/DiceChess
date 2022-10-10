@@ -53,8 +53,4 @@ public class ChessBoardSquare implements IChessBoardSquare {
 		return score;
 	}
 
-	@Override
-	public boolean checkEnemy(int file, int rank) {
-		return true;
-	}
 }
