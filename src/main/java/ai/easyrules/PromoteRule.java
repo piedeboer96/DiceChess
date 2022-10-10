@@ -1,15 +1,11 @@
 package ai.easyrules;
 
-import java.util.List;
-
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
-import ai.evaluation.PieceSquareTable;
-import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessMove;
 
 /*

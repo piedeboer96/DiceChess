@@ -1,17 +1,19 @@
 package ai.evaluation;
 
-import chess.utility.ChessBoard;
-import chess.interfaces.*;
-import chess.units.*;
+import java.util.List;
+
+import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessMatch;
+import chess.interfaces.IChessMove;
+import chess.interfaces.IChessPiece;
+import chess.units.Bishop;
+import chess.units.Knight;
+import chess.units.Queen;
+import chess.units.Rook;
 import chess.utility.ChessBoardSquare;
 
-import java.util.List;
-import java.util.HashMap;
-
 public class AttackingKingZone {
-    private int teamToEvaluate;
     private int opponentTeam;
-    private IChessMatch match;
     IChessPiece kingOfOpponent;
     private int kingZoneDistance = 1;
     private List<IChessMove> movesOfTeam;
@@ -35,8 +37,6 @@ public class AttackingKingZone {
 
 
     public AttackingKingZone(int teamToEvaluate, IChessMatch match) {
-        this.teamToEvaluate = teamToEvaluate;
-        this.match = match;
         if(teamToEvaluate == 0) {
             opponentTeam = 1;
         } else {

@@ -22,7 +22,7 @@ public class EasyRuleEngine {
 	public static final String BEST_MOVE = "BestMove";
 	public static final String ACTION = "Action";
 	private static final String MATCH = "Match";
-	private static final String FINISH_MATCH = null;
+	
 
 	private IChessMatch match;
 	private Rules rules;

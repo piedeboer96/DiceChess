@@ -78,9 +78,6 @@ public class MoveByValueRule {
 		case 'p':
 
 			for (IChessBoardSquare iChessBoardSquare : possibilities) {
-				int rank = iChessBoardSquare.rank();
-				int file = iChessBoardSquare.file();
-				int oldscore = iChessBoardSquare.getScore();
 				iChessBoardSquare.addScore(-Pawn.pointValue);
 //				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
 //						+ oldscore + " new score " + iChessBoardSquare.getScore());
@@ -93,9 +90,6 @@ public class MoveByValueRule {
 			for (IChessBoardSquare iChessBoardSquare : possibilities)
 
 			{
-				int rank = iChessBoardSquare.rank();
-				int file = iChessBoardSquare.file();
-				int oldscore = iChessBoardSquare.getScore();
 				iChessBoardSquare.addScore(-Bishop.pointValue);
 //				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
 //						+ oldscore + " new score " + iChessBoardSquare.getScore());
@@ -109,9 +103,6 @@ public class MoveByValueRule {
 			for (IChessBoardSquare iChessBoardSquare : possibilities)
 
 			{
-				int rank = iChessBoardSquare.rank();
-				int file = iChessBoardSquare.file();
-				int oldscore = iChessBoardSquare.getScore();
 				iChessBoardSquare.addScore(-King.pointValue);
 //				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
 //						+ oldscore + " new score " + iChessBoardSquare.getScore());
@@ -125,9 +116,6 @@ public class MoveByValueRule {
 			for (IChessBoardSquare iChessBoardSquare : possibilities)
 
 			{
-				int rank = iChessBoardSquare.rank();
-				int file = iChessBoardSquare.file();
-				int oldscore = iChessBoardSquare.getScore();
 				iChessBoardSquare.addScore(-Knight.pointValue);
 //				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
 //						+ oldscore + " new score " + iChessBoardSquare.getScore());
@@ -141,9 +129,6 @@ public class MoveByValueRule {
 			for (IChessBoardSquare iChessBoardSquare : possibilities)
 
 			{
-				int rank = iChessBoardSquare.rank();
-				int file = iChessBoardSquare.file();
-				int oldscore = iChessBoardSquare.getScore();
 				iChessBoardSquare.addScore(-Queen.pointValue);
 //				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
 //						+ oldscore + " new score " + iChessBoardSquare.getScore());
@@ -157,9 +142,6 @@ public class MoveByValueRule {
 			for (IChessBoardSquare iChessBoardSquare : possibilities)
 
 			{
-				int rank = iChessBoardSquare.rank();
-				int file = iChessBoardSquare.file();
-				int oldscore = iChessBoardSquare.getScore();
 				iChessBoardSquare.addScore(-Rook.pointValue);
 //				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
 //						+ oldscore + " new score " + iChessBoardSquare.getScore());

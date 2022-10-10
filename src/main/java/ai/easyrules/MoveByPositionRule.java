@@ -104,7 +104,6 @@ public class MoveByPositionRule {
 			throw new IllegalArgumentException("Unexpected value: " + fen);
 		}
 
-		int oldscore = possibleMove.getScore();
 		possibleMove.addScore(bestScore);
 //		System.out.println("increasing score for PAWN rank = "+rank +" file= "+file+" old score "+oldscore+" new score "+possibleMove.getScore());
 

@@ -11,7 +11,9 @@ import java.util.List;
 
 public class ChessBoardGraphics extends JPanel implements IChessBoardGraphics
 {
-    /**
+    private static final long serialVersionUID = 1L;
+
+	/**
      * Provides access to the chess piece images.
      **/
     private static final Cache cache = new Cache();

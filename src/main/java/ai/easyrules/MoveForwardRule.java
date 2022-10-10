@@ -67,8 +67,6 @@ public class MoveForwardRule {
 		// team 1 white
 		IChessBoardSquare possibleMove = move.possibilities().get(0);
 		int rank = possibleMove.rank();
-		int file = possibleMove.file();
-		int oldscore = possibleMove.getScore();
 
 		if (team == 1) {
 

@@ -2,8 +2,6 @@ package gui.utility;
 
 import gui.interfaces.IPromotionWindow;
 
-import javax.swing.*;
-
 public class PromotionWindow implements IPromotionWindow
 {
 

@@ -22,10 +22,12 @@ public class Utils {
 
 	public static void dumpFacts(Facts facts) {
 
-		for (Iterator iterator2 = facts.iterator(); iterator2.hasNext();) {
+		for (@SuppressWarnings("rawtypes")
+		Iterator iterator2 = facts.iterator(); iterator2.hasNext();) {
 			Object o = iterator2.next();
 
 			if (o instanceof org.jeasy.rules.api.Fact) {
+				@SuppressWarnings("rawtypes")
 				org.jeasy.rules.api.Fact f = (org.jeasy.rules.api.Fact) o;
 				Object value = f.getValue();
 				if (value instanceof ChessMove) {

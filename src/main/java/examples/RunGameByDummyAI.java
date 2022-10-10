@@ -5,10 +5,8 @@ import java.util.concurrent.TimeUnit;
 import ai.easyrules.Action;
 import ai.easyrules.EasyRuleEngine;
 import chess.ChessMatch;
-import chess.interfaces.IChessMatch;
 import die.Die;
 import gui.ChessGameWindow;
-import gui.interfaces.IChessGameWindow;
 
 public class RunGameByDummyAI {
 	public static void main(String[] args) {

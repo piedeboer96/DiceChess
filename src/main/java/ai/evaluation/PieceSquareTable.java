@@ -1,10 +1,5 @@
 package ai.evaluation;
 
-import java.util.List;
-
-import chess.interfaces.IChessBoardSquare;
-import chess.interfaces.IChessMove;
-
 public class PieceSquareTable {
 
     //doc: https://rustic-chess.org/evaluation/psqt.html

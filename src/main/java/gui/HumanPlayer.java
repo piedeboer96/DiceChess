@@ -1,5 +1,9 @@
 package gui;
 
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
@@ -8,12 +12,7 @@ import chess.units.Queen;
 import gui.interfaces.IChessBoardGraphics;
 import gui.interfaces.IHumanPlayer;
 import gui.interfaces.IPromotionWindow;
-import gui.utility.ChessBoardGraphics;
 import gui.utility.PromotionWindow;
-
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HumanPlayer implements IHumanPlayer
 {
