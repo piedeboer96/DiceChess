@@ -50,8 +50,10 @@ public class ChessMatch extends ChessBoard implements IChessMatch
         interpret("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
     }
 
+
     /**
      * Creates the match from where it was left according to the fen-string.
+     *   { board, player, castle opportunities, en-passant target square, half moves, full moves }
      **/
     public ChessMatch(String fen)
     {

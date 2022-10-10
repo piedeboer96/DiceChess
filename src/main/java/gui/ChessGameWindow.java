@@ -108,3 +108,5 @@ public class ChessGameWindow implements IChessGameWindow {
 		player.setPlayground(null);
 	}
 }
+
+
