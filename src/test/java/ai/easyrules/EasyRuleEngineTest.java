@@ -19,29 +19,25 @@ public class EasyRuleEngineTest {
 	@Test
 	public void testEasyRuleEngine() {
 
-        // Creating a new match.
-        IChessMatch match = new ChessMatch();
-        EasyRuleEngine dumyRuleEngine = new EasyRuleEngine (match, 'p');
+		// Creating a new match.
+		IChessMatch match = new ChessMatch();
+		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'p');
 		dumyRuleEngine.play();
 
 	}
-	
-	
-	@Test 
+
+	@Test
 	public void testSplitMoves() {
-		
-		     IChessMatch match = new ChessMatch();
-	        EasyRuleEngine dumyRuleEngine = new EasyRuleEngine (match,'p');
-	        
-	        IChessPiece piece = new Pawn('P', 0, 6);
-			List<IChessBoardSquare> destinations = new ArrayList<IChessBoardSquare>();
-			destinations.add(new ChessBoardSquare(0, 5));
-			destinations.add(new ChessBoardSquare(0, 4));
-			ChessMove move = new ChessMove(piece, destinations);
-			List<IChessMove> list = new ArrayList<IChessMove>();
-			list.add(move);
-	        List<IChessMove> splitMoves = EasyRuleEngine.splitMoves(list);
-	        System.out.println(splitMoves);
+
+		IChessPiece piece = new Pawn('P', 0, 6);
+		List<IChessBoardSquare> destinations = new ArrayList<IChessBoardSquare>();
+		destinations.add(new ChessBoardSquare(0, 5));
+		destinations.add(new ChessBoardSquare(0, 4));
+		ChessMove move = new ChessMove(piece, destinations);
+		List<IChessMove> list = new ArrayList<IChessMove>();
+		list.add(move);
+		List<IChessMove> splitMoves = EasyRuleEngine.splitMoves(list);
+		System.out.println(splitMoves);
 	}
 
 }
