@@ -54,7 +54,7 @@ public class EasyRuleEngine {
 			@Override
 			public void onSuccess(Rule rule, Facts facts) {
 
-				if (!(rule instanceof NewBestActionRule)) {
+				if (!rule.getName().equals("- New Best Move    -")) {
 					ChessMove chessMove = facts.get(LFacts.CHESSMOVE);
 					System.out.println("Rule   " + rule.getName() + " new Score =  "
 							+ chessMove.possibilities().get(0).getScore());
