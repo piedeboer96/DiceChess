@@ -52,12 +52,12 @@ public class MoveForwardRule {
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
 
-		IChessMove best = facts.get(EasyRuleEngine.BEST_MOVE);
+		IChessMove best = facts.get(LFacts.BEST_MOVE);
 
 		if (best.owner() == null
 				|| best.possibilities().get(0).getScore() < chessMove.possibilities().get(0).getScore()) {
-			facts.put(EasyRuleEngine.BEST_MOVE, chessMove);
-			facts.put(EasyRuleEngine.ACTION, ai.easyrules.Action.ONLY_MOVE);
+			facts.put(LFacts.BEST_MOVE, chessMove);
+			facts.put(LFacts.ACTION, ai.easyrules.Action.ONLY_MOVE);
 		}
 	}
 

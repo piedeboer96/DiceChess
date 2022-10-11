@@ -32,7 +32,7 @@ public class KingDeadRule {
 	private IChessPiece opponentPiece;
 
 	@Condition
-	public boolean when(@Fact("ChessMove") IChessMove move, @Fact("Match") IChessMatch match, @Fact("ROLL") char roll) {
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match, @Fact(LFacts.ROLL) char roll) {
 		opponentPiece = match.get(move.possibilities().get(0));
 		if (move.owner().toFen() == roll && opponentPiece != null
 				&& (opponentPiece.toFen() == 'K' || opponentPiece.toFen() == 'k')) {
@@ -57,8 +57,8 @@ public class KingDeadRule {
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
 
-            facts.put(EasyRuleEngine.BEST_MOVE, chessMove);
-			facts.put(EasyRuleEngine.ACTION, ai.easyrules.Action.FINISH_MATCH);
+            facts.put(LFacts.BEST_MOVE, chessMove);
+			facts.put(LFacts.ACTION, ai.easyrules.Action.FINISH_MATCH);
 
 	}
 

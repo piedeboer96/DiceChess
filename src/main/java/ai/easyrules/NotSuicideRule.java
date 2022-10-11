@@ -1,17 +1,21 @@
 package ai.easyrules;
 
-import chess.interfaces.IChessBoardSquare;
-import chess.interfaces.IChessMatch;
-import chess.interfaces.IChessMove;
-import chess.interfaces.IChessPiece;
-import chess.units.*;
+import java.util.List;
+
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
-import java.util.List;
+import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessMove;
+import chess.units.Bishop;
+import chess.units.King;
+import chess.units.Knight;
+import chess.units.Pawn;
+import chess.units.Queen;
+import chess.units.Rook;
 
 /*
   
@@ -25,24 +29,23 @@ import java.util.List;
   
  */
 
-@Rule(name = "Attack Rule ", description = "Add a score according to capturing a piece", priority = 1)
-public class AttackRule {
-	private IChessPiece opponentPiece;
+
+
+@Rule(name = "- Not  Suicide     -", description = "Do not move if I can be eated by another piece", priority = 10)
+public class NotSuicideRule {
+
 	private IChessMove chessMove;
 
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match, @Fact(LFacts.ROLL) char roll) {
-		opponentPiece = match.get(move.possibilities().get(0));
-		if (move.owner().toFen() == roll && opponentPiece != null) {
-
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) char roll) {
+		if (move.owner().toFen() == roll) {
 			return true;
-
 		}
 		return false;
 	}
 
 	@Action(order = 1)
-	public void attackMove(@Fact(LFacts.CHESSMOVE) IChessMove chessMove) {
+	public void increaseRanking(@Fact(LFacts.CHESSMOVE) IChessMove chessMove) {
 		this.chessMove = chessMove;
 		/*
 		 * 
@@ -68,41 +71,83 @@ public class AttackRule {
 	}
 
 	private void evaluateMove(IChessMove move) {
-		char fen = opponentPiece.toFen();
-
+		char fen = move.owner().toFen();
 		List<IChessBoardSquare> possibilities = move.possibilities();
 
 		switch (fen) {
-
 		case 'P':
 		case 'p':
-			possibilities.get(0).addScore(2*Pawn.pointValue);
+
+			for (IChessBoardSquare iChessBoardSquare : possibilities) {
+				iChessBoardSquare.addScore(-Pawn.pointValue);
+//				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
+//						+ oldscore + " new score " + iChessBoardSquare.getScore());
+			}
+
 			break;
 		case 'B':
 		case 'b':
 
-			possibilities.get(0).addScore(2*Bishop.pointValue);
+			for (IChessBoardSquare iChessBoardSquare : possibilities)
+
+			{
+				iChessBoardSquare.addScore(-Bishop.pointValue);
+//				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
+//						+ oldscore + " new score " + iChessBoardSquare.getScore());
+
+			}
+
 			break;
 		case 'K':
 		case 'k':
 
-			possibilities.get(0).addScore(2*King.pointValue);
+			for (IChessBoardSquare iChessBoardSquare : possibilities)
+
+			{
+				iChessBoardSquare.addScore(-King.pointValue);
+//				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
+//						+ oldscore + " new score " + iChessBoardSquare.getScore());
+
+			}
+
 			break;
 		case 'N':
 		case 'n':
 
-			possibilities.get(0).addScore(2*Knight.pointValue);
+			for (IChessBoardSquare iChessBoardSquare : possibilities)
+
+			{
+				iChessBoardSquare.addScore(-Knight.pointValue);
+//				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
+//						+ oldscore + " new score " + iChessBoardSquare.getScore());
+
+			}
 
 			break;
 		case 'Q':
 		case 'q':
-			possibilities.get(0).addScore(2*Queen.pointValue);
+
+			for (IChessBoardSquare iChessBoardSquare : possibilities)
+
+			{
+				iChessBoardSquare.addScore(-Queen.pointValue);
+//				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
+//						+ oldscore + " new score " + iChessBoardSquare.getScore());
+
+			}
 
 			break;
 		case 'R':
 		case 'r':
 
-			possibilities.get(0).addScore(2*Rook.pointValue);
+			for (IChessBoardSquare iChessBoardSquare : possibilities)
+
+			{
+				iChessBoardSquare.addScore(-Rook.pointValue);
+//				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
+//						+ oldscore + " new score " + iChessBoardSquare.getScore());
+
+			}
 
 			break;
 		default:

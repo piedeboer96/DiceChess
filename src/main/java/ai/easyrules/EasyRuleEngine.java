@@ -19,9 +19,6 @@ import chess.utility.ChessMove;
 
 public class EasyRuleEngine {
 
-	public static final String BEST_MOVE = "BestMove";
-	public static final String ACTION = "Action";
-	private static final String MATCH = "Match";
 	
 
 	private IChessMatch match;
@@ -42,16 +39,16 @@ public class EasyRuleEngine {
 		facts = new Facts();
 		rulesEngine = new DefaultRulesEngine();
 		currentPlayer = match.getPlayer();
-		facts.put(ACTION, action);
-		facts.put(MATCH, match);
+		facts.put(LFacts.ACTION, action);
+		facts.put(LFacts.MATCH, match);
 		bestMove = new ChessMove(null, new ArrayList<IChessBoardSquare>());
-		facts.put(BEST_MOVE, bestMove);
+		facts.put(LFacts.BEST_MOVE, bestMove);
 
 		RuleListener myRuleListener = new RuleListener() {
 			@Override
 			public void onSuccess(Rule rule, Facts facts) {
 
-				Object bestScore = facts.get(BEST_MOVE);
+				Object bestScore = facts.get(LFacts.BEST_MOVE);
 				System.out.println("Rule   "+ rule.getName()+ " "+bestScore);
 //				System.out.println("Facts " + facts);
 			}
@@ -82,11 +79,11 @@ public class EasyRuleEngine {
 
 		// Step .5 now we fetch from facts the Action and we execute our game
 
-		Action action = facts.get(ACTION);
+		Action action = facts.get(LFacts.ACTION);
 		switch (action) {
 		case ONLY_MOVE:
 //			System.out.println("ONLY_MOVE");
-			IChessMove bestMove = facts.get(BEST_MOVE);
+			IChessMove bestMove = facts.get(LFacts.BEST_MOVE);
 //			System.out.println("The best move is " + bestMove);
 			System.out.println("Player " + currentPlayer + " with rool " + rollTheDie + " move " + bestMove.owner()
 					+ "  ----to--->>>  " + bestMove.possibilities());
@@ -95,7 +92,7 @@ public class EasyRuleEngine {
 		case MOVE_AND_PROMOTE:
 			ChessPiece newQueen = null;
 //			System.out.println("MOVE_AND_PROMOTE");
-			bestMove = facts.get(BEST_MOVE);
+			bestMove = facts.get(LFacts.BEST_MOVE);
 			int file = bestMove.possibilities().get(0).file();
 			int rank = bestMove.possibilities().get(0).rank();
 			if (bestMove.owner().toFen() == 'P') {

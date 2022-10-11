@@ -1,11 +1,18 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JToolBar;
 import javax.swing.WindowConstants;
 
 import chess.interfaces.IChessMatch;
@@ -26,8 +33,10 @@ public class ChessGameWindow implements IChessGameWindow {
 		frame.setBounds(200, 50, 617, 655);
 		frame.setResizable(false);
 		frame.setVisible(true);
+		
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+       
 		MouseListener mouseClick = new MouseListener() {
 
 			@Override
@@ -70,7 +79,10 @@ public class ChessGameWindow implements IChessGameWindow {
 		frame.addWindowListener(stateListener);
 
 		boardGraphics = new ChessBoardGraphics(10, 10, 73, 75);
-		frame.add(boardGraphics);
+		 
+		
+		frame.getContentPane().add(boardGraphics);
+		  
 		updateUI();
 	}
 
