@@ -11,7 +11,6 @@ import org.jeasy.rules.api.Facts;
 import chess.ChessMatch;
 import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessMove;
-import chess.interfaces.IChessPiece;
 import chess.units.Bishop;
 import chess.units.King;
 import chess.units.Knight;
