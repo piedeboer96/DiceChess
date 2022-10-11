@@ -27,11 +27,11 @@ import java.util.List;
   
  */
 
-@Rule(name = AttackRule.NAME, description = "Add a score according to capturing a piece", priority = 10)
+@Rule(name = AttackRule.NAME, description = AttackRule.DESCRIPTION, priority = 10)
 public class AttackRule {
+	static final String DESCRIPTION = "Add a score according to capturing a piece";
 	static final String NAME = "- Attack Rule      -";
 	private IChessPiece opponentPiece;
-	private IChessMove chessMove;
 
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match, @Fact(LFacts.ROLL) char roll) {
@@ -46,7 +46,6 @@ public class AttackRule {
 
 	@Action(order = 1)
 	public void attackMove(@Fact(LFacts.CHESSMOVE) IChessMove chessMove) {
-		this.chessMove = chessMove;
 		/*
 		 * 
 		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]

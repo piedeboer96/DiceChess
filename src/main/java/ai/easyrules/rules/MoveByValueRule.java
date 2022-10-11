@@ -31,10 +31,12 @@ import chess.units.Rook;
  */
 
 
-@Rule(name = "- Move By Value    -", description = "Add a score according to the type of fen", priority = 1)
+@Rule(name = MoveByValueRule.NAME, description = MoveByValueRule.DESCRIPTION, priority = 1)
 public class MoveByValueRule {
 
-	private IChessMove chessMove;
+
+	static final String DESCRIPTION = "Add a score according to the type of fen";
+	static final String NAME = "- Move By Value    -";
 
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move,@Fact(LFacts.ROLL) char roll ) {
@@ -48,7 +50,6 @@ public class MoveByValueRule {
 
 	@Action(order = 1)
 	public void increaseRanking(@Fact(LFacts.CHESSMOVE) IChessMove chessMove) {
-		this.chessMove = chessMove;
 		/*
 		 * 
 		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]

@@ -32,10 +32,12 @@ import chess.units.Rook;
   
  */
 
-@Rule(name = "- Not  Suicide     -", description = "Do not move if I can be eated by another piece", priority = 1)
+@Rule(name = NotSuicideRule.NAME, description = NotSuicideRule.DESCRIPTION, priority = 1)
 public class NotSuicideRule {
 
-	private IChessMove chessMove;
+
+	static final String DESCRIPTION = "Do not move if I can be eated by another piece";
+	static final String NAME = "- Not  Suicide     -";
 
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) ChessMatch match,@Fact(LFacts.ROLL) char roll) {
@@ -63,7 +65,6 @@ public class NotSuicideRule {
 	@Action(order = 1)
 	public void increaseRanking(@Fact(LFacts.CHESSMOVE) IChessMove chessMove) {
 
-		this.chessMove = chessMove;
 
 		evaluateMove(chessMove);
 

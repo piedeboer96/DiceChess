@@ -22,12 +22,14 @@ import chess.interfaces.IChessMove;
   
  */
 
-@Rule(name = "- Move Forward     -", description = "Add 1 score if we can move forward", priority = 1)
+@Rule(name = MoveForwardRule.NAME, description = MoveForwardRule.DESCRIPTION, priority = 1)
 public class MoveForwardRule {
 
-	private IChessMove chessMove;
 
+	static final String DESCRIPTION = "Add 1 score if we can move forward";
 	// we want to apply to any moves
+
+	static final String NAME = "- Move Forward     -";
 
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char roll) {
@@ -56,7 +58,6 @@ public class MoveForwardRule {
 		 * 
 		 */
 
-		this.chessMove = chessMove;
 		evaluateMove(chessMove);
 
 	}

@@ -2,10 +2,7 @@ package examples;
 
 import java.util.concurrent.TimeUnit;
 
-import ai.easyrules.Action;
-import ai.easyrules.EasyRuleEngine;
 import chess.ChessMatch;
-import die.Die;
 import gui.ChessGameWindow;
 
 public class JustShowChessBoard {

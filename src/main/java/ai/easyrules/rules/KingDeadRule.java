@@ -25,12 +25,12 @@ import chess.interfaces.IChessPiece;
 
 
 
-@Rule(name = KingDeadRule.NAME, description = "End of the game because the king is dead ", priority = 20)
+@Rule(name = KingDeadRule.NAME, description = KingDeadRule.DESCRIPTION, priority = 20)
 public class KingDeadRule {
 
+	static final String DESCRIPTION = "End of the game because the king is dead ";
 	static final String NAME = "- King  Dead       -";
 	int currentScore = 0;
-	private IChessMove chessMove;
 	private IChessPiece opponentPiece;
 
 	@Condition
@@ -52,7 +52,6 @@ public class KingDeadRule {
 		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
 		 * 
 		 */
-		this.chessMove = chessMove;
 		evaluateMove(chessMove);
 	}
 	@Action(order = 2)

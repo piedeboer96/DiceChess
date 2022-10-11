@@ -22,9 +22,11 @@ import chess.interfaces.IChessMove;
  */
 
 
-@Rule(name = "- Promote to Queen -", description = "Promote the pawn in the first opponent line ", priority = 10)
+@Rule(name = PromoteRule.NAME, description = PromoteRule.DESCRIPTION, priority = 10)
 public class PromoteRule {
 
+	static final String DESCRIPTION = "Promote the pawn in the first opponent line ";
+	static final String NAME = "- Promote to Queen -";
 	int currentScore = 0;
  
 

@@ -25,11 +25,12 @@ import chess.interfaces.IChessMove;
   
  */
 
-@Rule(name = "- Move By Position -", description = "Move in the high value for the position ", priority = 1)
+@Rule(name = MoveByPositionRule.NAME, description = MoveByPositionRule.DESCRIPTION, priority = 1)
 public class MoveByPositionRule {
 
+	static final String DESCRIPTION = "Move in the high value for the position ";
+	static final String NAME = "- Move By Position -";
 	int currentScore = 0;
-	private IChessMove chessMove;
 
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move,@Fact(LFacts.ROLL) char roll  ) {
@@ -47,7 +48,6 @@ public class MoveByPositionRule {
 		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
 		 * 
 		 */
-		this.chessMove = chessMove;
 		evaluateMove(chessMove);
 	}
 	@Action(order = 2)
