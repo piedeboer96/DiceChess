@@ -24,8 +24,8 @@ public class RunGameByDummyAI {
 		String startPos;
 		// full pieces
 		startPos = "8/8/8/p/1K6/8/8/k w - - 0 1";
-		startPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 		startPos ="K/8/8/4b/8/5Q2/8/k w - - 0 1";
+		startPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);

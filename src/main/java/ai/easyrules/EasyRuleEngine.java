@@ -25,7 +25,7 @@ public class EasyRuleEngine {
 	private DefaultRulesEngine rulesEngine;
 	private int currentPlayer;
 	private Action action = Action.NO_MOVE;
-	private IChessMove bestMove;
+	private ChessMove bestMove;
 	private char rollTheDie;
 
 	public EasyRuleEngine(IChessMatch match, char roll) {
@@ -46,12 +46,12 @@ public class EasyRuleEngine {
 			@Override
 			public void onSuccess(Rule rule, Facts facts) {
 
-				if (!(rule instanceof NewBestActionRule )) 
-				{
-				ChessMove bestScore = facts.get(LFacts.BEST_MOVE);
-				System.out.println("Rule   " + rule.getName() + " new Score =  " + bestScore.possibilities().get(0).getScore());
+				if (!(rule instanceof NewBestActionRule)) {
+					ChessMove bestScore = facts.get(LFacts.BEST_MOVE);
+					System.out.println("Rule   " + rule.getName() + " new Score =  "
+							+ bestScore.possibilities().get(0).getScore());
 				}
- 
+
 			}
 		};
 
@@ -77,15 +77,16 @@ public class EasyRuleEngine {
 		for (IChessMove move : movesSplitted) {
 			System.out.println();
 			System.out.println();
-			System.out
-					.println("Evaluating  From " + move.owner() + " -- To Move --> " + move.possibilities().get(0));
+			System.out.println("Evaluating  From " + move.owner() + " -- To Move --> " + move.possibilities().get(0));
 			facts.put(LFacts.CHESSMOVE, move);
 			rulesEngine.fire(rules, facts);
+
 		}
 
 		// Step .5 now we fetch from facts the Action and we execute our game
 
 		Action action = facts.get(LFacts.ACTION);
+		bestMove = facts.get(LFacts.BEST_MOVE);
 		switch (action) {
 		case ONLY_MOVE:
 //			System.out.println("ONLY_MOVE");
@@ -174,6 +175,11 @@ public class EasyRuleEngine {
 		NewBestActionRule newBestActionRule = new NewBestActionRule();
 		rules.register(newBestActionRule);
 		return rules;
+
+	}
+
+	public ChessMove getBestMove() {
+		return bestMove;
 
 	}
 
