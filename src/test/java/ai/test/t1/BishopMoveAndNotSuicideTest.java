@@ -1,4 +1,4 @@
-package ai.test;
+package ai.test.t1;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 

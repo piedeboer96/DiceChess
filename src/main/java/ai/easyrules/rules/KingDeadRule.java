@@ -25,9 +25,10 @@ import chess.interfaces.IChessPiece;
 
 
 
-@Rule(name = "- King  Dead       -", description = "End of the game because the king is dead ", priority = 1)
+@Rule(name = KingDeadRule.NAME, description = "End of the game because the king is dead ", priority = 20)
 public class KingDeadRule {
 
+	static final String NAME = "- King  Dead       -";
 	int currentScore = 0;
 	private IChessMove chessMove;
 	private IChessPiece opponentPiece;
@@ -54,15 +55,14 @@ public class KingDeadRule {
 		this.chessMove = chessMove;
 		evaluateMove(chessMove);
 	}
-
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
-
-            facts.put(LFacts.BEST_MOVE, chessMove);
+		ai.easyrules.Action currentAction = facts.get(LFacts.ACTION);
+		if (currentAction.compareTo(ai.easyrules.Action.FINISH_MATCH) < 0)
 			facts.put(LFacts.ACTION, ai.easyrules.Action.FINISH_MATCH);
-
 	}
-
+	
+ 
 	private void evaluateMove(IChessMove move) {
 		move.possibilities().get(0).addScore(100000);
 	}

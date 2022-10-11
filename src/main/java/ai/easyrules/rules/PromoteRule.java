@@ -26,7 +26,7 @@ import chess.interfaces.IChessMove;
 public class PromoteRule {
 
 	int currentScore = 0;
-	private IChessMove chessMove;
+ 
 
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move,@Fact(LFacts.ROLL) char roll) {
@@ -52,21 +52,15 @@ public class PromoteRule {
 		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
 		 * 
 		 */
-		this.chessMove = chessMove;
+	
 		evaluateMove(chessMove);
 	}
-
+	
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
-
-		IChessMove best = facts.get(LFacts.BEST_MOVE);
-
-		if (best.owner() == null
-				|| best.possibilities().get(0).getScore() < chessMove.possibilities().get(0).getScore()) {
-			facts.put(LFacts.BEST_MOVE, chessMove);
+		ai.easyrules.Action currentAction = facts.get(LFacts.ACTION);
+		if (currentAction.compareTo(ai.easyrules.Action.MOVE_AND_PROMOTE)< 0)
 			facts.put(LFacts.ACTION, ai.easyrules.Action.MOVE_AND_PROMOTE);
-		}
-
 	}
 
 	private void evaluateMove(IChessMove move) {

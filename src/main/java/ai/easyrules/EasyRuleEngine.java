@@ -47,19 +47,40 @@ public class EasyRuleEngine {
 		currentPlayer = match.getPlayer();
 		facts.put(LFacts.ACTION, action);
 		facts.put(LFacts.MATCH, match);
+
 		bestMove = new ChessMove(null, new ArrayList<IChessBoardSquare>());
+		facts.put(LFacts.OLD_MOVE, bestMove);
 		facts.put(LFacts.BEST_MOVE, bestMove);
+		facts.put(LFacts.BEST_MOVE_CHANGED, Boolean.FALSE);
 
 		RuleListener myRuleListener = new RuleListener() {
 			@Override
 			public void onSuccess(Rule rule, Facts facts) {
 
-				if (!rule.getName().equals("- New Best Move    -")) {
-					ChessMove chessMove = facts.get(LFacts.CHESSMOVE);
-					System.out.println("Rule   " + rule.getName() + " new Score =  "
-							+ chessMove.possibilities().get(0).getScore());
-				}
+				ChessMove chessMove = facts.get(LFacts.CHESSMOVE);
+				if (rule.getName().equals(NewBestActionRule.NAME)) {
+					ChessMove best = facts.get(LFacts.BEST_MOVE);
 
+					Boolean changed = facts.get(LFacts.BEST_MOVE_CHANGED);
+					Object action = facts.get(LFacts.ACTION);
+					System.out.println();
+					if (changed) {
+						ChessMove old = facts.get(LFacts.OLD_MOVE);
+						System.out.println("Best Move     Changed : ");
+						System.out.println("OLD     : " + old);
+						System.out.println("NEW     : " + best+" Action : "+action);
+
+					} else {
+						System.out.println("Best Move NOT Changed: ");
+
+						System.out.println("CURRENT : " + best +" Action : "+action);
+					}
+
+				} else
+					System.out.println("Rule   " + rule.getName() + " new Score =  " + chessMove.possibilities().get(0).getScore());
+
+				
+				 
 			}
 		};
 
@@ -85,7 +106,7 @@ public class EasyRuleEngine {
 		for (IChessMove move : movesSplitted) {
 			System.out.println();
 			System.out.println();
-			System.out.println("Evaluating roll ["+rollTheDie+"] From " + move.owner() + " -- To Move --> " + move.possibilities().get(0));
+			System.out.println("Evaluating roll [" + rollTheDie + "] From " + move.owner() + " -- To Move --> " + move.possibilities().get(0));
 			facts.put(LFacts.CHESSMOVE, move);
 			rulesEngine.fire(rules, facts);
 
@@ -94,14 +115,21 @@ public class EasyRuleEngine {
 		// Step .5 now we fetch from facts the Action and we execute our game
 
 		Action action = facts.get(LFacts.ACTION);
+
 		bestMove = facts.get(LFacts.BEST_MOVE);
+		System.out.println();
+		System.out.println();
+
 		switch (action) {
+		case NO_MOVE:
+			System.out.println("Player " + currentPlayer + " with rool " + rollTheDie + " can't move any piece ");
+			currentPlayer = match.nextPlayer();
+			break;
 		case ONLY_MOVE:
 //			System.out.println("ONLY_MOVE");
 			IChessMove bestMove = facts.get(LFacts.BEST_MOVE);
 //			System.out.println("The best move is " + bestMove);
-			System.out.println("Player " + currentPlayer + " with rool " + rollTheDie + " move " + bestMove.owner()
-					+ "  ----to--->>>  " + bestMove.possibilities());
+			System.out.println("Player " + currentPlayer + " with rool " + rollTheDie + " move " + bestMove.owner() + "  ----to--->>>  " + bestMove.possibilities());
 			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
 			break;
 		case MOVE_AND_PROMOTE:
@@ -116,15 +144,10 @@ public class EasyRuleEngine {
 			} else {
 				newQueen = new Queen('q', file, rank);
 			}
-			System.out.println("Player " + currentPlayer + " with rool " + rollTheDie + " move " + bestMove.owner()
-					+ "  ----to--->>>  " + bestMove.possibilities() + " and promote Queen");
+
+			System.out.println("Player " + currentPlayer + " with rool " + rollTheDie + " move " + bestMove.owner() + "  ----to--->>>  " + bestMove.possibilities() + " and promote Queen");
 			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
 			match.promote(bestMove.owner(), newQueen);
-			break;
-		case NO_MOVE:
-
-			System.out.println("Player " + currentPlayer + " with rool " + rollTheDie + " can't move any piece ");
-			currentPlayer = match.nextPlayer();
 			break;
 		case FINISH_MATCH:
 			System.out.println("The game is over you won ");

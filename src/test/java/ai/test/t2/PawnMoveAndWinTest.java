@@ -1,4 +1,4 @@
-package ai.test;
+package ai.test.t2;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import chess.interfaces.IChessMove;
 
 class PawnMoveAndWinTest {
 
+	// 0 black 1 white
 	@Test
 	void test() {
 
@@ -23,9 +24,7 @@ class PawnMoveAndWinTest {
 			if (mv.owner().toFen() == 'p')
 				System.out.println(mv);
 			}
-			
-			
- 		
+		
 			EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'p');
 			Action play = dumyRuleEngine.play();
 			

@@ -27,15 +27,16 @@ import java.util.List;
   
  */
 
-@Rule(name = "Attack Rule ", description = "Add a score according to capturing a piece", priority = 10)
+@Rule(name = AttackRule.NAME, description = "Add a score according to capturing a piece", priority = 10)
 public class AttackRule {
+	static final String NAME = "- Attack Rule      -";
 	private IChessPiece opponentPiece;
 	private IChessMove chessMove;
 
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match,@Fact(LFacts.ROLL) char roll) {
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match, @Fact(LFacts.ROLL) char roll) {
 		opponentPiece = match.get(move.possibilities().get(0));
-		if ( move.owner().toFen() == roll && opponentPiece != null) {
+		if (move.owner().toFen() == roll && opponentPiece != null) {
 
 			return true;
 
@@ -59,14 +60,9 @@ public class AttackRule {
 
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
-
-		IChessMove best = facts.get(LFacts.BEST_MOVE);
-
-		if (best.owner() == null
-				|| best.possibilities().get(0).getScore() < chessMove.possibilities().get(0).getScore()) {
-			facts.put(LFacts.BEST_MOVE, chessMove);
+		ai.easyrules.Action currentAction = facts.get(LFacts.ACTION);
+		if (currentAction.compareTo(ai.easyrules.Action.ONLY_MOVE) < 0)
 			facts.put(LFacts.ACTION, ai.easyrules.Action.ONLY_MOVE);
-		}
 	}
 
 	private void evaluateMove(IChessMove move) {
@@ -78,33 +74,33 @@ public class AttackRule {
 
 		case 'P':
 		case 'p':
-			possibilities.get(0).addScore(2*Pawn.pointValue);
+			possibilities.get(0).addScore(2 * Pawn.pointValue);
 			break;
 		case 'B':
 		case 'b':
 
-			possibilities.get(0).addScore(2*Bishop.pointValue);
+			possibilities.get(0).addScore(2 * Bishop.pointValue);
 			break;
 		case 'K':
 		case 'k':
 
-			possibilities.get(0).addScore(2*King.pointValue);
+			possibilities.get(0).addScore(2 * King.pointValue);
 			break;
 		case 'N':
 		case 'n':
 
-			possibilities.get(0).addScore(2*Knight.pointValue);
+			possibilities.get(0).addScore(2 * Knight.pointValue);
 
 			break;
 		case 'Q':
 		case 'q':
-			possibilities.get(0).addScore(2*Queen.pointValue);
+			possibilities.get(0).addScore(2 * Queen.pointValue);
 
 			break;
 		case 'R':
 		case 'r':
 
-			possibilities.get(0).addScore(2*Rook.pointValue);
+			possibilities.get(0).addScore(2 * Rook.pointValue);
 
 			break;
 		default:

@@ -68,17 +68,12 @@ public class NotSuicideRule {
 		evaluateMove(chessMove);
 
 	}
-
+	
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
-
-		IChessMove best = facts.get(LFacts.BEST_MOVE);
-
-		if (best.owner() == null
-				|| best.possibilities().get(0).getScore() < chessMove.possibilities().get(0).getScore()) {
-			facts.put(LFacts.BEST_MOVE, chessMove);
+		ai.easyrules.Action currentAction = facts.get(LFacts.ACTION);
+		if (currentAction.compareTo(ai.easyrules.Action.ONLY_MOVE) < 0)
 			facts.put(LFacts.ACTION, ai.easyrules.Action.ONLY_MOVE);
-		}
 	}
 
 	private void evaluateMove(IChessMove move) {
