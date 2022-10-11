@@ -46,8 +46,11 @@ public class EasyRuleEngine {
 			@Override
 			public void onSuccess(Rule rule, Facts facts) {
 
-				Object bestScore = facts.get(LFacts.BEST_MOVE);
-				System.out.println("Rule   " + rule.getName() + " " + bestScore);
+				if (!(rule instanceof NewBestActionRule )) 
+				{
+				ChessMove bestScore = facts.get(LFacts.BEST_MOVE);
+				System.out.println("Rule   " + rule.getName() + " new Score =  " + bestScore.possibilities().get(0).getScore());
+				}
  
 			}
 		};
@@ -69,8 +72,13 @@ public class EasyRuleEngine {
 
 		// Step .3 adding the roll to the
 		facts.put(LFacts.ROLL, rollTheDie);
+
 		// Step .4 foreach legal move we got the score base on rules
 		for (IChessMove move : movesSplitted) {
+			System.out.println();
+			System.out.println();
+			System.out
+					.println("Evaluating position  " + move.owner() + " -- To Move --> " + move.possibilities().get(0));
 			facts.put(LFacts.CHESSMOVE, move);
 			rulesEngine.fire(rules, facts);
 		}
@@ -119,7 +127,7 @@ public class EasyRuleEngine {
 
 	}
 
-	public static  List<IChessMove> splitMoves(List<IChessMove> moves) {
+	public static List<IChessMove> splitMoves(List<IChessMove> moves) {
 		List<IChessMove> splittedMoves = new ArrayList<IChessMove>();
 
 		for (IChessMove move : moves) {
@@ -156,12 +164,15 @@ public class EasyRuleEngine {
 		rules.register(promoteRule);
 		AttackRule attackRule = new AttackRule();
 		rules.register(attackRule);
-		
+
 		KingDeadRule kingDeadRule = new KingDeadRule();
 		rules.register(kingDeadRule);
-		
+
 		NotSuicideRule notSuicideRule = new NotSuicideRule();
 		rules.register(notSuicideRule);
+
+		NewBestActionRule newBestActionRule = new NewBestActionRule();
+		rules.register(newBestActionRule);
 		return rules;
 
 	}

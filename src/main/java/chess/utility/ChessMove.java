@@ -38,7 +38,7 @@ public class ChessMove implements IChessMove
 	@Override
 	public String toString() {
 		final int maxLen = 10;
-		return "ChessMove [owner=" + owner + ", destinations="
+		return "ChessMove [" + owner + ", destinations="
 				+ (destinations != null ? destinations.subList(0, Math.min(destinations.size(), maxLen)) : null) + "]";
 	}
     

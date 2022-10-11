@@ -110,7 +110,7 @@ public abstract class ChessPiece implements IChessPiece {
 
 	@Override
 	public String toString() {
-		return "ChessPiece [fen=" + fen + ", team=" + team + ", file=" + file + ", rank=" + rank + "]";
+		return " [fen=" + fen + ", team=" + team + ", file=" + file + ", rank=" + rank + "]";
 	}
 
 	@Override
