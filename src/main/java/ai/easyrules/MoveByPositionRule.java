@@ -31,12 +31,10 @@ public class MoveByPositionRule {
 	private IChessMove chessMove;
 
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char roll) {
-		if (move.owner().toFen() == roll) {
+	public boolean when(  ) {
+	 
 			return true;
-
-		}
-		return false;
+ 
 	}
 
 	@Action(order = 1)

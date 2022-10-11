@@ -30,7 +30,7 @@ public class NewBestActionRule {
 
 	
 	@Condition
-	public boolean when(@Fact(LFacts.BEST_MOVE) IChessMove bestMove) {
+	public boolean when( ) {
 		return true;
 	}
 

@@ -27,13 +27,10 @@ public class MoveForwardRule {
 
 	private IChessMove chessMove;
 
+	// we want to apply to any moves
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char roll) {
-		if (move.owner().toFen() == roll) {
-			return true;
-
-		}
-		return false;
+	public boolean when( ) {
+		return true;
 	}
 
 	@Action(order = 1)
@@ -63,7 +60,6 @@ public class MoveForwardRule {
 
 	private void evaluateMove(IChessMove move) {
 		int team = move.owner().team();
-//		System.out.println("Evaluating team " + team);
 		// team 1 white
 		IChessBoardSquare possibleMove = move.possibilities().get(0);
 		int rank = possibleMove.rank();
@@ -76,12 +72,8 @@ public class MoveForwardRule {
 
 				possibleMove.addScore(1); // include your evaluation features into the scoring mechanism
 
-//					System.out.println("increasing score for "+move.owner().toFen()+" rank = "+rank +" file= "+file+" old score "+oldscore+" new score "+possibleMove.getScore());
 
 			}
-//				else
-
-//					System.out.println("No Scores score for" + possibleMove);
 
 		} else {
 
@@ -89,11 +81,8 @@ public class MoveForwardRule {
 				if (move.owner().rank() < rank) {
 
 					possibleMove.addScore(1);
-//					System.out.println("increasing score for "+move.owner().toFen()+" rank = "+rank +" file= "+file+" old score "+oldscore+" new score "+possibleMove.getScore());
 
 				}
-//				else
-//					System.out.println("No Scores score for" + possibleMove);
 			}
 
 		}

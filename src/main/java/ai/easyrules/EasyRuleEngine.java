@@ -78,7 +78,7 @@ public class EasyRuleEngine {
 			System.out.println();
 			System.out.println();
 			System.out
-					.println("Evaluating position  " + move.owner() + " -- To Move --> " + move.possibilities().get(0));
+					.println("Evaluating  From " + move.owner() + " -- To Move --> " + move.possibilities().get(0));
 			facts.put(LFacts.CHESSMOVE, move);
 			rulesEngine.fire(rules, facts);
 		}

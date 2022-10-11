@@ -31,9 +31,9 @@ public class AttackRule {
 	private IChessMove chessMove;
 
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match, @Fact(LFacts.ROLL) char roll) {
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match) {
 		opponentPiece = match.get(move.possibilities().get(0));
-		if (move.owner().toFen() == roll && opponentPiece != null) {
+		if ( opponentPiece != null) {
 
 			return true;
 
