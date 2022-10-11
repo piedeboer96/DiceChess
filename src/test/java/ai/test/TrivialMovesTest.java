@@ -11,6 +11,7 @@ import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.core.DefaultRulesEngine;
 import org.junit.jupiter.api.Test;
 
+import ai.easyrules.LFacts;
 import ai.easyrules.MoveForwardRule;
 import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessPiece;
@@ -48,35 +49,10 @@ class TrivialMovesTest {
 		destinations.add(new ChessBoardSquare(0, 4));
 		ChessMove move1 = new ChessMove(piece, destinations);
 
-		fact = new Fact<ChessMove>("ChessMove", move1);
+		fact = new Fact<ChessMove>(LFacts.CHESSMOVE, move1);
 		facts.add(fact);
 
-		piece = new Pawn('p', 1, 6);
-		destinations = new ArrayList<IChessBoardSquare>();
-		destinations.add(new ChessBoardSquare(1, 4));
-		destinations.add(new ChessBoardSquare(1, 5));
-		move1 = new ChessMove(piece, destinations);
-		// facts.put("move", move1);
-		fact = new Fact<ChessMove>("move2", move1);
-		facts.add(fact);
-
-		piece = new Pawn('P', 2, 6);
-		destinations = new ArrayList<IChessBoardSquare>();
-		destinations.add(new ChessBoardSquare(2, 4));
-		destinations.add(new ChessBoardSquare(2, 5));
-		move1 = new ChessMove(piece, destinations);
-		// facts.put("move", move1);
-		fact = new Fact<ChessMove>("move3", move1);
-		facts.add(fact);
-
-		piece = new Pawn('P', 3, 6);
-		destinations = new ArrayList<IChessBoardSquare>();
-		destinations.add(new ChessBoardSquare(3, 4));
-		destinations.add(new ChessBoardSquare(3, 5));
-
-		move1 = new ChessMove(piece, destinations);
-		fact = new Fact<ChessMove>("move4", move1);
-		facts.add(fact);
+		 
 
 		Rules rules = new Rules();
 		MoveForwardRule moveRules = new MoveForwardRule();

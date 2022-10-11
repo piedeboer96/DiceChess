@@ -31,7 +31,7 @@ public class MoveByPositionRule {
 	private IChessMove chessMove;
 
 	@Condition
-	public boolean when(@Fact("ChessMove") IChessMove move, @Fact("ROLL") char roll) {
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char roll) {
 		if (move.owner().toFen() == roll) {
 			return true;
 

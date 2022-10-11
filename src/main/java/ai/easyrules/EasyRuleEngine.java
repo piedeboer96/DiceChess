@@ -19,8 +19,6 @@ import chess.utility.ChessMove;
 
 public class EasyRuleEngine {
 
-	
-
 	private IChessMatch match;
 	private Rules rules;
 	private Facts facts;
@@ -49,7 +47,7 @@ public class EasyRuleEngine {
 			public void onSuccess(Rule rule, Facts facts) {
 
 				Object bestScore = facts.get(LFacts.BEST_MOVE);
-				System.out.println("Rule   "+ rule.getName()+ " "+bestScore);
+				System.out.println("Rule   " + rule.getName() + " " + bestScore);
 //				System.out.println("Facts " + facts);
 			}
 		};
@@ -70,10 +68,10 @@ public class EasyRuleEngine {
 		List<IChessMove> movesSplitted = splitMoves(moves);
 
 		// Step .3 adding the roll to the
-		facts.put("ROLL", rollTheDie);
+		facts.put(LFacts.ROLL, rollTheDie);
 		// Step .4 foreach legal move we got the score base on rules
 		for (IChessMove move : movesSplitted) {
-			facts.put("ChessMove", move);
+			facts.put(LFacts.CHESSMOVE, move);
 			rulesEngine.fire(rules, facts);
 		}
 

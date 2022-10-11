@@ -6,6 +6,7 @@ import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.core.DefaultRulesEngine;
 
+import ai.easyrules.LFacts;
 import chess.interfaces.IChessMove;
 
 public class DumyRuleEngine {
@@ -28,7 +29,7 @@ public class DumyRuleEngine {
 		facts = new Facts();
 		
 		for (IChessMove chessMove : realMoves) {
-			facts.put("ChessMove", chessMove);
+			facts.put(LFacts.CHESSMOVE, chessMove);
 			
 		}
 		

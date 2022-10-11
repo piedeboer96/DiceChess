@@ -28,7 +28,7 @@ public class MoveForwardRule {
 	private IChessMove chessMove;
 
 	@Condition
-	public boolean when(@Fact("ChessMove") IChessMove move, @Fact("ROLL") char roll) {
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char roll) {
 		if (move.owner().toFen() == roll) {
 			return true;
 
@@ -37,7 +37,7 @@ public class MoveForwardRule {
 	}
 
 	@Action(order = 1)
-	public void increaseRanking(@Fact("ChessMove") IChessMove chessMove) {
+	public void increaseRanking(@Fact(LFacts.CHESSMOVE) IChessMove chessMove) {
 		/*
 		 * 
 		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
