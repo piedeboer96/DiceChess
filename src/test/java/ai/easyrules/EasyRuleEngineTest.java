@@ -40,7 +40,7 @@ public class EasyRuleEngineTest {
 			ChessMove move = new ChessMove(piece, destinations);
 			List<IChessMove> list = new ArrayList<IChessMove>();
 			list.add(move);
-	        List<IChessMove> splitMoves = dumyRuleEngine.splitMoves(list);
+	        List<IChessMove> splitMoves = EasyRuleEngine.splitMoves(list);
 	        System.out.println(splitMoves);
 	}
 
