@@ -21,7 +21,7 @@ class BishopMoveAndNotSuicideTest {
 			EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'b');
 			
 			List<IChessMove> moves = match.legalMovesOf(nextPlayer);
-			List<IChessMove> splitMoves = dumyRuleEngine.splitMoves(moves);
+			List<IChessMove> splitMoves = EasyRuleEngine.splitMoves(moves);
 			System.out.println("All Legal moves ");
 			for (IChessMove mv : splitMoves) {
 				if (mv.owner().toFen() == 'b')
@@ -32,6 +32,7 @@ class BishopMoveAndNotSuicideTest {
 				System.out.println();
 				
 			Action play = dumyRuleEngine.play();
+			
 			
 			assert(play==Action.FINISH_MATCH);
  

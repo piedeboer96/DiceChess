@@ -48,7 +48,7 @@ public class EasyRuleEngine {
 
 				Object bestScore = facts.get(LFacts.BEST_MOVE);
 				System.out.println("Rule   " + rule.getName() + " " + bestScore);
-//				System.out.println("Facts " + facts);
+ 
 			}
 		};
 
@@ -119,7 +119,7 @@ public class EasyRuleEngine {
 
 	}
 
-	public List<IChessMove> splitMoves(List<IChessMove> moves) {
+	public static  List<IChessMove> splitMoves(List<IChessMove> moves) {
 		List<IChessMove> splittedMoves = new ArrayList<IChessMove>();
 
 		for (IChessMove move : moves) {
@@ -156,8 +156,12 @@ public class EasyRuleEngine {
 		rules.register(promoteRule);
 		AttackRule attackRule = new AttackRule();
 		rules.register(attackRule);
+		
 		KingDeadRule kingDeadRule = new KingDeadRule();
 		rules.register(kingDeadRule);
+		
+		NotSuicideRule notSuicideRule = new NotSuicideRule();
+		rules.register(notSuicideRule);
 		return rules;
 
 	}
