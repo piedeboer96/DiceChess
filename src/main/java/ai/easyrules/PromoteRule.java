@@ -28,10 +28,8 @@ public class PromoteRule {
 	private IChessMove chessMove;
 
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char roll) {
-		if (move.owner().toFen() != roll) {
-			return false;
-		}
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move) {
+
 		int rank = move.possibilities().get(0).rank();
 		char pawn = move.owner().toFen();
 		if (pawn == 'p' && rank == 7) {

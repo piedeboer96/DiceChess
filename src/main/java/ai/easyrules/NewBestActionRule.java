@@ -34,7 +34,7 @@ public class NewBestActionRule {
 	public void log(@Fact(LFacts.BEST_MOVE) IChessMove bestMove) throws Exception {
 
 		
-		System.out.println(bestMove+" <------------    NEW BEST MOVE");
+		System.out.println(bestMove+" <-- NEW BEST MOVE");
 
 	}
 }
