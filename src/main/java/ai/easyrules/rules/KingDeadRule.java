@@ -33,9 +33,9 @@ public class KingDeadRule {
 	private IChessPiece opponentPiece;
 
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match ) {
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match,@Fact(LFacts.ROLL) char roll ) {
 		opponentPiece = match.get(move.possibilities().get(0));
-		if (  opponentPiece != null
+		if ( move.owner().toFen() == roll && opponentPiece != null
 				&& (opponentPiece.toFen() == 'K' || opponentPiece.toFen() == 'k')) {
 
 			return true;

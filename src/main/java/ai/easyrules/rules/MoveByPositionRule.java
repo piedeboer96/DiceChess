@@ -32,10 +32,12 @@ public class MoveByPositionRule {
 	private IChessMove chessMove;
 
 	@Condition
-	public boolean when(  ) {
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move,@Fact(LFacts.ROLL) char roll  ) {
 	 
+		if ( move.owner().toFen() == roll ) 
 			return true;
  
+		return false;
 	}
 
 	@Action(order = 1)

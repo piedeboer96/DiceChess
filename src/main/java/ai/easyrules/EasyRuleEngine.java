@@ -85,7 +85,7 @@ public class EasyRuleEngine {
 		for (IChessMove move : movesSplitted) {
 			System.out.println();
 			System.out.println();
-			System.out.println("Evaluating  From " + move.owner() + " -- To Move --> " + move.possibilities().get(0));
+			System.out.println("Evaluating roll ["+rollTheDie+"] From " + move.owner() + " -- To Move --> " + move.possibilities().get(0));
 			facts.put(LFacts.CHESSMOVE, move);
 			rulesEngine.fire(rules, facts);
 

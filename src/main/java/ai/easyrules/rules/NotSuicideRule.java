@@ -38,8 +38,11 @@ public class NotSuicideRule {
 	private IChessMove chessMove;
 
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) ChessMatch match) {
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) ChessMatch match,@Fact(LFacts.ROLL) char roll) {
 
+		if (! (move.owner().toFen() == roll )) 
+			return false;
+		
 		int file = move.possibilities().get(0).file();
 		int rank = move.possibilities().get(0).rank();
 

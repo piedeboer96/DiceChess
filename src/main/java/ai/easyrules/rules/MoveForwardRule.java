@@ -29,9 +29,15 @@ public class MoveForwardRule {
 	private IChessMove chessMove;
 
 	// we want to apply to any moves
+
 	@Condition
-	public boolean when( ) {
-		return true;
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move,@Fact(LFacts.ROLL) char roll ) {
+ 
+		if ( move.owner().toFen() == roll ) 
+			return true;
+ 
+		return false;
+	 
 	}
 
 	@Action(order = 1)
