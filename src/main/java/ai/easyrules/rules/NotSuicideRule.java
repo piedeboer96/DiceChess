@@ -1,4 +1,4 @@
-package ai.easyrules;
+package ai.easyrules.rules;
 
 import java.util.List;
 
@@ -8,6 +8,8 @@ import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
+import ai.easyrules.EasyRuleEngine;
+import ai.easyrules.LFacts;
 import chess.ChessMatch;
 import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessMove;
@@ -30,7 +32,7 @@ import chess.units.Rook;
   
  */
 
-@Rule(name = "- Not  Suicide     -", description = "Do not move if I can be eated by another piece", priority = 10)
+@Rule(name = "- Not  Suicide     -", description = "Do not move if I can be eated by another piece", priority = 1)
 public class NotSuicideRule {
 
 	private IChessMove chessMove;

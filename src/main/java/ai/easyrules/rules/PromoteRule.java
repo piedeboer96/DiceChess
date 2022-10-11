@@ -1,4 +1,4 @@
-package ai.easyrules;
+package ai.easyrules.rules;
 
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
@@ -6,6 +6,7 @@ import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
+import ai.easyrules.LFacts;
 import chess.interfaces.IChessMove;
 
 /*
@@ -21,7 +22,7 @@ import chess.interfaces.IChessMove;
  */
 
 
-@Rule(name = "- Promote to Queen -", description = "Promote the pawn in the first opponent line ", priority = 9)
+@Rule(name = "- Promote to Queen -", description = "Promote the pawn in the first opponent line ", priority = 10)
 public class PromoteRule {
 
 	int currentScore = 0;

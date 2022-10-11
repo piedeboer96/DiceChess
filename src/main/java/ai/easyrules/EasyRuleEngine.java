@@ -9,6 +9,14 @@ import org.jeasy.rules.api.RuleListener;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.core.DefaultRulesEngine;
 
+import ai.easyrules.rules.AttackRule;
+import ai.easyrules.rules.KingDeadRule;
+import ai.easyrules.rules.MoveByPositionRule;
+import ai.easyrules.rules.MoveByValueRule;
+import ai.easyrules.rules.MoveForwardRule;
+import ai.easyrules.rules.NewBestActionRule;
+import ai.easyrules.rules.NotSuicideRule;
+import ai.easyrules.rules.PromoteRule;
 import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;

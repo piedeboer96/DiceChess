@@ -12,7 +12,7 @@ import org.jeasy.rules.core.DefaultRulesEngine;
 import org.junit.jupiter.api.Test;
 
 import ai.easyrules.LFacts;
-import ai.easyrules.MoveForwardRule;
+import ai.easyrules.rules.MoveForwardRule;
 import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessPiece;
 import chess.units.Pawn;

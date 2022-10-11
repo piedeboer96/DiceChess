@@ -1,17 +1,14 @@
-package ai.easyrules;
+package ai.easyrules.rules;
 
-import chess.interfaces.IChessBoardSquare;
-import chess.interfaces.IChessMatch;
-import chess.interfaces.IChessMove;
-import chess.interfaces.IChessPiece;
-import chess.units.*;
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
-import java.util.List;
+import ai.easyrules.LFacts;
+import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessMove;
 
 /*
   
@@ -25,33 +22,28 @@ import java.util.List;
   
  */
 
-@Rule(name = "Attack Rule ", description = "Add a score according to capturing a piece", priority = 1)
-public class AttackRule {
-	private IChessPiece opponentPiece;
+ 
+@Rule(name = "- Move Forward     -", description = "Add 1 score if we can move forward", priority = 1)
+public class MoveForwardRule {
+
 	private IChessMove chessMove;
 
+	// we want to apply to any moves
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match) {
-		opponentPiece = match.get(move.possibilities().get(0));
-		if ( opponentPiece != null) {
-
-			return true;
-
-		}
-		return false;
+	public boolean when( ) {
+		return true;
 	}
 
 	@Action(order = 1)
-	public void attackMove(@Fact(LFacts.CHESSMOVE) IChessMove chessMove) {
-		this.chessMove = chessMove;
+	public void increaseRanking(@Fact(LFacts.CHESSMOVE) IChessMove chessMove) {
 		/*
 		 * 
 		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
 		 * 
 		 */
-//		System.out.println("");
+
+		this.chessMove = chessMove;
 		evaluateMove(chessMove);
-//		System.out.println("");
 
 	}
 
@@ -68,45 +60,31 @@ public class AttackRule {
 	}
 
 	private void evaluateMove(IChessMove move) {
-		char fen = opponentPiece.toFen();
+		int team = move.owner().team();
+		// team 1 white
+		IChessBoardSquare possibleMove = move.possibilities().get(0);
+		int rank = possibleMove.rank();
 
-		List<IChessBoardSquare> possibilities = move.possibilities();
+		if (team == 1) {
 
-		switch (fen) {
+			// if it progresses on the board (increase the rank)
 
-		case 'P':
-		case 'p':
-			possibilities.get(0).addScore(2*Pawn.pointValue);
-			break;
-		case 'B':
-		case 'b':
+			if (move.owner().rank() > rank) {
 
-			possibilities.get(0).addScore(2*Bishop.pointValue);
-			break;
-		case 'K':
-		case 'k':
+				possibleMove.addScore(1); // include your evaluation features into the scoring mechanism
 
-			possibilities.get(0).addScore(2*King.pointValue);
-			break;
-		case 'N':
-		case 'n':
 
-			possibilities.get(0).addScore(2*Knight.pointValue);
+			}
 
-			break;
-		case 'Q':
-		case 'q':
-			possibilities.get(0).addScore(2*Queen.pointValue);
+		} else {
 
-			break;
-		case 'R':
-		case 'r':
+			{
+				if (move.owner().rank() < rank) {
 
-			possibilities.get(0).addScore(2*Rook.pointValue);
+					possibleMove.addScore(1);
 
-			break;
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + fen);
+				}
+			}
 
 		}
 	}

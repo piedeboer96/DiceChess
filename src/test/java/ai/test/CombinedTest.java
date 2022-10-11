@@ -12,9 +12,9 @@ import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.core.DefaultRulesEngine;
 import org.junit.jupiter.api.Test;
 
-import ai.easyrules.MoveByPositionRule;
-import ai.easyrules.MoveByValueRule;
 import ai.easyrules.Utils;
+import ai.easyrules.rules.MoveByPositionRule;
+import ai.easyrules.rules.MoveByValueRule;
 import ai.evaluation.PieceSquareTable;
 import chess.interfaces.IChessBoardSquare;
 import chess.interfaces.IChessPiece;

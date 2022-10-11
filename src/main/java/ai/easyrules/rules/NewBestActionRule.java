@@ -1,14 +1,12 @@
-package ai.easyrules;
+package ai.easyrules.rules;
 
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
-import org.jeasy.rules.api.Facts;
 
-import chess.interfaces.IChessMatch;
+import ai.easyrules.LFacts;
 import chess.interfaces.IChessMove;
-import chess.interfaces.IChessPiece;
 
 /*
   
@@ -21,48 +19,23 @@ import chess.interfaces.IChessPiece;
    ChessMove [owner=ChessPiece [fen=P, team=1, file=7, rank=6], destinations=[ChessBoardSquare [file=7, rank=5], ChessBoardSquare [file=7, rank=4]]]
   
  */
+ 
 
+@Rule(name = "- New Best Move    -", description = " Just print the new best move ", priority = 10)
+public class NewBestActionRule {
 
-
-@Rule(name = "- King  Dead       -", description = "End of the game because the king is dead ", priority = 1)
-public class KingDeadRule {
-
-	int currentScore = 0;
-	private IChessMove chessMove;
-	private IChessPiece opponentPiece;
-
+	
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match ) {
-		opponentPiece = match.get(move.possibilities().get(0));
-		if (  opponentPiece != null
-				&& (opponentPiece.toFen() == 'K' || opponentPiece.toFen() == 'k')) {
-
-			return true;
-
-		}
-		return false;
+	public boolean when( ) {
+		return true;
 	}
 
+	
 	@Action(order = 1)
-	public void kingIsDead(@Fact("ChessMove") IChessMove chessMove) {
-		/*
-		 * 
-		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
-		 * 
-		 */
-		this.chessMove = chessMove;
-		evaluateMove(chessMove);
-	}
+	public void log(@Fact(LFacts.BEST_MOVE) IChessMove bestMove) throws Exception {
 
-	@Action(order = 2)
-	public void Finally(Facts facts) throws Exception {
+		
+		System.out.println(bestMove+" <-- NEW BEST MOVE");
 
-            facts.put(LFacts.BEST_MOVE, chessMove);
-			facts.put(LFacts.ACTION, ai.easyrules.Action.FINISH_MATCH);
-
-	}
-
-	private void evaluateMove(IChessMove move) {
-		move.possibilities().get(0).addScore(100000);
 	}
 }
