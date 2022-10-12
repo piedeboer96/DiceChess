@@ -186,6 +186,25 @@ public abstract class Chessboard implements IChessboard
         return movesOfTeam;
     }
 
+    public List<IChessMove> filterMovesOf(int team, char[] values)
+    {
+        List<IChessMove> filteredMovesOfTeam = new ArrayList<>();
+        List<IChessMove> movesOfTeam = generateMovesOf(team);
+
+        if(values[0] == values[1])
+        {
+            return movesOfTeam;
+        }
+        for(int i = 0; i < movesOfTeam.size(); i++)
+        {
+            if(movesOfTeam.get(i).owner().toFen() == values[0] || movesOfTeam.get(i).owner().toFen() == values[1])
+            {
+                filteredMovesOfTeam.add(movesOfTeam.get(i));
+            }
+        }
+            return filteredMovesOfTeam;
+    }
+
     public IChessPiece get(IChessboardSquare square) { return squares[square.toIndex()]; }
 
     public IChessPiece getKing(int team) { return kings[team]; }
@@ -200,7 +219,8 @@ public abstract class Chessboard implements IChessboard
         if (team == 0) { opponent = 1; }
         else { opponent = 0; }
 
-        List<IChessMove> teamMoves =  generateMovesOf(team);
+        char[] filter = {'p','n'};
+        List<IChessMove> teamMoves =  filterMovesOf(team, filter);
         List<IChessMove> legalMoves = new ArrayList<>();
 
         for (IChessMove teamMove : teamMoves)

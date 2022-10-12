@@ -1,5 +1,6 @@
 package chess;
 
+import chess.interfaces.IChessMove;
 import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessPiece;
@@ -9,6 +10,8 @@ import chess.units.Rook;
 import chess.utility.Chessboard;
 import chess.utility.ChessboardSquare;
 import chess.utility.Factory;
+
+import java.util.List;
 
 public class ChessMatch extends Chessboard implements IChessMatch
 {
@@ -325,5 +328,10 @@ public class ChessMatch extends Chessboard implements IChessMatch
         // Building field 6: Number of full moves
         sb.append(fullMoves);
         return sb.toString();
+    }
+
+    @Override
+    public List<IChessMove> filterMovesOf(int team, int[] values) {
+        return null;
     }
 }

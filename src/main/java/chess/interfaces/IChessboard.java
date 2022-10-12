@@ -22,6 +22,12 @@ public interface IChessboard
     List<IChessMove> generateMovesOf(int team);
 
     /**
+     * filters the moves that can be played by a team based on the dice values rolled
+     */
+    List<IChessMove> filterMovesOf(int team, int[] values);
+
+
+    /**
      * Determines whether a chess piece is located on a square.
      * If so, then the chess piece is returned. Null, otherwise.
      **/
