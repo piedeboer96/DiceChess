@@ -12,8 +12,11 @@ public final class DiceChessWindow extends Window
         var match = new ChessMatch();
         var window = new DiceChessWindow(800, 640);
         window.display(match);
+        var player = window.getPlayer();
+        player.playIn(1, match);
     }
     private final Chessboard chessboard;
+    private final Dice dice;
     private final DiceChessPlayer player;
     private IChessMatch match;
 
@@ -22,20 +25,20 @@ public final class DiceChessWindow extends Window
     {
         super("A game of dice chess.", width, height);
 
-        int panelWidth = width / 10;
-        int boardWidth = width - (2 * panelWidth);
+        int panelWidth = width / 10 * 2;
+        int boardWidth = width - panelWidth;
 
-        chessboard = new Chessboard(panelWidth, 0, boardWidth, height);
-        var leftPanel = new Panel(0, 0, panelWidth, height);
-        var rightPanel = new Panel(panelWidth + boardWidth, 0, panelWidth, height);
-        var componentGroup = new ComponentGroup(3);
+        chessboard = new Chessboard(0, 0, boardWidth, height);
+        dice = new Dice(boardWidth, 0, panelWidth, height);
+        var componentGroup = new ComponentGroup(2);
         componentGroup.add(chessboard);
-        componentGroup.add(leftPanel);
-        componentGroup.add(rightPanel);
+
+        componentGroup.add(dice);
         add(componentGroup);
 
         clickableSources = new IClickable[2];
         clickableSources[0] = chessboard;
+        clickableSources[1] = dice;
 
         display();
 
@@ -58,5 +61,6 @@ public final class DiceChessWindow extends Window
     @Override public void refresh()
     {
         chessboard.updateUI();
+        dice.updateUI();
     }
 }
