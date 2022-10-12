@@ -45,7 +45,7 @@ public final class DiceChessPlayer extends Player
                 }
             }
         }
-        else if (source instanceof Chessboard && results != null)
+        else if (source instanceof Chessboard)
         {
             var chessboard = (Chessboard) source;
             var selected = chessboard.determineSquare(coordinates[0], coordinates[1]);
@@ -53,19 +53,5 @@ public final class DiceChessPlayer extends Player
             digest(selected, highlighter);
         }
         window.refresh();
-    }
-
-    @Override protected void select(IChessboardSquare selected)
-    {
-        selectedPiece = match.get(selected);
-        if (selectedPiece == null || availableMoves == null) { return; }
-        availableDestinations = new ArrayList<>();
-        for (var chessMove : constrained)
-        {
-            if (chessMove.owner().equals(selectedPiece))
-            {
-                availableDestinations.addAll(chessMove.possibilities());
-            }
-        }
     }
 }

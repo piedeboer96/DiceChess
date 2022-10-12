@@ -1,9 +1,9 @@
 package gui.utility;
 
-import javax.swing.JComponent;
+import javax.swing.*;
 import java.awt.Graphics;
 
-public class ComponentGroup extends JComponent
+public class ComponentGroup extends JPanel
 {
     private final JComponent[] components;
     private int iterator;

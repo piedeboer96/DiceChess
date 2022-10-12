@@ -7,7 +7,7 @@ import java.util.Random;
 public class Die implements IDie {
 	public char roll(int team) {
 		Random generator = new Random();
-		int result = generator.nextInt(0, 6);
+		int result = generator.nextInt(6);
 		char fen;
 		switch (result) {
 		case 0:

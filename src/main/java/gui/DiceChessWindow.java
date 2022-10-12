@@ -18,6 +18,7 @@ public final class DiceChessWindow extends Window
     private final Chessboard chessboard;
     private final Dice dice;
     private final DiceChessPlayer player;
+    private final ComponentGroup componentGroup;
     private IChessMatch match;
 
 
@@ -30,7 +31,7 @@ public final class DiceChessWindow extends Window
 
         chessboard = new Chessboard(0, 0, boardWidth, height);
         dice = new Dice(boardWidth, 0, panelWidth, height);
-        var componentGroup = new ComponentGroup(2);
+        componentGroup = new ComponentGroup(2);
         componentGroup.add(chessboard);
 
         componentGroup.add(dice);
@@ -60,7 +61,6 @@ public final class DiceChessWindow extends Window
 
     @Override public void refresh()
     {
-        chessboard.updateUI();
-        dice.updateUI();
+        componentGroup.updateUI();
     }
 }
