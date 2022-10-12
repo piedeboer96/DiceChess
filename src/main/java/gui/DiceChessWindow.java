@@ -7,12 +7,21 @@ import gui.utility.*;
 
 public final class DiceChessWindow extends Window
 {
+	public static void main(String[] args)
+	{
+		var match = new ChessMatch();
+		var window = new DiceChessWindow(800, 640, true);
+		window.display(match);
+		var player = window.getPlayer();
+		player.playIn(1,  match);
+	}
+	
     private final Chessboard chessboard;
     private final ComponentGroup componentGroup;
     private IChessMatch match;
+    private Player player;
 
-
-    public DiceChessWindow(int width, int height)
+    public DiceChessWindow(int width, int height, boolean humanVsHuman)
     {
         super("A game of dice chess.", width, height);
 
@@ -32,6 +41,9 @@ public final class DiceChessWindow extends Window
         clickableSources[1] = dice;
 
         display();
+        
+        player = new DiceChessPlayer(humanVsHuman);
+        addMouseListener(player);
     }
 
     public void display(IChessMatch match)
@@ -43,6 +55,8 @@ public final class DiceChessWindow extends Window
     }
 
     public IChessMatch getMatch() { return match; }
+    
+    public Player getPlayer() { return player; }
 
     @Override public void refresh()
     {

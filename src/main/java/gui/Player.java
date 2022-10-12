@@ -115,8 +115,8 @@ public abstract class Player extends MouseAdapter
         // Getting the chess piece that is occupying the square the player has selected.
         // If null is returned, then it means there is no chess piece occupying this square.
         // Hence, there is nothing to do but only highlighting the square the player has clicked.
-        IChessPiece occupierOfSelectedSquare = match.get(selectedSquare);
-        if (occupierOfSelectedSquare != null)
+        occupierOfLastSelectedSquare = match.get(selectedSquare);
+        if (occupierOfLastSelectedSquare != null)
         {
             // If no legal moves have been registered, then load the legal moves this player has.
             if (legalMoves == null) { loadLegalMoves(); }
@@ -131,17 +131,17 @@ public abstract class Player extends MouseAdapter
                 // If the chess piece has any moves to perform, then the possible destinations of each move
                 // will be registered in one (large) list to ease access and checking.
                 IChessPiece moveOwner = chessMove.owner();
-                if (moveOwner.equals(occupierOfSelectedSquare)) { possibleDestinations.addAll(chessMove.possibilities()); }
+                if (moveOwner.equals(occupierOfLastSelectedSquare)) { possibleDestinations.addAll(chessMove.possibilities()); }
             }
 
             // If there are any destinations the chess piece can move to, then these should be highlighted.
             if (possibleDestinations.size() > 0) { highlighter.rememberDestinations(possibleDestinations); }
-
-            // Finally, register the selected chess piece as the last selected chess piece for the next frame.
-            occupierOfLastSelectedSquare = occupierOfSelectedSquare;
         }
 
         // Highlighting the square that has been clicked.
         highlighter.rememberSelection(selectedSquare);
+        
+        // Finally register the selected square as the last selected square.
+        lastSelectedSquare = selectedSquare;
     }
 }

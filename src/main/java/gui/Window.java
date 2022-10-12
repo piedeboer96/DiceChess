@@ -1,13 +1,14 @@
 package gui;
 
 import gui.interfaces.IClickable;
+import gui.interfaces.IWindow;
 
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
 
-public abstract class Window extends JFrame
+public abstract class Window extends JFrame implements IWindow
 {
     protected int dw, dh;
     protected Insets insets;
@@ -23,13 +24,6 @@ public abstract class Window extends JFrame
         setResizable(false);
     }
 
-    public int[] applyCoordinateCorrection(int mouseX, int mouseY)
-    {
-        int[] coordinates = new int[2];
-        coordinates[0] = mouseX - insets.left;
-        coordinates[1] = mouseY - insets.top;
-        return coordinates;
-    }
 
     protected void center()
     {
@@ -39,6 +33,14 @@ public abstract class Window extends JFrame
         int x = (screen.width - window.width) / 2;
         int y = (screen.height - window.height) / 2;
         setLocation(x, y);
+    }
+    
+    public int[] determineLocationInContentBody(int mouseX, int mouseY)
+    {
+        int[] coordinates = new int[2];
+        coordinates[0] = mouseX - insets.left;
+        coordinates[1] = mouseY - insets.top;
+        return coordinates;
     }
 
     public void display()

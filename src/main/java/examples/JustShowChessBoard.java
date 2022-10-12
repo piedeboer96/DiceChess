@@ -16,7 +16,7 @@ public class JustShowChessBoard {
 	public void mainLoop() {
 
 		// Creating a new window.
-		ChessWindow window = new ChessWindow(640, 640);
+		ChessWindow window = new ChessWindow(640, 640, false);
 
 		String startPos;
 		// full pieces
