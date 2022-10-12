@@ -39,12 +39,8 @@ public abstract class Player extends MouseAdapter
             if (selectedPiece != null)
             {
                 play(selected);
-                if (selectedPiece.promotable())
-                {
-                    System.out.println("Pawn can be promoted");
-                }
                 clearHighlights(highlighter, true);
-                deselect(true);
+
             }
             else
             {
@@ -68,13 +64,19 @@ public abstract class Player extends MouseAdapter
     protected void play(IChessboardSquare selected)
     {
         if (selectedPiece == null || availableDestinations == null) { return; }
+        boolean found = false;
         for (var destination : availableDestinations)
         {
-            if (destination.equals(selected))
+            found = destination.equals(selected);
+            if (found)
             {
                 match.playMove(selectedPiece, selected);
+                deselect(true);
+                team = match.getPlayer();
+                break;
             }
         }
+        if (!found) { deselect(false); }
     }
 
     protected void select(IChessboardSquare selected)

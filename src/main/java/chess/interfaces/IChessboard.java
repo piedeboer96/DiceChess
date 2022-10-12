@@ -21,6 +21,9 @@ public interface IChessboard
      **/
     List<IChessMove> generateMovesOf(int team);
 
+
+    List<IChessMove> filterMovesOf(int team, char[] values);
+
     /**
      * Determines whether a chess piece is located on a square.
      * If so, then the chess piece is returned. Null, otherwise.

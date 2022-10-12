@@ -21,7 +21,6 @@ public final class DiceChessPlayer extends Player
         else if (availableMoves == null)
         {
             results = null;
-            availableMoves = match.legalMovesOf(team);
         }
         var window = (DiceChessWindow) e.getSource();
         int[] coordinates = window.applyCoordinateCorrection(e.getX(), e.getY());
@@ -30,19 +29,11 @@ public final class DiceChessPlayer extends Player
         {
             var dice = (Dice) source;
             results = dice.roll(team);
-            if (results[0] == results[1]) { constrained = availableMoves; }
-            else
+            availableMoves = match.filterMovesOf(team, results);
+            if (availableMoves.size() == 0)
             {
-                constrained = new ArrayList<>();
-                for (IChessMove move : availableMoves)
-                {
-                    var chessPiece = move.owner();
-                    var fen = chessPiece.toFen();
-                    if (fen == results[0] || fen == results[1])
-                    {
-                        constrained.add(move);
-                    }
-                }
+                deselect(true);
+                team = match.nextPlayer();
             }
         }
         else if (source instanceof Chessboard)
