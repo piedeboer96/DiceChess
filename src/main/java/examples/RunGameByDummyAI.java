@@ -19,7 +19,7 @@ public class RunGameByDummyAI {
 	public void mainLoop() {
 
 		// Creating a new window.
-		ChessWindow window = new ChessWindow(640, 640);
+		ChessWindow window = new ChessWindow(640, 640, falset);
 
 		String startPos;
 		// full pieces

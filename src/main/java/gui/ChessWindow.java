@@ -7,10 +7,21 @@ import gui.utility.Chessboard;
 
 public final class ChessWindow extends Window
 {
+	public static void main(String[] args)
+	{
+		// Creates a human vs human chess game.
+		var match = new ChessMatch();
+		var window = new ChessWindow(640, 640, true);
+		window.display(match);
+		var player = window.getPlayer();
+		player.playIn(1, match);
+	}
+	
     private final Chessboard chessboard;
-    private IChessMatch match;
-
-    public ChessWindow(int width, int height)
+    private IChessMatch match; 
+    private Player player;
+    
+    public ChessWindow(int width, int height, boolean humanVsHuman)
     {
         super("A game of chess.", width, height);
 
@@ -21,7 +32,9 @@ public final class ChessWindow extends Window
         clickableSources[0] = chessboard;
 
         display();
-
+        
+        player = new ChessPlayer(humanVsHuman);
+        addMouseListener(player);
     }
 
     public void display(IChessMatch match)
@@ -33,6 +46,8 @@ public final class ChessWindow extends Window
     }
 
     public IChessMatch getMatch() { return match; }
+    
+    public Player getPlayer() { return player; }
 
     @Override public void refresh() { chessboard.updateUI(); }
 }
