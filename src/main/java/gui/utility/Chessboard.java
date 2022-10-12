@@ -73,8 +73,15 @@ public class Chessboard extends JPanel implements IChessboard, IClickable
                 if ((file + rank) % 2 == 0) { g.setColor(evenSquareColor); }
                 else { g.setColor(oddSquareColor); }
                 g.fillRect(xs[file], ys[rank], sw, sh);
+                drawPositionSquares(g, xs[file], ys[rank], file, rank);
             }
         }
+    }
+
+    private void drawPositionSquares(Graphics g, int xs, int ys, int file, int rank) {
+        if ((file + rank) % 2 == 0) { g.setColor(oddSquareColor); }
+        else { g.setColor(evenSquareColor); }
+        g.drawString(file + "," + rank, xs + (int)(0.75*sw), ys + (int)(0.15*sh));
     }
 
     public IHighlighter getHighlighter() { return highlighter; }

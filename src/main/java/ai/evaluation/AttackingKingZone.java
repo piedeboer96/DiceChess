@@ -55,12 +55,12 @@ public class AttackingKingZone {
         int rankStartDistance;
         int rankEndDistance;
 
-        if(opponentTeam == 1) {
-            rankStartDistance = 2;
-            rankEndDistance = 1;
-        } else {
+        if(opponentTeam == 0) {
             rankStartDistance = 1;
             rankEndDistance = 2;
+        } else {
+            rankStartDistance = 2;
+            rankEndDistance = 1;
         }
 
         for(int rankTemp = kingRank - rankStartDistance; rankTemp <= kingRank + rankEndDistance; rankTemp++) {
