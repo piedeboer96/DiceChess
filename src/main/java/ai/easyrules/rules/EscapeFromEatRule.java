@@ -9,10 +9,10 @@ import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
 import ai.easyrules.LFacts;
+import ai.easyrules.Utils;
+import chess.ChessMatch;
 import chess.interfaces.IChessboardSquare;
-import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
-import chess.interfaces.IChessPiece;
 import chess.units.Bishop;
 import chess.units.King;
 import chess.units.Knight;
@@ -32,36 +32,45 @@ import chess.units.Rook;
   
  */
 
-@Rule(name = AttackRule.NAME, description = AttackRule.DESCRIPTION, priority = 10)
-public class AttackRule {
-	static final String DESCRIPTION = "Add a score according to capturing a piece";
-	static final String NAME = "- Attack Rule      -";
-	private IChessPiece opponentPiece;
+@Rule(name = EscapeFromEatRule.NAME, description = EscapeFromEatRule.DESCRIPTION, priority = 1)
+public class EscapeFromEatRule {
+
+
+	static final String DESCRIPTION = "If the piece is under Attack let's try to escape";
+	static final String NAME = "- Escape from EAT  -";
+	
 
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match, @Fact(LFacts.ROLL) char roll) {
-		opponentPiece = match.get(move.possibilities().get(0));
-		if (move.owner().toFen() == roll && opponentPiece != null) {
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) ChessMatch match,@Fact(LFacts.ROLL) char roll) {
 
-			return true;
+		if (! (move.owner().toFen() == roll )) 
+			return false;
+		
+		int file = move.possibilities().get(0).file();
+		int rank = move.possibilities().get(0).rank();
 
+		int otherPlayer = match.getPlayer() == 1 ? 0 : 1;
+		List<IChessMove> generateMovesOf = match.generateMovesOf(otherPlayer);
+
+		// if the opponent can move and eat in our destintaion the we activate the rule
+		List<IChessMove> splitMoves = Utils.splitMoves(generateMovesOf);
+		for (IChessMove opponentMove : splitMoves) {
+			if (opponentMove.possibilities().get(0).file() == file
+					&& opponentMove.possibilities().get(0).rank() == rank)
+				return true;
 		}
+
 		return false;
 	}
 
 	@Action(order = 1)
-	public void attackMove(@Fact(LFacts.CHESSMOVE) IChessMove chessMove) {
-		/*
-		 * 
-		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
-		 * 
-		 */
-//		System.out.println("");
+	public void increaseRanking(@Fact(LFacts.CHESSMOVE) IChessMove chessMove) {
+
+
 		evaluateMove(chessMove);
-//		System.out.println("");
 
 	}
-
+	
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
 		ai.easyrules.Action currentAction = facts.get(LFacts.ACTION);
@@ -70,46 +79,44 @@ public class AttackRule {
 	}
 
 	private void evaluateMove(IChessMove move) {
-		char fen = opponentPiece.toFen();
-
+		char fen = move.owner().toFen();
 		List<IChessboardSquare> possibilities = move.possibilities();
-
+		IChessboardSquare iChessBoardSquare = possibilities.get(0);
+		int score;
 		switch (fen) {
-
 		case 'P':
 		case 'p':
-			possibilities.get(0).addScore(2 * Pawn.pointValue);
+
+			score = -Pawn.pointValue;
+
 			break;
 		case 'B':
 		case 'b':
-
-			possibilities.get(0).addScore(2 * Bishop.pointValue);
+			score = -Bishop.pointValue;
 			break;
 		case 'K':
 		case 'k':
-
-			possibilities.get(0).addScore(2 * King.pointValue);
+			score = -King.pointValue;
 			break;
 		case 'N':
 		case 'n':
-
-			possibilities.get(0).addScore(2 * Knight.pointValue);
-
+			score = -Knight.pointValue;
 			break;
 		case 'Q':
 		case 'q':
-			possibilities.get(0).addScore(2 * Queen.pointValue);
+
+			score = -Queen.pointValue;
 
 			break;
 		case 'R':
 		case 'r':
-
-			possibilities.get(0).addScore(2 * Rook.pointValue);
-
+			score = -Rook.pointValue;
 			break;
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + fen);
 
 		}
+
+		iChessBoardSquare.addScore(score);
 	}
 }

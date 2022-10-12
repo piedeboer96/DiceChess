@@ -9,7 +9,7 @@ import ai.easyrules.EasyRuleEngine;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
 
-class PawnMoveAndWinTest {
+public class PawnMoveAndWinTest {
 
 	// 0 black 1 white
 	@Test

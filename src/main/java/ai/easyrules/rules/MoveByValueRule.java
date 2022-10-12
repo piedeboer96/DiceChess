@@ -9,8 +9,8 @@ import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
 import ai.easyrules.LFacts;
-import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMove;
+import chess.interfaces.IChessboardSquare;
 import chess.units.Bishop;
 import chess.units.King;
 import chess.units.Knight;
@@ -75,22 +75,22 @@ public class MoveByValueRule {
 		case 'P':
 		case 'p':
 
-			for (IChessboardSquare iChessBoardSquare : possibilities) {
-				iChessBoardSquare.addScore(-Pawn.pointValue);
+			for (IChessboardSquare IChessboardSquare : possibilities) {
+				IChessboardSquare.addScore(-Pawn.pointValue);
 //				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
-//						+ oldscore + " new score " + iChessBoardSquare.getScore());
+//						+ oldscore + " new score " + IChessboardSquare.getScore());
 			}
 
 			break;
 		case 'B':
 		case 'b':
 
-			for (IChessboardSquare iChessBoardSquare : possibilities)
+			for (IChessboardSquare IChessboardSquare : possibilities)
 
 			{
-				iChessBoardSquare.addScore(-Bishop.pointValue);
+				IChessboardSquare.addScore(-Bishop.pointValue);
 //				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
-//						+ oldscore + " new score " + iChessBoardSquare.getScore());
+//						+ oldscore + " new score " + IChessboardSquare.getScore());
 
 			}
 
@@ -98,12 +98,12 @@ public class MoveByValueRule {
 		case 'K':
 		case 'k':
 
-			for (IChessboardSquare iChessBoardSquare : possibilities)
+			for (IChessboardSquare IChessboardSquare : possibilities)
 
 			{
-				iChessBoardSquare.addScore(-King.pointValue);
+				IChessboardSquare.addScore(-King.pointValue);
 //				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
-//						+ oldscore + " new score " + iChessBoardSquare.getScore());
+//						+ oldscore + " new score " + IChessboardSquare.getScore());
 
 			}
 
@@ -111,12 +111,12 @@ public class MoveByValueRule {
 		case 'N':
 		case 'n':
 
-			for (IChessboardSquare iChessBoardSquare : possibilities)
+			for (IChessboardSquare IChessboardSquare : possibilities)
 
 			{
-				iChessBoardSquare.addScore(-Knight.pointValue);
+				IChessboardSquare.addScore(-Knight.pointValue);
 //				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
-//						+ oldscore + " new score " + iChessBoardSquare.getScore());
+//						+ oldscore + " new score " + IChessboardSquare.getScore());
 
 			}
 
@@ -124,12 +124,12 @@ public class MoveByValueRule {
 		case 'Q':
 		case 'q':
 
-			for (IChessboardSquare iChessBoardSquare : possibilities)
+			for (IChessboardSquare IChessboardSquare : possibilities)
 
 			{
-				iChessBoardSquare.addScore(-Queen.pointValue);
+				IChessboardSquare.addScore(-Queen.pointValue);
 //				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
-//						+ oldscore + " new score " + iChessBoardSquare.getScore());
+//						+ oldscore + " new score " + IChessboardSquare.getScore());
 
 			}
 
@@ -137,12 +137,12 @@ public class MoveByValueRule {
 		case 'R':
 		case 'r':
 
-			for (IChessboardSquare iChessBoardSquare : possibilities)
+			for (IChessboardSquare IChessboardSquare : possibilities)
 
 			{
-				iChessBoardSquare.addScore(-Rook.pointValue);
+				IChessboardSquare.addScore(-Rook.pointValue);
 //				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
-//						+ oldscore + " new score " + iChessBoardSquare.getScore());
+//						+ oldscore + " new score " + IChessboardSquare.getScore());
 
 			}
 

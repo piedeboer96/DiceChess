@@ -8,8 +8,8 @@ import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
-import ai.easyrules.EasyRuleEngine;
 import ai.easyrules.LFacts;
+import ai.easyrules.Utils;
 import chess.ChessMatch;
 import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMove;
@@ -52,7 +52,7 @@ public class NotSuicideRule {
 		List<IChessMove> generateMovesOf = match.generateMovesOf(otherPlayer);
 
 		// if the opponent can move and eat in our destintaion the we activate the rule
-		List<IChessMove> splitMoves = EasyRuleEngine.splitMoves(generateMovesOf);
+		List<IChessMove> splitMoves = Utils.splitMoves(generateMovesOf);
 		for (IChessMove opponentMove : splitMoves) {
 			if (opponentMove.possibilities().get(0).file() == file
 					&& opponentMove.possibilities().get(0).rank() == rank)
@@ -80,7 +80,7 @@ public class NotSuicideRule {
 	private void evaluateMove(IChessMove move) {
 		char fen = move.owner().toFen();
 		List<IChessboardSquare> possibilities = move.possibilities();
-		IChessboardSquare iChessBoardSquare = possibilities.get(0);
+		IChessboardSquare IChessboardSquare = possibilities.get(0);
 		int score;
 		switch (fen) {
 		case 'P':
@@ -116,6 +116,6 @@ public class NotSuicideRule {
 
 		}
 
-		iChessBoardSquare.addScore(score);
+		IChessboardSquare.addScore(score);
 	}
 }

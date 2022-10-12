@@ -9,16 +9,13 @@ import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
 import ai.easyrules.LFacts;
-import chess.interfaces.IChessboardSquare;
+import ai.easyrules.Utils;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessPiece;
-import chess.units.Bishop;
-import chess.units.King;
-import chess.units.Knight;
-import chess.units.Pawn;
-import chess.units.Queen;
-import chess.units.Rook;
+import chess.interfaces.IChessboardSquare;
+import chess.units.ChessPiece;
+import chess.utility.ChessboardSquare;
 
 /*
   
@@ -32,20 +29,50 @@ import chess.units.Rook;
   
  */
 
-@Rule(name = AttackRule.NAME, description = AttackRule.DESCRIPTION, priority = 10)
-public class AttackRule {
-	static final String DESCRIPTION = "Add a score according to capturing a piece";
-	static final String NAME = "- Attack Rule      -";
-	private IChessPiece opponentPiece;
+@Rule(name = MoveToMateRule.NAME, description = MoveToMateRule.DESCRIPTION, priority = 10)
+public class MoveToMateRule {
+	static final String DESCRIPTION = "Add a score if we can push to mate";
+	static final String NAME = "- Move to Mate Rule-";
+
+
 
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match, @Fact(LFacts.ROLL) char roll) {
-		opponentPiece = match.get(move.possibilities().get(0));
-		if (move.owner().toFen() == roll && opponentPiece != null) {
 
-			return true;
+		if (move.owner().toFen() != roll)
+			return false;
+
+		int destFile = move.possibilities().get(0).file();
+		int destRank = move.possibilities().get(0).rank();
+
+		ChessPiece piece = (ChessPiece) move.owner();
+
+		ChessPiece newPiece = Utils.clone(piece);
+
+		// we set the new position on the possible move
+		newPiece.setPosition(new ChessboardSquare(destFile, destRank));
+
+		// now let's generate all possible moves ...
+		List<IChessMove> movesOf = match.generateMovesOf(newPiece);
+		movesOf = Utils.splitMoves(movesOf);
+
+		// we must find the opponent KING
+		IChessPiece king = match.getKing(move.owner().team() == 1 ? 0 : 1);
+		int kingFile = king.file();
+		int kingRank = king.rank();
+
+		for (IChessMove moveNew : movesOf) {
+			List<IChessboardSquare> possibilities = moveNew.possibilities();
+			
+			for (IChessboardSquare boardSquare : possibilities) {
+
+				// now let's check if with in a possible move we can reach the opponent KING
+				if( boardSquare.file()==kingFile && boardSquare.rank()==kingRank)
+					return true;
+			}
 
 		}
+
 		return false;
 	}
 
@@ -70,46 +97,10 @@ public class AttackRule {
 	}
 
 	private void evaluateMove(IChessMove move) {
-		char fen = opponentPiece.toFen();
+		 
 
 		List<IChessboardSquare> possibilities = move.possibilities();
 
-		switch (fen) {
-
-		case 'P':
-		case 'p':
-			possibilities.get(0).addScore(2 * Pawn.pointValue);
-			break;
-		case 'B':
-		case 'b':
-
-			possibilities.get(0).addScore(2 * Bishop.pointValue);
-			break;
-		case 'K':
-		case 'k':
-
-			possibilities.get(0).addScore(2 * King.pointValue);
-			break;
-		case 'N':
-		case 'n':
-
-			possibilities.get(0).addScore(2 * Knight.pointValue);
-
-			break;
-		case 'Q':
-		case 'q':
-			possibilities.get(0).addScore(2 * Queen.pointValue);
-
-			break;
-		case 'R':
-		case 'r':
-
-			possibilities.get(0).addScore(2 * Rook.pointValue);
-
-			break;
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + fen);
-
-		}
+		possibilities.get(0).addScore(2000);
 	}
 }

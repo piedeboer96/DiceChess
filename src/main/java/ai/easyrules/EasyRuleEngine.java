@@ -14,13 +14,13 @@ import ai.easyrules.rules.KingDeadRule;
 import ai.easyrules.rules.MoveByPositionRule;
 import ai.easyrules.rules.MoveByValueRule;
 import ai.easyrules.rules.MoveForwardRule;
+import ai.easyrules.rules.MoveToMateRule;
 import ai.easyrules.rules.NewBestActionRule;
 import ai.easyrules.rules.NotSuicideRule;
 import ai.easyrules.rules.PromoteRule;
-import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
-import chess.interfaces.IChessPiece;
+import chess.interfaces.IChessboardSquare;
 import chess.units.ChessPiece;
 import chess.units.Queen;
 import chess.utility.ChessMove;
@@ -97,7 +97,7 @@ public class EasyRuleEngine {
 
 		// Step .2 if we want to have simple rules we need to split and do not have more then one possible move for each owner
 
-		List<IChessMove> movesSplitted = splitMoves(moves);
+		List<IChessMove> movesSplitted = Utils.splitMoves(moves);
 
 		// Step .3 adding the roll to the
 		facts.put(LFacts.ROLL, rollTheDie);
@@ -158,23 +158,8 @@ public class EasyRuleEngine {
 		return action;
 
 	}
-
-	public static List<IChessMove> splitMoves(List<IChessMove> moves) {
-		List<IChessMove> splittedMoves = new ArrayList<IChessMove>();
-
-		for (IChessMove move : moves) {
-			IChessPiece owner = move.owner();
-			List<IChessboardSquare> possibilities = move.possibilities();
-			for (IChessboardSquare possibility : possibilities) {
-				possibility.resetScore();
-				ArrayList<IChessboardSquare> list = new ArrayList<IChessboardSquare>();
-				list.add(possibility);
-				splittedMoves.add(new ChessMove(owner, list));
-			}
-		}
-
-		return splittedMoves;
-	}
+	
+ 
 
 	private Rules loaRules() {
 
@@ -182,30 +167,20 @@ public class EasyRuleEngine {
 
 		// load all rules ..
 
-		// this simple rules assign 1 score if the piece can be moved FWD
-		MoveForwardRule moveRules = new MoveForwardRule();
-		rules.register(moveRules);
-
-		MoveByPositionRule moveByposition = new MoveByPositionRule();
-		rules.register(moveByposition);
-
-		MoveByValueRule moveByValue = new MoveByValueRule();
-		rules.register(moveByValue);
-
-		PromoteRule promoteRule = new PromoteRule();
-		rules.register(promoteRule);
-		AttackRule attackRule = new AttackRule();
-		rules.register(attackRule);
-
-		KingDeadRule kingDeadRule = new KingDeadRule();
-		rules.register(kingDeadRule);
-
-		NotSuicideRule notSuicideRule = new NotSuicideRule();
-		rules.register(notSuicideRule);
-
-		NewBestActionRule newBestActionRule = new NewBestActionRule();
-		rules.register(newBestActionRule);
+		rules.register(new MoveForwardRule());
+		rules.register(new MoveByPositionRule());
+		rules.register(new MoveByValueRule());
+		rules.register(new PromoteRule());
+		rules.register(new AttackRule());
+		rules.register(new KingDeadRule());
+		rules.register(new NotSuicideRule());
+		rules.register(new NewBestActionRule());
+		rules.register(new MoveToMateRule());
+		
 		return rules;
+		
+		
+		
 
 	}
 

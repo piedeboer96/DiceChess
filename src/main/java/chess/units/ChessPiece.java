@@ -127,4 +127,8 @@ public abstract class ChessPiece implements IChessPiece {
 		this.score = 0;
 
 	}
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
 }

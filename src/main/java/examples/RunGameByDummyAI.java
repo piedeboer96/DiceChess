@@ -7,6 +7,7 @@ import ai.easyrules.EasyRuleEngine;
 import chess.ChessMatch;
 import die.Die;
 import gui.ChessWindow;
+import gui.DiceChessWindow;
 
 public class RunGameByDummyAI {
 	public static void main(String[] args) {
@@ -19,7 +20,7 @@ public class RunGameByDummyAI {
 	public void mainLoop() {
 
 		// Creating a new window.
-		ChessWindow window = new ChessWindow(640, 640);
+		DiceChessWindow window = new DiceChessWindow(800, 640);
 
 		String startPos;
 		// full pieces

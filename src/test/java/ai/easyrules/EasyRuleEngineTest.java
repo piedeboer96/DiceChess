@@ -6,13 +6,13 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import chess.ChessMatch;
-import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessPiece;
+import chess.interfaces.IChessboardSquare;
 import chess.units.Pawn;
-import chess.utility.ChessboardSquare;
 import chess.utility.ChessMove;
+import chess.utility.ChessboardSquare;
 
 public class EasyRuleEngineTest {
 
@@ -36,7 +36,7 @@ public class EasyRuleEngineTest {
 		ChessMove move = new ChessMove(piece, destinations);
 		List<IChessMove> list = new ArrayList<IChessMove>();
 		list.add(move);
-		List<IChessMove> splitMoves = EasyRuleEngine.splitMoves(list);
+		List<IChessMove> splitMoves = Utils.splitMoves(list);
 		System.out.println(splitMoves);
 	}
 

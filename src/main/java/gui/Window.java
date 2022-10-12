@@ -19,7 +19,7 @@ public abstract class Window extends JFrame
         dw = displayWidth;
         dh = displayHeight;
         setTitle(title);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
     }
 

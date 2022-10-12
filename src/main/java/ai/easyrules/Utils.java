@@ -1,11 +1,15 @@
 package ai.easyrules;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.jeasy.rules.api.Facts;
 
 import chess.interfaces.IChessboardSquare;
+import chess.interfaces.IChessMove;
+import chess.interfaces.IChessPiece;
+import chess.units.ChessPiece;
 import chess.utility.ChessMove;
 
 public class Utils {
@@ -47,12 +51,39 @@ public class Utils {
 	public static IChessboardSquare findMaxPossibilites(List<IChessboardSquare> possibilities) {
 
 		IChessboardSquare max = null;
-		for (IChessboardSquare iChessBoardSquare : possibilities) {
-			if (max == null || max.getScore() < iChessBoardSquare.getScore())
-				max = iChessBoardSquare;
+		for (IChessboardSquare IChessboardSquare : possibilities) {
+			if (max == null || max.getScore() < IChessboardSquare.getScore())
+				max = IChessboardSquare;
 
 		}
 		return max;
+	}
+
+	public static ChessPiece clone(ChessPiece piece) {
+
+		try {
+			return  (ChessPiece) piece.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException("Could not clone ");
+		}
+
+	}
+
+	public static List<IChessMove> splitMoves(List<IChessMove> moves) {
+		List<IChessMove> splittedMoves = new ArrayList<IChessMove>();
+
+		for (IChessMove move : moves) {
+			IChessPiece owner = move.owner();
+			List<IChessboardSquare> possibilities = move.possibilities();
+			for (IChessboardSquare possibility : possibilities) {
+				possibility.resetScore();
+				ArrayList<IChessboardSquare> list = new ArrayList<IChessboardSquare>();
+				list.add(possibility);
+				splittedMoves.add(new ChessMove(owner, list));
+			}
+		}
+
+		return splittedMoves;
 	}
 
 }

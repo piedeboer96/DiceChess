@@ -1,59 +1,52 @@
-package ai.test.t3;
+package ai.test.t5;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import ai.easyrules.EasyRuleEngine;
 import ai.easyrules.Utils;
 import chess.ChessMatch;
-import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMove;
+import chess.interfaces.IChessboardSquare;
 import chess.utility.ChessMove;
 
-public class TestKingEatPawnTest {
+//startPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+//fgh45rrt
+//startPos = "k7/7b/8/R3b4/5p2/8/2P5/1K2Q3 w - - 0 1";
+public class EscapeFromEatRuleTest {
 
 	@Test
-	void test() {
-
-		String startPos ;
-		
-		startPos = "1n1qk3/1r6/8/3P4/4pR2/P2K1p1b/P2p1P2/8 w - - 0 1";
+	void bishopMustEscapeFromEat() {
+		String startPos = null;
+		startPos = "k7/7b/8/R3b4/5p2/8/2P5/1K2Q3 w - - 0 1";
 		// Creating a new match.
-		
-		
 		ChessMatch match = new ChessMatch(startPos);
-		int nextPlayer;
-		nextPlayer = match.getPlayer();
-		if(nextPlayer==0)
-			nextPlayer=match.nextPlayer();
-		
-		char roll = 'K';
+		match.loadKings();
+		int nextPlayer = match.nextPlayer();
+		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'b');
 
 		List<IChessMove> moves = match.legalMovesOf(nextPlayer);
 		List<IChessMove> splitMoves = Utils.splitMoves(moves);
 		System.out.println("All Legal moves ");
 		for (IChessMove mv : splitMoves) {
-			if (mv.owner().toFen() == roll)
+			if (mv.owner().toFen() == 'b')
 				System.out.println(mv);
 		}
 
 		System.out.println();
 		System.out.println();
 
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, roll);
 		dumyRuleEngine.play();
-
-		
 		ChessMove bestMove = dumyRuleEngine.getBestMove();
-		
+		System.out.println("bestMove-->" + bestMove);
 		IChessboardSquare destination = bestMove.possibilities().get(0);
-		Assertions.assertEquals(3, destination.file());
-		Assertions.assertEquals(6, destination.rank());
-		
-
+		assertEquals(7, destination.file());
+		assertEquals(5, destination.rank());
+		 
+		 
 	}
 
 }

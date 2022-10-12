@@ -1,6 +1,6 @@
 package chess.interfaces;
 
-public interface IChessPiece extends IChessboardSquare, IGhost {
+public interface IChessPiece extends IChessboardSquare, IGhost,Cloneable {
 	/**
 	 * Determines whether both chess pieces are on the same team.
 	 **/
