@@ -18,7 +18,7 @@ public interface IChessMove
      * @return True, if the provided square is within the list of possibilities this chess piece has for this move.
      *         False, otherwise.
      **/
-    boolean canReach(IChessBoardSquare square);
+    boolean canReach(IChessboardSquare square);
 
     /**
      * Gets the chess piece for which the move is defined.
@@ -30,5 +30,5 @@ public interface IChessMove
      * Remark: So, if this move of a chess piece allows the piece to 3 squares to the left, then the list is of size 3
      *         as it contains each of the 3 possible squares the piece can move to.
      **/
-    List<IChessBoardSquare> possibilities();
+    List<IChessboardSquare> possibilities();
 }

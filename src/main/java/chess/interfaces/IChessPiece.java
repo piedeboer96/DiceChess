@@ -1,6 +1,6 @@
 package chess.interfaces;
 
-public interface IChessPiece extends IChessBoardSquare, IGhost {
+public interface IChessPiece extends IChessboardSquare, IGhost {
 	/**
 	 * Determines whether both chess pieces are on the same team.
 	 **/
@@ -31,7 +31,7 @@ public interface IChessPiece extends IChessBoardSquare, IGhost {
 	/**
 	 * Sets the square the chess piece is on.
 	 **/
-	void setPosition(IChessBoardSquare square);
+	void setPosition(IChessboardSquare square);
 
 	/**
 	 * Gets the team, also known as the color, of the chess piece. The number 0

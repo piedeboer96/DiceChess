@@ -1,6 +1,6 @@
 package chess.units;
 
-import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessPiece;
 
 public abstract class ChessPiece implements IChessPiece {
@@ -50,7 +50,7 @@ public abstract class ChessPiece implements IChessPiece {
 		this.rank = rank;
 	}
 
-	public boolean equals(IChessBoardSquare square) {
+	public boolean equals(IChessboardSquare square) {
 		return file == square.file() && rank == square.rank();
 	}
 
@@ -62,7 +62,7 @@ public abstract class ChessPiece implements IChessPiece {
 		return file;
 	}
 
-	public void ghostTo(IChessBoardSquare square) {
+	public void ghostTo(IChessboardSquare square) {
 		file = square.file();
 		rank = square.rank();
 	}
@@ -83,7 +83,7 @@ public abstract class ChessPiece implements IChessPiece {
 		return false;
 	}
 
-	public void setPosition(IChessBoardSquare square) {
+	public void setPosition(IChessboardSquare square) {
 		file = square.file();
 		rank = square.rank();
 	}

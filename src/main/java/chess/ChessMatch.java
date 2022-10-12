@@ -1,16 +1,16 @@
 package chess;
 
-import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessPiece;
 import chess.units.King;
 import chess.units.Pawn;
 import chess.units.Rook;
-import chess.utility.ChessBoard;
-import chess.utility.ChessBoardSquare;
+import chess.utility.Chessboard;
+import chess.utility.ChessboardSquare;
 import chess.utility.Factory;
 
-public class ChessMatch extends ChessBoard implements IChessMatch
+public class ChessMatch extends Chessboard implements IChessMatch
 {
     /**
      * Provides a utility to help building a chessboard and chess pieces using the board information from a fen-string.
@@ -115,7 +115,7 @@ public class ChessMatch extends ChessBoard implements IChessMatch
             // As our rows are numbered from top to down instead from bottom up, we need to correct this.
             int rank = 7 - Character.getNumericValue(digit);
 
-            enPassantTargetSquare = new ChessBoardSquare(file, rank);
+            enPassantTargetSquare = new ChessboardSquare(file, rank);
         }
         else { enPassantTargetSquare = null; }
 
@@ -139,7 +139,7 @@ public class ChessMatch extends ChessBoard implements IChessMatch
         return player;
     }
 
-    public void playMove(IChessPiece piece, IChessBoardSquare destination)
+    public void playMove(IChessPiece piece, IChessboardSquare destination)
     {
         if (piece.team() != player) { throw new IllegalArgumentException("It is not allowed to move the opponent's chess piece."); }
 
@@ -157,11 +157,11 @@ public class ChessMatch extends ChessBoard implements IChessMatch
         // is the en-passant target square. If that's the case, remove the en-passant target square owner.
         else if (enPassantTargetSquare != null && destination.equals(enPassantTargetSquare) && piece instanceof Pawn)
         {
-            IChessBoardSquare targetOwner;
+            IChessboardSquare targetOwner;
 
             // Determining on which square the en-passant target square owner is located.
-            if (player == 0) { targetOwner = new ChessBoardSquare(enPassantTargetSquare.file(), enPassantTargetSquare.rank() - 1); }
-            else { targetOwner = new ChessBoardSquare(enPassantTargetSquare.file(), enPassantTargetSquare.rank() + 1); }
+            if (player == 0) { targetOwner = new ChessboardSquare(enPassantTargetSquare.file(), enPassantTargetSquare.rank() - 1); }
+            else { targetOwner = new ChessboardSquare(enPassantTargetSquare.file(), enPassantTargetSquare.rank() + 1); }
 
             // Getting the owner and removing him from our 'un-captured' chess piece list.
             int enPassantIndex = targetOwner.toIndex();
@@ -181,8 +181,8 @@ public class ChessMatch extends ChessBoard implements IChessMatch
             int deltaRank = piece.rank() - destination.rank();
 
             // Checking whether we went 2 rows down or up to determine the en-passant target square.
-            if (deltaRank == 2) { enPassantTargetSquare = new ChessBoardSquare(piece.file(), piece.rank() - 1); }
-            else if (deltaRank == -2) { enPassantTargetSquare = new ChessBoardSquare(piece.file(), piece.rank() + 1); }
+            if (deltaRank == 2) { enPassantTargetSquare = new ChessboardSquare(piece.file(), piece.rank() - 1); }
+            else if (deltaRank == -2) { enPassantTargetSquare = new ChessboardSquare(piece.file(), piece.rank() + 1); }
         }
         // Else if we are a king, we should check if we have had any castle opportunities and whether we have used them.
         else if (piece instanceof King)
@@ -192,7 +192,7 @@ public class ChessMatch extends ChessBoard implements IChessMatch
             // Checking whether we castled king side or queen side.
             if (deltaFile == 2)
             {
-                IChessBoardSquare rookDestination =  new ChessBoardSquare(destination.file() + 1, destination.rank());
+                IChessboardSquare rookDestination =  new ChessboardSquare(destination.file() + 1, destination.rank());
                 int rookDestinationIndex = destinationIndex + 1;
                 int rookIndex = destinationIndex - 2;
                 IChessPiece rook = squares[rookIndex];
@@ -202,7 +202,7 @@ public class ChessMatch extends ChessBoard implements IChessMatch
             }
             else if (deltaFile == -2)
             {
-                IChessBoardSquare rookDestination =  new ChessBoardSquare(destination.file() - 1, destination.rank());
+                IChessboardSquare rookDestination =  new ChessboardSquare(destination.file() - 1, destination.rank());
                 int rookDestinationIndex = destinationIndex - 1;
                 int rookIndex = destinationIndex + 1;
                 IChessPiece rook = squares[rookIndex];

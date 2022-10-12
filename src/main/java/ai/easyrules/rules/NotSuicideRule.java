@@ -11,7 +11,7 @@ import org.jeasy.rules.api.Facts;
 import ai.easyrules.EasyRuleEngine;
 import ai.easyrules.LFacts;
 import chess.ChessMatch;
-import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMove;
 import chess.units.Bishop;
 import chess.units.King;
@@ -79,8 +79,8 @@ public class NotSuicideRule {
 
 	private void evaluateMove(IChessMove move) {
 		char fen = move.owner().toFen();
-		List<IChessBoardSquare> possibilities = move.possibilities();
-		IChessBoardSquare iChessBoardSquare = possibilities.get(0);
+		List<IChessboardSquare> possibilities = move.possibilities();
+		IChessboardSquare iChessBoardSquare = possibilities.get(0);
 		int score;
 		switch (fen) {
 		case 'P':

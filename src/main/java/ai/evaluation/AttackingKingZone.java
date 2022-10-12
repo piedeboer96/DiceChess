@@ -2,7 +2,7 @@ package ai.evaluation;
 
 import java.util.List;
 
-import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessPiece;
@@ -10,7 +10,7 @@ import chess.units.Bishop;
 import chess.units.Knight;
 import chess.units.Queen;
 import chess.units.Rook;
-import chess.utility.ChessBoardSquare;
+import chess.utility.ChessboardSquare;
 
 public class AttackingKingZone {
     private int opponentTeam;
@@ -67,7 +67,7 @@ public class AttackingKingZone {
             for(int fileTemp = kingFile - kingZoneDistance; fileTemp <= kingFile + kingZoneDistance; fileTemp++) {
                 if(rankTemp < 0 || rankTemp > 7 || fileTemp < 0 || fileTemp > 7) continue;
                 if(rankTemp == kingRank && fileTemp == kingFile) continue;
-                IChessBoardSquare squareTemp = new ChessBoardSquare(fileTemp, rankTemp);
+                IChessboardSquare squareTemp = new ChessboardSquare(fileTemp, rankTemp);
                 for(IChessMove move : movesOfTeam) {
                     if(move.canReach(squareTemp)) {
                         attackingPiecesCount++;

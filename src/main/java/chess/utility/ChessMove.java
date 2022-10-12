@@ -1,6 +1,6 @@
 package chess.utility;
 
-import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessPiece;
 
@@ -9,15 +9,15 @@ import java.util.List;
 public class ChessMove implements IChessMove
 {
     private final IChessPiece owner;
-    private final List<IChessBoardSquare> destinations;
+    private final List<IChessboardSquare> destinations;
 
-    public ChessMove(IChessPiece owner, List<IChessBoardSquare> destinations)
+    public ChessMove(IChessPiece owner, List<IChessboardSquare> destinations)
     {
         this.owner = owner;
         this.destinations = destinations;
     }
 
-    public boolean canReach(IChessBoardSquare square)
+    public boolean canReach(IChessboardSquare square)
     {
         for (var destination : destinations)
         {
@@ -31,7 +31,7 @@ public class ChessMove implements IChessMove
 
     public IChessPiece owner() { return owner; }
 
-    public List<IChessBoardSquare> possibilities() { return destinations; 
+    public List<IChessboardSquare> possibilities() { return destinations;
     
     }
 

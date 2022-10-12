@@ -10,7 +10,7 @@ import org.jeasy.rules.api.Facts;
 
 import ai.easyrules.LFacts;
 import ai.evaluation.PieceSquareTable;
-import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMove;
 
 /*
@@ -59,11 +59,11 @@ public class MoveByPositionRule {
  
 	private void evaluateMove(IChessMove move) {
 		char fen = move.owner().toFen();
-		List<IChessBoardSquare> possibilities = move.possibilities();
+		List<IChessboardSquare> possibilities = move.possibilities();
 		if (possibilities.size() > 1)
 			throw new RuntimeException("Should not happes");
 
-		IChessBoardSquare possibleMove = possibilities.get(0);
+		IChessboardSquare possibleMove = possibilities.get(0);
 		int rank = possibleMove.rank();
 		int file = possibleMove.file();
 		int bestScore;

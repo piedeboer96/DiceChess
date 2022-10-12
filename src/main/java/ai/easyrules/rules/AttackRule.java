@@ -1,6 +1,6 @@
 package ai.easyrules.rules;
 
-import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessPiece;
@@ -67,7 +67,7 @@ public class AttackRule {
 	private void evaluateMove(IChessMove move) {
 		char fen = opponentPiece.toFen();
 
-		List<IChessBoardSquare> possibilities = move.possibilities();
+		List<IChessboardSquare> possibilities = move.possibilities();
 
 		switch (fen) {
 

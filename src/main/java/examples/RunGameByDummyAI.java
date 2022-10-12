@@ -6,7 +6,7 @@ import ai.easyrules.Action;
 import ai.easyrules.EasyRuleEngine;
 import chess.ChessMatch;
 import die.Die;
-import gui.ChessGameWindow;
+import gui.ChessWindow;
 
 public class RunGameByDummyAI {
 	public static void main(String[] args) {
@@ -19,7 +19,7 @@ public class RunGameByDummyAI {
 	public void mainLoop() {
 
 		// Creating a new window.
-		ChessGameWindow window = new ChessGameWindow();
+		ChessWindow window = new ChessWindow(640, 640);
 
 		String startPos;
 		// full pieces
@@ -33,7 +33,7 @@ public class RunGameByDummyAI {
 		match.loadKings();
 
 		// Displays the match
-		window.displayMatch(match);
+		window.display(match);
 
 		// Getting the moves of the current player easily by
 
@@ -53,23 +53,14 @@ public class RunGameByDummyAI {
 			Action play = dumyRuleEngine.play();
 			if (play == Action.FINISH_MATCH) {
 				while (true) {
-					window.updateUI();
+					window.refresh();
 					sleep(500);
 				}
 			}
-			window.updateUI();
-
-			while (((ChessGameWindow) window).getPause())
-				try {
-
-					sleep(10);
-
-				} catch (Exception e) {
-				}
+			window.refresh();
 
 			sleep(1000);
-			window.displayMatch(match);
-
+			window.display(match);
 		}
 	}
 

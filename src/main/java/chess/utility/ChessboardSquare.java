@@ -1,12 +1,12 @@
 package chess.utility;
 
-import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessboardSquare;
 
-public class ChessBoardSquare implements IChessBoardSquare {
+public class ChessboardSquare implements IChessboardSquare {
 	private final int file, rank;
 	private int score;
 
-	public ChessBoardSquare(int file, int rank) {
+	public ChessboardSquare(int file, int rank) {
 		if (file < 0 || file > 7) {
 			throw new IllegalArgumentException("File number is not within board boundaries.");
 		} else if (rank < 0 || rank > 7) {
@@ -16,7 +16,7 @@ public class ChessBoardSquare implements IChessBoardSquare {
 		this.rank = rank;
 	}
 
-	public boolean equals(IChessBoardSquare other) {
+	public boolean equals(IChessboardSquare other) {
 		return file == other.file() && rank == other.rank();
 	}
 

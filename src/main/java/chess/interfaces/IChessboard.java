@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Represents a chessboard.
  **/
-public interface IChessBoard
+public interface IChessboard
 {
     /**
      * Generates the moves a chess piece is capable of.
@@ -25,7 +25,7 @@ public interface IChessBoard
      * Determines whether a chess piece is located on a square.
      * If so, then the chess piece is returned. Null, otherwise.
      **/
-    IChessPiece get(IChessBoardSquare square);
+    IChessPiece get(IChessboardSquare square);
 
     /**
      * Gets the king of the provided team.

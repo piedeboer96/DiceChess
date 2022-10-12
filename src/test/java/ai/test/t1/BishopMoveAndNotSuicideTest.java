@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import ai.easyrules.EasyRuleEngine;
 import chess.ChessMatch;
-import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMove;
 import chess.utility.ChessMove;
 
@@ -37,7 +37,7 @@ class BishopMoveAndNotSuicideTest {
 		dumyRuleEngine.play();
 		ChessMove bestMove = dumyRuleEngine.getBestMove();
 		System.out.println("bestMove-->" + bestMove);
-		IChessBoardSquare destination = bestMove.possibilities().get(0);
+		IChessboardSquare destination = bestMove.possibilities().get(0);
 		assertFalse(destination.rank() == 0 && destination.file() == 1);
 		assertFalse(destination.rank() == 4 && destination.file() == 5);
 		assertFalse(destination.rank() == 5 && destination.file() == 6);

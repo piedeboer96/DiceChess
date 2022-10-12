@@ -3,13 +3,13 @@ package chess.interfaces;
 /**
  * Represents a square on a chessboard.
  **/
-public interface IChessBoardSquare
+public interface IChessboardSquare
 {
     /**
      * Determines whether 2 square objects have the same file and rank.
      * If so, then both objects are representing the same square.
      **/
-    boolean equals(IChessBoardSquare other);
+    boolean equals(IChessboardSquare other);
 
     /**
      * Gets the column in which the represented square is located in.

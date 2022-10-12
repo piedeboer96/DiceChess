@@ -1,6 +1,6 @@
 package chess.units;
 
-import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMoveInfo;
 import chess.utility.ChessMoveInfo;
 
@@ -46,7 +46,7 @@ public class Pawn extends ChessPiece
 
     public boolean promotable() { return rank == promotionRank; }
 
-    public void setPosition(IChessBoardSquare square)
+    public void setPosition(IChessboardSquare square)
     {
         if (doubleStepIsAllowed)
         {

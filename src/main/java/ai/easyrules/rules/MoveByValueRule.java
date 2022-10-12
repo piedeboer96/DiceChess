@@ -9,7 +9,7 @@ import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
 import ai.easyrules.LFacts;
-import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMove;
 import chess.units.Bishop;
 import chess.units.King;
@@ -69,13 +69,13 @@ public class MoveByValueRule {
 
 	private void evaluateMove(IChessMove move) {
 		char fen = move.owner().toFen();
-		List<IChessBoardSquare> possibilities = move.possibilities();
+		List<IChessboardSquare> possibilities = move.possibilities();
 
 		switch (fen) {
 		case 'P':
 		case 'p':
 
-			for (IChessBoardSquare iChessBoardSquare : possibilities) {
+			for (IChessboardSquare iChessBoardSquare : possibilities) {
 				iChessBoardSquare.addScore(-Pawn.pointValue);
 //				System.out.println("increasing score for PAWN rank = " + rank + " file= " + file + " old score "
 //						+ oldscore + " new score " + iChessBoardSquare.getScore());
@@ -85,7 +85,7 @@ public class MoveByValueRule {
 		case 'B':
 		case 'b':
 
-			for (IChessBoardSquare iChessBoardSquare : possibilities)
+			for (IChessboardSquare iChessBoardSquare : possibilities)
 
 			{
 				iChessBoardSquare.addScore(-Bishop.pointValue);
@@ -98,7 +98,7 @@ public class MoveByValueRule {
 		case 'K':
 		case 'k':
 
-			for (IChessBoardSquare iChessBoardSquare : possibilities)
+			for (IChessboardSquare iChessBoardSquare : possibilities)
 
 			{
 				iChessBoardSquare.addScore(-King.pointValue);
@@ -111,7 +111,7 @@ public class MoveByValueRule {
 		case 'N':
 		case 'n':
 
-			for (IChessBoardSquare iChessBoardSquare : possibilities)
+			for (IChessboardSquare iChessBoardSquare : possibilities)
 
 			{
 				iChessBoardSquare.addScore(-Knight.pointValue);
@@ -124,7 +124,7 @@ public class MoveByValueRule {
 		case 'Q':
 		case 'q':
 
-			for (IChessBoardSquare iChessBoardSquare : possibilities)
+			for (IChessboardSquare iChessBoardSquare : possibilities)
 
 			{
 				iChessBoardSquare.addScore(-Queen.pointValue);
@@ -137,7 +137,7 @@ public class MoveByValueRule {
 		case 'R':
 		case 'r':
 
-			for (IChessBoardSquare iChessBoardSquare : possibilities)
+			for (IChessboardSquare iChessBoardSquare : possibilities)
 
 			{
 				iChessBoardSquare.addScore(-Rook.pointValue);

@@ -3,7 +3,7 @@ package examples;
 import java.util.concurrent.TimeUnit;
 
 import chess.ChessMatch;
-import gui.ChessGameWindow;
+import gui.ChessWindow;
 
 public class JustShowChessBoard {
 	public static void main(String[] args) {
@@ -16,7 +16,7 @@ public class JustShowChessBoard {
 	public void mainLoop() {
 
 		// Creating a new window.
-		ChessGameWindow window = new ChessGameWindow();
+		ChessWindow window = new ChessWindow(640, 640);
 
 		String startPos;
 		// full pieces
@@ -30,21 +30,9 @@ public class JustShowChessBoard {
 		match.loadKings();
 
 		// Displays the match
-		window.displayMatch(match);
+		window.display(match);
 
 		// Getting the moves of the current player easily by
-
-
-
-			while (((ChessGameWindow) window).getPause())
-				try {
-
-					sleep(10);
-
-				} catch (Exception e) {
-				}
-
-		
 
 		}
 	

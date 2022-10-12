@@ -17,7 +17,7 @@ import ai.easyrules.rules.MoveForwardRule;
 import ai.easyrules.rules.NewBestActionRule;
 import ai.easyrules.rules.NotSuicideRule;
 import ai.easyrules.rules.PromoteRule;
-import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessPiece;
@@ -48,7 +48,7 @@ public class EasyRuleEngine {
 		facts.put(LFacts.ACTION, action);
 		facts.put(LFacts.MATCH, match);
 
-		bestMove = new ChessMove(null, new ArrayList<IChessBoardSquare>());
+		bestMove = new ChessMove(null, new ArrayList<IChessboardSquare>());
 		facts.put(LFacts.OLD_MOVE, bestMove);
 		facts.put(LFacts.BEST_MOVE, bestMove);
 		facts.put(LFacts.BEST_MOVE_CHANGED, Boolean.FALSE);
@@ -164,10 +164,10 @@ public class EasyRuleEngine {
 
 		for (IChessMove move : moves) {
 			IChessPiece owner = move.owner();
-			List<IChessBoardSquare> possibilities = move.possibilities();
-			for (IChessBoardSquare possibility : possibilities) {
+			List<IChessboardSquare> possibilities = move.possibilities();
+			for (IChessboardSquare possibility : possibilities) {
 				possibility.resetScore();
-				ArrayList<IChessBoardSquare> list = new ArrayList<IChessBoardSquare>();
+				ArrayList<IChessboardSquare> list = new ArrayList<IChessboardSquare>();
 				list.add(possibility);
 				splittedMoves.add(new ChessMove(owner, list));
 			}

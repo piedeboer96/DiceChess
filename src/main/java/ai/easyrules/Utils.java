@@ -5,15 +5,15 @@ import java.util.List;
 
 import org.jeasy.rules.api.Facts;
 
-import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessboardSquare;
 import chess.utility.ChessMove;
 
 public class Utils {
 
 	public static int findMaxScore(ChessMove chessMove) {
-		List<IChessBoardSquare> possibilities = chessMove.possibilities();
+		List<IChessboardSquare> possibilities = chessMove.possibilities();
 		Integer max = Integer.MIN_VALUE;
-		for (IChessBoardSquare poss : possibilities) {
+		for (IChessboardSquare poss : possibilities) {
 			if (max < poss.getScore())
 				max = poss.getScore();
 		}
@@ -44,10 +44,10 @@ public class Utils {
 		}
 	}
 
-	public static IChessBoardSquare findMaxPossibilites(List<IChessBoardSquare> possibilities) {
+	public static IChessboardSquare findMaxPossibilites(List<IChessboardSquare> possibilities) {
 
-		IChessBoardSquare max = null;
-		for (IChessBoardSquare iChessBoardSquare : possibilities) {
+		IChessboardSquare max = null;
+		for (IChessboardSquare iChessBoardSquare : possibilities) {
 			if (max == null || max.getScore() < iChessBoardSquare.getScore())
 				max = iChessBoardSquare;
 

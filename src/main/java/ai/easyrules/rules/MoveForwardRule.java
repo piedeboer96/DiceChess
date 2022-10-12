@@ -7,7 +7,7 @@ import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
 import ai.easyrules.LFacts;
-import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMove;
 
 /*
@@ -37,7 +37,7 @@ public class MoveForwardRule {
 		if (move.owner().toFen() == roll) {
 			int team = move.owner().team();
 			// team 1 white
-			IChessBoardSquare possibleMove = move.possibilities().get(0);
+			IChessboardSquare possibleMove = move.possibilities().get(0);
 			int rank = possibleMove.rank();
 			if (team == 1 && move.owner().rank() > rank)
 				// if it progresses on the board (increase the rank)
@@ -71,7 +71,7 @@ public class MoveForwardRule {
  
 	private void evaluateMove(IChessMove move) {
 
-		IChessBoardSquare possibleMove = move.possibilities().get(0);
+		IChessboardSquare possibleMove = move.possibilities().get(0);
 		possibleMove.addScore(1); // include your evaluation features into the scoring mechanism
 
 	}

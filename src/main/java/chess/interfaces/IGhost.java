@@ -8,7 +8,7 @@ public interface IGhost
     /**
      * Sets the square the chess piece is on without triggering anything that normally would trigger.
      **/
-    void ghostTo(IChessBoardSquare square);
+    void ghostTo(IChessboardSquare square);
 
     /**
      * Determines whether the chess piece is "hidden from view" for calculation purposes.

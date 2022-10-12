@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import ai.easyrules.EasyRuleEngine;
 import chess.ChessMatch;
-import chess.interfaces.IChessBoardSquare;
+import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMove;
 import chess.utility.ChessMove;
 
@@ -48,7 +48,7 @@ class TestKingEatPawnTest {
 		
 		ChessMove bestMove = dumyRuleEngine.getBestMove();
 		
-		IChessBoardSquare destination = bestMove.possibilities().get(0);
+		IChessboardSquare destination = bestMove.possibilities().get(0);
 		Assertions.assertEquals(3, destination.file());
 		Assertions.assertEquals(6, destination.rank());
 		

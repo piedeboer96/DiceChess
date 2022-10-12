@@ -7,7 +7,7 @@ import chess.units.Pawn;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ChessBoard implements IChessBoard
+public abstract class Chessboard implements IChessboard
 {
     /**
      * Represents the opportunity to castle on the king side.
@@ -38,14 +38,14 @@ public abstract class ChessBoard implements IChessBoard
      * Represents the en-passant target square. It is one square behind a pawn when he doubled step.
      * Only usable in the very next turn by another pawn.
      **/
-    protected IChessBoardSquare enPassantTargetSquare;
+    protected IChessboardSquare enPassantTargetSquare;
 
     /**
      * Represents the 'un-captured' pieces on the board.
      **/
     protected List<IChessPiece> pieces;
 
-    public ChessBoard()
+    public Chessboard()
     {
         squares = new IChessPiece[64];
         pieces = new ArrayList<>();
@@ -64,11 +64,11 @@ public abstract class ChessBoard implements IChessBoard
         // and the direction we are walking (and how far we walk with each step), do some calculations.'
         for (IChessMoveInfo info : piece.movementInfo())
         {
-            List<IChessBoardSquare> reachableSquares = new ArrayList<>();
+            List<IChessboardSquare> reachableSquares = new ArrayList<>();
 
             // As we are iterating using steps, we can re-use the previously calculated destination square
             // to get the next destination etc. Thus, we need an iterative variable starting with our current position.
-            IChessBoardSquare stepDestination = piece;
+            IChessboardSquare stepDestination = piece;
 
             // Read loop statement as 'While we have taken fewer steps than we are maximally allowed
             // in the current direction we are walking in, do some stuff'.
@@ -76,7 +76,7 @@ public abstract class ChessBoard implements IChessBoard
             {
                 try
                 {
-                    stepDestination = new ChessBoardSquare(stepDestination.file() + info.deltaFile(), stepDestination.rank() + info.deltaRank());
+                    stepDestination = new ChessboardSquare(stepDestination.file() + info.deltaFile(), stepDestination.rank() + info.deltaRank());
                     IChessPiece destinationOccupier = get(stepDestination);
                     if (destinationOccupier == null) { reachableSquares.add(stepDestination); continue; }
                     // If the destination square is occupied by an opponent and the current piece is not a pawn,
@@ -101,11 +101,11 @@ public abstract class ChessBoard implements IChessBoard
                 // Just a simple loop to access both diagonal options.
                 for (int k = -1; k < 2; k = k + 2)
                 {
-                    List<IChessBoardSquare> captureList = new ArrayList<>();
+                    List<IChessboardSquare> captureList = new ArrayList<>();
                     try
                     {
                         // Since we are still at the first step, the step's rank number is the correct rank to look for captures.
-                        IChessBoardSquare targetSquare = new ChessBoardSquare(piece.file() + k, piece.rank() + step);
+                        IChessboardSquare targetSquare = new ChessboardSquare(piece.file() + k, piece.rank() + step);
                         IChessPiece squareOccupier = get(targetSquare);
                         if (squareOccupier != null)
                         {
@@ -137,7 +137,7 @@ public abstract class ChessBoard implements IChessBoard
                 {
                     // Since we have already determined the first tile right is free with the previous conditions,
                     // all that is left is to check the second tile.
-                   stepDestination = new ChessBoardSquare(stepDestination.file() + 1, stepDestination.rank());
+                   stepDestination = new ChessboardSquare(stepDestination.file() + 1, stepDestination.rank());
                    IChessPiece occupier = get(stepDestination);
 
                    // If the square is empty, then we can castle king side.
@@ -146,13 +146,13 @@ public abstract class ChessBoard implements IChessBoard
                 else if (canCastleQueenSide[piece.team()] && info.deltaFile() == -1)
                 {
                     // Checking the second square to the left.
-                    stepDestination = new ChessBoardSquare(stepDestination.file() - 1, stepDestination.rank());
+                    stepDestination = new ChessboardSquare(stepDestination.file() - 1, stepDestination.rank());
                     IChessPiece occupier = get(stepDestination);
 
                     if (occupier == null)
                     {
                         // Checking the third and final square to the left.
-                        IChessBoardSquare finalSquare = new ChessBoardSquare(stepDestination.file() - 1, stepDestination.rank());
+                        IChessboardSquare finalSquare = new ChessboardSquare(stepDestination.file() - 1, stepDestination.rank());
                         occupier = get(finalSquare);
 
                         // If last square is null as well, we can castle queen side.
@@ -186,7 +186,7 @@ public abstract class ChessBoard implements IChessBoard
         return movesOfTeam;
     }
 
-    public IChessPiece get(IChessBoardSquare square) { return squares[square.toIndex()]; }
+    public IChessPiece get(IChessboardSquare square) { return squares[square.toIndex()]; }
 
     public IChessPiece getKing(int team) { return kings[team]; }
 
@@ -206,12 +206,12 @@ public abstract class ChessBoard implements IChessBoard
         for (IChessMove teamMove : teamMoves)
         {
             IChessPiece mate = teamMove.owner();
-            IChessBoardSquare actualSquare = new ChessBoardSquare(mate.file(), mate.rank());
+            IChessboardSquare actualSquare = new ChessboardSquare(mate.file(), mate.rank());
             int actualIndex = actualSquare.toIndex();
             squares[actualIndex] = null;
 
-            List<IChessBoardSquare> valid = new ArrayList<>();
-            for (IChessBoardSquare destination : teamMove.possibilities())
+            List<IChessboardSquare> valid = new ArrayList<>();
+            for (IChessboardSquare destination : teamMove.possibilities())
             {
                 int destinationIndex = destination.toIndex();
                 if(mate instanceof King && (actualIndex-destinationIndex == -2 || actualIndex-destinationIndex == 2))
@@ -222,7 +222,7 @@ public abstract class ChessBoard implements IChessBoard
                         for(int i = 1; i < 3; i++)
                         {
 
-                            IChessBoardSquare additionalSquare = new ChessBoardSquare(mate.file()+1, mate.rank());
+                            IChessboardSquare additionalSquare = new ChessboardSquare(mate.file()+1, mate.rank());
                             int additionalIndex = additionalSquare.toIndex();
                             mate.ghostTo(additionalSquare);
                             IChessPiece indexOccupier = squares[additionalIndex];
@@ -251,7 +251,7 @@ public abstract class ChessBoard implements IChessBoard
                         for(int i = 1; i < 3; i++)
                     {
 
-                        IChessBoardSquare additionalSquare = new ChessBoardSquare(mate.file()-i, mate.rank());
+                        IChessboardSquare additionalSquare = new ChessboardSquare(mate.file()-i, mate.rank());
                         int additionalIndex = additionalSquare.toIndex();
                         mate.ghostTo(additionalSquare);
                         IChessPiece indexOccupier = squares[additionalIndex];

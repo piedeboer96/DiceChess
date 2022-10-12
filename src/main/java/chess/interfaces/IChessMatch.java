@@ -8,7 +8,7 @@ import chess.MatchState;
  *         the moves each team is allowed to make legally etc.
  *         As this interface extends IChessBoard, it is suggested to read the IChessBoard interface for more information.
  **/
-public interface IChessMatch extends IChessBoard
+public interface IChessMatch extends IChessboard
 {
     /**
      * Gets the player whose turn it is to make a move.
@@ -45,7 +45,7 @@ public interface IChessMatch extends IChessBoard
      * @exception IllegalArgumentException Thrown when an attempt is made to re-position the opponent's chess piece.
      *                                     So, if getPlayer() returns 0, only black pieces are allowed to reposition.
      **/
-    void playMove(IChessPiece piece, IChessBoardSquare destination);
+    void playMove(IChessPiece piece, IChessboardSquare destination);
 
     /**
      * Promotes a chess piece to another chess piece type (i.e., the function to promote a pawn to another type.).
