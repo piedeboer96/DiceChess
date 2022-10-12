@@ -33,7 +33,7 @@ import chess.units.Rook;
  */
 
 @Rule(name = NotSuicideRule.NAME, description = NotSuicideRule.DESCRIPTION, priority = 1)
-public class NotSuicideRule {
+public class NotSuicideRule extends BaseRule{
 
 
 	static final String DESCRIPTION = "Do not move if I can be eated by another piece";
@@ -42,7 +42,7 @@ public class NotSuicideRule {
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) ChessMatch match,@Fact(LFacts.ROLL) char roll) {
 
-		if (! (move.owner().toFen() == roll )) 
+		if (! (checkRoll(move, roll) )) 
 			return false;
 		
 		int file = move.possibilities().get(0).file();

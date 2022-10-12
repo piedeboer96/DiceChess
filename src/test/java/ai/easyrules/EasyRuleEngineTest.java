@@ -21,7 +21,7 @@ public class EasyRuleEngineTest {
 
 		// Creating a new match.
 		IChessMatch match = new ChessMatch();
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'p');
+		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'p','p');
 		dumyRuleEngine.play();
 
 	}

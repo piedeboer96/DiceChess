@@ -21,21 +21,19 @@ import chess.interfaces.IChessMove;
   
  */
 
-
 @Rule(name = PromoteRule.NAME, description = PromoteRule.DESCRIPTION, priority = 10)
-public class PromoteRule {
+public class PromoteRule extends BaseRule {
 
 	static final String DESCRIPTION = "Promote the pawn in the first opponent line ";
 	static final String NAME = "- Promote to Queen -";
 	int currentScore = 0;
- 
 
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move,@Fact(LFacts.ROLL) char roll) {
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char roll) {
 
-		if (! (move.owner().toFen() == roll )) 
+		if (!(checkRoll(move, roll)))
 			return false;
-		
+
 		int rank = move.possibilities().get(0).rank();
 		char pawn = move.owner().toFen();
 		if (pawn == 'p' && rank == 7) {
@@ -54,14 +52,14 @@ public class PromoteRule {
 		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
 		 * 
 		 */
-	
+
 		evaluateMove(chessMove);
 	}
-	
+
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
 		ai.easyrules.Action currentAction = facts.get(LFacts.ACTION);
-		if (currentAction.compareTo(ai.easyrules.Action.MOVE_AND_PROMOTE)< 0)
+		if (currentAction.compareTo(ai.easyrules.Action.MOVE_AND_PROMOTE) < 0)
 			facts.put(LFacts.ACTION, ai.easyrules.Action.MOVE_AND_PROMOTE);
 	}
 

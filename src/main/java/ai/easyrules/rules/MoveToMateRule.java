@@ -30,16 +30,14 @@ import chess.utility.ChessboardSquare;
  */
 
 @Rule(name = MoveToMateRule.NAME, description = MoveToMateRule.DESCRIPTION, priority = 10)
-public class MoveToMateRule {
+public class MoveToMateRule extends BaseRule {
 	static final String DESCRIPTION = "Add a score if we can push to mate";
 	static final String NAME = "- Move to Mate Rule-";
-
-
 
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match, @Fact(LFacts.ROLL) char roll) {
 
-		if (move.owner().toFen() != roll)
+		if (!checkRoll(move, roll))
 			return false;
 
 		int destFile = move.possibilities().get(0).file();
@@ -63,11 +61,11 @@ public class MoveToMateRule {
 
 		for (IChessMove moveNew : movesOf) {
 			List<IChessboardSquare> possibilities = moveNew.possibilities();
-			
+
 			for (IChessboardSquare boardSquare : possibilities) {
 
 				// now let's check if with in a possible move we can reach the opponent KING
-				if( boardSquare.file()==kingFile && boardSquare.rank()==kingRank)
+				if (boardSquare.file() == kingFile && boardSquare.rank() == kingRank)
 					return true;
 			}
 
@@ -97,7 +95,6 @@ public class MoveToMateRule {
 	}
 
 	private void evaluateMove(IChessMove move) {
-		 
 
 		List<IChessboardSquare> possibilities = move.possibilities();
 

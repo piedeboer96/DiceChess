@@ -24,7 +24,7 @@ public class AnastasiaMateTest {
 		ChessMatch match = new ChessMatch(startPos);
 		match.loadKings();
 		int nextPlayer = match.nextPlayer();
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'r');
+		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'r','p');
 
 		List<IChessMove> moves = match.legalMovesOf(nextPlayer);
 		List<IChessMove> splitMoves = Utils.splitMoves(moves);

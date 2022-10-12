@@ -20,7 +20,7 @@ public class TestKingEatPawnTest {
 
 		String startPos ;
 		
-		startPos = "1n1qk3/1r6/8/3P4/4pR2/P2K1p1b/P2p1P2/8 w - - 0 1";
+		startPos = "1n1qk3/1r6/8/3P4/4Pr2/P2K1p1b/P2p1P2/8 w - - 0 1";
 		// Creating a new match.
 		
 		
@@ -43,7 +43,7 @@ public class TestKingEatPawnTest {
 		System.out.println();
 		System.out.println();
 
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, roll);
+		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'R','R');
 		dumyRuleEngine.play();
 
 		

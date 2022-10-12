@@ -23,7 +23,7 @@ import chess.interfaces.IChessMove;
  */
 
 @Rule(name = MoveForwardRule.NAME, description = MoveForwardRule.DESCRIPTION, priority = 1)
-public class MoveForwardRule {
+public class MoveForwardRule extends BaseRule {
 
 
 	static final String DESCRIPTION = "Add 1 score if we can move forward";
@@ -34,7 +34,7 @@ public class MoveForwardRule {
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char roll) {
 
-		if (move.owner().toFen() == roll) {
+		if (checkRoll(move, roll)) {
 			int team = move.owner().team();
 			// team 1 white
 			IChessboardSquare possibleMove = move.possibilities().get(0);

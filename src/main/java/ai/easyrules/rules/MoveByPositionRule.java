@@ -26,7 +26,7 @@ import chess.interfaces.IChessMove;
  */
 
 @Rule(name = MoveByPositionRule.NAME, description = MoveByPositionRule.DESCRIPTION, priority = 1)
-public class MoveByPositionRule {
+public class MoveByPositionRule extends BaseRule{
 
 	static final String DESCRIPTION = "Move in the high value for the position ";
 	static final String NAME = "- Move By Position -";
@@ -35,7 +35,7 @@ public class MoveByPositionRule {
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move,@Fact(LFacts.ROLL) char roll  ) {
 	 
-		if ( move.owner().toFen() == roll ) 
+		if (checkRoll(move, roll) ) 
 			return true;
  
 		return false;

@@ -22,7 +22,7 @@ import chess.interfaces.IChessMove;
  */
 
 @Rule(name = NewBestActionRule.NAME, description = NewBestActionRule.DESCRIPTION, priority = 50)
-public class NewBestActionRule {
+public class NewBestActionRule extends BaseRule{
 
 	public static final String DESCRIPTION = " Just print the new best move ";
 	public static final String NAME = "- New Best Move    -";
@@ -30,7 +30,7 @@ public class NewBestActionRule {
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char roll) {
 
-		if (move.owner().toFen() == roll)
+		if (checkRoll(move, roll))
 			return true;
 		return false;
 	}

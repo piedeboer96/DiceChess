@@ -45,12 +45,14 @@ public class RunGameByDummyAI {
 		while (i++ < maxMove) {
 			currentPlayer = match.getPlayer();
 			// first we need fire the roll
-			Die myRoll = new Die();
-			char rollTheDie = myRoll.roll(currentPlayer);
+			Die diceOne = new Die();
+			Die diceTwo = new Die();
+			char rollOne = diceOne.roll(currentPlayer);
+			char rollTwo = diceTwo.roll(currentPlayer);
 
 			sleep(500);
 
-			EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, rollTheDie);
+			EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, rollOne, rollTwo);
 			Action play = dumyRuleEngine.play();
 			if (play == Action.FINISH_MATCH) {
 				while (true) {

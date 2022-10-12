@@ -33,7 +33,7 @@ import chess.units.Rook;
  */
 
 @Rule(name = EscapeFromEatRule.NAME, description = EscapeFromEatRule.DESCRIPTION, priority = 1)
-public class EscapeFromEatRule {
+public class EscapeFromEatRule extends BaseRule{
 
 
 	static final String DESCRIPTION = "If the piece is under Attack let's try to escape";
@@ -43,7 +43,7 @@ public class EscapeFromEatRule {
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) ChessMatch match,@Fact(LFacts.ROLL) char roll) {
 
-		if (! (move.owner().toFen() == roll )) 
+		if (! (checkRoll(move, roll) )) 
 			return false;
 		
 		int file = move.possibilities().get(0).file();

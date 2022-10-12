@@ -26,7 +26,7 @@ import chess.interfaces.IChessPiece;
 
 
 @Rule(name = KingDeadRule.NAME, description = KingDeadRule.DESCRIPTION, priority = 20)
-public class KingDeadRule {
+public class KingDeadRule extends BaseRule{
 
 	static final String DESCRIPTION = "End of the game because the king is dead ";
 	static final String NAME = "- King  Dead       -";
@@ -36,7 +36,7 @@ public class KingDeadRule {
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match,@Fact(LFacts.ROLL) char roll ) {
 		opponentPiece = match.get(move.possibilities().get(0));
-		if ( move.owner().toFen() == roll && opponentPiece != null
+		if ( checkRoll(move, roll) && opponentPiece != null
 				&& (opponentPiece.toFen() == 'K' || opponentPiece.toFen() == 'k')) {
 
 			return true;

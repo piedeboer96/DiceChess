@@ -32,7 +32,7 @@ import chess.units.Rook;
 
 
 @Rule(name = MoveByValueRule.NAME, description = MoveByValueRule.DESCRIPTION, priority = 1)
-public class MoveByValueRule {
+public class MoveByValueRule extends BaseRule{
 
 
 	static final String DESCRIPTION = "Add a score according to the type of fen";
@@ -41,7 +41,7 @@ public class MoveByValueRule {
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move,@Fact(LFacts.ROLL) char roll ) {
  
-		if ( move.owner().toFen() == roll ) 
+		if ( checkRoll(move, roll) ) 
 			return true;
  
 		return false;

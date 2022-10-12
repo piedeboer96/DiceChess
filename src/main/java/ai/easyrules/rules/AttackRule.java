@@ -33,15 +33,15 @@ import chess.units.Rook;
  */
 
 @Rule(name = AttackRule.NAME, description = AttackRule.DESCRIPTION, priority = 10)
-public class AttackRule {
+public class AttackRule extends BaseRule {
 	static final String DESCRIPTION = "Add a score according to capturing a piece";
 	static final String NAME = "- Attack Rule      -";
 	private IChessPiece opponentPiece;
 
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match, @Fact(LFacts.ROLL) char roll) {
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match, @Fact(LFacts.ROLL) char rollOne) {
 		opponentPiece = match.get(move.possibilities().get(0));
-		if (move.owner().toFen() == roll && opponentPiece != null) {
+		if (checkRoll(move, rollOne) && opponentPiece != null) {
 
 			return true;
 

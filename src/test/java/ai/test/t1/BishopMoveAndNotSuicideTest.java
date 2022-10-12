@@ -22,7 +22,7 @@ public class BishopMoveAndNotSuicideTest {
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
 		int nextPlayer = match.nextPlayer();
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'b');
+		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'b','p');
 
 		List<IChessMove> moves = match.legalMovesOf(nextPlayer);
 		List<IChessMove> splitMoves = Utils.splitMoves(moves);

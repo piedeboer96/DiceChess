@@ -26,7 +26,7 @@ public class EscapeFromEatRuleTest {
 		ChessMatch match = new ChessMatch(startPos);
 		match.loadKings();
 		int nextPlayer = match.nextPlayer();
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'b');
+		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'b','b');
 
 		List<IChessMove> moves = match.legalMovesOf(nextPlayer);
 		List<IChessMove> splitMoves = Utils.splitMoves(moves);
