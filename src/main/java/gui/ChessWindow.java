@@ -7,16 +7,7 @@ import gui.utility.Chessboard;
 
 public final class ChessWindow extends Window
 {
-    public static void main(String[] args)
-    {
-        var window = new ChessWindow(640, 640);
-        var match  = new ChessMatch();
-        window.display(match);
-        var player = window.getPlayer();
-        player.playIn(1, match);
-    }
     private final Chessboard chessboard;
-    private final ChessPlayer player;
     private IChessMatch match;
 
     public ChessWindow(int width, int height)
@@ -31,8 +22,6 @@ public final class ChessWindow extends Window
 
         display();
 
-        player = new ChessPlayer();
-        addMouseListener(player);
     }
 
     public void display(IChessMatch match)
@@ -44,8 +33,6 @@ public final class ChessWindow extends Window
     }
 
     public IChessMatch getMatch() { return match; }
-
-    public Player getPlayer() { return player; }
 
     @Override public void refresh() { chessboard.updateUI(); }
 }

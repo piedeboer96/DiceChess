@@ -1,48 +1,93 @@
 package gui;
 
-import chess.interfaces.IChessMove;
 import chess.interfaces.IChessboardSquare;
+import gui.interfaces.IChessboard;
 import gui.interfaces.IHighlighter;
-import gui.utility.Chessboard;
+import gui.interfaces.IWindow;
 import gui.utility.Dice;
 
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Provides a player for a 'dice chess' game.
+ **/
 public final class DiceChessPlayer extends Player
 {
-    private List<IChessMove> constrained;
-    private char[] results;
+    private char[] rollResults;
+
+    public DiceChessPlayer(boolean playerCanPlayOnBothTeams) { super(playerCanPlayOnBothTeams); }
+
+    @Override protected void loadLegalMoves()
+    {
+        if (rollResults == null) { throw new IllegalCallerException("You forgot to roll the dice before making a move!"); }
+        legalMoves = match.filterMovesOf(team, rollResults);
+    }
+
+    @Override protected void onPlay()
+    {
+        legalMoves = null;
+        rollResults = null;
+    }
 
     @Override public void mousePressed(MouseEvent e)
     {
-        if (match == null || team != match.getPlayer()) { return; }
-        else if (availableMoves == null)
+        // If no chess match is assigned to our player or the turn to play is not ours,
+        // then we are not supposed to do anything more.
+        if (match == null || match.getPlayer() != team)
         {
-            results = null;
+            System.out.println("Player interacted too early with the window!");
+            return;
         }
-        var window = (DiceChessWindow) e.getSource();
-        int[] coordinates = window.applyCoordinateCorrection(e.getX(), e.getY());
-        var source =  window.findInteractionSource(coordinates[0], coordinates[1]);
-        if (source instanceof Dice && results == null)
+
+        // Getting the window the player has interacted with.
+        IWindow window = (IWindow) e.getSource();
+
+        // Determines the mouse position relative to the content that gets displayed.
+        int[] positionInDisplayedContent = window.determineLocationInContentBody(e.getX(), e.getY());
+
+        // Gets the object that has been clicked.
+        Object clickSource = window.findInteractionSource(positionInDisplayedContent[0], positionInDisplayedContent[1]);
+
+        // Determining whether the player has clicked on the chessboard or the panel containing dice.
+        // If the player clicked on the board and the player has already rolled, then interactions with the board are allowed.
+        if (clickSource instanceof IChessboard && rollResults != null)
         {
-            var dice = (Dice) source;
-            results = dice.roll(team);
-            availableMoves = match.filterMovesOf(team, results);
-            if (availableMoves.size() == 0)
-            {
-                deselect(true);
-                team = match.nextPlayer();
-            }
+            // Getting the chessboard the player is interacting with and the highlighter responsible for the eye candy on the board.
+            IChessboard chessboard = (IChessboard) clickSource;
+            IHighlighter highlighter = chessboard.getHighlighter();
+
+            // Determine the square that has been clicked.
+            IChessboardSquare selectedSquare = chessboard.determineSquare(positionInDisplayedContent[0], positionInDisplayedContent[1]);
+
+            // If no square has been selected, then this action can be interpreted as deselection the previous move.
+            if (selectedSquare == null) { deselect(highlighter); }
+
+            // Else if the last click resulted in a deselection (meaning last clicked square is null), then this
+            // click action can be interpreted as a new selection.
+            else if (lastSelectedSquare == null) { onSelect(selectedSquare, highlighter); }
+
+            // Else if  the last clicked square is not null, then the action could be interpreted as either
+            // a move or a deselection. So, if the current selected square is the same as the last clicked square,
+            // then this action must be a deselection.
+            else if (selectedSquare.equals(lastSelectedSquare)) { deselect(highlighter); }
+
+            // Else if the action was not a deselection, then perhaps this action is a valid move.
+            // Hence, attempt to make a move. Regardless of whether the move was valid, this action should always result
+            // into a deselection.
+            else { play(selectedSquare); deselect(highlighter); }
         }
-        else if (source instanceof Chessboard)
+
+        // Else if the player clicked on the panel containing the dice and hasn't rolled yet, then the dice should be rolled.
+        else if (clickSource instanceof Dice && rollResults == null)
         {
-            var chessboard = (Chessboard) source;
-            var selected = chessboard.determineSquare(coordinates[0], coordinates[1]);
-            var highlighter = chessboard.getHighlighter();
-            digest(selected, highlighter);
+            // Getting the dice
+            Dice dice = (Dice) clickSource;
+
+            // Letting it roll and reading the results.
+            rollResults = dice.roll(team);
         }
+
+        // Update the window to display the latest changes that (may) have been made.
         window.refresh();
     }
 }
