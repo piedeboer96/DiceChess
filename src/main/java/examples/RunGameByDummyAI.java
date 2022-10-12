@@ -57,6 +57,7 @@ public class RunGameByDummyAI {
 					sleep(500);
 				}
 			}
+			//
 			window.refresh();
 
 			sleep(1000);
