@@ -87,7 +87,7 @@ public class EasyRuleEngine {
 
 				} else {
 					
-					String strRule = "Rule   " + rule.getName()+"give score   new Score =  " + chessMove.possibilities().get(0).getScore();
+					String strRule = "Rule   " + rule.getName()+" new Score =  " + chessMove.possibilities().get(0).getScore();
 					System.out.println(strRule);
 					ruleMsgStack.add(strRule);
 				}

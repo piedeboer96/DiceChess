@@ -35,7 +35,7 @@ import chess.units.Rook;
 @Rule(name = AttackRule.NAME, description = AttackRule.DESCRIPTION, priority = 10)
 public class AttackRule extends BaseRule {
 	static final String DESCRIPTION = "Add a score according to capturing a piece";
-	static final String NAME = "- Attack Rule      -";
+	static final String NAME = "- Attack Rule       -";
 	private IChessPiece opponentPiece;
 
 	@Condition

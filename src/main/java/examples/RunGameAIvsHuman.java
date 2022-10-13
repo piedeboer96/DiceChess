@@ -73,11 +73,12 @@ public class RunGameAIvsHuman {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				window.clearConsole();
 				ArrayList<String> bestMsgStack = play.bestMsgStack;
 				for (String string : bestMsgStack) {
 					window.setConsoleText(string);
 				}
+				window.setConsoleText("Moved Fen |"+play.fen+"| from ["+play.fromFile+","+play.fromRank+"] -->  to ["+play.toFile+","+play.toRank+"]");
 			}
 		});
 		window.addListenerClearConsole(new ActionListener() {
