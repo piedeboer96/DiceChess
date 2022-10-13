@@ -56,7 +56,7 @@ public class ChessboardSquareTest
                 var duplicate = new ChessboardSquare(i, j);
                 var mirrored = new ChessboardSquare(j, i);
                 assert chessboardSquare.equals(duplicate);
-                assert !chessboardSquare.equals(mirrored);
+                assert i == j || !chessboardSquare.equals(mirrored);
             }
         }
     }
