@@ -126,6 +126,7 @@ public abstract class Player extends MouseAdapter
 
             // Searching through all legal moves the player has to determine whether the selected chess piece
             // has any moves it can perform.
+            if(legalMoves!=null)
             for (IChessMove chessMove : legalMoves)
             {
                 // If the chess piece has any moves to perform, then the possible destinations of each move

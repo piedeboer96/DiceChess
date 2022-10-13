@@ -1,5 +1,13 @@
 package gui;
 
+import java.awt.BorderLayout;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
+
 import chess.ChessMatch;
 import chess.interfaces.IChessMatch;
 import gui.interfaces.IClickable;
@@ -14,7 +22,7 @@ public final class DiceChessWindow extends Window
 	public static void main(String[] args)
 	{
 		var match = new ChessMatch();
-		var window = new DiceChessWindow(800, 640, true);
+		var window = new DiceChessWindow(900, 740, true);
 		window.display(match);
 		var player = window.getPlayer();
 		player.playIn(1,  match);
@@ -32,10 +40,46 @@ public final class DiceChessWindow extends Window
 
         int panelWidth = width / 10 * 2;
         int boardWidth = width - panelWidth;
+        
+        /***************/
+        
+       
+ 
+        // set layout for frame
+       // f.setLayout(new BorderLayout());
+ 
+        // create a toolbar
+        JToolBar tb = new JToolBar();
+        tb.setFloatable(false);
+        
+ 
+        // create a panel
+        JPanel p = new JPanel();
+ 
+              // create new buttons
+        JButton bRun = new JButton("Run AI");
+        JButton bPause = new JButton("Pause AI");
+        JButton bStep = new JButton("Step AI");
+ 
+        // add buttons
+        p.add(bRun);
+        p.add(bPause);
+        p.add(bStep);
+ 
+        tb.add(p);
+        add(tb, BorderLayout.NORTH);
+        
 
-        chessboard = new Chessboard(0, 0, boardWidth, height);
-         dice = new Dice(boardWidth, 0, panelWidth, height);
-        componentGroup = new ComponentGroup(2);
+        
+         
+        
+        int tbW=25;
+		 
+		chessboard = new Chessboard(0, 0, boardWidth, height-tbW);
+         dice = new Dice(boardWidth, 0, panelWidth, height-tbW);
+        componentGroup = new ComponentGroup(3);
+ 
+        componentGroup.add(tb);
         componentGroup.add(chessboard);
 
         componentGroup.add(dice);
