@@ -50,7 +50,8 @@ public class RunGameAIvsHuman {
 				System.out.println("RollOne = " + rollOne + "  RollTwo = " + rollTwo);
 
 				EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, rollOne, rollTwo);
-				if (dumyRuleEngine.play() == Action.FINISH_MATCH) {
+				Action play = dumyRuleEngine.play().action;
+				if (play == Action.FINISH_MATCH) {
 					endGame(window);
 				}
 

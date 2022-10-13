@@ -50,7 +50,7 @@ public class RunGameByDummyAI {
 			sleep(500);
 
 			EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, rollOne, rollTwo);
-			Action play = dumyRuleEngine.play();
+			Action play = dumyRuleEngine.play().action;
 			if (play == Action.FINISH_MATCH) {
 				while (true) {
 					window.refresh();

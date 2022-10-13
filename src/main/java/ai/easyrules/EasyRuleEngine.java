@@ -86,7 +86,7 @@ public class EasyRuleEngine {
 		rulesEngine.registerRuleListener(myRuleListener);
 	}
 
-	public Action play() {
+	public ResultAI play() {
 
 		// this is the main loop to determine witch move we are going to choose
 
@@ -177,7 +177,7 @@ public class EasyRuleEngine {
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + action);
 		}
-		return action;
+		return new ResultAI(action,bestMove);
 
 	}
 

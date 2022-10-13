@@ -30,7 +30,7 @@ public class PawnMoveAndWinTest {
 		
 			EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'p','b');
 
-			Action play = dumyRuleEngine.play();
+			Action play = dumyRuleEngine.play().action;
 			
 			assert(play==Action.FINISH_MATCH);
  

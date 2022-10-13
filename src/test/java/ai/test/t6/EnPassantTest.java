@@ -1,19 +1,15 @@
 package ai.test.t6;
 
-import ai.easyrules.Action;
+import java.util.List;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import ai.easyrules.EasyRuleEngine;
-import ai.easyrules.Utils;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessboardSquare;
 import chess.utility.ChessMove;
-import examples.JustShowChessBoard;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EnPassantTest {
 
