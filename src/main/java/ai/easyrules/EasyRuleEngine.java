@@ -110,7 +110,8 @@ public class EasyRuleEngine {
 		char[] rolls = new char[2];
 		rolls[0] = rollOne;
 		rolls[1] = rollTwo;
-		moves = match.filterMovesOf(currentPlayer, rolls);
+		
+		moves = match.legalMovesOf(currentPlayer, rolls);
 		// Step .3 adding the roll to the
 		facts.put(LFacts.ROLL, rollOne);
 

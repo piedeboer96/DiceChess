@@ -38,7 +38,7 @@ public class BishopMoveAndNotSuicideTest {
 		rolls[0] = 'b';
 		rolls[1] = 'p';
 		System.err.println("-----------");
-		List<IChessMove> filterMovesOf = match.filterMovesOf(nextPlayer, rolls);
+		List<IChessMove> filterMovesOf = match.legalMovesOf(nextPlayer, rolls);
 		for (IChessMove mv : Utils.splitMoves(filterMovesOf)) {
 
 			System.out.println(mv);
