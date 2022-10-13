@@ -2,6 +2,11 @@ package chess.interfaces;
 
 public interface IChessPiece extends IChessboardSquare, IGhost,Cloneable {
 	/**
+	 * Determines whether two chess pieces are fundamentally the same object.
+	 **/
+	boolean equals(IChessPiece other);
+
+	/**
 	 * Determines whether both chess pieces are on the same team.
 	 **/
 	boolean friendOf(IChessPiece other);

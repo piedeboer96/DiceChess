@@ -1,5 +1,6 @@
 package chess.units;
 
+import chess.interfaces.IChessMoveInfo;
 import chess.interfaces.IChessPiece;
 import chess.interfaces.IChessboardSquare;
 import chess.utility.ChessboardSquare;
@@ -8,7 +9,7 @@ import gui.utility.Cache;
 
 import java.awt.*;
 
-public abstract class ChessPiece extends ChessboardSquare implements IChessPiece, IDrawable {
+public class ChessPiece extends ChessboardSquare implements IChessPiece, IDrawable {
 	private static final Cache cache = new Cache();
 	/**
 	 * The fen representation of the chess piece and the team it belongs to. So, the pieces with a black color have a character from the set { b, k, n, p, q ,r } and the pieces with a white color have a character from the set { B, K, N, P, Q, R }.
@@ -41,9 +42,7 @@ public abstract class ChessPiece extends ChessboardSquare implements IChessPiece
 		this.fen = fen;
 	}
 
-	public boolean equals(IChessboardSquare square) {
-		return file == square.file() && rank == square.rank();
-	}
+	public boolean equals(IChessPiece other) { return fen == other.toFen() && equals((IChessboardSquare) other); }
 
 	public boolean friendOf(IChessPiece other) {
 		return team == other.team();
@@ -87,6 +86,8 @@ public abstract class ChessPiece extends ChessboardSquare implements IChessPiece
 	public char toFen() {
 		return fen;
 	}
+
+	@Override public IChessMoveInfo[] movementInfo() { return null; }
 
 	public int toIndex() {
 		return (rank * 8) + file;
