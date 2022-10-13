@@ -19,5 +19,4 @@ public class InformationPanel extends Panel {
     JScrollPane scrollPane = new JScrollPane(textArea);
 
 
-
 }

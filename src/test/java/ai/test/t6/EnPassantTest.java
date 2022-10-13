@@ -33,7 +33,6 @@ public class EnPassantTest {
         int nextPlayer = match.nextPlayer();
         List<IChessMove> moves = match.legalMovesOf(nextPlayer);
 
-
         //case 1: we roll a P
         //case 2: we roll doubles
 

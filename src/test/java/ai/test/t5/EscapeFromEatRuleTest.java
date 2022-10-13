@@ -20,6 +20,7 @@ public class EscapeFromEatRuleTest {
 
 	@Test
 	void bishopMustEscapeFromEat() {
+		
 		String startPos = null;
 		startPos = "k7/7b/8/R3b4/5p2/8/2P5/1K2Q3 w - - 0 1";
 		// Creating a new match.
