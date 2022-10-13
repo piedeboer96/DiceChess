@@ -9,6 +9,9 @@ import chess.units.Rook;
 import chess.utility.Chessboard;
 import chess.utility.ChessboardSquare;
 import chess.utility.Factory;
+import chess.units.*;
+import gui.Window;
+import gui.utility.PromotionScreen;
 
 public class ChessMatch extends Chessboard implements IChessMatch
 {
@@ -237,6 +240,13 @@ public class ChessMatch extends Chessboard implements IChessMatch
         // Finally, let's also update the square that the chess piece remembers as its location.
         piece.setPosition(destination);
 
+        if(piece.promotable())
+        {
+            PromotionScreen popup = new PromotionScreen(Window.instance,"choose promotion", this, piece);
+            popup.setVisible(true);
+            System.out.println("piece is promotable");
+        }
+
         // Closing the play with giving the turn to the next player.
         nextPlayer();
     }
@@ -252,14 +262,56 @@ public class ChessMatch extends Chessboard implements IChessMatch
         } else { state = MatchState.DRAW; }
     }
 
-    public void promote(IChessPiece piece, IChessPiece target)
+    public void promote(IChessPiece piece, char decision)
     {
         if (piece == null) { throw new IllegalArgumentException("Can not promote null."); }
         else if (!piece.promotable()) { throw new IllegalArgumentException("Can not promote this chess piece."); }
-        else if (target == null) { throw new IllegalArgumentException("Can not promote to null."); }
-        squares[piece.toIndex()] = target;
+
         pieces.remove(piece);
-        pieces.add(target);
+        if (decision == 'b')
+        {
+            if(piece.team() == 0)
+            {
+                piece = new Bishop('b', piece.file(), piece.rank()); squares[piece.toIndex()] = piece; pieces.add(piece);
+            }
+            else
+            {
+                piece = new Bishop('B', piece.file(), piece.rank()); squares[piece.toIndex()] = piece; pieces.add(piece);
+            }
+        }
+        else if (decision == 'n')
+        {
+            if(piece.team() == 0)
+            {
+                piece = new Knight('n', piece.file(), piece.rank()); squares[piece.toIndex()] = piece; pieces.add(piece);
+            }
+            else
+            {
+                piece = new Knight('N', piece.file(), piece.rank()); squares[piece.toIndex()] = piece; pieces.add(piece);
+            }
+        }
+        else if (decision == 'q')
+        {
+            if(piece.team() == 0)
+            {
+                piece = new Queen('q', piece.file(), piece.rank()); squares[piece.toIndex()] = piece; pieces.add(piece);
+            }
+            else
+            {
+                piece = new Queen('Q', piece.file(), piece.rank()); squares[piece.toIndex()] = piece; pieces.add(piece);
+            }
+        }
+        else if (decision == 'r')
+        {
+            if(piece.team() == 0)
+            {
+                piece = new Rook('r', piece.file(), piece.rank()); squares[piece.toIndex()] = piece; pieces.add(piece);
+            }
+            else
+            {
+                piece = new Rook('R', piece.file(), piece.rank()); squares[piece.toIndex()] = piece; pieces.add(piece);
+            }
+        }
     }
 
     public String toFen()

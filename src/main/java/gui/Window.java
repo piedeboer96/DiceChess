@@ -1,8 +1,6 @@
 package gui;
 
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.Toolkit;
+import java.awt.*;
 
 import javax.swing.JFrame;
 
@@ -12,6 +10,8 @@ import gui.interfaces.IWindow;
 public abstract class Window extends JFrame implements IWindow
 {
     private static final long serialVersionUID = 1L;
+
+    public static Frame instance;
 	protected int dw, dh;
     protected Insets insets;
 
@@ -19,6 +19,10 @@ public abstract class Window extends JFrame implements IWindow
 
     public Window(String title, int displayWidth, int displayHeight)
     {
+        if(instance == null)
+        {
+            instance = this;
+        }
         dw = displayWidth;
         dh = displayHeight;
         setTitle(title);

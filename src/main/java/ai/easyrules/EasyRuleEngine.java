@@ -170,7 +170,7 @@ public class EasyRuleEngine {
 
 			System.out.println("Player " + currentPlayer + " with roll " + rollOne + ", " + rollTwo + " move " + bestMove.owner() + "  ----to--->>>  " + bestMove.possibilities() + " and promote Queen");
 			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
-			match.promote(bestMove.owner(), newQueen);
+			//match.promote(bestMove.owner(), newQueen);																																									_______________________________________________________________________________________________________________________
 			break;
 		case FINISH_MATCH:
 			System.out.println("The game is over you won ");

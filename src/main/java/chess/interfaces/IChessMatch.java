@@ -55,7 +55,7 @@ public interface IChessMatch extends IChessboard
      *                                     the target that is going to replace the promoted piece.
      *                                     -or- the passed chess piece can not be promoted.
      **/
-    void promote(IChessPiece piece, IChessPiece target);
+    void promote(IChessPiece piece, char decision);
 
     /**
      * Translate the current state of the match to a fen-string.
