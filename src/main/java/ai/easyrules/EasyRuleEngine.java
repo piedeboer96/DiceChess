@@ -85,8 +85,8 @@ public class EasyRuleEngine {
 					}
 
 				} else {
-					BaseRule bRule=(BaseRule)rule;
-					String strRule = "Rule   " + rule.getName()+"give score "+bRule+ " new Score =  " + chessMove.possibilities().get(0).getScore();
+					
+					String strRule = "Rule   " + rule.getName()+"give score   new Score =  " + chessMove.possibilities().get(0).getScore();
 					System.out.println(strRule);
 					ruleMsgStack.add(strRule);
 				}
@@ -162,13 +162,14 @@ public class EasyRuleEngine {
 		System.out.println();
 
 		ResultAI result;
+		
 		if (bestMove.owner() == null) {
 			result = new ResultAI(action, 'x', -1, -1, -1, -1);
 		} else {
 
 			result = new ResultAI(action, bestMove.owner().toFen(), bestMove.owner().file(), bestMove.owner().rank(), bestMove.possibilities().get(0).file(), bestMove.possibilities().get(0).rank());
 		}
-
+		result.bestMsgStack=bestMsgStack;
 		switch (action) {
 		case NO_MOVE:
 			System.out.println("Player " + currentPlayer + " with rool " + rollOne + ", " + rollTwo + " can't move any piece ");

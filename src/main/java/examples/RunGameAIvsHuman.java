@@ -106,11 +106,11 @@ public class RunGameAIvsHuman {
 
 				 play = dumyRuleEngine.play();
 				possibleDestinations.clear();
-				possibleDestinations.add(new ChessboardSquare(play.toFile, play.toRank));
-				fromDestination = new ChessboardSquare(play.fromFile, play.fromRank);
 				if (play.action == Action.NO_MOVE) {
 					window.setConsoleText("AI Can't Move");
 				} else {
+					possibleDestinations.add(new ChessboardSquare(play.toFile, play.toRank));
+					fromDestination = new ChessboardSquare(play.fromFile, play.fromRank);
 					char fen = play.fen;
 					int fromRank = play.fromRank;
 					int fromFile = play.fromFile;
