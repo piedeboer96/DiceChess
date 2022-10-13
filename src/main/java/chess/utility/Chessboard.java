@@ -200,11 +200,10 @@ public abstract class Chessboard implements IChessboard, IDrawable
         {
             return movesOfTeam;
         }
-        for(int i = 0; i < movesOfTeam.size(); i++)
-        {
-            if(movesOfTeam.get(i).owner().toFen() == values[0] || movesOfTeam.get(i).owner().toFen() == values[1])
-            {
-                filteredMovesOfTeam.add(movesOfTeam.get(i));
+        for (IChessMove move : movesOfTeam) {
+            var chessPiece = move.owner();
+            if (chessPiece.toFen() == values[0] || chessPiece.toFen() == values[1]) {
+                filteredMovesOfTeam.add(move);
             }
         }
         return filteredMovesOfTeam;
@@ -236,92 +235,26 @@ public abstract class Chessboard implements IChessboard, IDrawable
             List<IChessboardSquare> valid = new ArrayList<>();
             for (IChessboardSquare destination : teamMove.possibilities())
             {
+                mate.ghostTo(destination);
                 int destinationIndex = destination.toIndex();
-                if(mate instanceof King && (actualIndex-destinationIndex == -2 || actualIndex-destinationIndex == 2))
+                IChessPiece indexOccupier = squares[destinationIndex];
+                if (indexOccupier != null) { indexOccupier.hide(); }
+                squares[destinationIndex] = mate;
+
+                List<IChessMove> opponentResponses = generateMovesOf(opponent);
+                boolean safeToPlay = true;
+                for (IChessMove response : opponentResponses)
                 {
-                    if(actualIndex-destinationIndex == -2)
+                    if (response.canReach(king))
                     {
-                        boolean safeToPlay = true;
-                        for(int i = 1; i < 3; i++)
-                        {
-
-                            IChessboardSquare additionalSquare = new ChessboardSquare(mate.file()+1, mate.rank());
-                            int additionalIndex = additionalSquare.toIndex();
-                            mate.ghostTo(additionalSquare);
-                            IChessPiece indexOccupier = squares[additionalIndex];
-                            if (indexOccupier != null) { indexOccupier.hide(); }
-                            squares[additionalIndex] = mate;
-                            List<IChessMove> opponentResponses = generateMovesOf(opponent);
-
-                            for (IChessMove response : opponentResponses)
-                            {
-                                if (response.canReach(king))
-                                {
-                                    safeToPlay = false;
-                                    break;
-                                }
-                            }
-
-                            if (indexOccupier != null) { indexOccupier.show(); }
-                            squares[additionalIndex] = indexOccupier;
-                        }
-                        if (safeToPlay) { valid.add(destination); }
-
+                        safeToPlay = false;
+                        break;
                     }
-                    else
-                    {
-                        boolean safeToPlay = true;
-                        for(int i = 1; i < 3; i++)
-                    {
-
-                        IChessboardSquare additionalSquare = new ChessboardSquare(mate.file()-i, mate.rank());
-                        int additionalIndex = additionalSquare.toIndex();
-                        mate.ghostTo(additionalSquare);
-                        IChessPiece indexOccupier = squares[additionalIndex];
-                        if (indexOccupier != null) { indexOccupier.hide(); }
-                        squares[additionalIndex] = mate;
-                        List<IChessMove> opponentResponses = generateMovesOf(opponent);
-
-                        for (IChessMove response : opponentResponses)
-                        {
-                            if (response.canReach(king))
-                            {
-                                safeToPlay = false;
-                                break;
-                            }
-                        }
-                        if (indexOccupier != null) { indexOccupier.show(); }
-                        squares[additionalIndex] = indexOccupier;
-
-                    }
-                        if (safeToPlay) { valid.add(destination); }
-                    }
-
-
-
                 }
-                else
-                {
-                    mate.ghostTo(destination);
-                    IChessPiece indexOccupier = squares[destinationIndex];
-                    if (indexOccupier != null) { indexOccupier.hide(); }
-                    squares[destinationIndex] = mate;
-
-                    List<IChessMove> opponentResponses = generateMovesOf(opponent);
-                    boolean safeToPlay = true;
-                    for (IChessMove response : opponentResponses)
-                    {
-                        if (response.canReach(king))
-                        {
-                            safeToPlay = false;
-                            break;
-                        }
-                    }
-
-                    if (indexOccupier != null) { indexOccupier.show(); }
-                    squares[destinationIndex] = indexOccupier;
-                    if (safeToPlay) { valid.add(destination); }
-                }
+                if (indexOccupier != null) { indexOccupier.show(); }
+                squares[destinationIndex] = indexOccupier;
+                if (safeToPlay) { valid.add(destination); }
+                else if (mate instanceof King) { valid.clear(); break; }
             }
 
             mate.ghostTo(actualSquare);
