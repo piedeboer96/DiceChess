@@ -70,19 +70,20 @@ public class EasyRuleEngine {
 					Boolean changed = facts.get(LFacts.BEST_MOVE_CHANGED);
 					Object action = facts.get(LFacts.ACTION);
 					System.out.println();
+					
 					if (changed) {
 						ChessMove old = facts.get(LFacts.OLD_MOVE);
 						System.out.println("Best Move     Changed : ");
 						System.out.println("OLD     : " + old);
 						System.out.println("NEW     : " + best + " Action : " + action);
 						bestMsgStack = (ArrayList<String>) ruleMsgStack.clone();
-						ruleMsgStack.clear();
+						
 
 					} else {
 						System.out.println("Best Move NOT Changed: ");
-
 						System.out.println("CURRENT : " + best + " Action : " + action);
 					}
+					ruleMsgStack.clear();
 
 				} else {
 					
