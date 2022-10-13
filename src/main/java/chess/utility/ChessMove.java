@@ -11,13 +11,13 @@ public class ChessMove implements IChessMove
     private final IChessPiece owner;
     private final List<IChessboardSquare> destinations;
 
-    public ChessMove(IChessPiece owner, List<IChessboardSquare> destinations)
+    public ChessMove(IChessPiece moveOwner, List<IChessboardSquare> ownerDestinations)
     {
-        this.owner = owner;
-        this.destinations = destinations;
+        owner = moveOwner;
+        destinations = ownerDestinations;
     }
 
-    public boolean canReach(IChessboardSquare square)
+    @Override public boolean canReach(IChessboardSquare square)
     {
         for (var destination : destinations)
         {
@@ -29,11 +29,9 @@ public class ChessMove implements IChessMove
         return false;
     }
 
-    public IChessPiece owner() { return owner; }
+    @Override public IChessPiece owner() { return owner; }
 
-    public List<IChessboardSquare> possibilities() { return destinations;
-    
-    }
+    @Override public List<IChessboardSquare> possibilities() { return destinations; }
 
 	@Override
 	public String toString() {

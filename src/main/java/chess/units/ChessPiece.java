@@ -7,25 +7,15 @@ import chess.utility.ChessboardSquare;
 import gui.interfaces.IDrawable;
 import gui.utility.Cache;
 
-import java.awt.*;
+import java.awt.Graphics;
 
 public class ChessPiece extends ChessboardSquare implements IChessPiece, IDrawable {
 	private static final Cache cache = new Cache();
-	/**
-	 * The fen representation of the chess piece and the team it belongs to. So, the pieces with a black color have a character from the set { b, k, n, p, q ,r } and the pieces with a white color have a character from the set { B, K, N, P, Q, R }.
-	 **/
-	private final char fen;
+	private final char notation;
+	private boolean hidden;
 
-	/**
-	 * Represents the team the chess piece belongs to. See team() for more information.
-	 **/
 	protected final int team;
-
-	/**
-	 * Defines whether a chess piece is temporarily hidden for calculations.
-	 **/
-	protected boolean hidden;
-
+	protected IChessMoveInfo[] movementInfo = null;
 
 	/**
 	 * @param fen  The fen-representation of the chess piece and the team it belongs to.
@@ -34,77 +24,55 @@ public class ChessPiece extends ChessboardSquare implements IChessPiece, IDrawab
 	 **/
 	public ChessPiece(char fen, int file, int rank) {
 		super(file, rank);
-		if (Character.isLowerCase(fen)) {
-			team = 0;
-		} else {
-			team = 1;
-		}
-		this.fen = fen;
+		if (Character.isLowerCase(fen)) { team = 0; }
+		else { team = 1; }
+		notation = fen;
 	}
 
-	public boolean equals(IChessPiece other) { return fen == other.toFen() && equals((IChessboardSquare) other); }
+	@Override public Object clone() throws CloneNotSupportedException { return super.clone(); }
+	@Override public void draw(Graphics g, int x, int y, int width, int height)
+	{
+		var image = cache.getImage(notation);
+		g.drawImage(image, x, y, width, height, null);
+	}
 
-	public boolean friendOf(IChessPiece other) {
+	@Override public boolean equals(IChessPiece other) { return notation == other.toFen() && equals((IChessboardSquare) other); }
+
+	@Override public boolean friendOf(IChessPiece other) {
 		return team == other.team();
 	}
 
-
-	public void ghostTo(IChessboardSquare square) {
+	@Override public void ghostTo(IChessboardSquare square)
+	{
 		file = square.file();
 		rank = square.rank();
 	}
 
-	public void hide() {
-		hidden = true;
-	}
+	@Override public void hide() { hidden = true; }
 
-	public boolean isHidden() {
-		return hidden;
-	}
+	@Override public boolean isHidden() { return hidden; }
 
-	public boolean opponentOf(IChessPiece other) {
-		return team != other.team();
-	}
+	@Override public IChessMoveInfo[] movementInfo() { return movementInfo; }
 
-	public boolean promotable() {
-		return false;
-	}
+	@Override public boolean opponentOf(IChessPiece other) { return team != other.team(); }
 
-	public void setPosition(IChessboardSquare square) {
+	@Override public boolean promotable() { return false; }
+
+	@Override public void setPosition(IChessboardSquare square) {
 		file = square.file();
 		rank = square.rank();
 	}
 
-	public void show() {
+	@Override public void show() {
 		hidden = false;
 	}
 
-	public int team() {
-		return team;
-	}
+	@Override public int team() { return team; }
 
-	public char toFen() {
-		return fen;
-	}
+	@Override public char toFen() { return notation; }
 
-	@Override public IChessMoveInfo[] movementInfo() { return null; }
-
-	public int toIndex() {
-		return (rank * 8) + file;
-	}
-
-	@Override
-	public String toString() {
-		return " [fen=" + fen + ", team=" + team + ", file=" + file + ", rank=" + rank + "]";
-	}
-
-	@Override
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
-	}
-
-	@Override public void draw(Graphics g, int x, int y, int width, int height) {
-		var image = cache.getImage(fen);
-		g.drawImage(image, x, y, width, height, null);
+	@Override public String toString()
+	{
+		return " [fen=" + notation + ", team=" + team + ", file=" + file + ", rank=" + rank + "]";
 	}
 }

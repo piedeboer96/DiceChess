@@ -1,0 +1,86 @@
+RollOne = b  RollTwo = k
+
+
+Evaluating roll [b] From  [fen=n, team=0, file=2, rank=2] -- To Move --> CBS [file=4, rank=3, score=0]
+
+
+Evaluating roll [b] From  [fen=n, team=0, file=2, rank=2] -- To Move --> CBS [file=4, rank=1, score=0]
+
+
+Evaluating roll [b] From  [fen=q, team=0, file=3, rank=2] -- To Move --> CBS [file=4, rank=2, score=0]
+
+
+Evaluating roll [b] From  [fen=q, team=0, file=3, rank=2] -- To Move --> CBS [file=4, rank=3, score=0]
+
+
+Evaluating roll [b] From  [fen=q, team=0, file=3, rank=2] -- To Move --> CBS [file=4, rank=1, score=0]
+
+
+Evaluating roll [b] From  [fen=k, team=0, file=4, rank=0] -- To Move --> CBS [file=3, rank=0, score=0]
+
+
+Evaluating roll [b] From  [fen=k, team=0, file=4, rank=0] -- To Move --> CBS [file=2, rank=0, score=0]
+
+
+Evaluating roll [b] From  [fen=k, team=0, file=4, rank=0] -- To Move --> CBS [file=3, rank=1, score=0]
+
+
+Evaluating roll [b] From  [fen=b, team=0, file=5, rank=0] -- To Move --> CBS [file=4, rank=1, score=0]
+Rule   - Move By Position - new Score =  0
+Rule   - Move Forward     - new Score =  1
+Rule   - Not  Suicide     - new Score =  -349
+
+Best Move     Changed : 
+OLD     : ChessMove [null, destinations=[]]
+NEW     : ChessMove [ [fen=b, team=0, file=5, rank=0], destinations=[CBS [file=4, rank=1, score=-349]]] Action : ONLY_MOVE
+
+
+Evaluating roll [b] From  [fen=n, team=0, file=6, rank=0] -- To Move --> CBS [file=4, rank=1, score=0]
+
+
+Evaluating roll [k] From  [fen=n, team=0, file=2, rank=2] -- To Move --> CBS [file=4, rank=3, score=0]
+
+
+Evaluating roll [k] From  [fen=n, team=0, file=2, rank=2] -- To Move --> CBS [file=4, rank=1, score=0]
+
+
+Evaluating roll [k] From  [fen=q, team=0, file=3, rank=2] -- To Move --> CBS [file=4, rank=2, score=0]
+
+
+Evaluating roll [k] From  [fen=q, team=0, file=3, rank=2] -- To Move --> CBS [file=4, rank=3, score=0]
+
+
+Evaluating roll [k] From  [fen=q, team=0, file=3, rank=2] -- To Move --> CBS [file=4, rank=1, score=0]
+
+
+Evaluating roll [k] From  [fen=k, team=0, file=4, rank=0] -- To Move --> CBS [file=3, rank=0, score=0]
+Rule   - Move By Position - new Score =  -50
+
+Best Move     Changed : 
+OLD     : ChessMove [ [fen=b, team=0, file=5, rank=0], destinations=[CBS [file=4, rank=1, score=-349]]]
+NEW     : ChessMove [ [fen=k, team=0, file=4, rank=0], destinations=[CBS [file=3, rank=0, score=-50]]] Action : ONLY_MOVE
+
+
+Evaluating roll [k] From  [fen=k, team=0, file=4, rank=0] -- To Move --> CBS [file=2, rank=0, score=0]
+Rule   - Move By Position - new Score =  -40
+
+Best Move     Changed : 
+OLD     : ChessMove [ [fen=k, team=0, file=4, rank=0], destinations=[CBS [file=3, rank=0, score=-50]]]
+NEW     : ChessMove [ [fen=k, team=0, file=4, rank=0], destinations=[CBS [file=2, rank=0, score=-40]]] Action : ONLY_MOVE
+
+
+Evaluating roll [k] From  [fen=k, team=0, file=4, rank=0] -- To Move --> CBS [file=3, rank=1, score=0]
+Rule   - Move By Position - new Score =  -50
+Rule   - Move Forward     - new Score =  -49
+
+Best Move NOT Changed: 
+CURRENT : ChessMove [ [fen=k, team=0, file=4, rank=0], destinations=[CBS [file=2, rank=0, score=-40]]] Action : ONLY_MOVE
+
+
+Evaluating roll [k] From  [fen=b, team=0, file=5, rank=0] -- To Move --> CBS [file=4, rank=1, score=-349]
+
+
+Evaluating roll [k] From  [fen=n, team=0, file=6, rank=0] -- To Move --> CBS [file=4, rank=1, score=0]
+
+
+Player 0 with rool b, k move  [fen=k, team=0, file=4, rank=0]  ----to--->>>  [CBS [file=2, rank=0, score=-40]]

@@ -3,25 +3,24 @@ package chess.units;
 import chess.interfaces.IChessMoveInfo;
 import chess.utility.ChessMoveInfo;
 
-public class Bishop extends ChessPiece {
+public final class Bishop extends ChessPiece
+{
+	private static final IChessMoveInfo[] information = getMovementInformation();
+	public static final int pointValue = 350;
 
-	public final static int pointValue = 350;
-
-	private final IChessMoveInfo[] movementInfo;
-
-	public Bishop(char fen, int file, int rank) {
+	public Bishop(char fen, int file, int rank)
+	{
 		super(fen, file, rank);
-		movementInfo = new IChessMoveInfo[4];
-		movementInfo[0] = new ChessMoveInfo(8, 1, 1);
-		movementInfo[1] = new ChessMoveInfo(8, 1, -1);
-		movementInfo[2] = new ChessMoveInfo(8, -1, 1);
-		movementInfo[3] = new ChessMoveInfo(8, -1, -1);
+		movementInfo = information;
 	}
 
-	@Override
-
-	public IChessMoveInfo[] movementInfo() {
-		return movementInfo;
+	public static IChessMoveInfo[] getMovementInformation()
+	{
+		var information = new IChessMoveInfo[4];
+		information[0] = new ChessMoveInfo(7, 1, 1);
+		information[1] = new ChessMoveInfo(7, 1, -1);
+		information[2] = new ChessMoveInfo(7, -1, 1);
+		information[3] = new ChessMoveInfo(7, -1, -1);
+		return information;
 	}
-
 }
