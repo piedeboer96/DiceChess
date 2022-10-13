@@ -69,58 +69,18 @@ public class ChessMatch extends Chessboard implements IChessMatch
 
     public MatchState getState() { return state; }
 
-    public void interpret(String fen)
+    public void interpret(String fenString)
     {
-        // Separating all 6 information fields from the string.
-        // Fields are obtained in the following order:
-        // { board, player, castle opportunities, en-passant target square, half moves, full moves }
-        String[] fields = fen.split(" ", 6);
+        String[] fields = ForsythEdwardsNotation.getFields(fenString);
 
         // Building the chessboard and chess pieces first.
         factory.constructChessBoard(pieces, squares, fields[0]);
         loadKings();
 
-        // Interpreting whose turn to play it is.
-        if (fields[1].charAt(0) == 'b') { player = 0; }
-        else { player = 1; }
+        player = ForsythEdwardsNotation.getPlayer(fields[1]);
+        castleMatrix = ForsythEdwardsNotation.getCastleOpportunities(fields[2]);
 
-        // Interpreting the castle opportunities both sides have.
-        String field = fields[2];
-        for (int entry = 0; entry < field.length(); entry ++)
-        {
-            char c = field.charAt(entry);
-            if (c == '-') { break; }
-            else if (c == 'k') { canCastleKingSide[0] = true; }
-            else if (c == 'K') { canCastleKingSide[1] = true; }
-            else if (c == 'q') { canCastleQueenSide[0] = true; }
-            else if (c == 'Q') { canCastleQueenSide[1] = true; }
-            else { throw new IllegalArgumentException("Forget something? Because, you were not supposed to get this fen-field interpretation expectation."); }
-        }
 
-        // Interpreting the en-passant target square.
-        char barOrLetter = fields[3].charAt(0);
-        if (barOrLetter != '-')
-        {
-            int file;
-
-            // As a proper chessboard denotes the columns/files by letters instead of numbers, we have to convert them.
-            if (barOrLetter == 'a') { file = 0; }
-            else if (barOrLetter == 'b') { file = 1; }
-            else if (barOrLetter == 'c') { file = 2; }
-            else if (barOrLetter == 'd') { file = 3; }
-            else if (barOrLetter == 'e') { file = 4; }
-            else if (barOrLetter == 'f') { file = 5; }
-            else if (barOrLetter == 'h') { file = 6; }
-            else { throw new IllegalArgumentException("Forget something? Because, you were not supposed to get this fen-field interpretation expectation."); }
-
-            char digit = fields[3].charAt(1);
-
-            // As our rows are numbered from top to down instead from bottom up, we need to correct this.
-            int rank = 7 - Character.getNumericValue(digit);
-
-            enPassantTargetSquare = new ChessboardSquare(file, rank);
-        }
-        else { enPassantTargetSquare = null; }
 
         // Interpreting the number of half moves that have recorded.
         halfMoves = Integer.parseInt(fields[4]);
@@ -215,8 +175,8 @@ public class ChessMatch extends Chessboard implements IChessMatch
             }
 
             // Since we have moved the king, we no longer have the opportunity to castle at all.
-            if (canCastleKingSide[player]) { canCastleKingSide[player] = false; }
-            if (canCastleQueenSide[player]) { canCastleQueenSide[player] = false; }
+            castleMatrix[player][0] = false;
+            castleMatrix[player][1] = false;
 
             // Since we already checked whether we were a pawn or we should just also increase the half move counter.
             // For more information of the half move counter, just see the parameter documentation.
@@ -226,8 +186,8 @@ public class ChessMatch extends Chessboard implements IChessMatch
         else if (piece instanceof Rook)
         {
             // Checking whether we were on the king side or queen side and whether we had the opportunity to castle.
-            if (piece.file() == 0 && canCastleQueenSide[player]) { canCastleQueenSide[player] = false; }
-            else if (piece.file() == 7 && canCastleKingSide[player]) { canCastleKingSide[player] = false; }
+            if (piece.file() == 0 && castleMatrix[player][0]) { castleMatrix[player][0] = false; }
+            else if (piece.file() == 7 && castleMatrix[player][1]) { castleMatrix[player][1] = false; }
             halfMoves++;
         }
         // Else only increment half move counter.
@@ -347,10 +307,10 @@ public class ChessMatch extends Chessboard implements IChessMatch
 
         // Building field 3: Castle opportunities
         int appended = 0;
-        if (canCastleKingSide[1]) { sb.append('K'); appended++; }
-        if (canCastleQueenSide[1]) { sb.append('Q'); appended++; }
-        if (canCastleKingSide[0]) { sb.append('k'); appended++; }
-        if (canCastleQueenSide[0]) { sb.append('q'); appended++; }
+        if (castleMatrix[0][1]) { sb.append('K'); appended++; }
+        if (castleMatrix[1][1]) { sb.append('Q'); appended++; }
+        if (castleMatrix[0][0]) { sb.append('k'); appended++; }
+        if (castleMatrix[0][0]) { sb.append('q'); appended++; }
         if (appended == 0) { sb.append('-'); }
         sb.append(' ');
 

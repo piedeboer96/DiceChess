@@ -16,17 +16,10 @@ import gui.interfaces.IDrawable;
 public abstract class Chessboard implements IChessboard, IDrawable
 {
     /**
-     * Represents the opportunity to castle on the king side.
-     * Array is participated as follows { Opportunity for black, Opportunity for white }
+     * <P>{ Black Can Castle King Side,  White Can Castle King Side }</P>
+     * <P>{ Black Can Castle Queen Side, White Can Castle Queen Side }</P>
      **/
-    protected final boolean[] canCastleKingSide;
-
-    /**
-     * Represents the opportunity to castle on the queen side.
-     * Array is participated as follows { Opportunity for black, Opportunity for white }
-     **/
-    protected final boolean[] canCastleQueenSide;
-
+    protected boolean[][] castleMatrix;
     /**
      * Represents the kings of both teams.
      * Array is participated as follows { black king, white king }
@@ -55,13 +48,12 @@ public abstract class Chessboard implements IChessboard, IDrawable
     {
         squares = new IChessPiece[64];
         pieces = new ArrayList<>();
-        canCastleKingSide = new boolean[2];
-        canCastleQueenSide = new boolean[2];
         kings = new IChessPiece[2];
     }
 
     public List<IChessMove> generateMovesOf(IChessPiece piece)
     {
+        if (castleMatrix == null) { throw new IllegalArgumentException("Need a castle matrix before any move generation is performed~!"); }
         List<IChessMove> possibleMoves = new ArrayList<>();
 
         boolean pieceIsPawn = piece instanceof Pawn;
@@ -139,7 +131,7 @@ public abstract class Chessboard implements IChessboard, IDrawable
                 // Checking whether we satisfy the conditions to look
                 // if the squares between the king and the rook are free.
                 // Note: Castling king sides requires 2 free spaces, whereas castling queen side requires 3 free spaces.
-                if (canCastleKingSide[piece.team()] && info.deltaFile() == 1)
+                if (castleMatrix[0][piece.team()] && info.deltaFile() == 1)
                 {
                     // Since we have already determined the first tile right is free with the previous conditions,
                     // all that is left is to check the second tile.
@@ -149,7 +141,7 @@ public abstract class Chessboard implements IChessboard, IDrawable
                    // If the square is empty, then we can castle king side.
                    if (occupier == null) { reachableSquares.add(stepDestination); }
                 }
-                else if (canCastleQueenSide[piece.team()] && info.deltaFile() == -1)
+                else if (castleMatrix[1][piece.team()] && info.deltaFile() == -1)
                 {
                     // Checking the second square to the left.
                     stepDestination = new ChessboardSquare(stepDestination.file() - 1, stepDestination.rank());

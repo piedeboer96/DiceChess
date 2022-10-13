@@ -70,7 +70,7 @@ public class ForsythEdwardsNotationTest
 
     @Test public void testGetEnPassantOpportunity()
     {
-        var targetSquare = ForsythEdwardsNotation.getEnPassantOpportunity("a1");
+        var targetSquare = ForsythEdwardsNotation.getEnPassantOpportunity("a8");
         var chessboardSquare = new ChessboardSquare(0, 0);
         assert targetSquare != null && targetSquare.equals(chessboardSquare);
         assert ForsythEdwardsNotation.getEnPassantOpportunity("-") == null;
