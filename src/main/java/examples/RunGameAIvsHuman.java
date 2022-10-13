@@ -1,13 +1,11 @@
 package examples;
 
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import ai.easyrules.Action;
 import ai.easyrules.EasyRuleEngine;
 import chess.ChessMatch;
 import gui.DiceChessWindow;
-import gui.Player;
 
 public class RunGameAIvsHuman {
 	public static void main(String[] args) {
@@ -49,8 +47,10 @@ public class RunGameAIvsHuman {
 				char rollTwo = roll[1];
 				System.out.println("RollOne = " + rollOne + "  RollTwo = " + rollTwo);
 				EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, rollOne, rollTwo);
-				if (dumyRuleEngine.play() == Action.FINISH_MATCH) { endGame(window); }
-				 
+				if (dumyRuleEngine.play() == Action.FINISH_MATCH) {
+					endGame(window);
+				}
+
 			} else {
 				var player = window.getPlayer();
 				player.playIn(1, match);
