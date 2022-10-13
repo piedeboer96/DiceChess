@@ -208,6 +208,7 @@ public abstract class Chessboard implements IChessboard, IDrawable
         }
         return filteredMovesOfTeam;
     }
+
     public IChessPiece get(IChessboardSquare square) { return squares[square.toIndex()]; }
 
     public IChessPiece getKing(int team) { return kings[team]; }

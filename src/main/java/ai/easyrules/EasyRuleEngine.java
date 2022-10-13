@@ -96,6 +96,21 @@ public class EasyRuleEngine {
 
 		// Step .2 if we want to have simple rules we need to split and do not have more then one possible move for each owner
 
+
+
+		// Step .3 adding the roll to the
+		facts.put(LFacts.ROLL, rollOne);
+
+		// Step .5 adding the roll to the
+		facts.put(LFacts.ROLL, rollTwo);
+
+		char[] rolls = new char[2];
+		rolls[0] = rollOne;
+		rolls[1] = rollTwo;
+
+		moves = match.filterMovesOf(currentPlayer, rolls);
+
+
 		List<IChessMove> movesSplitted = Utils.splitMoves(moves);
 		if (rollOne == rollTwo) {
 			facts.put(LFacts.ROLL, 'x');
@@ -109,9 +124,6 @@ public class EasyRuleEngine {
 
 		} else {
 
-			// Step .3 adding the roll to the
-			facts.put(LFacts.ROLL, rollOne);
-
 			// Step .4 foreach legal move we got the score base on rules
 			for (IChessMove move : movesSplitted) {
 				System.out.println();
@@ -121,8 +133,7 @@ public class EasyRuleEngine {
 				rulesEngine.fire(rules, facts);
 
 			}
-			// Step .5 adding the roll to the
-			facts.put(LFacts.ROLL, rollTwo);
+
 
 			// Step .6 foreach legal move we got the score base on rules
 			for (IChessMove move : movesSplitted) {
