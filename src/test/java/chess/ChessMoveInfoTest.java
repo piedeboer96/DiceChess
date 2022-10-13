@@ -24,9 +24,15 @@ public class ChessMoveInfoTest
     @Test public void testMaxSteps()
     {
         try { new ChessMoveInfo(-1, 0, 0); assert false; }
-        catch (IllegalArgumentException e){ assert true; }
+        catch (IllegalArgumentException e) { assert true; }
 
-        var moveInfo = new ChessMoveInfo(1, 0, 0);
+        try { new ChessMoveInfo(8, 0, 0); assert false; }
+        catch (IllegalArgumentException e) { assert true; }
+
+        try { new ChessMoveInfo(1, 0, 0); assert false; }
+        catch (IllegalArgumentException e) { assert true; }
+
+        var moveInfo = new ChessMoveInfo(1, 0, 1);
         assert moveInfo.maxSteps() == 1;
     }
 }

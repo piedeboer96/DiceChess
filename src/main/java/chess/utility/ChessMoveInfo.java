@@ -14,6 +14,7 @@ public class ChessMoveInfo implements IChessMoveInfo
     public ChessMoveInfo(int maxSteps, int deltaFile, int deltaRank)
     {
         if (maxSteps <= 0) { throw new IllegalArgumentException("Forbidden to pass a negative number of steps or no steps at all!");  }
+        else if (maxSteps > 7) { throw new IllegalArgumentException("Can not move 8 squares when I already sit on 1 square."); }
         else if (deltaFile == 0 && deltaRank == 0) { throw new IllegalArgumentException("Not moving is not a move!"); }
         this.maxSteps = maxSteps;
         this.deltaFile = deltaFile;
