@@ -1,4 +1,4 @@
-package ai.test.t8;
+package ai.test.t08;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import chess.interfaces.IChessMove;
 import chess.interfaces.IChessboardSquare;
 import chess.utility.ChessMove;
 
-public class RookNotMoving {
+public class RookNotMovingTest {
 
     @Test
     void rookNotMoving() {
@@ -52,8 +52,8 @@ public class RookNotMoving {
 
     
         IChessboardSquare destination = bestMove.possibilities().get(0);
-        Assertions.assertEquals(4, destination.file());
-        Assertions.assertEquals(7, destination.rank());
+        Assertions.assertEquals(null, bestMove);
+       
 
 
 

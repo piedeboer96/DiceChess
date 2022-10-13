@@ -1,6 +1,6 @@
-package ai.test.t4;
+package ai.test.t01;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.List;
 
@@ -13,25 +13,35 @@ import chess.interfaces.IChessMove;
 import chess.interfaces.IChessboardSquare;
 import chess.utility.ChessMove;
 
-//startPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-public class AnastasiaMateTest {
+public class BishopMoveAndNotSuicideTest {
 
 	@Test
-	void anastasiaMateRockMove() {
-		String startPos = null;
-		startPos = "8/4n1PK/8/8/8/1r6/8/k7 w - - 0 1";
+	void bishopMoveAndNotSuicide() {
+
+		String startPos = "K/8/8/4b/8/5Q2/8/k w - - 0 1";
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
-		match.loadKings();
 		int nextPlayer = match.nextPlayer();
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'r','p');
+
+		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'b', 'p');
 
 		List<IChessMove> moves = match.legalMovesOf(nextPlayer);
 		List<IChessMove> splitMoves = Utils.splitMoves(moves);
+
 		System.out.println("All Legal moves ");
+
 		for (IChessMove mv : splitMoves) {
 			if (mv.owner().toFen() == 'b')
 				System.out.println(mv);
+		}
+		char[] rolls = new char[2];
+		rolls[0] = 'b';
+		rolls[1] = 'p';
+		System.err.println("-----------");
+		List<IChessMove> filterMovesOf = match.filterMovesOf(nextPlayer, rolls);
+		for (IChessMove mv : Utils.splitMoves(filterMovesOf)) {
+
+			System.out.println(mv);
 		}
 
 		System.out.println();
@@ -41,10 +51,11 @@ public class AnastasiaMateTest {
 		ChessMove bestMove = dumyRuleEngine.getBestMove();
 		System.out.println("bestMove-->" + bestMove);
 		IChessboardSquare destination = bestMove.possibilities().get(0);
-		assertEquals(7, destination.file());
-		assertEquals(5, destination.rank());
-		 
-		 
+		assertFalse(destination.rank() == 0 && destination.file() == 1);
+		assertFalse(destination.rank() == 4 && destination.file() == 5);
+		assertFalse(destination.rank() == 5 && destination.file() == 6);
+		assertFalse(destination.rank() == 2 && destination.file() == 5);
+
 	}
 
 }

@@ -1,4 +1,4 @@
-package ai.test.t7;
+package ai.test.t07;
 
 import ai.easyrules.EasyRuleEngine;
 import ai.easyrules.Utils;
