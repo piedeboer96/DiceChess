@@ -1,4 +1,4 @@
-package ai.test.t6;
+package ai.test.t06;
 
 import java.util.List;
 

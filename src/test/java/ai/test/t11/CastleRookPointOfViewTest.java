@@ -1,4 +1,4 @@
-package ai.test.t10;
+package ai.test.t11;
 
 import ai.easyrules.EasyRuleEngine;
 import ai.easyrules.Utils;
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 /*
 
@@ -20,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
     Your king can not pass through check- If any square the king moves over or moves onto would put you in check, you can’t castle. You’ll have to get rid of that pesky attacking piece first!
 
  */
-public class CastleKingPointOfView {
+public class CastleRookPointOfViewTest {
 
 	@Test
 	void castleKingPointOfView() {
@@ -29,13 +28,13 @@ public class CastleKingPointOfView {
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
 		int nextPlayer = match.nextPlayer();
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'K','K');
+		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'R','R');
 
 		List<IChessMove> moves = match.legalMovesOf(nextPlayer);
 		List<IChessMove> splitMoves = Utils.splitMoves(moves);
 		System.out.println("All Legal moves ");
 		for (IChessMove mv : splitMoves) {
-			if (mv.owner().toFen() == 'K')
+			if (mv.owner().toFen() == 'R')
 				System.out.println(mv);
 		}
 
@@ -46,8 +45,8 @@ public class CastleKingPointOfView {
 		ChessMove bestMove = dumyRuleEngine.getBestMove();
 		System.out.println("bestMove-->" + bestMove);
 		IChessboardSquare destination = bestMove.possibilities().get(0);
-		assertTrue(destination.rank() == 2 && destination.file() == 7);
-		assertTrue(destination.rank() == 6 && destination.file() == 7);
+		assertTrue(destination.rank() == 3 && destination.file() == 7);
+		assertTrue(destination.rank() == 5 && destination.file() == 7);
 	}
 
 }

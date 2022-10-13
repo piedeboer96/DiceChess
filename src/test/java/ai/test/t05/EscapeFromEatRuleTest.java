@@ -1,4 +1,4 @@
-package ai.test.t5;
+package ai.test.t05;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -46,7 +46,7 @@ public class EscapeFromEatRuleTest {
 		System.out.println("bestMove-->" + bestMove);
 		IChessboardSquare destination = bestMove.possibilities().get(0);
 		assertEquals(7, destination.file());
-		assertEquals(5, destination.rank());
+		
 		 
 		 
 	}
