@@ -3,8 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
@@ -68,18 +66,14 @@ public final class DiceChessWindow extends Window
  
         tb.add(p);
         add(tb, BorderLayout.NORTH);
-        
-
-        
-         
-        
+          
         int tbW=25;
 		 
 		chessboard = new Chessboard(0, 0, boardWidth, height-tbW);
          dice = new Dice(boardWidth, 0, panelWidth, height-tbW);
-        componentGroup = new ComponentGroup(3);
+        componentGroup = new ComponentGroup(2);
  
-        componentGroup.add(tb);
+        
         componentGroup.add(chessboard);
 
         componentGroup.add(dice);

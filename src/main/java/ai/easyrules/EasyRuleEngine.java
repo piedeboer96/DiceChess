@@ -190,7 +190,6 @@ public class EasyRuleEngine {
 
 		rules.register(new MoveForwardRule());
 		rules.register(new MoveByPositionRule());
-//		rules.register(new MoveByValueRule());
 		rules.register(new PromoteRule());
 		rules.register(new AttackRule());
 		rules.register(new KingDeadRule());
