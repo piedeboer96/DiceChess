@@ -24,6 +24,7 @@ public final class DiceChessWindow extends Window
     private final ComponentGroup componentGroup;
     private IChessMatch match;
     private Player player;
+	private Dice dice;
 
     public DiceChessWindow(int width, int height, boolean humanVsHuman)
     {
@@ -33,7 +34,7 @@ public final class DiceChessWindow extends Window
         int boardWidth = width - panelWidth;
 
         chessboard = new Chessboard(0, 0, boardWidth, height);
-        Dice dice = new Dice(boardWidth, 0, panelWidth, height);
+         dice = new Dice(boardWidth, 0, panelWidth, height);
         componentGroup = new ComponentGroup(2);
         componentGroup.add(chessboard);
 
@@ -66,4 +67,7 @@ public final class DiceChessWindow extends Window
     {
         componentGroup.updateUI();
     }
+    public Dice getDice() {
+		return dice;
+	}
 }

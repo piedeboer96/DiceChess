@@ -38,16 +38,15 @@ public class RunGameByDummyAI {
 		// Getting the moves of the current player easily by
 
 		int currentPlayer;
+ 
 
 		int i = 0;
 		int maxMove = 1000;
 		while (i++ < maxMove) {
 			currentPlayer = match.getPlayer();
 			// first we need fire the roll
-			Die diceOne = new Die();
-			Die diceTwo = new Die();
-			char rollOne = diceOne.roll(currentPlayer);
-			char rollTwo = diceTwo.roll(currentPlayer);
+			char rollOne = window.getDice().roll(currentPlayer)[0];
+			char rollTwo = window.getDice().roll(currentPlayer)[0];
 
 			sleep(500);
 
