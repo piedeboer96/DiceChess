@@ -3,7 +3,7 @@ package chess.units;
 import chess.interfaces.IChessMoveInfo;
 import chess.utility.ChessMoveInfo;
 
-public class Rook extends ChessPiece
+public final class Rook extends ChessPiece
 {
     private static final IChessMoveInfo[] information = getMovementInformation();
     public static final int pointValue = 525;

@@ -4,7 +4,7 @@ import chess.interfaces.IChessMoveInfo;
 import chess.interfaces.IChessboardSquare;
 import chess.utility.ChessMoveInfo;
 
-public class Pawn extends ChessPiece
+public final class Pawn extends ChessPiece
 {
     private static final int[] initialRanks = { 1, 6 };
     private static final int[] promotionRanks = { 7, 0 };

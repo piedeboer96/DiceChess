@@ -3,7 +3,7 @@ package chess.units;
 import chess.interfaces.IChessMoveInfo;
 import chess.utility.ChessMoveInfo;
 
-public class Bishop extends ChessPiece
+public final class Bishop extends ChessPiece
 {
 	private static final IChessMoveInfo[] information = getMovementInformation();
 	public static final int pointValue = 350;
