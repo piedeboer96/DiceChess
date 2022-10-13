@@ -2,8 +2,9 @@ package chess.units;
 
 import chess.interfaces.IChessPiece;
 import chess.interfaces.IChessboardSquare;
+import chess.utility.ChessboardSquare;
 
-public abstract class ChessPiece implements IChessPiece {
+public abstract class ChessPiece extends ChessboardSquare implements IChessPiece {
 	/**
 	 * The fen representation of the chess piece and the team it belongs to. So, the pieces with a black color have a character from the set { b, k, n, p, q ,r } and the pieces with a white color have a character from the set { B, K, N, P, Q, R }.
 	 **/
@@ -15,24 +16,10 @@ public abstract class ChessPiece implements IChessPiece {
 	protected final int team;
 
 	/**
-	 * The column on the board the chess piece is located in.
-	 **/
-	protected int file;
-
-	/**
 	 * Defines whether a chess piece is temporarily hidden for calculations.
 	 **/
 	protected boolean hidden;
 
-	/**
-	 * The row on the board the chess piece is located in.
-	 **/
-	protected int rank;
-
-	/**
-	 * Piece score to use for material cost evaluation.
-	 */
-	protected int score;
 
 	/**
 	 * @param fen  The fen-representation of the chess piece and the team it belongs to.
@@ -40,14 +27,13 @@ public abstract class ChessPiece implements IChessPiece {
 	 * @param rank The row number the chess piece is located in.
 	 **/
 	public ChessPiece(char fen, int file, int rank) {
+		super(file, rank);
 		if (Character.isLowerCase(fen)) {
 			team = 0;
 		} else {
 			team = 1;
 		}
 		this.fen = fen;
-		this.file = file;
-		this.rank = rank;
 	}
 
 	public boolean equals(IChessboardSquare square) {
@@ -58,9 +44,6 @@ public abstract class ChessPiece implements IChessPiece {
 		return team == other.team();
 	}
 
-	public int file() {
-		return file;
-	}
 
 	public void ghostTo(IChessboardSquare square) {
 		file = square.file();
@@ -88,10 +71,6 @@ public abstract class ChessPiece implements IChessPiece {
 		rank = square.rank();
 	}
 
-	public int rank() {
-		return rank;
-	}
-
 	public void show() {
 		hidden = false;
 	}
@@ -113,20 +92,6 @@ public abstract class ChessPiece implements IChessPiece {
 		return " [fen=" + fen + ", team=" + team + ", file=" + file + ", rank=" + rank + "]";
 	}
 
-	@Override
-	public int getScore() {
-		return score;
-	}
-
-	public void addScore(int score) {
-		this.score = this.score + score;
-	}
-
-	@Override
-	public void resetScore() {
-		this.score = 0;
-
-	}
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();

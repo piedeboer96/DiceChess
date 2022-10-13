@@ -3,8 +3,8 @@ package chess.utility;
 import chess.interfaces.IChessboardSquare;
 
 public class ChessboardSquare implements IChessboardSquare {
-	private final int file, rank;
-	private int score;
+	protected int file, rank;
+	protected int score;
 
 	public ChessboardSquare(int file, int rank) {
 		if (file < 0 || file > 7) {
