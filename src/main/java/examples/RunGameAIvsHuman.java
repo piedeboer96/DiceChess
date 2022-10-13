@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import ai.easyrules.Action;
 import ai.easyrules.EasyRuleEngine;
+import ai.easyrules.ResultAI;
 import chess.ChessMatch;
 import gui.DiceChessWindow;
 
@@ -46,12 +47,24 @@ public class RunGameAIvsHuman {
 				char rollOne = roll[0];
 				char rollTwo = roll[1];
 
-
 				System.out.println("RollOne = " + rollOne + "  RollTwo = " + rollTwo);
 
 				EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, rollOne, rollTwo);
-				Action play = dumyRuleEngine.play().action;
-				if (play == Action.FINISH_MATCH) {
+
+				ResultAI play = dumyRuleEngine.play();
+
+				if (play.action == Action.NO_MOVE) {
+					window.setConsoleText("AI Can't Move");
+				} else {
+					char fen = play.fen;
+					int fromRank = play.fromRank;
+					int fromFile = play.fromFile;
+					int toFile = play.toFile;
+					int toRank = play.toRank;
+					window.setConsoleText("AI Move fen " + fen + " From (" + fromFile + ", " + fromRank + ") --> " + " TO  (" + toFile + ", " + toRank + ")");
+				}
+				if (play.action == Action.FINISH_MATCH) {
+					window.setConsoleText("Match is Over");
 					endGame(window);
 				}
 

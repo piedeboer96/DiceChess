@@ -142,6 +142,7 @@ public class EasyRuleEngine {
 		bestMove = facts.get(LFacts.BEST_MOVE);
 		System.out.println();
 		System.out.println();
+		ResultAI result=new ResultAI(action,bestMove.owner().toFen(),bestMove.owner().file(),bestMove.owner().rank(),bestMove.possibilities().get(0).file(),bestMove.possibilities().get(0).rank());
 
 		switch (action) {
 		case NO_MOVE:
@@ -177,7 +178,7 @@ public class EasyRuleEngine {
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + action);
 		}
-		return new ResultAI(action,bestMove);
+		return result;
 
 	}
 
