@@ -183,7 +183,7 @@ public abstract class Chessboard implements IChessboard, IDrawable
         }
         return movesOfTeam;
     }
-    public List<IChessMove> filterMovesOf(int team, char[] values)
+    public List<IChessMove> legalMovesOf(int team, char[] values)
     {
         List<IChessMove> filteredMovesOfTeam = new ArrayList<>();
         List<IChessMove> movesOfTeam = legalMovesOf(team);

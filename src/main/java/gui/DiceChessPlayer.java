@@ -23,7 +23,7 @@ public final class DiceChessPlayer extends Player {
 		if (rollResults == null) {
 			throw new IllegalCallerException("You forgot to roll the dice before making a move!");
 		}
-		legalMoves = match.filterMovesOf(team, rollResults);
+		legalMoves = match.legalMovesOf(team, rollResults);
 		if (legalMoves.size() == 0) {
 			if (match.playerIsCheckMated(team)) {
 				throw new IllegalStateException("Bro u're done");
