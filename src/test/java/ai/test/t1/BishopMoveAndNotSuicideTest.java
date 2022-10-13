@@ -22,11 +22,14 @@ public class BishopMoveAndNotSuicideTest {
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
 		int nextPlayer = match.nextPlayer();
+		
 		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'b','p');
 
 		List<IChessMove> moves = match.legalMovesOf(nextPlayer);
 		List<IChessMove> splitMoves = Utils.splitMoves(moves);
+		
 		System.out.println("All Legal moves ");
+		
 		for (IChessMove mv : splitMoves) {
 			if (mv.owner().toFen() == 'b')
 				System.out.println(mv);

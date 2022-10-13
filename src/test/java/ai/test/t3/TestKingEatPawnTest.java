@@ -23,8 +23,8 @@ public class TestKingEatPawnTest {
 		startPos = "1n1qk3/1r6/8/3P4/4Pr2/P2K1p1b/P2p1P2/8 w - - 0 1";
 		// Creating a new match.
 		
-		
 		ChessMatch match = new ChessMatch(startPos);
+		
 		int nextPlayer;
 		nextPlayer = match.getPlayer();
 		if(nextPlayer==0)
@@ -34,6 +34,7 @@ public class TestKingEatPawnTest {
 
 		List<IChessMove> moves = match.legalMovesOf(nextPlayer);
 		List<IChessMove> splitMoves = Utils.splitMoves(moves);
+		
 		System.out.println("All Legal moves ");
 		for (IChessMove mv : splitMoves) {
 			if (mv.owner().toFen() == roll)
@@ -45,7 +46,6 @@ public class TestKingEatPawnTest {
 
 		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'R','R');
 		dumyRuleEngine.play();
-
 		
 		ChessMove bestMove = dumyRuleEngine.getBestMove();
 		

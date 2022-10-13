@@ -45,7 +45,10 @@ public class RunGameAIvsHuman {
 				char[] roll = window.getDice().roll(currentPlayer);
 				char rollOne = roll[0];
 				char rollTwo = roll[1];
+
+
 				System.out.println("RollOne = " + rollOne + "  RollTwo = " + rollTwo);
+
 				EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, rollOne, rollTwo);
 				if (dumyRuleEngine.play() == Action.FINISH_MATCH) {
 					endGame(window);

@@ -31,6 +31,7 @@ public class EscapeFromEatRuleTest {
 		List<IChessMove> moves = match.legalMovesOf(nextPlayer);
 		List<IChessMove> splitMoves = Utils.splitMoves(moves);
 		System.out.println("All Legal moves ");
+		
 		for (IChessMove mv : splitMoves) {
 			if (mv.owner().toFen() == 'b')
 				System.out.println(mv);

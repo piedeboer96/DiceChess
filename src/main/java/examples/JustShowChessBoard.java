@@ -24,7 +24,8 @@ public class JustShowChessBoard {
 		startPos = "1n1qk3/1r6/8/3P4/4pR2/P2K1p1b/P2p1P2/8 w - - 0 1";
 		startPos = "8/4n1PK/8/8/8/1r6/8/k7 w - - 0 1";
 		startPos = "k7/7b/8/R3b4/5p2/8/2P5/1K2Q3 w - - 0 1";
-		startPos ="1n1qk3/1r6/8/3P4/4Pr2/P2K1p1b/P2p1P2/8 w - - 0 1";
+		startPos = "1n1qk3/1r6/8/3P4/4Pr2/P2K1p1b/P2p1P2/8 w - - 0 1";
+		startPos = "k7/5p2/8/6P1/8/8/8/K7 b - - 0 1";
 		
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
@@ -35,9 +36,24 @@ public class JustShowChessBoard {
 
 		// Getting the moves of the current player easily by
 
-		}
-	
+	}
 
- 
+	public void showChessBoard(String fen) {
+
+		//Create window
+		ChessWindow window = new ChessWindow(640, 640, false);
+
+		// start position
+		String startPos;
+		startPos = fen;
+
+		// Creating a new match.
+		ChessMatch match = new ChessMatch(startPos);
+		match.loadKings();
+
+		// Displays the match
+		window.display(match);
+
+	}
 
 }

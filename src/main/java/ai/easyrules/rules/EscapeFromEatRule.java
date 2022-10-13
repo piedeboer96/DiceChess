@@ -35,7 +35,6 @@ import chess.units.Rook;
 @Rule(name = EscapeFromEatRule.NAME, description = EscapeFromEatRule.DESCRIPTION, priority = 1)
 public class EscapeFromEatRule extends BaseRule{
 
-
 	static final String DESCRIPTION = "If the piece is under Attack let's try to escape";
 	static final String NAME = "- Escape from EAT  -";
 	

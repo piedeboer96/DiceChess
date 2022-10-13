@@ -162,7 +162,6 @@ public class EasyRuleEngine {
 			int file = bestMove.possibilities().get(0).file();
 			int rank = bestMove.possibilities().get(0).rank();
 			if (bestMove.owner().toFen() == 'P') {
-
 				newQueen = new Queen('Q', file, rank);
 			} else {
 				newQueen = new Queen('q', file, rank);
