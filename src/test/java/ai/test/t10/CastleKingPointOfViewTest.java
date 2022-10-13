@@ -25,7 +25,9 @@ public class CastleKingPointOfViewTest {
 	@Test
 	void castleKingPointOfView() {
 
-		String startPos = "8/8/8/8/8/8/8/R3K2R W - - 0 1";
+		String startPos = "k7/8/8/8/8/8/8/R3K2R b - - 0 1";
+		
+
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
 		int nextPlayer = match.nextPlayer();
