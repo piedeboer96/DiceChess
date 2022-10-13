@@ -21,9 +21,9 @@ public class ChessMoveInfo implements IChessMoveInfo
         this.deltaRank = deltaRank;
     }
 
-    public int deltaFile() { return deltaFile; }
+    @Override public int deltaFile() { return deltaFile; }
 
-    public int deltaRank() { return deltaRank; }
+    @Override public int deltaRank() { return deltaRank; }
 
-    public int maxSteps() { return maxSteps; }
+    @Override public int maxSteps() { return maxSteps; }
 }

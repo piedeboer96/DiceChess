@@ -5,25 +5,26 @@ import chess.utility.ChessMoveInfo;
 
 public class Knight extends ChessPiece
 {
-	 public final static int pointValue = 350;
-
-    private final IChessMoveInfo[] movementInfo;
+    private static final IChessMoveInfo[] information = getMovementInformation();
+    public static final int pointValue = 350;
 
     public Knight(char fen, int file, int rank)
     {
         super(fen, file, rank);
-        movementInfo = new IChessMoveInfo[8];
-
-        movementInfo[0] = new ChessMoveInfo(1, 1, 2);
-        movementInfo[1] = new ChessMoveInfo(1, -1, 2);
-        movementInfo[2] = new ChessMoveInfo(1, 1, -2);
-        movementInfo[3] = new ChessMoveInfo(1, -1, -2);
-
-        movementInfo[4] = new ChessMoveInfo(1, 2, 1);
-        movementInfo[5] = new ChessMoveInfo(1, -2, 1);
-        movementInfo[6] = new ChessMoveInfo(1, 2, -1);
-        movementInfo[7] = new ChessMoveInfo(1, -2, -1);
+        movementInfo = information;
     }
 
-    public IChessMoveInfo[] movementInfo() { return movementInfo; }
+    public static IChessMoveInfo[] getMovementInformation()
+    {
+        var information = new IChessMoveInfo[8];
+        information[0] = new ChessMoveInfo(1, 1, 2);
+        information[1] = new ChessMoveInfo(1, -1, 2);
+        information[2] = new ChessMoveInfo(1, 1, -2);
+        information[3] = new ChessMoveInfo(1, -1, -2);
+        information[4] = new ChessMoveInfo(1, 2, 1);
+        information[5] = new ChessMoveInfo(1, -2, 1);
+        information[6] = new ChessMoveInfo(1, 2, -1);
+        information[7] = new ChessMoveInfo(1, -2, -1);
+        return information;
+    }
 }

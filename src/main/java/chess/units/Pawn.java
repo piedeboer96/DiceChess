@@ -6,10 +6,10 @@ import chess.utility.ChessMoveInfo;
 
 public class Pawn extends ChessPiece
 {
-    public final static int pointValue = 100;
-
-    private final IChessMoveInfo[] movementInfo;
-    private final int promotionRank, step;
+    private static final int[] initialRanks = { 1, 6 };
+    private static final int[] promotionRanks = { 7, 0 };
+    private static final int[] steps = { 1 , -1 };
+    public static final int pointValue = 100;
     private boolean doubleStepIsAllowed;
 
     public Pawn(char fen, int file, int rank)
@@ -17,43 +17,23 @@ public class Pawn extends ChessPiece
         super(fen, file, rank);
 
         int magnitude;
-        if (team == 0)
-        {
-            promotionRank = 7;
-            step = 1;
-            if (rank == 1)
-            {
-                doubleStepIsAllowed = true;
-                magnitude = 2;
-            } else { magnitude = 1; }
-        }
-        else
-        {
-            promotionRank = 0;
-            step = -1;
-            if (rank == 6)
-            {
-                doubleStepIsAllowed = true;
-                magnitude = 2;
-            } else { magnitude = 1; }
-        }
+        doubleStepIsAllowed = rank == initialRanks[team];
+        if (doubleStepIsAllowed) { magnitude = 2; }
+        else { magnitude = 1; }
 
         movementInfo = new IChessMoveInfo[1];
-        movementInfo[0] = new ChessMoveInfo(magnitude, 0, step);
+        movementInfo[0] = new ChessMoveInfo(magnitude, 0, steps[team()]);
     }
 
-    public IChessMoveInfo[] movementInfo() { return movementInfo; }
+    @Override public boolean promotable() { return rank == promotionRanks[team]; }
 
-    public boolean promotable() { return rank == promotionRank; }
-
-    public void setPosition(IChessboardSquare square)
+    @Override public void setPosition(IChessboardSquare square)
     {
+        super.setPosition(square);
         if (doubleStepIsAllowed)
         {
             doubleStepIsAllowed = false;
-            movementInfo[0] = new ChessMoveInfo(1, 0, step);
+            movementInfo[0] = new ChessMoveInfo(1, 0, steps[team]);
         }
-        file = square.file();
-        rank = square.rank();
     }
 }

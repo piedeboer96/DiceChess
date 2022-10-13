@@ -15,6 +15,7 @@ public class ChessPiece extends ChessboardSquare implements IChessPiece, IDrawab
 	private boolean hidden;
 
 	protected final int team;
+	protected IChessMoveInfo[] movementInfo = null;
 
 	/**
 	 * @param fen  The fen-representation of the chess piece and the team it belongs to.
@@ -26,6 +27,13 @@ public class ChessPiece extends ChessboardSquare implements IChessPiece, IDrawab
 		if (Character.isLowerCase(fen)) { team = 0; }
 		else { team = 1; }
 		notation = fen;
+	}
+
+	@Override public Object clone() throws CloneNotSupportedException { return super.clone(); }
+	@Override public void draw(Graphics g, int x, int y, int width, int height)
+	{
+		var image = cache.getImage(notation);
+		g.drawImage(image, x, y, width, height, null);
 	}
 
 	@Override public boolean equals(IChessPiece other) { return notation == other.toFen() && equals((IChessboardSquare) other); }
@@ -44,7 +52,7 @@ public class ChessPiece extends ChessboardSquare implements IChessPiece, IDrawab
 
 	@Override public boolean isHidden() { return hidden; }
 
-	@Override public IChessMoveInfo[] movementInfo() { return null; }
+	@Override public IChessMoveInfo[] movementInfo() { return movementInfo; }
 
 	@Override public boolean opponentOf(IChessPiece other) { return team != other.team(); }
 
@@ -66,11 +74,5 @@ public class ChessPiece extends ChessboardSquare implements IChessPiece, IDrawab
 	@Override public String toString()
 	{
 		return " [fen=" + notation + ", team=" + team + ", file=" + file + ", rank=" + rank + "]";
-	}
-
-	@Override public Object clone() throws CloneNotSupportedException { return super.clone(); }
-	@Override public void draw(Graphics g, int x, int y, int width, int height) {
-		var image = cache.getImage(notation);
-		g.drawImage(image, x, y, width, height, null);
 	}
 }

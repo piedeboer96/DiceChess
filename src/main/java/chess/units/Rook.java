@@ -5,18 +5,22 @@ import chess.utility.ChessMoveInfo;
 
 public class Rook extends ChessPiece
 {
-	 public final static int pointValue = 525;
-    private final IChessMoveInfo[] movementInfo;
+    private static final IChessMoveInfo[] information = getMovementInformation();
+    public static final int pointValue = 525;
 
     public Rook(char fen, int file, int rank)
     {
         super(fen, file, rank);
-        movementInfo = new IChessMoveInfo[4];
-        movementInfo[0] = new ChessMoveInfo(7, 1, 0);
-        movementInfo[1] = new ChessMoveInfo(7, 0, 1);
-        movementInfo[2] = new ChessMoveInfo(7, -1, 0);
-        movementInfo[3] = new ChessMoveInfo(7, 0, -1);
+        movementInfo = information;
     }
 
-    public IChessMoveInfo[] movementInfo() { return movementInfo; }
+    public static IChessMoveInfo[] getMovementInformation()
+    {
+        var information = new IChessMoveInfo[4];
+        information[0] = new ChessMoveInfo(7, 1, 0);
+        information[1] = new ChessMoveInfo(7, 0, 1);
+        information[2] = new ChessMoveInfo(7, -1, 0);
+        information[3] = new ChessMoveInfo(7, 0, -1);
+        return information;
+    }
 }
