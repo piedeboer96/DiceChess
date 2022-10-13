@@ -3,8 +3,13 @@ package chess.units;
 import chess.interfaces.IChessPiece;
 import chess.interfaces.IChessboardSquare;
 import chess.utility.ChessboardSquare;
+import gui.interfaces.IDrawable;
+import gui.utility.Cache;
 
-public abstract class ChessPiece extends ChessboardSquare implements IChessPiece {
+import java.awt.*;
+
+public abstract class ChessPiece extends ChessboardSquare implements IChessPiece, IDrawable {
+	private static final Cache cache = new Cache();
 	/**
 	 * The fen representation of the chess piece and the team it belongs to. So, the pieces with a black color have a character from the set { b, k, n, p, q ,r } and the pieces with a white color have a character from the set { B, K, N, P, Q, R }.
 	 **/
@@ -95,5 +100,10 @@ public abstract class ChessPiece extends ChessboardSquare implements IChessPiece
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
+	}
+
+	@Override public void draw(Graphics g, int x, int y, int width, int height) {
+		var image = cache.getImage(fen);
+		g.drawImage(image, x, y, width, height, null);
 	}
 }

@@ -11,8 +11,9 @@ import chess.interfaces.IChessboard;
 import chess.interfaces.IChessboardSquare;
 import chess.units.King;
 import chess.units.Pawn;
+import gui.interfaces.IDrawable;
 
-public abstract class Chessboard implements IChessboard
+public abstract class Chessboard implements IChessboard, IDrawable
 {
     /**
      * Represents the opportunity to castle on the king side.
