@@ -2,9 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JToolBar;
+import javax.swing.*;
 
 import chess.ChessMatch;
 import chess.interfaces.IChessMatch;
@@ -32,52 +30,54 @@ public final class DiceChessWindow extends Window
     private Player player;
 	private Dice dice;
 
+    private JLabel console;
+
     public DiceChessWindow(int width, int height, boolean humanVsHuman)
     {
         super("A game of dice chess.", width, height);
 
+        // Calculations will be done before we add stuff to the window.
         int panelWidth = width / 10 * 2;
         int boardWidth = width - panelWidth;
-        
-        /***************/
-        
-       
+
+
+        int toolbarHeight = 30;
+        int consoleHeight = 80;
+        int boardHeight = height - consoleHeight - toolbarHeight; // Roll panel height is the same as the board.
  
-        // set layout for frame
-       // f.setLayout(new BorderLayout());
- 
-        // create a toolbar
-        JToolBar tb = new JToolBar();
-        tb.setFloatable(false);
-        
- 
-        // create a panel
-        JPanel p = new JPanel();
- 
-              // create new buttons
+        // Create a toolbar
+        JToolBar toolBar = new JToolBar();
+        toolBar.setFloatable(false);
+
+        // Create a panel
+        JPanel toolbarPanel = new JPanel();
+
+        // Create new buttons
         JButton bRun = new JButton("Run AI");
         JButton bPause = new JButton("Pause AI");
         JButton bStep = new JButton("Step AI");
  
-        // add buttons
-        p.add(bRun);
-        p.add(bPause);
-        p.add(bStep);
- 
-        tb.add(p);
-        add(tb, BorderLayout.NORTH);
-          
-        int tbW=25;
-		 
-		chessboard = new Chessboard(0, 0, boardWidth, height-tbW);
-         dice = new Dice(boardWidth, 0, panelWidth, height-tbW);
-        componentGroup = new ComponentGroup(2);
- 
-        
-        componentGroup.add(chessboard);
+        // Add buttons
+        toolbarPanel.add(bRun);
+        toolbarPanel.add(bPause);
+        toolbarPanel.add(bStep);
+        toolBar.add(toolbarPanel);
+        toolBar.setSize(width, toolbarHeight);
 
+
+        console = new JLabel();
+        console.setHorizontalAlignment(SwingConstants.CENTER);
+        console.setVerticalAlignment(SwingConstants.CENTER);
+        console.setSize(boardWidth, consoleHeight);
+        add(toolBar, BorderLayout.NORTH);
+        add(console, BorderLayout.SOUTH);
+
+		chessboard = new Chessboard(0, 0, boardWidth, boardHeight);
+        dice = new Dice(boardWidth, 0, panelWidth, boardHeight);
+        componentGroup = new ComponentGroup(2);
+        componentGroup.add(chessboard);
         componentGroup.add(dice);
-        add(componentGroup);
+        add(componentGroup, BorderLayout.CENTER);
 
         clickableSources = new IClickable[2];
         clickableSources[0] = chessboard;
@@ -87,6 +87,14 @@ public final class DiceChessWindow extends Window
         
         player = new DiceChessPlayer(humanVsHuman);
         addMouseListener(player);
+    }
+
+    @Override public int[] determineLocationInContentBody(int mouseX, int mouseY)
+    {
+        int[] coordinates = new int[2];
+        coordinates[0] = mouseX - insets.left;
+        coordinates[1] = mouseY - insets.top - 25;
+        return coordinates;
     }
 
     public void display(IChessMatch match)
@@ -108,4 +116,6 @@ public final class DiceChessWindow extends Window
     public Dice getDice() {
 		return dice;
 	}
+
+    public void setConsoleText(String text) { console.setText(text); }
 }
