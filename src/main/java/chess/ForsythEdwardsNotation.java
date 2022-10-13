@@ -112,7 +112,7 @@ public final class ForsythEdwardsNotation
             case 'h' -> file = 7;
             default -> throw new IllegalArgumentException("Can not recognize file character " + letter);
         }
-        int rank = Character.getNumericValue(enPassantField.charAt(1));
+        int rank = Character.getNumericValue(enPassantField.charAt(1)) - 1;
         if (rank < 0 || rank > 7) { throw new IllegalArgumentException("Rank is out of bounds!"); }
         return new ChessboardSquare(file, rank);
     }
