@@ -44,4 +44,20 @@ public class ChessboardSquareTest
         try { new ChessboardSquare(8, 8); assert false; }
         catch (IllegalArgumentException exception) { assert true; }
     }
+
+    @Test public void testEquals()
+    {
+
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                var chessboardSquare = new ChessboardSquare(i, j);
+                var duplicate = new ChessboardSquare(i, j);
+                var mirrored = new ChessboardSquare(j, i);
+                assert chessboardSquare.equals(duplicate);
+                assert !chessboardSquare.equals(mirrored);
+            }
+        }
+    }
 }
