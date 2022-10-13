@@ -1,8 +1,8 @@
 package die;
 
-import die.interfaces.IDie;
-
 import java.util.Random;
+
+import die.interfaces.IDie;
 
 public class Die implements IDie {
 	public char roll(int team) {

@@ -1,10 +1,10 @@
 package chess.utility;
 
-import chess.interfaces.IChessboardSquare;
+import java.util.List;
+
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessPiece;
-
-import java.util.List;
+import chess.interfaces.IChessboardSquare;
 
 public class ChessMove implements IChessMove
 {

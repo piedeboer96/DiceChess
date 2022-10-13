@@ -1,5 +1,10 @@
 package gui.utility;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
+import javax.swing.JPanel;
+
 import chess.interfaces.IChessboardSquare;
 import chess.utility.ChessboardSquare;
 import gui.interfaces.IChessboard;
@@ -7,13 +12,10 @@ import gui.interfaces.IClickable;
 import gui.interfaces.IHighlighter;
 import gui.interfaces.IStalker;
 
-import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.Graphics;
-
 public class Chessboard extends JPanel implements IChessboard, IClickable
 {
-    private final Color evenSquareColor, oddSquareColor;
+    private static final long serialVersionUID = 1L;
+	private final Color evenSquareColor, oddSquareColor;
     private final Highlighter highlighter;
     private final Stalker stalker;
     private int[] xs, ys;

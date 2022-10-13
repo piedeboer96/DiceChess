@@ -1,16 +1,18 @@
 package gui;
 
-import gui.interfaces.IClickable;
-import gui.interfaces.IWindow;
-
-import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
 
+import javax.swing.JFrame;
+
+import gui.interfaces.IClickable;
+import gui.interfaces.IWindow;
+
 public abstract class Window extends JFrame implements IWindow
 {
-    protected int dw, dh;
+    private static final long serialVersionUID = 1L;
+	protected int dw, dh;
     protected Insets insets;
 
     protected IClickable[] clickableSources;

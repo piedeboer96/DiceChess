@@ -1,7 +1,7 @@
 package chess.units;
 
-import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessPiece;
+import chess.interfaces.IChessboardSquare;
 
 public abstract class ChessPiece implements IChessPiece {
 	/**

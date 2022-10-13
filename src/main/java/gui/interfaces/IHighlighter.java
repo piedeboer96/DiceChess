@@ -1,8 +1,8 @@
 package gui.interfaces;
 
-import chess.interfaces.IChessboardSquare;
-
 import java.util.List;
+
+import chess.interfaces.IChessboardSquare;
 
 /**
  * Defines a chessboard square highlighter.

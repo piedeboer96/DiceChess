@@ -1,12 +1,14 @@
 package gui.utility;
 
-import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import javax.swing.JPanel;
+
 public class Panel extends JPanel
 {
-    private final Color c;
+    private static final long serialVersionUID = 1L;
+	private final Color c;
     private int x, y, w, h;
 
     public Panel(int x, int y, int w, int h)

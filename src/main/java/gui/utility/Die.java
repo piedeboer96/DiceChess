@@ -1,15 +1,17 @@
 package gui.utility;
 
-import javax.swing.JComponent;
 import java.awt.Color;
 import java.awt.Graphics;
+
+import javax.swing.JComponent;
 
 /**
  * Defines and provides the graphical component of a die.
  **/
 public class Die extends JComponent
 {
-    private static final Cache cache = new Cache();
+    private static final long serialVersionUID = 1L;
+	private static final Cache cache = new Cache();
     private final int x, y, width, height;
     private final Color border, fill;
     private enum DieState { IDLE, ROLLED };

@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import ai.easyrules.EasyRuleEngine;
 import ai.easyrules.Utils;
 import chess.ChessMatch;
-import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMove;
+import chess.interfaces.IChessboardSquare;
 import chess.utility.ChessMove;
 
 public class TestKingEatPawnTest {

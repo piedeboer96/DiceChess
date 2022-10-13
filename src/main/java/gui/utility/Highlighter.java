@@ -1,18 +1,20 @@
 package gui.utility;
 
-import chess.interfaces.IChessboardSquare;
-import gui.interfaces.IHighlighter;
-
-import javax.swing.JComponent;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;
 
+import javax.swing.JComponent;
+
+import chess.interfaces.IChessboardSquare;
+import gui.interfaces.IHighlighter;
+
 public final class Highlighter extends JComponent implements IHighlighter
 {
-    private final Color destinationColor, selectionColor;
+    private static final long serialVersionUID = 1L;
+	private final Color destinationColor, selectionColor;
     private List<IChessboardSquare> destinations;
-    private List<IChessboardSquare> selectable;
+    
     private IChessboardSquare selected;
     private int[] xs, ys;
     private int sw, sh;

@@ -1,13 +1,15 @@
 package gui.utility;
 
-import gui.interfaces.IClickable;
+import java.awt.Graphics;
 
 import javax.swing.JPanel;
-import java.awt.Graphics;
+
+import gui.interfaces.IClickable;
 
 public class Dice extends JPanel implements IClickable
 {
-    private final Panel panel;
+    private static final long serialVersionUID = 1L;
+	private final Panel panel;
     private final Die die1, die2;
     private final int x, y, width, height;
 

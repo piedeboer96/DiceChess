@@ -7,8 +7,8 @@ import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
 import ai.easyrules.LFacts;
-import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMove;
+import chess.interfaces.IChessboardSquare;
 
 /*
   

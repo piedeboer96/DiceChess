@@ -9,10 +9,10 @@ import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
 import ai.easyrules.LFacts;
-import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessPiece;
+import chess.interfaces.IChessboardSquare;
 import chess.units.Bishop;
 import chess.units.King;
 import chess.units.Knight;

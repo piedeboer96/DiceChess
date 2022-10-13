@@ -1,11 +1,14 @@
 package gui.utility;
 
-import javax.swing.*;
 import java.awt.Graphics;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 public class ComponentGroup extends JPanel
 {
-    private final JComponent[] components;
+    private static final long serialVersionUID = 1L;
+	private final JComponent[] components;
     private int iterator;
 
     public ComponentGroup(int size) { components = new JComponent[size]; }

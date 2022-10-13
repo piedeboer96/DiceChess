@@ -1,7 +1,7 @@
 package chess.units;
 
-import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMoveInfo;
+import chess.interfaces.IChessboardSquare;
 import chess.utility.ChessMoveInfo;
 
 public class Pawn extends ChessPiece

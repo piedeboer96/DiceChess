@@ -1,12 +1,12 @@
 package gui;
 
+import java.awt.event.MouseEvent;
+
 import chess.interfaces.IChessboardSquare;
 import gui.interfaces.IChessboard;
 import gui.interfaces.IHighlighter;
 import gui.interfaces.IWindow;
 import gui.utility.Chessboard;
-
-import java.awt.event.MouseEvent;
 
 /**
  * Provides a human player for a normal chess game.

@@ -10,8 +10,8 @@ import org.jeasy.rules.api.Facts;
 
 import ai.easyrules.LFacts;
 import ai.evaluation.PieceSquareTable;
-import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMove;
+import chess.interfaces.IChessboardSquare;
 
 /*
   

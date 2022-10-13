@@ -6,7 +6,6 @@ import ai.easyrules.Action;
 import ai.easyrules.EasyRuleEngine;
 import chess.ChessMatch;
 import die.Die;
-import gui.ChessWindow;
 import gui.DiceChessWindow;
 
 public class RunGameByDummyAI {

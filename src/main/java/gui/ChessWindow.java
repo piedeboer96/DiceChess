@@ -7,6 +7,8 @@ import gui.utility.Chessboard;
 
 public final class ChessWindow extends Window
 {
+	private static final long serialVersionUID = 1L;
+
 	public static void main(String[] args)
 	{
 		// Creates a human vs human chess game.

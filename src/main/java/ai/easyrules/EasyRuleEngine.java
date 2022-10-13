@@ -12,7 +12,6 @@ import org.jeasy.rules.core.DefaultRulesEngine;
 import ai.easyrules.rules.AttackRule;
 import ai.easyrules.rules.KingDeadRule;
 import ai.easyrules.rules.MoveByPositionRule;
-import ai.easyrules.rules.MoveByValueRule;
 import ai.easyrules.rules.MoveForwardRule;
 import ai.easyrules.rules.MoveToMateRule;
 import ai.easyrules.rules.NewBestActionRule;

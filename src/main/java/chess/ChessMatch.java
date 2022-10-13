@@ -1,8 +1,8 @@
 package chess;
 
-import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessPiece;
+import chess.interfaces.IChessboardSquare;
 import chess.units.King;
 import chess.units.Pawn;
 import chess.units.Rook;

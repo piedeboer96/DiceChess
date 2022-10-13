@@ -1,8 +1,8 @@
 package gui.interfaces;
 
-import chess.interfaces.IChessPiece;
-
 import java.util.List;
+
+import chess.interfaces.IChessPiece;
 
 public interface IStalker
 {

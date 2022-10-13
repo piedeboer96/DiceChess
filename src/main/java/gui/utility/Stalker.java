@@ -1,15 +1,17 @@
 package gui.utility;
 
-import chess.interfaces.IChessPiece;
-import gui.interfaces.IStalker;
-
-import javax.swing.JComponent;
 import java.awt.Graphics;
 import java.util.List;
 
+import javax.swing.JComponent;
+
+import chess.interfaces.IChessPiece;
+import gui.interfaces.IStalker;
+
 public final class Stalker extends JComponent implements IStalker
 {
-    private final Cache cache;
+    private static final long serialVersionUID = 1L;
+	private final Cache cache;
     private List<IChessPiece> chessPieces;
     private int[] xs, ys;
     private int sw, sh;

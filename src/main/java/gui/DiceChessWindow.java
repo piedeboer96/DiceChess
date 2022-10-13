@@ -3,10 +3,14 @@ package gui;
 import chess.ChessMatch;
 import chess.interfaces.IChessMatch;
 import gui.interfaces.IClickable;
-import gui.utility.*;
+import gui.utility.Chessboard;
+import gui.utility.ComponentGroup;
+import gui.utility.Dice;
 
 public final class DiceChessWindow extends Window
 {
+	private static final long serialVersionUID = 1L;
+
 	public static void main(String[] args)
 	{
 		var match = new ChessMatch();

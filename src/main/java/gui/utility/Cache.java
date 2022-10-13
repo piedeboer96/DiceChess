@@ -1,7 +1,8 @@
 package gui.utility;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 
 /**
  * Loads the chess piece images (file data) to the memory.

@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.jeasy.rules.api.Facts;
 
-import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessPiece;
+import chess.interfaces.IChessboardSquare;
 import chess.units.ChessPiece;
 import chess.utility.ChessMove;
 

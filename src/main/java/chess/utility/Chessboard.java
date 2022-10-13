@@ -1,11 +1,15 @@
 package chess.utility;
 
-import chess.interfaces.*;
-import chess.units.King;
-import chess.units.Pawn;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import chess.interfaces.IChessMove;
+import chess.interfaces.IChessMoveInfo;
+import chess.interfaces.IChessPiece;
+import chess.interfaces.IChessboard;
+import chess.interfaces.IChessboardSquare;
+import chess.units.King;
+import chess.units.Pawn;
 
 public abstract class Chessboard implements IChessboard
 {

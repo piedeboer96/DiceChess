@@ -1,9 +1,14 @@
 package chess.utility;
 
-import chess.interfaces.IChessPiece;
-import chess.units.*;
-
 import java.util.List;
+
+import chess.interfaces.IChessPiece;
+import chess.units.Bishop;
+import chess.units.King;
+import chess.units.Knight;
+import chess.units.Pawn;
+import chess.units.Queen;
+import chess.units.Rook;
 
 /**
  * A utility class to 'build' chess pieces and boards.

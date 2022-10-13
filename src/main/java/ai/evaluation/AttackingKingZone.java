@@ -2,10 +2,10 @@ package ai.evaluation;
 
 import java.util.List;
 
-import chess.interfaces.IChessboardSquare;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessPiece;
+import chess.interfaces.IChessboardSquare;
 import chess.units.Bishop;
 import chess.units.Knight;
 import chess.units.Queen;
