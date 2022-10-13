@@ -1,14 +1,29 @@
 package examples;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import ai.easyrules.Action;
 import ai.easyrules.EasyRuleEngine;
 import ai.easyrules.ResultAI;
 import chess.ChessMatch;
+import chess.interfaces.IChessboardSquare;
+import chess.utility.ChessboardSquare;
 import gui.DiceChessWindow;
+import gui.interfaces.IHighlighter;
+import gui.utility.Highlighter;
 
 public class RunGameAIvsHuman {
+
+	IChessboardSquare fromDestination = new ChessboardSquare(0, 0);
+	List<IChessboardSquare> possibleDestinations = new ArrayList<IChessboardSquare>();
+
+	private boolean isHighligh = false;
+	private ResultAI play;
+
 	public static void main(String[] args) {
 
 		RunGameAIvsHuman runGame = new RunGameAIvsHuman();
@@ -37,6 +52,44 @@ public class RunGameAIvsHuman {
 
 		// Getting the moves of the current player easily by
 
+		window.addListenerHighlightLastMove(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				IHighlighter highlighter = window.getHighlighter();
+				if (isHighligh) {
+					highlighter.rememberSelection(null);
+					highlighter.rememberDestinations(null);
+				} else {
+
+					highlighter.rememberSelection(fromDestination);
+					highlighter.rememberDestinations(possibleDestinations);
+				}
+				isHighligh=!isHighligh;	
+			}
+		});
+		
+		window.addListenerShowDetails(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				ArrayList<String> bestMsgStack = play.bestMsgStack;
+				for (String string : bestMsgStack) {
+					window.setConsoleText(string);
+				}
+			}
+		});
+		window.addListenerClearConsole(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				window.clearConsole();
+			}
+		});
+
+
 		while (true) {
 
 			int currentPlayer = match.getPlayer();
@@ -51,8 +104,10 @@ public class RunGameAIvsHuman {
 
 				EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, rollOne, rollTwo);
 
-				ResultAI play = dumyRuleEngine.play();
-
+				 play = dumyRuleEngine.play();
+				possibleDestinations.clear();
+				possibleDestinations.add(new ChessboardSquare(play.toFile, play.toRank));
+				fromDestination = new ChessboardSquare(play.fromFile, play.fromRank);
 				if (play.action == Action.NO_MOVE) {
 					window.setConsoleText("AI Can't Move");
 				} else {

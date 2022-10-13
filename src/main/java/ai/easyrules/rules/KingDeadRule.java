@@ -23,21 +23,22 @@ import chess.interfaces.IChessPiece;
   
  */
 
-
-
 @Rule(name = KingDeadRule.NAME, description = KingDeadRule.DESCRIPTION, priority = 20)
-public class KingDeadRule extends BaseRule{
+public class KingDeadRule extends BaseRule {
 
 	static final String DESCRIPTION = "End of the game because the king is dead ";
 	static final String NAME = "- King  Dead       -";
 	int currentScore = 0;
 	private IChessPiece opponentPiece;
 
+	public KingDeadRule() {
+		score = 100000;
+	}
+
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match,@Fact(LFacts.ROLL) char roll ) {
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match, @Fact(LFacts.ROLL) char roll) {
 		opponentPiece = match.get(move.possibilities().get(0));
-		if ( checkRoll(move, roll) && opponentPiece != null
-				&& (opponentPiece.toFen() == 'K' || opponentPiece.toFen() == 'k')) {
+		if (checkRoll(move, roll) && opponentPiece != null && (opponentPiece.toFen() == 'K' || opponentPiece.toFen() == 'k')) {
 
 			return true;
 
@@ -54,15 +55,15 @@ public class KingDeadRule extends BaseRule{
 		 */
 		evaluateMove(chessMove);
 	}
+
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
 		ai.easyrules.Action currentAction = facts.get(LFacts.ACTION);
 		if (currentAction.compareTo(ai.easyrules.Action.FINISH_MATCH) < 0)
 			facts.put(LFacts.ACTION, ai.easyrules.Action.FINISH_MATCH);
 	}
-	
- 
+
 	private void evaluateMove(IChessMove move) {
-		move.possibilities().get(0).addScore(100000);
+		move.possibilities().get(0).addScore(score);
 	}
 }

@@ -10,6 +10,7 @@ import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.core.DefaultRulesEngine;
 
 import ai.easyrules.rules.AttackRule;
+import ai.easyrules.rules.BaseRule;
 import ai.easyrules.rules.KingDeadRule;
 import ai.easyrules.rules.MoveByPositionRule;
 import ai.easyrules.rules.MoveForwardRule;
@@ -35,6 +36,7 @@ public class EasyRuleEngine {
 	private ChessMove bestMove;
 	private char rollOne;
 	private char rollTwo;
+	ArrayList<String> bestMsgStack = new ArrayList<String>();
 
 	public EasyRuleEngine(IChessMatch match, char rollOne, char rollTwo) {
 
@@ -54,7 +56,10 @@ public class EasyRuleEngine {
 		facts.put(LFacts.BEST_MOVE, bestMove);
 		facts.put(LFacts.BEST_MOVE_CHANGED, Boolean.FALSE);
 
+		ArrayList<String> ruleMsgStack = new ArrayList<String>();
+
 		RuleListener myRuleListener = new RuleListener() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onSuccess(Rule rule, Facts facts) {
 
@@ -70,6 +75,8 @@ public class EasyRuleEngine {
 						System.out.println("Best Move     Changed : ");
 						System.out.println("OLD     : " + old);
 						System.out.println("NEW     : " + best + " Action : " + action);
+						bestMsgStack = (ArrayList<String>) ruleMsgStack.clone();
+						ruleMsgStack.clear();
 
 					} else {
 						System.out.println("Best Move NOT Changed: ");
@@ -77,8 +84,12 @@ public class EasyRuleEngine {
 						System.out.println("CURRENT : " + best + " Action : " + action);
 					}
 
-				} else
-					System.out.println("Rule   " + rule.getName() + " new Score =  " + chessMove.possibilities().get(0).getScore());
+				} else {
+					BaseRule bRule=(BaseRule)rule;
+					String strRule = "Rule   " + rule.getName()+"give score "+bRule+ " new Score =  " + chessMove.possibilities().get(0).getScore();
+					System.out.println(strRule);
+					ruleMsgStack.add(strRule);
+				}
 
 			}
 		};
@@ -96,12 +107,8 @@ public class EasyRuleEngine {
 
 		// Step .2 if we want to have simple rules we need to split and do not have more then one possible move for each owner
 
-
-
 		// Step .3 adding the roll to the
 		facts.put(LFacts.ROLL, rollOne);
-
-
 
 		List<IChessMove> movesSplitted = Utils.splitMoves(moves);
 		if (rollOne == rollTwo) {
@@ -129,7 +136,6 @@ public class EasyRuleEngine {
 			// Step .5 adding the roll to the
 			facts.put(LFacts.ROLL, rollTwo);
 
-
 			// Step .6 foreach legal move we got the score base on rules
 			for (IChessMove move : movesSplitted) {
 				System.out.println();
@@ -148,8 +154,12 @@ public class EasyRuleEngine {
 		bestMove = facts.get(LFacts.BEST_MOVE);
 		System.out.println();
 		System.out.println();
-		ResultAI result=new ResultAI(action,bestMove.owner().toFen(),bestMove.owner().file(),bestMove.owner().rank(),bestMove.possibilities().get(0).file(),bestMove.possibilities().get(0).rank());
-
+		ResultAI result = null;
+		if (bestMove.owner() != null)
+			result = new ResultAI(action, bestMove.owner().toFen(), bestMove.owner().file(), bestMove.owner().rank(), bestMove.possibilities().get(0).file(), bestMove.possibilities().get(0).rank());
+		else
+			result = new ResultAI(action, 'x', 0, 0, 0, 0);
+		result.setMsgStack(bestMsgStack);
 		switch (action) {
 		case NO_MOVE:
 			System.out.println("Player " + currentPlayer + " with rool " + rollOne + ", " + rollTwo + " can't move any piece ");
@@ -176,7 +186,7 @@ public class EasyRuleEngine {
 
 			System.out.println("Player " + currentPlayer + " with roll " + rollOne + ", " + rollTwo + " move " + bestMove.owner() + "  ----to--->>>  " + bestMove.possibilities() + " and promote Queen");
 			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
-			//match.promote(bestMove.owner(), newQueen);																																									_______________________________________________________________________________________________________________________
+			// match.promote(bestMove.owner(), newQueen); _______________________________________________________________________________________________________________________
 			break;
 		case FINISH_MATCH:
 			System.out.println("The game is over you won ");

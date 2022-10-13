@@ -31,6 +31,9 @@ public class MoveForwardRule extends BaseRule {
 
 	static final String NAME = "- Move Forward     -";
 
+	 public MoveForwardRule() {
+		score=10;
+	}
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char roll) {
 
@@ -72,7 +75,7 @@ public class MoveForwardRule extends BaseRule {
 	private void evaluateMove(IChessMove move) {
 
 		IChessboardSquare possibleMove = move.possibilities().get(0);
-		possibleMove.addScore(1); // include your evaluation features into the scoring mechanism
+		possibleMove.addScore(score); // include your evaluation features into the scoring mechanism
 
 	}
 }

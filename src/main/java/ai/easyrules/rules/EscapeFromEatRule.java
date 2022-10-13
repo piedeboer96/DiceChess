@@ -81,7 +81,7 @@ public class EscapeFromEatRule extends BaseRule{
 		char fen = move.owner().toFen();
 		List<IChessboardSquare> possibilities = move.possibilities();
 		IChessboardSquare iChessBoardSquare = possibilities.get(0);
-		int score;
+		 
 		switch (fen) {
 		case 'P':
 		case 'p':

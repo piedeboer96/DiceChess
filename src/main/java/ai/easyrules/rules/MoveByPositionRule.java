@@ -30,8 +30,7 @@ public class MoveByPositionRule extends BaseRule{
 
 	static final String DESCRIPTION = "Move in the high value for the position ";
 	static final String NAME = "- Move By Position -";
-	int currentScore = 0;
-
+	 
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move,@Fact(LFacts.ROLL) char roll  ) {
 	 
@@ -66,40 +65,40 @@ public class MoveByPositionRule extends BaseRule{
 		IChessboardSquare possibleMove = possibilities.get(0);
 		int rank = possibleMove.rank();
 		int file = possibleMove.file();
-		int bestScore;
+		 
 		switch (fen) {
 		case 'P':
 		case 'p':
 
-			bestScore = PieceSquareTable.pst_PAWN[rank][file];
+			score = PieceSquareTable.pst_PAWN[rank][file];
 			break;
 		case 'B':
 		case 'b':
 
-			bestScore = PieceSquareTable.pst_BISCHOP[rank][file];
+			score = PieceSquareTable.pst_BISCHOP[rank][file];
 
 			break;
 		case 'K':
 		case 'k':
-			bestScore = PieceSquareTable.pst_KING_MIDGAME[rank][file];
+			score = PieceSquareTable.pst_KING_MIDGAME[rank][file];
 			break;
 		case 'N':
 		case 'n':
-			bestScore = PieceSquareTable.pst_KNIGHT[rank][file];
+			score = PieceSquareTable.pst_KNIGHT[rank][file];
 			break;
 		case 'Q':
 		case 'q':
-			bestScore = PieceSquareTable.pst_QUEEN[rank][file];
+			score = PieceSquareTable.pst_QUEEN[rank][file];
 			break;
 		case 'R':
 		case 'r':
-			bestScore = PieceSquareTable.pst_ROOKS[rank][file];
+			score = PieceSquareTable.pst_ROOKS[rank][file];
 			break;
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + fen);
 		}
 
-		possibleMove.addScore(bestScore);
+		possibleMove.addScore(score);
 //		System.out.println("increasing score for PAWN rank = "+rank +" file= "+file+" old score "+oldscore+" new score "+possibleMove.getScore());
 
 	}

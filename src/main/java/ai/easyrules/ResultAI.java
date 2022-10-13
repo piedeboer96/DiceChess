@@ -1,6 +1,6 @@
 package ai.easyrules;
 
-import chess.utility.ChessMove;
+import java.util.ArrayList;
 
 public class ResultAI {
 
@@ -10,6 +10,7 @@ public class ResultAI {
 	public int toFile;
 	public int fromRank;
 	public int fromFile;
+	public ArrayList<String> bestMsgStack;
 	
 
 	
@@ -22,6 +23,15 @@ public class ResultAI {
 		this.toFile = toFile;
 		this.toRank = toRank;
 		 
+	}
+
+
+
+
+	public void setMsgStack(ArrayList<String> bestMsgStack) {
+		this.bestMsgStack = bestMsgStack;
+		 
+		
 	}
 
 }

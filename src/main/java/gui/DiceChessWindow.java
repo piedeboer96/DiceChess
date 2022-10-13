@@ -1,12 +1,16 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.TextArea;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 import chess.ChessMatch;
 import chess.interfaces.IChessMatch;
 import gui.interfaces.IClickable;
+import gui.interfaces.IHighlighter;
 import gui.utility.Chessboard;
 import gui.utility.ComponentGroup;
 import gui.utility.Dice;
@@ -30,7 +34,10 @@ public final class DiceChessWindow extends Window
     private Player player;
 	private Dice dice;
 
-    private JLabel console;
+    private TextArea console;
+	private JButton bShowLastAImove;
+	private JButton bMessageStack;
+	private JButton bClearConsole;
 
     public DiceChessWindow(int width, int height, boolean humanVsHuman)
     {
@@ -42,7 +49,7 @@ public final class DiceChessWindow extends Window
 
 
         int toolbarHeight = 30;
-        int consoleHeight = 80;
+        int consoleHeight = 100;
         int boardHeight = height - consoleHeight - toolbarHeight; // Roll panel height is the same as the board.
  
         // Create a toolbar
@@ -53,22 +60,24 @@ public final class DiceChessWindow extends Window
         JPanel toolbarPanel = new JPanel();
 
         // Create new buttons
-        JButton bRun = new JButton("Run AI");
-        JButton bPause = new JButton("Pause AI");
-        JButton bStep = new JButton("Step AI");
+          bShowLastAImove = new JButton("Highlight Last AI Move");
+          bMessageStack = new JButton("Explain the AI Move");
+          bClearConsole = new JButton("Clear Console");
  
         // Add buttons
-        toolbarPanel.add(bRun);
-        toolbarPanel.add(bPause);
-        toolbarPanel.add(bStep);
+        toolbarPanel.add(bShowLastAImove);
+        toolbarPanel.add(bMessageStack);
+        toolbarPanel.add(bClearConsole);
         toolBar.add(toolbarPanel);
         toolBar.setSize(width, toolbarHeight);
 
 
-        console = new JLabel();
-        console.setHorizontalAlignment(SwingConstants.CENTER);
-        console.setVerticalAlignment(SwingConstants.CENTER);
-        console.setSize(boardWidth, consoleHeight);
+        console = new TextArea(5,1);
+       // console.setHorizontalAlignment(SwingConstants.CENTER);
+        //console.setVerticalAlignment(SwingConstants.CENTER);
+        //console.setSize(boardWidth, consoleHeight);
+         
+        
         add(toolBar, BorderLayout.NORTH);
         add(console, BorderLayout.SOUTH);
 
@@ -104,6 +113,11 @@ public final class DiceChessWindow extends Window
         stalker.follow(match.pieces());
         refresh();
     }
+    
+    public IHighlighter getHighlighter() {
+		
+    	return chessboard.getHighlighter();
+	}
 
     public IChessMatch getMatch() { return match; }
     
@@ -117,5 +131,28 @@ public final class DiceChessWindow extends Window
 		return dice;
 	}
 
-    public void setConsoleText(String text) { console.setText(text); }
+    public void addListenerHighlightLastMove(ActionListener listener) {
+    	bShowLastAImove.addActionListener(listener);
+	}
+    public void setConsoleText(String text) { 
+    	 
+    	//console.append(text+"\n");
+    	
+    	console.append(text+"\n");
+    	
+    	}
+
+	public void addListenerShowDetails(ActionListener actionListener) {
+		bMessageStack.addActionListener(actionListener);
+		
+	}
+	public void addListenerClearConsole(ActionListener actionListener) {
+		bClearConsole.addActionListener(actionListener);
+		
+	}
+
+	public void clearConsole() {
+		console.setText("");
+		
+	}
 }

@@ -81,7 +81,7 @@ public class NotSuicideRule extends BaseRule{
 		char fen = move.owner().toFen();
 		List<IChessboardSquare> possibilities = move.possibilities();
 		IChessboardSquare IChessboardSquare = possibilities.get(0);
-		int score;
+		 
 		switch (fen) {
 		case 'P':
 		case 'p':

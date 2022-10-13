@@ -34,6 +34,9 @@ public class MoveToMateRule extends BaseRule {
 	static final String DESCRIPTION = "Add a score if we can push to mate";
 	static final String NAME = "- Move to Mate Rule-";
 
+	 public MoveToMateRule() {
+		score=2000;
+	}
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match, @Fact(LFacts.ROLL) char roll) {
 
@@ -98,6 +101,6 @@ public class MoveToMateRule extends BaseRule {
 
 		List<IChessboardSquare> possibilities = move.possibilities();
 
-		possibilities.get(0).addScore(2000);
+		possibilities.get(0).addScore(score);
 	}
 }

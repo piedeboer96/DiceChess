@@ -71,45 +71,45 @@ public class AttackRule extends BaseRule {
 
 	private void evaluateMove(IChessMove move) {
 		char fen = opponentPiece.toFen();
-
+		
 		List<IChessboardSquare> possibilities = move.possibilities();
 
 		switch (fen) {
 
 		case 'P':
 		case 'p':
-			possibilities.get(0).addScore(2 * Pawn.pointValue);
+			score = 2 * Pawn.pointValue;
 			break;
 		case 'B':
 		case 'b':
 
-			possibilities.get(0).addScore(2 * Bishop.pointValue);
+			score = 2 * Bishop.pointValue;
 			break;
 		case 'K':
 		case 'k':
 
-			possibilities.get(0).addScore(2 * King.pointValue);
+			score = 2 * King.pointValue;
 			break;
 		case 'N':
 		case 'n':
 
-			possibilities.get(0).addScore(2 * Knight.pointValue);
+			score = 2 * Knight.pointValue;
 
 			break;
 		case 'Q':
 		case 'q':
-			possibilities.get(0).addScore(2 * Queen.pointValue);
+			score = 2 * Queen.pointValue;
 
 			break;
 		case 'R':
 		case 'r':
-
-			possibilities.get(0).addScore(2 * Rook.pointValue);
+			score = 2 * Rook.pointValue;
 
 			break;
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + fen);
 
 		}
+		possibilities.get(0).addScore(score);
 	}
 }

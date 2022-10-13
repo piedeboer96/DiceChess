@@ -28,6 +28,9 @@ public class PromoteRule extends BaseRule {
 	static final String NAME = "- Promote to Queen -";
 	int currentScore = 0;
 
+	public PromoteRule() {
+		score=1500;
+	}
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char roll) {
 
@@ -64,6 +67,6 @@ public class PromoteRule extends BaseRule {
 	}
 
 	private void evaluateMove(IChessMove move) {
-		move.possibilities().get(0).addScore(1500);
+		move.possibilities().get(0).addScore(score);
 	}
 }
