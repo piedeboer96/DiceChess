@@ -2,6 +2,9 @@ package chess.units;
 
 import chess.interfaces.IChessPiece;
 import chess.interfaces.IChessboardSquare;
+import gui.utility.Cache;
+
+import java.awt.*;
 
 public abstract class ChessPiece implements IChessPiece {
 	/**
@@ -33,6 +36,8 @@ public abstract class ChessPiece implements IChessPiece {
 	 * Piece score to use for material cost evaluation.
 	 */
 	protected int score;
+
+	private static final Cache cache = new Cache();
 
 	/**
 	 * @param fen  The fen-representation of the chess piece and the team it belongs to.
@@ -130,5 +135,10 @@ public abstract class ChessPiece implements IChessPiece {
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
+	}
+
+	public void draw(Graphics g, int x, int y, int width, int height) {
+		var image = cache.getImage(fen);
+		g.drawImage(image, x, y, width, height, null);
 	}
 }
