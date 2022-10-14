@@ -29,7 +29,7 @@ public class ShortCastleTest {
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
 		int player = match.getPlayer();
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'R', 'P');
+		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'K', 'P');
 
 		List<IChessMove> moves = match.legalMovesOf(player);
 		List<IChessMove> splitMoves = Utils.splitMoves(moves);

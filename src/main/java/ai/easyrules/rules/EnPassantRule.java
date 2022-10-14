@@ -12,16 +12,16 @@ import org.jeasy.rules.api.Facts;
 
 import static ai.easyrules.rules.ruleUtils.*;
 
-@Rule(name = PromoteRule.NAME, description = PromoteRule.DESCRIPTION, priority = 10)
+//@Rule(name = EnPassant.NAME, description = PromoteRule.DESCRIPTION, priority = 10)
 public class EnPassantRule extends ABaseRule
 {
+	final static String DESCRIPTION = "enpassant move";
+//	final  static static String NAME = "- make enpassant move -";
 
 
     @Condition
     public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char rollOne)
     {
-        final String DESCRIPTION = "enpassant move";
-        final String NAME = "- make enpassant move -";
 
         // Head Guard if the move is not for the same as roll we do not proceed to check if this rule can fire
         if (!checkRoll(move, rollOne))
