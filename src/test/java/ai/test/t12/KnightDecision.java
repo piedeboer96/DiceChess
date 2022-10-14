@@ -26,13 +26,13 @@ public class KnightDecision {
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
 		int nextPlayer = match.nextPlayer();
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'R','R');
+		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'n','n');
 
 		List<IChessMove> moves = match.legalMovesOf(nextPlayer);
 		List<IChessMove> splitMoves = Utils.splitMoves(moves);
 		System.out.println("All Legal moves ");
 		for (IChessMove mv : splitMoves) {
-			if (mv.owner().toFen() == 'R')
+			if (mv.owner().toFen() == 'n')
 				System.out.println(mv);
 		}
 
