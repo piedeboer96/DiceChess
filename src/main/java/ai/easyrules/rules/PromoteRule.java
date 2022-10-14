@@ -27,11 +27,13 @@ public class PromoteRule extends ABaseRule {
 	}
 
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char rollOne) {
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char rollOne)
+	{
 
 		// Head Guard if the move is not for the same as roll we do not proceed to check if this rule can fire
 		if (!checkRoll(move, rollOne))
 			return false;
+
 
 		int rank = move.possibilities().get(0).rank();
 		char pawn = move.owner().toFen();

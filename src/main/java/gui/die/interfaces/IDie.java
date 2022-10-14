@@ -1,4 +1,4 @@
-package die.interfaces;
+package gui.die.interfaces;
 
 /**
  * Provides a generic die.

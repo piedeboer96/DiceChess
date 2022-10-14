@@ -51,7 +51,7 @@ public class Die extends JComponent
     {
         if (state == DieState.ROLLED) { return; }
         state = DieState.ROLLED;
-        var die = new die.Die();
+        var die = new gui.die.Die();
         rollResult = die.roll(team);
     }
 }

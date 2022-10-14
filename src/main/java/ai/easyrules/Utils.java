@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import chess.interfaces.IChessboard;
+import chess.units.Pawn;
+import chess.utility.Chessboard;
+import chess.utility.Factory;
 import org.jeasy.rules.api.Facts;
 
 import chess.interfaces.IChessMove;
@@ -85,5 +89,4 @@ public class Utils {
 
 		return splittedMoves;
 	}
-
 }
