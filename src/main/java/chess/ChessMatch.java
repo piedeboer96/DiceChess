@@ -189,7 +189,7 @@ public class ChessMatch extends Chessboard implements IChessMatch
             // Checking whether we were on the king side or queen side and whether we had the opportunity to castle.
             if (piece.file() == 0)
             {
-                castleMatrix[player][0] = false;
+                castleMatrix[1][player] = false;
                 if (destination.file() == 3 && castleMatrix[1][player])
                 {
                     var king = kings[player];
@@ -199,12 +199,12 @@ public class ChessMatch extends Chessboard implements IChessMatch
                     squares[kingIndex] = null;
                     squares[kingDestinationIndex] = king;
                     king.setPosition(kingDestinationSquare);
-                    castleMatrix[player][1] = false;
+                    castleMatrix[0][player] = false;
                 }
             }
             else if (piece.file() == 7)
             {
-                castleMatrix[player][1] = false;
+                castleMatrix[0][player] = false;
                 if (destination.file() == 5 && castleMatrix[0][player])
                 {
                     var king = kings[player];
@@ -214,7 +214,7 @@ public class ChessMatch extends Chessboard implements IChessMatch
                     squares[kingIndex] = null;
                     squares[kingDestinationIndex] = king;
                     king.setPosition(kingDestinationSquare);
-                    castleMatrix[player][0] = false;
+                    castleMatrix[1][player] = false;
                 }
             }
             halfMoves++;
