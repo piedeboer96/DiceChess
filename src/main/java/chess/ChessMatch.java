@@ -154,7 +154,7 @@ public class ChessMatch extends Chessboard implements IChessMatch
             int deltaFile = piece.file() - destination.file();
 
             // Checking whether we castled king side or queen side.
-            if (deltaFile == 2 && castleMatrix[player][0])
+            if (deltaFile == 2 && castleMatrix[1][player])
             {
                 IChessboardSquare rookDestination =  new ChessboardSquare(destination.file() + 1, destination.rank());
                 int rookDestinationIndex = destinationIndex + 1;
@@ -164,7 +164,7 @@ public class ChessMatch extends Chessboard implements IChessMatch
                 squares[rookDestinationIndex] = rook;
                 squares[rookIndex] = null;
             }
-            else if (deltaFile == -2 && castleMatrix[player][1])
+            else if (deltaFile == -2 && castleMatrix[0][player])
             {
                 IChessboardSquare rookDestination =  new ChessboardSquare(destination.file() - 1, destination.rank());
                 int rookDestinationIndex = destinationIndex - 1;
@@ -176,8 +176,8 @@ public class ChessMatch extends Chessboard implements IChessMatch
             }
 
             // Since we have moved the king, we no longer have the opportunity to castle at all.
-            castleMatrix[player][0] = false;
-            castleMatrix[player][1] = false;
+            castleMatrix[0][player] = false;
+            castleMatrix[1][player] = false;
 
             // Since we already checked whether we were a pawn or we should just also increase the half move counter.
             // For more information of the half move counter, just see the parameter documentation.
@@ -187,10 +187,10 @@ public class ChessMatch extends Chessboard implements IChessMatch
         else if (piece instanceof Rook)
         {
             // Checking whether we were on the king side or queen side and whether we had the opportunity to castle.
-            if (piece.file() == 0 && castleMatrix[player][0])
+            if (piece.file() == 0)
             {
                 castleMatrix[player][0] = false;
-                if (destination.file() == 3)
+                if (destination.file() == 3 && castleMatrix[1][player])
                 {
                     var king = kings[player];
                     int kingIndex = king.toIndex();
@@ -202,10 +202,10 @@ public class ChessMatch extends Chessboard implements IChessMatch
                     castleMatrix[player][1] = false;
                 }
             }
-            else if (piece.file() == 7 && castleMatrix[player][1])
+            else if (piece.file() == 7)
             {
                 castleMatrix[player][1] = false;
-                if (destination.file() == 5)
+                if (destination.file() == 5 && castleMatrix[0][player])
                 {
                     var king = kings[player];
                     int kingIndex = king.toIndex();
