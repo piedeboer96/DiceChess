@@ -23,8 +23,8 @@ public class Chessboard extends JPanel implements IChessboard, IClickable
 
     public Chessboard(int x, int y, int width, int height)
     {
-        evenSquareColor = new Color(84, 167, 82, 194);
-        oddSquareColor = new Color(232, 224, 224);
+        evenSquareColor = new Color(232, 224, 224);
+        oddSquareColor = new Color(118, 150, 86);
         highlighter = new Highlighter();
         stalker = new Stalker();
         position(x, y, width, height);
