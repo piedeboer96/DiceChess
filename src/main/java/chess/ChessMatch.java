@@ -154,7 +154,7 @@ public class ChessMatch extends Chessboard implements IChessMatch
             int deltaFile = piece.file() - destination.file();
 
             // Checking whether we castled king side or queen side.
-            if (deltaFile == 2 && castleMatrix[1][player])
+            if (deltaFile == 2 && castleMatrix[0][player])
             {
                 IChessboardSquare rookDestination =  new ChessboardSquare(destination.file() + 1, destination.rank());
                 int rookDestinationIndex = destinationIndex + 1;
@@ -164,7 +164,7 @@ public class ChessMatch extends Chessboard implements IChessMatch
                 squares[rookDestinationIndex] = rook;
                 squares[rookIndex] = null;
             }
-            else if (deltaFile == -2 && castleMatrix[0][player])
+            else if (deltaFile == -2 && castleMatrix[1][player])
             {
                 IChessboardSquare rookDestination =  new ChessboardSquare(destination.file() - 1, destination.rank());
                 int rookDestinationIndex = destinationIndex - 1;
@@ -189,7 +189,6 @@ public class ChessMatch extends Chessboard implements IChessMatch
             // Checking whether we were on the king side or queen side and whether we had the opportunity to castle.
             if (piece.file() == 0)
             {
-                castleMatrix[1][player] = false;
                 if (destination.file() == 3 && castleMatrix[1][player])
                 {
                     var king = kings[player];
@@ -201,10 +200,11 @@ public class ChessMatch extends Chessboard implements IChessMatch
                     king.setPosition(kingDestinationSquare);
                     castleMatrix[0][player] = false;
                 }
+                castleMatrix[1][player] = false;
             }
             else if (piece.file() == 7)
             {
-                castleMatrix[0][player] = false;
+
                 if (destination.file() == 5 && castleMatrix[0][player])
                 {
                     var king = kings[player];
@@ -216,6 +216,7 @@ public class ChessMatch extends Chessboard implements IChessMatch
                     king.setPosition(kingDestinationSquare);
                     castleMatrix[1][player] = false;
                 }
+                castleMatrix[0][player] = false;
             }
             halfMoves++;
         }
