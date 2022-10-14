@@ -83,7 +83,6 @@ public class ChessMatch extends Chessboard implements IChessMatch
         castleMatrix = ForsythEdwardsNotation.getCastleOpportunities(fields[2]);
 
 
-
         // Interpreting the number of half moves that have recorded.
         halfMoves = Integer.parseInt(fields[4]);
 

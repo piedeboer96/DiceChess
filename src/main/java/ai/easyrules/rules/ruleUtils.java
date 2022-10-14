@@ -2,6 +2,7 @@ package ai.easyrules.rules;
 
 import java.util.ArrayList;
 
+import chess.ForsythEdwardsNotation;
 import chess.interfaces.IChessPiece;
 import chess.interfaces.IChessboardSquare;
 import chess.units.Pawn;
@@ -48,18 +49,19 @@ public class ruleUtils
     }
 
 
-    public static boolean checkEnpassant(int team, IChessPiece piece, IChessboardSquare enpassant_square)
+    public static boolean checkEnpassant(int team, IChessPiece piece, String fen)
     {
+        IChessboardSquare enpassant_square  = ForsythEdwardsNotation.getEnPassantOpportunity(fen);
         if(team==0)
         {
-            if((piece.file()-1 == enpassant_square.file() || piece.file()+1 == enpassant_square.file()) && piece.rank()+1 == enpassant_square.rank())
+            if((piece.file()-1 == enpassant_square.file() || piece.file()+1 == enpassant_square.file()) && piece.rank()-1 == enpassant_square.rank())
             {
                 return true;
             }
         }
         if(team==1)
         {
-            if((piece.file()-1 == enpassant_square.file() || piece.file()+1 == enpassant_square.file()) && piece.rank()-1 == enpassant_square.rank())
+            if((piece.file()-1 == enpassant_square.file() || piece.file()+1 == enpassant_square.file()) && piece.rank()+1 == enpassant_square.rank())
             {
                 return true;
             }

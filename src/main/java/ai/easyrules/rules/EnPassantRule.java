@@ -34,7 +34,7 @@ public class EnPassantRule extends ABaseRule
 
 
         char pawn = move.owner().toFen();
-        if (pawn == 'p' && checkEnpassant(move.owner().team(), move.owner(), new ChessboardSquare(1,1)))    //set enpassantsquare
+        if (pawn == 'p' && checkEnpassant(move.owner().team(), move.owner(), ""))    //set enpassantsquare
         {
 
             return true;
