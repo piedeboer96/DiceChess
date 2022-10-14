@@ -2,7 +2,7 @@ package examples;
 
 import java.util.concurrent.TimeUnit;
 
-import ai.easyrules.Action;
+import ai.easyrules.BoardAction;
 import ai.easyrules.EasyRuleEngine;
 import chess.ChessMatch;
 import gui.DiceChessWindow;
@@ -50,8 +50,8 @@ public class RunGameByDummyAI {
 			sleep(500);
 
 			EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, rollOne, rollTwo);
-			Action play = dumyRuleEngine.play().action;
-			if (play == Action.FINISH_MATCH) {
+			BoardAction play = dumyRuleEngine.play().action;
+			if (play == BoardAction.FINISH_MATCH) {
 				while (true) {
 					window.refresh();
 					sleep(500);

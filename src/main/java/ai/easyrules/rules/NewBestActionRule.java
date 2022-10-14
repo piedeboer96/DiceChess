@@ -11,28 +11,22 @@ import chess.interfaces.IChessMove;
 
 /*
   
-   ChessMove [owner=ChessPiece [fen=P, team=1, file=1, rank=6], destinations=[ChessBoardSquare [file=1, rank=5], ChessBoardSquare [file=1, rank=4]]] 
-   ChessMove [owner=ChessPiece [fen=P, team=1, file=2, rank=6], destinations=[ChessBoardSquare [file=2, rank=5], ChessBoardSquare [file=2, rank=4]]] 
-   ChessMove [owner=ChessPiece [fen=P, team=1, file=3, rank=6], destinations=[ChessBoardSquare [file=3, rank=5], ChessBoardSquare [file=3, rank=4]]] 
-   ChessMove [owner=ChessPiece [fen=P, team=1, file=4, rank=6], destinations=[ChessBoardSquare [file=4, rank=5], ChessBoardSquare [file=4, rank=4]]] 
-   ChessMove [owner=ChessPiece [fen=P, team=1, file=5, rank=6], destinations=[ChessBoardSquare [file=5, rank=5], ChessBoardSquare [file=5, rank=4]]] 
-   ChessMove [owner=ChessPiece [fen=P, team=1, file=6, rank=6], destinations=[ChessBoardSquare [file=6, rank=5], ChessBoardSquare [file=6, rank=4]]] 
-   ChessMove [owner=ChessPiece [fen=P, team=1, file=7, rank=6], destinations=[ChessBoardSquare [file=7, rank=5], ChessBoardSquare [file=7, rank=4]]]
-  
+   
  */
 
 @Rule(name = NewBestActionRule.NAME, description = NewBestActionRule.DESCRIPTION, priority = 50)
-public class NewBestActionRule extends BaseRule{
+public class NewBestActionRule extends ABaseRule{
 
 	public static final String DESCRIPTION = " Just print the new best move ";
 	public static final String NAME = "- New Best Move    -";
 
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char roll) {
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char rollOne) {
 
-		if (checkRoll(move, roll))
-			return true;
-		return false;
+		// Head Guard if the move is not for the same as roll we do not proceed to check if this rule can fire 
+		if (!checkRoll(move, rollOne)) 
+			return false;
+		return true;
 	}
 
 	@Action(order = 1)

@@ -25,13 +25,13 @@ public class CastleKingPointOfViewTest {
 	@Test
 	void castleKingPointOfView() {
 
-		String startPos = "k7/pppp4/pppp4/8/8/8/8/R3K2R w KQkq - 0 1";
+		String startPos = "k7/pppppppp/8/8/8/8/8/R3K2R w KQkq - 0 1";
 		
 
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
 		int player = match.getPlayer();
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'K','K');
+		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'K','p');
 
 		List<IChessMove> moves = match.legalMovesOf(player);
 		List<IChessMove> splitMoves = Utils.splitMoves(moves);

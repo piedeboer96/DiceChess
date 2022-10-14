@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import ai.easyrules.Action;
+import ai.easyrules.BoardAction;
 import ai.easyrules.EasyRuleEngine;
 import ai.easyrules.ResultAI;
 import chess.ChessMatch;
@@ -107,7 +107,7 @@ public class RunGameAIvsHuman {
 
 				 play = dumyRuleEngine.play();
 				possibleDestinations.clear();
-				if (play.action == Action.NO_MOVE) {
+				if (play.action == BoardAction.NO_MOVE) {
 					window.setConsoleText("AI Can't Move");
 				} else {
 					possibleDestinations.add(new ChessboardSquare(play.toFile, play.toRank));
@@ -119,7 +119,7 @@ public class RunGameAIvsHuman {
 					int toRank = play.toRank;
 					window.setConsoleText("AI Move fen " + fen + " From (" + fromFile + ", " + fromRank + ") --> " + " TO  (" + toFile + ", " + toRank + ")");
 				}
-				if (play.action == Action.FINISH_MATCH) {
+				if (play.action == BoardAction.FINISH_MATCH) {
 					window.setConsoleText("Match is Over");
 					endGame(window);
 				}

@@ -8,6 +8,7 @@ import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
+import ai.easyrules.BoardAction;
 import ai.easyrules.LFacts;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
@@ -33,15 +34,23 @@ import chess.units.Rook;
  */
 
 @Rule(name = AttackRule.NAME, description = AttackRule.DESCRIPTION, priority = 10)
-public class AttackRule extends BaseRule {
-	static final String DESCRIPTION = "Add a score according to capturing a piece";
-	static final String NAME = "- Attack Rule       -";
+public class AttackRule extends ABaseRule {
+	
+	 final static String DESCRIPTION = "Add a score according to capturing a piece";
+	 final static String NAME = "- Attack Rule       -";
+	
 	private IChessPiece opponentPiece;
 
 	@Condition
 	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match, @Fact(LFacts.ROLL) char rollOne) {
+		
+		// Head Guard if the move is not for the same as roll we do not proceed to check if this rule can fire 
+		if (!checkRoll(move, rollOne)) 
+			return false;
+
+		
 		opponentPiece = match.get(move.possibilities().get(0));
-		if (checkRoll(move, rollOne) && opponentPiece != null) {
+		if (opponentPiece != null) {
 
 			return true;
 
@@ -51,28 +60,10 @@ public class AttackRule extends BaseRule {
 
 	@Action(order = 1)
 	public void attackMove(@Fact(LFacts.CHESSMOVE) IChessMove chessMove) {
-		/*
-		 * 
-		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
-		 * 
-		 */
-//		System.out.println("");
-		evaluateMove(chessMove);
-//		System.out.println("");
 
-	}
-
-	@Action(order = 2)
-	public void Finally(Facts facts) throws Exception {
-		ai.easyrules.Action currentAction = facts.get(LFacts.ACTION);
-		if (currentAction.compareTo(ai.easyrules.Action.ONLY_MOVE) < 0)
-			facts.put(LFacts.ACTION, ai.easyrules.Action.ONLY_MOVE);
-	}
-
-	private void evaluateMove(IChessMove move) {
 		char fen = opponentPiece.toFen();
 		
-		List<IChessboardSquare> possibilities = move.possibilities();
+		List<IChessboardSquare> possibilities = chessMove.possibilities();
 
 		switch (fen) {
 
@@ -111,5 +102,15 @@ public class AttackRule extends BaseRule {
 
 		}
 		possibilities.get(0).addScore(score);
+
+
 	}
+
+	@Action(order = 2)
+	public void Finally(Facts facts) throws Exception {
+		setAction(facts,BoardAction.ONLY_MOVE);
+		 
+	}
+
+	 
 }

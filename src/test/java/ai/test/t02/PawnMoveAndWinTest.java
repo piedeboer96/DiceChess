@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import ai.easyrules.Action;
+import ai.easyrules.BoardAction;
 import ai.easyrules.EasyRuleEngine;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
@@ -30,9 +30,9 @@ public class PawnMoveAndWinTest {
 		
 			EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'p','b');
 
-			Action play = dumyRuleEngine.play().action;
+			BoardAction play = dumyRuleEngine.play().action;
 			
-			assert(play==Action.FINISH_MATCH);
+			assert(play==BoardAction.FINISH_MATCH);
  
 	 
 	}

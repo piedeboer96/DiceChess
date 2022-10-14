@@ -10,7 +10,7 @@ import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.core.DefaultRulesEngine;
 
 import ai.easyrules.rules.AttackRule;
-import ai.easyrules.rules.BaseRule;
+import ai.easyrules.rules.ABaseRule;
 import ai.easyrules.rules.KingDeadRule;
 import ai.easyrules.rules.MoveByPositionRule;
 import ai.easyrules.rules.MoveForwardRule;
@@ -32,7 +32,7 @@ public class EasyRuleEngine {
 	private Facts facts;
 	private DefaultRulesEngine rulesEngine;
 	private int currentPlayer;
-	private Action action = Action.NO_MOVE;
+	private BoardAction action = BoardAction.NO_MOVE;
 	private ChessMove bestMove;
 	private char rollOne;
 	private char rollTwo;
@@ -156,7 +156,7 @@ public class EasyRuleEngine {
 
 		// Step .7 now we fetch from facts the Action and we execute our game
 
-		Action action = facts.get(LFacts.ACTION);
+		BoardAction action = facts.get(LFacts.ACTION);
 
 		bestMove = facts.get(LFacts.BEST_MOVE);
 		System.out.println();

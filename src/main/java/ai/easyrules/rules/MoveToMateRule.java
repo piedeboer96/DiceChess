@@ -8,6 +8,7 @@ import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
+import ai.easyrules.BoardAction;
 import ai.easyrules.LFacts;
 import ai.easyrules.Utils;
 import chess.interfaces.IChessMatch;
@@ -19,20 +20,13 @@ import chess.utility.ChessboardSquare;
 
 /*
   
-   ChessMove [owner=ChessPiece [fen=P, team=1, file=1, rank=6], destinations=[ChessBoardSquare [file=1, rank=5], ChessBoardSquare [file=1, rank=4]]] 
-   ChessMove [owner=ChessPiece [fen=P, team=1, file=2, rank=6], destinations=[ChessBoardSquare [file=2, rank=5], ChessBoardSquare [file=2, rank=4]]] 
-   ChessMove [owner=ChessPiece [fen=P, team=1, file=3, rank=6], destinations=[ChessBoardSquare [file=3, rank=5], ChessBoardSquare [file=3, rank=4]]] 
-   ChessMove [owner=ChessPiece [fen=P, team=1, file=4, rank=6], destinations=[ChessBoardSquare [file=4, rank=5], ChessBoardSquare [file=4, rank=4]]] 
-   ChessMove [owner=ChessPiece [fen=P, team=1, file=5, rank=6], destinations=[ChessBoardSquare [file=5, rank=5], ChessBoardSquare [file=5, rank=4]]] 
-   ChessMove [owner=ChessPiece [fen=P, team=1, file=6, rank=6], destinations=[ChessBoardSquare [file=6, rank=5], ChessBoardSquare [file=6, rank=4]]] 
-   ChessMove [owner=ChessPiece [fen=P, team=1, file=7, rank=6], destinations=[ChessBoardSquare [file=7, rank=5], ChessBoardSquare [file=7, rank=4]]]
-  
+      
  */
 
 @Rule(name = MoveToMateRule.NAME, description = MoveToMateRule.DESCRIPTION, priority = 10)
-public class MoveToMateRule extends BaseRule {
-	static final String DESCRIPTION = "Add a score if we can push to mate";
-	static final String NAME = "- Move to Mate Rule-";
+public class MoveToMateRule extends ABaseRule {
+	final static  String DESCRIPTION = "Add a score if we can push to mate";
+	final static   String NAME = "- Move to Mate Rule-";
 
 	 public MoveToMateRule() {
 		score=2000;
@@ -79,28 +73,18 @@ public class MoveToMateRule extends BaseRule {
 
 	@Action(order = 1)
 	public void attackMove(@Fact(LFacts.CHESSMOVE) IChessMove chessMove) {
-		/*
-		 * 
-		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
-		 * 
-		 */
-//		System.out.println("");
-		evaluateMove(chessMove);
-//		System.out.println("");
+
+		
+		List<IChessboardSquare> possibilities = chessMove.possibilities();
+
+		possibilities.get(0).addScore(score);
 
 	}
 
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
-		ai.easyrules.Action currentAction = facts.get(LFacts.ACTION);
-		if (currentAction.compareTo(ai.easyrules.Action.ONLY_MOVE) < 0)
-			facts.put(LFacts.ACTION, ai.easyrules.Action.ONLY_MOVE);
+		setAction(facts,BoardAction.ONLY_MOVE);
 	}
 
-	private void evaluateMove(IChessMove move) {
-
-		List<IChessboardSquare> possibilities = move.possibilities();
-
-		possibilities.get(0).addScore(score);
-	}
+	 
 }

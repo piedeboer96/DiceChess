@@ -132,7 +132,7 @@ public abstract class Chessboard implements IChessboard, IDrawable {
 			// vertical/rank influence and the possibleMoves of this iteration needs to be 1 (as this
 			// implies that the square either left or right is free).
 			else if (piece instanceof King && info.deltaRank() == 0 && reachableSquares.size() == 1) {
-				System.out.println("castel can be done");
+				 
 				// Checking whether we satisfy the conditions to look
 				// if the squares between the king and the rook are free.
 				// Note: Castling king sides requires 2 free spaces, whereas castling queen side requires 3 free spaces.
