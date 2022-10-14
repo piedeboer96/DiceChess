@@ -1,7 +1,5 @@
 package ai.easyrules.rules;
 
-import java.util.List;
-
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Fact;
@@ -12,14 +10,6 @@ import ai.easyrules.BoardAction;
 import ai.easyrules.LFacts;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
-import chess.interfaces.IChessPiece;
-import chess.interfaces.IChessboardSquare;
-import chess.units.Bishop;
-import chess.units.King;
-import chess.units.Knight;
-import chess.units.Pawn;
-import chess.units.Queen;
-import chess.units.Rook;
 
 /*
  *    this the  short castle position 
@@ -35,29 +25,42 @@ public class ShortCastleRule extends ABaseRule {
 	static final String DESCRIPTION = "Execute a short Castle";
 	static final String NAME = "- Short Castle Rule -";
 	 
+	
+	/**
+	 * We set the score for a short castle to 1000
+	 * This score will be added when and if  the @Action castleMove is fired  
+	 */
+	public ShortCastleRule() {
+		score=1000;
+	}
 
 	@Condition
-	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.MATCH) IChessMatch match, @Fact(LFacts.ROLL) char rollOne) {
+	public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char roll) {
 		
 		// Head Guard if the move is not for the same as roll we do not proceed to check if this rule can fire 
-		if (!checkRoll(move, rollOne)) 
+		if (!checkRoll(move, roll)) 
 			return false;
 	
+		// is a castle rules if the King can move from 4,7 to --> 6,7 only
+		int kingFile = move.owner().file();
+		int kingRank = move.owner().rank();
+		int KingFileDest = move.possibilities().get(0).file();
+		int kingRankDest = move.possibilities().get(0).rank();
 		
-		
+		if (kingFile==4 && kingRank==7 && KingFileDest==6&&kingRankDest==7)
 		return true;
+		
+		return false;
 	}
 
 	@Action(order = 1)
 	public void castleMove(@Fact(LFacts.CHESSMOVE) IChessMove chessMove) {
-		/*
+		/**
 		 * 
-		 * ChessMove [owner=ChessPiece [fen=P, team=1, file=0, rank=6], destinations=[ChessBoardSquare [file=0, rank=5], ChessBoardSquare [file=0,rank=4]]]
+		 * ChessMove [ [fen=K, team=1, file=4, rank=7], destinations=[CBS [file=6, rank=7, score=0]]]
 		 * 
 		 */
-//		System.out.println("");
-		evaluateMove(chessMove);
-//		System.out.println("");
+		chessMove.possibilities().get(0).addScore(score);
 
 	}
 
@@ -66,11 +69,6 @@ public class ShortCastleRule extends ABaseRule {
 		setAction(facts,BoardAction.ONLY_MOVE);
 	}
 
-	private void evaluateMove(IChessMove move) {
-		
-		move.possibilities().get(0).addScore(score);
-		
-	}
 }
 
 
