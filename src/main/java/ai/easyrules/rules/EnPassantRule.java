@@ -1,16 +1,18 @@
 package ai.easyrules.rules;
 
-import ai.easyrules.BoardAction;
-import ai.easyrules.LFacts;
-import chess.interfaces.IChessMove;
-import chess.utility.ChessboardSquare;
+import static ai.easyrules.rules.ruleUtils.checkColumnForPawnFromScratch;
+import static ai.easyrules.rules.ruleUtils.checkEnpassant;
+
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
-import static ai.easyrules.rules.ruleUtils.*;
+import ai.easyrules.BoardAction;
+import ai.easyrules.LFacts;
+import chess.interfaces.IChessMove;
+import chess.utility.ChessboardSquare;
 
 @Rule(name = PromoteRule.NAME, description = PromoteRule.DESCRIPTION, priority = 10)
 public class EnPassantRule extends ABaseRule

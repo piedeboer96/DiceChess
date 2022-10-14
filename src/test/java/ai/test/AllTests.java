@@ -13,10 +13,12 @@ import ai.test.t07.PromotionPawnTest;
 import ai.test.t08.RookNotMovingTest;
 import ai.test.t10.LongCastleTest;
 import ai.test.t11.ShortCastleTest;
+import ai.test.t12.KnightDecision;
 
 @Suite
-@SelectClasses({ BishopMoveAndNotSuicideTest.class,
-	LongCastleTest.class,
+@SelectClasses({ 
+	
+	BishopMoveAndNotSuicideTest.class,
 	PawnMoveAndWinTest.class,
 	TestKingEatPawnTest.class,
 	AnastasiaMateTest.class, 
@@ -24,7 +26,13 @@ import ai.test.t11.ShortCastleTest;
 	EnPassantTest.class,
 	PromotionPawnTest.class,
 	RookNotMovingTest.class,
-	ShortCastleTest.class })
+	LongCastleTest.class,
+	ShortCastleTest.class,
+	KnightDecision.class
+	
+
+
+})
 
 public class AllTests {
 

@@ -48,7 +48,7 @@ public class RookNotMovingTest {
 
         System.out.println("play-->" + play);
 
-    
+        
 //        Assertions.assertEquals(null, play);
        
 
