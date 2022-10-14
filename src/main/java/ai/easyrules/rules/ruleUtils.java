@@ -1,11 +1,11 @@
 package ai.easyrules.rules;
 
+import java.util.ArrayList;
+
 import chess.interfaces.IChessPiece;
 import chess.interfaces.IChessboardSquare;
 import chess.units.Pawn;
 import chess.utility.Factory;
-
-import java.util.ArrayList;
 
 public class ruleUtils
 {

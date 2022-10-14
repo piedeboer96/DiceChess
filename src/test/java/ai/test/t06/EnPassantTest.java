@@ -1,5 +1,7 @@
 package ai.test.t06;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -39,6 +41,8 @@ public class EnPassantTest {
 
         dumyRuleEngine.play();
         //dumyRuleEngine2.play();
+        
+        fail("FIX ME");
 
         
 

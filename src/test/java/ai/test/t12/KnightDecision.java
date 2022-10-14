@@ -1,17 +1,17 @@
 package ai.test.t12;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
 import ai.easyrules.EasyRuleEngine;
 import ai.easyrules.Utils;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessboardSquare;
 import chess.utility.ChessMove;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /*
   The knight suicide for nothing, like if its life has no value.
