@@ -14,16 +14,19 @@ import ai.easyrules.LFacts;
 import chess.interfaces.IChessMove;
 import chess.utility.ChessboardSquare;
 
-@Rule(name = PromoteRule.NAME, description = PromoteRule.DESCRIPTION, priority = 10)
+@Rule(name = EnPassantRule.NAME, description = EnPassantRule.DESCRIPTION, priority = 10)            //set priority
 public class EnPassantRule extends ABaseRule
 {
-
+    int file;
+    int team;
+    final static String DESCRIPTION = "enpassant move";
+    final static String NAME = "- make enpassant move -";
 
     @Condition
     public boolean when(@Fact(LFacts.CHESSMOVE) IChessMove move, @Fact(LFacts.ROLL) char rollOne)
     {
-        final String DESCRIPTION = "enpassant move";
-        final String NAME = "- make enpassant move -";
+        file = move.possibilities().get(0).file();
+        team = move.owner().team();
 
         // Head Guard if the move is not for the same as roll we do not proceed to check if this rule can fire
         if (!checkRoll(move, rollOne))
@@ -31,16 +34,9 @@ public class EnPassantRule extends ABaseRule
 
 
         char pawn = move.owner().toFen();
-        if (pawn == 'p' && checkEnpassant(move.owner().team(), move.owner(), new ChessboardSquare(1,1)))    //change
+        if (pawn == 'p' && checkEnpassant(move.owner().team(), move.owner(), new ChessboardSquare(1,1)))    //set enpassantsquare
         {
-            if(checkColumnForPawnFromScratch(move.possibilities().get(0).file(), move.owner().team(), ""))             //change
-            {
-                score = 75;
-            }
-            else
-            {
-                score = 150;
-            }
+
             return true;
         }
 
@@ -49,13 +45,23 @@ public class EnPassantRule extends ABaseRule
     }
 
     @Action(order = 1)
-    public void bestPromote(@Fact(LFacts.CHESSMOVE) IChessMove chessMove) {
+    public void makeEnpassant(@Fact(LFacts.CHESSMOVE) IChessMove chessMove)
+    {
+        if(checkColumnForPawnFromScratch(file,team , ""))             //set state fen string
+        {
+            score = 75;
+        }
+        else
+        {
+            score = 150;
+        }
         chessMove.possibilities().get(0).addScore(score);
+
     }
 
     @Action(order = 2)
     public void Finally(Facts facts) throws Exception {
-        setAction(facts, BoardAction.MOVE_AND_PROMOTE);
+        setAction(facts, BoardAction.ENPASSANT);
     }
 
 }

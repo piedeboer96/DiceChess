@@ -39,8 +39,8 @@ public class NotSuicideRule extends ABaseRule{
 		if (! (checkRoll(move, roll) )) 
 			return false;
 		
-		int file = move.possibilities().get(0).file();
-		int rank = move.possibilities().get(0).rank();
+		int file = move.possibilities().get(0).file();				//potential mistake
+		int rank = move.possibilities().get(0).rank();				//potential mistake
 
 		int otherPlayer = match.getPlayer() == 1 ? 0 : 1;
 		List<IChessMove> generateMovesOf = match.generateMovesOf(otherPlayer);
@@ -48,8 +48,8 @@ public class NotSuicideRule extends ABaseRule{
 		// if the opponent can move and eat in our destintaion the we activate the rule
 		List<IChessMove> splitMoves = Utils.splitMoves(generateMovesOf);
 		for (IChessMove opponentMove : splitMoves) {
-			if (opponentMove.possibilities().get(0).file() == file
-					&& opponentMove.possibilities().get(0).rank() == rank)
+			if (opponentMove.possibilities().get(0).file() == file				//potential mistake
+					&& opponentMove.possibilities().get(0).rank() == rank)		//potential mistake
 				return true;
 		}
 
@@ -61,8 +61,8 @@ public class NotSuicideRule extends ABaseRule{
 
 
 		char fen = chessMove.owner().toFen();
-		List<IChessboardSquare> possibilities = chessMove.possibilities();
-		IChessboardSquare IChessboardSquare = possibilities.get(0);
+		List<IChessboardSquare> possibilities = chessMove.possibilities();		//potential mistake
+		IChessboardSquare IChessboardSquare = possibilities.get(0);				//potential mistake
 		 
 		switch (fen) {
 		case 'P':
@@ -105,7 +105,7 @@ public class NotSuicideRule extends ABaseRule{
 	
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
-		setAction(facts,BoardAction.ONLY_MOVE);
+		setAction(facts,BoardAction.NO_MOVE);
 	}
 
 	 
