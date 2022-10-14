@@ -154,7 +154,7 @@ public class ChessMatch extends Chessboard implements IChessMatch
             int deltaFile = piece.file() - destination.file();
 
             // Checking whether we castled king side or queen side.
-            if (deltaFile == 2)
+            if (deltaFile == 2 && castleMatrix[player][0])
             {
                 IChessboardSquare rookDestination =  new ChessboardSquare(destination.file() + 1, destination.rank());
                 int rookDestinationIndex = destinationIndex + 1;
@@ -164,7 +164,7 @@ public class ChessMatch extends Chessboard implements IChessMatch
                 squares[rookDestinationIndex] = rook;
                 squares[rookIndex] = null;
             }
-            else if (deltaFile == -2)
+            else if (deltaFile == -2 && castleMatrix[player][1])
             {
                 IChessboardSquare rookDestination =  new ChessboardSquare(destination.file() - 1, destination.rank());
                 int rookDestinationIndex = destinationIndex - 1;
@@ -187,8 +187,36 @@ public class ChessMatch extends Chessboard implements IChessMatch
         else if (piece instanceof Rook)
         {
             // Checking whether we were on the king side or queen side and whether we had the opportunity to castle.
-            if (piece.file() == 0 && castleMatrix[player][0]) { castleMatrix[player][0] = false; }
-            else if (piece.file() == 7 && castleMatrix[player][1]) { castleMatrix[player][1] = false; }
+            if (piece.file() == 0 && castleMatrix[player][0])
+            {
+                castleMatrix[player][0] = false;
+                if (destination.file() == 3)
+                {
+                    var king = kings[player];
+                    int kingIndex = king.toIndex();
+                    var kingDestinationSquare = new ChessboardSquare(destination.file() - 1, destination.rank());
+                    int kingDestinationIndex = kingDestinationSquare.toIndex();
+                    squares[kingIndex] = null;
+                    squares[kingDestinationIndex] = king;
+                    king.setPosition(kingDestinationSquare);
+                    castleMatrix[player][1] = false;
+                }
+            }
+            else if (piece.file() == 7 && castleMatrix[player][1])
+            {
+                castleMatrix[player][1] = false;
+                if (destination.file() == 5)
+                {
+                    var king = kings[player];
+                    int kingIndex = king.toIndex();
+                    var kingDestinationSquare = new ChessboardSquare(destination.file() + 1, destination.rank());
+                    int kingDestinationIndex = kingDestinationSquare.toIndex();
+                    squares[kingIndex] = null;
+                    squares[kingDestinationIndex] = king;
+                    king.setPosition(kingDestinationSquare);
+                    castleMatrix[player][0] = false;
+                }
+            }
             halfMoves++;
         }
         // Else only increment half move counter.
