@@ -257,7 +257,8 @@ public abstract class Chessboard implements IChessboard, IDrawable {
 				squares[destinationIndex] = indexOccupier;
 				if (safeToPlay) {
 					valid.add(destination);
-				} else if (mate instanceof King) {
+				} 
+				else if (mate instanceof King) {
 					valid.clear();
 					break;
 				}

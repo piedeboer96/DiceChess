@@ -11,6 +11,7 @@ import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.core.DefaultRulesEngine;
 
 import ai.easyrules.rules.AttackRule;
+import ai.easyrules.rules.EnPassantRule;
 import ai.easyrules.rules.EscapeFromEatRule;
 import ai.easyrules.rules.KingDeadRule;
 import ai.easyrules.rules.LongCastleRule;
@@ -290,6 +291,8 @@ public class EasyRuleEngine {
 		rules.register(new NotSuicideRule());
 		rules.register(new PromoteRule());
 		rules.register(new ShortCastleRule());
+//		rules.register(new EnPassantRule());
+		
 
 		return rules;
 

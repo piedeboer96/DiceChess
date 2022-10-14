@@ -27,6 +27,7 @@ public class RunGameByDummyAI {
 		startPos = "1n1qk3/1r6/8/3p4/4pR2/P2K1p1b/P2p1P2/8 w - - 0 1";
 		startPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
+
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
 		match.loadKings();
