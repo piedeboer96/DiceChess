@@ -1,17 +1,17 @@
 package ai.test.t07;
 
-import ai.easyrules.EasyRuleEngine;
-import ai.easyrules.Utils;
-import chess.ChessMatch;
-import chess.interfaces.IChessMove;
-import chess.interfaces.IChessboardSquare;
-import chess.utility.ChessMove;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import ai.easyrules.EasyRuleEngine;
+import ai.easyrules.ResultAI;
+import ai.easyrules.Utils;
+import chess.ChessMatch;
+import chess.interfaces.IChessMove;
 
 public class PromotionPawnTest {
 
@@ -39,12 +39,12 @@ public class PromotionPawnTest {
 		System.out.println();
 		System.out.println();
 
-		dumyRuleEngine.play();
-		ChessMove bestMove = dumyRuleEngine.getBestMove();
-		System.out.println("bestMove-->" + bestMove);
+		ResultAI play = dumyRuleEngine.play();
+	
+		System.out.println("bestMove-->" + play);
 
-		IChessboardSquare destination = bestMove.possibilities().get(0);
 		// assertTrue(destination.rank() == 1 && destination.file() == 7);
-		assertTrue(destination.rank() == 0 && destination.file() == 0);
+		assertTrue(play.toRank == 0 && play.toFile == 0);
+		fail("we must check that the pawn become a queen");
 	}
 }

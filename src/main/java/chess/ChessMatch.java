@@ -3,13 +3,15 @@ package chess;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessPiece;
 import chess.interfaces.IChessboardSquare;
+import chess.units.Bishop;
 import chess.units.King;
+import chess.units.Knight;
 import chess.units.Pawn;
+import chess.units.Queen;
 import chess.units.Rook;
 import chess.utility.Chessboard;
 import chess.utility.ChessboardSquare;
 import chess.utility.Factory;
-import chess.units.*;
 import gui.Window;
 import gui.utility.PromotionScreen;
 

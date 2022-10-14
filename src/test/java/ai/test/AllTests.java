@@ -11,12 +11,12 @@ import ai.test.t05.EscapeFromEatRuleTest;
 import ai.test.t06.EnPassantTest;
 import ai.test.t07.PromotionPawnTest;
 import ai.test.t08.RookNotMovingTest;
-import ai.test.t10.CastleKingPointOfViewTest;
-import ai.test.t11.CastleRookPointOfViewTest;
+import ai.test.t10.LongCastleTest;
+import ai.test.t11.ShortCastleTest;
 
 @Suite
 @SelectClasses({ BishopMoveAndNotSuicideTest.class,
-	CastleKingPointOfViewTest.class,
+	LongCastleTest.class,
 	PawnMoveAndWinTest.class,
 	TestKingEatPawnTest.class,
 	AnastasiaMateTest.class, 
@@ -24,7 +24,7 @@ import ai.test.t11.CastleRookPointOfViewTest;
 	EnPassantTest.class,
 	PromotionPawnTest.class,
 	RookNotMovingTest.class,
-	CastleRookPointOfViewTest.class })
+	ShortCastleTest.class })
 
 public class AllTests {
 

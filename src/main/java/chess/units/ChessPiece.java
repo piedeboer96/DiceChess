@@ -1,13 +1,13 @@
 package chess.units;
 
+import java.awt.Graphics;
+
 import chess.interfaces.IChessMoveInfo;
 import chess.interfaces.IChessPiece;
 import chess.interfaces.IChessboardSquare;
 import chess.utility.ChessboardSquare;
 import gui.interfaces.IDrawable;
 import gui.utility.Cache;
-
-import java.awt.Graphics;
 
 public class ChessPiece extends ChessboardSquare implements IChessPiece, IDrawable {
 	private static final Cache cache = new Cache();

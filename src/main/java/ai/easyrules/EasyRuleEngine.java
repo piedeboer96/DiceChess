@@ -1,3 +1,4 @@
+
 package ai.easyrules;
 
 import java.util.ArrayList;
@@ -10,14 +11,16 @@ import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.core.DefaultRulesEngine;
 
 import ai.easyrules.rules.AttackRule;
-import ai.easyrules.rules.ABaseRule;
+import ai.easyrules.rules.EscapeFromEatRule;
 import ai.easyrules.rules.KingDeadRule;
+import ai.easyrules.rules.LongCastleRule;
 import ai.easyrules.rules.MoveByPositionRule;
 import ai.easyrules.rules.MoveForwardRule;
 import ai.easyrules.rules.MoveToMateRule;
 import ai.easyrules.rules.NewBestActionRule;
 import ai.easyrules.rules.NotSuicideRule;
 import ai.easyrules.rules.PromoteRule;
+import ai.easyrules.rules.ShortCastleRule;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessboardSquare;
@@ -70,14 +73,13 @@ public class EasyRuleEngine {
 					Boolean changed = facts.get(LFacts.BEST_MOVE_CHANGED);
 					Object action = facts.get(LFacts.ACTION);
 					System.out.println();
-					
+
 					if (changed) {
 						ChessMove old = facts.get(LFacts.OLD_MOVE);
 						System.out.println("Best Move     Changed : ");
 						System.out.println("OLD     : " + old);
 						System.out.println("NEW     : " + best + " Action : " + action);
 						bestMsgStack = (ArrayList<String>) ruleMsgStack.clone();
-						
 
 					} else {
 						System.out.println("Best Move NOT Changed: ");
@@ -86,8 +88,8 @@ public class EasyRuleEngine {
 					ruleMsgStack.clear();
 
 				} else {
-					
-					String strRule = "Rule   " + rule.getName()+" new Score =  " + chessMove.possibilities().get(0).getScore();
+
+					String strRule = "Rule   " + rule.getName() + " new Score =  " + chessMove.possibilities().get(0).getScore();
 					System.out.println(strRule);
 					ruleMsgStack.add(strRule);
 				}
@@ -111,7 +113,7 @@ public class EasyRuleEngine {
 		char[] rolls = new char[2];
 		rolls[0] = rollOne;
 		rolls[1] = rollTwo;
-		
+
 		moves = match.legalMovesOf(currentPlayer, rolls);
 		// Step .3 adding the roll to the
 		facts.put(LFacts.ROLL, rollOne);
@@ -163,19 +165,21 @@ public class EasyRuleEngine {
 		System.out.println();
 
 		ResultAI result;
-		
+
 		if (bestMove.owner() == null) {
 			result = new ResultAI(action, 'x', -1, -1, -1, -1);
 		} else {
 
 			result = new ResultAI(action, bestMove.owner().toFen(), bestMove.owner().file(), bestMove.owner().rank(), bestMove.possibilities().get(0).file(), bestMove.possibilities().get(0).rank());
 		}
-		result.bestMsgStack=bestMsgStack;
+		result.bestMsgStack = bestMsgStack;
 		switch (action) {
 		case NO_MOVE:
 			System.out.println("Player " + currentPlayer + " with rool " + rollOne + ", " + rollTwo + " can't move any piece ");
 			currentPlayer = match.nextPlayer();
 			break;
+
+		case MOVE_AND_CASTLE:
 		case ONLY_MOVE:
 //			System.out.println("ONLY_MOVE");
 			IChessMove bestMove = facts.get(LFacts.BEST_MOVE);
@@ -183,6 +187,7 @@ public class EasyRuleEngine {
 			System.out.println("Player " + currentPlayer + " with rool " + rollOne + ", " + rollTwo + " move " + bestMove.owner() + "  ----to--->>>  " + bestMove.possibilities());
 			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
 			break;
+
 		case MOVE_AND_PROMOTE:
 			ChessPiece newQueen = null;
 //			System.out.println("MOVE_AND_PROMOTE");
@@ -197,7 +202,7 @@ public class EasyRuleEngine {
 
 			System.out.println("Player " + currentPlayer + " with roll " + rollOne + ", " + rollTwo + " move " + bestMove.owner() + "  ----to--->>>  " + bestMove.possibilities() + " and promote Queen");
 			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
-			// match.promote(bestMove.owner(), newQueen); _______________________________________________________________________________________________________________________
+//			 match.promote(bestMove.owner(), newQueen); 
 			break;
 		case FINISH_MATCH:
 			System.out.println("The game is over you won ");
@@ -215,19 +220,23 @@ public class EasyRuleEngine {
 
 		// load all rules ..
 
-		rules.register(new MoveForwardRule());
-		rules.register(new MoveByPositionRule());
-		rules.register(new PromoteRule());
 		rules.register(new AttackRule());
+		rules.register(new EscapeFromEatRule());
 		rules.register(new KingDeadRule());
-		rules.register(new NotSuicideRule());
-		rules.register(new NewBestActionRule());
+		rules.register(new LongCastleRule());
+		rules.register(new MoveByPositionRule());
+		rules.register(new MoveForwardRule());
 		rules.register(new MoveToMateRule());
+		rules.register(new NewBestActionRule());
+		rules.register(new NotSuicideRule());
+		rules.register(new PromoteRule());
+		rules.register(new ShortCastleRule());
 
 		return rules;
 
 	}
 
+	@Deprecated
 	public ChessMove getBestMove() {
 		return bestMove;
 

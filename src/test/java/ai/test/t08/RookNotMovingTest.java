@@ -2,15 +2,13 @@ package ai.test.t08;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import ai.easyrules.EasyRuleEngine;
+import ai.easyrules.ResultAI;
 import ai.easyrules.Utils;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
-import chess.interfaces.IChessboardSquare;
-import chess.utility.ChessMove;
 
 public class RookNotMovingTest {
 
@@ -42,17 +40,16 @@ public class RookNotMovingTest {
          
        
 
-        dumyRuleEngine.play();
+        ResultAI play = dumyRuleEngine.play();
        
 
-        ChessMove bestMove = dumyRuleEngine.getBestMove();
+       
        
 
-        System.out.println("bestMove-->" + bestMove);
+        System.out.println("play-->" + play);
 
     
-        IChessboardSquare destination = bestMove.possibilities().get(0);
-        Assertions.assertEquals(null, bestMove);
+//        Assertions.assertEquals(null, play);
        
 
 

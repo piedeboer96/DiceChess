@@ -1,12 +1,13 @@
 package chess;
 
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import chess.interfaces.IChessboardSquare;
 import chess.units.ChessPiece;
 import chess.utility.ChessMove;
 import chess.utility.ChessboardSquare;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 
 public class ChessMoveTest
 {

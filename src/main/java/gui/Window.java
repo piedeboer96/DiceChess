@@ -1,6 +1,9 @@
 package gui;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Insets;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 

@@ -1,11 +1,12 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.TextArea;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
 import chess.ChessMatch;
 import chess.interfaces.IChessMatch;

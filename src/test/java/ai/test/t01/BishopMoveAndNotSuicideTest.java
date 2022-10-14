@@ -7,11 +7,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import ai.easyrules.EasyRuleEngine;
+import ai.easyrules.ResultAI;
 import ai.easyrules.Utils;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
-import chess.interfaces.IChessboardSquare;
-import chess.utility.ChessMove;
 
 public class BishopMoveAndNotSuicideTest {
 
@@ -47,14 +46,14 @@ public class BishopMoveAndNotSuicideTest {
 		System.out.println();
 		System.out.println();
 
-		dumyRuleEngine.play();
-		ChessMove bestMove = dumyRuleEngine.getBestMove();
-		System.out.println("bestMove-->" + bestMove);
-		IChessboardSquare destination = bestMove.possibilities().get(0);
-		assertFalse(destination.rank() == 0 && destination.file() == 1);
-		assertFalse(destination.rank() == 4 && destination.file() == 5);
-		assertFalse(destination.rank() == 5 && destination.file() == 6);
-		assertFalse(destination.rank() == 2 && destination.file() == 5);
+		ResultAI play = dumyRuleEngine.play();
+		
+		System.out.println("bestMove-->" + play);
+		
+		assertFalse(play.toRank == 0 && play.toFile == 1);
+		assertFalse(play.toRank == 4 && play.toFile == 5);
+		assertFalse(play.toRank == 5 && play.toFile == 6);
+		assertFalse(play.toRank == 2 && play.toFile == 5);
 
 	}
 

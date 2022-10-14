@@ -7,11 +7,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import ai.easyrules.EasyRuleEngine;
+import ai.easyrules.ResultAI;
 import ai.easyrules.Utils;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
-import chess.interfaces.IChessboardSquare;
-import chess.utility.ChessMove;
 
 public class TestKingEatPawnTest {
 
@@ -45,13 +44,11 @@ public class TestKingEatPawnTest {
 		System.out.println();
 
 		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'R','R');
-		dumyRuleEngine.play();
+		ResultAI play = dumyRuleEngine.play();
 		
-		ChessMove bestMove = dumyRuleEngine.getBestMove();
 		
-		IChessboardSquare destination = bestMove.possibilities().get(0);
-		Assertions.assertEquals(3, destination.file());
-		Assertions.assertEquals(6, destination.rank());
+		Assertions.assertEquals(3, play.toFile);
+		Assertions.assertEquals(6, play.toRank);
 		
 
 	}

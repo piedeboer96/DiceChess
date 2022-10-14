@@ -1,16 +1,17 @@
-package ai.test.t11;
+package ai.test.t10;
 
-import ai.easyrules.EasyRuleEngine;
-import ai.easyrules.Utils;
-import chess.ChessMatch;
-import chess.interfaces.IChessMove;
-import chess.interfaces.IChessboardSquare;
-import chess.utility.ChessMove;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import ai.easyrules.EasyRuleEngine;
+import ai.easyrules.ResultAI;
+import ai.easyrules.Utils;
+import chess.ChessMatch;
+import chess.interfaces.IChessMove;
+
 /*
 
     Your king can not have moved- Once your king moves, you can no longer castle, even if you move the king back to the starting square. Many strategies involve forcing the opponent’s king to move just for this reason.
@@ -19,34 +20,35 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
     Your king can not pass through check- If any square the king moves over or moves onto would put you in check, you can’t castle. You’ll have to get rid of that pesky attacking piece first!
 
  */
-public class CastleRookPointOfViewTest {
+public class LongCastleTest {
 
 	@Test
 	void castleKingPointOfView() {
 
-		String startPos = "8/8/8/8/8/8/8/R3K2R W - - 0 1";
+		String startPos = "k7/pppppppp/8/8/8/8/8/R3K1NR w KQkq - 0 1";
+
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
-		int nextPlayer = match.nextPlayer();
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'R','R');
+		int player = match.getPlayer();
+		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'K', 'p');
 
-		List<IChessMove> moves = match.legalMovesOf(nextPlayer);
+		List<IChessMove> moves = match.legalMovesOf(player);
 		List<IChessMove> splitMoves = Utils.splitMoves(moves);
 		System.out.println("All Legal moves ");
 		for (IChessMove mv : splitMoves) {
-			if (mv.owner().toFen() == 'R')
+			if (mv.owner().toFen() == 'K')
 				System.out.println(mv);
 		}
 
 		System.out.println();
 		System.out.println();
 
-		dumyRuleEngine.play();
-		ChessMove bestMove = dumyRuleEngine.getBestMove();
-		System.out.println("bestMove-->" + bestMove);
-		IChessboardSquare destination = bestMove.possibilities().get(0);
-		assertTrue(destination.rank() == 3 && destination.file() == 7);
-		assertTrue(destination.rank() == 5 && destination.file() == 7);
+		ResultAI play = dumyRuleEngine.play();
+
+		
+		System.out.println("result-->" + play);
+		assertTrue(play.toRank == 7 && play.toFile == 2);
+//		assertTrue(destination.rank() == 6 && destination.file() == 7);
 	}
 
 }

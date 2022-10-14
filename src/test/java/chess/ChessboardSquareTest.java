@@ -1,7 +1,8 @@
 package chess;
 
-import chess.utility.ChessboardSquare;
 import org.junit.jupiter.api.Test;
+
+import chess.utility.ChessboardSquare;
 
 public class ChessboardSquareTest
 {

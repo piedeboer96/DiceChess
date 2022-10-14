@@ -1,21 +1,28 @@
 package gui.utility;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+
 import chess.ChessMatch;
 import chess.interfaces.IChessPiece;
-import chess.units.ChessPiece;
-
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
 
 
 public class PromotionScreen extends JDialog implements ActionListener
 {
-    private JComboBox comboBox;
+    private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBox;
     ChessMatch match;
     IChessPiece piece;
 
     private char value;
-    public PromotionScreen(Frame frame, String title, ChessMatch match, IChessPiece piece)
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public PromotionScreen(Frame frame, String title, ChessMatch match, IChessPiece piece)
     {
     super(frame, title);
     this.match = match;

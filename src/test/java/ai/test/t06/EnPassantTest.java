@@ -2,14 +2,11 @@ package ai.test.t06;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import ai.easyrules.EasyRuleEngine;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
-import chess.interfaces.IChessboardSquare;
-import chess.utility.ChessMove;
 
 public class EnPassantTest {
 
@@ -43,29 +40,7 @@ public class EnPassantTest {
         dumyRuleEngine.play();
         //dumyRuleEngine2.play();
 
-        ChessMove bestMove = dumyRuleEngine.getBestMove();
-        //ChessMove bestMove2 = dumyRuleEngine2.getBestMove();
-
-        System.out.println("bestMove-->" + bestMove);
-
-        //this is for black
-        IChessboardSquare destination = bestMove.possibilities().get(0);
-        Assertions.assertEquals(5, destination.file());
-        Assertions.assertEquals(3, destination.rank());
-
-        //check where white ends up
-        IChessboardSquare destinationWhite = bestMove.possibilities().get(0);
-        Assertions.assertEquals(5, destinationWhite.file());
-        Assertions.assertEquals(2, destinationWhite.file());
-
-//        IChessboardSquare destination2 = bestMove2.possibilities().get(0);
-//        Assertions.assertEquals(5, destination.file());
-//        Assertions.assertEquals(3, destination.rank());
-
-//        IChessboardSquare destinationWhite2 = bestMove2.possibilities().get(1);
-//        Assertions.assertEquals(5, destinationWhite.file());
-//        Assertions.assertEquals(2, destinationWhite.file());
-
+        
 
 
     }

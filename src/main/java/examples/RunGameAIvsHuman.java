@@ -14,7 +14,6 @@ import chess.interfaces.IChessboardSquare;
 import chess.utility.ChessboardSquare;
 import gui.DiceChessWindow;
 import gui.interfaces.IHighlighter;
-import gui.utility.Highlighter;
 
 public class RunGameAIvsHuman {
 

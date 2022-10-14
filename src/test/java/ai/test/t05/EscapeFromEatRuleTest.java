@@ -7,11 +7,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import ai.easyrules.EasyRuleEngine;
+import ai.easyrules.ResultAI;
 import ai.easyrules.Utils;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
-import chess.interfaces.IChessboardSquare;
-import chess.utility.ChessMove;
 
 //startPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 //fgh45rrt
@@ -41,11 +40,11 @@ public class EscapeFromEatRuleTest {
 		System.out.println();
 		System.out.println();
 
-		dumyRuleEngine.play();
-		ChessMove bestMove = dumyRuleEngine.getBestMove();
-		System.out.println("bestMove-->" + bestMove);
-		IChessboardSquare destination = bestMove.possibilities().get(0);
-		assertEquals(7, destination.file());
+		ResultAI play = dumyRuleEngine.play();
+		
+		System.out.println("bestMove-->" + play);
+		
+		assertEquals(7, play.toFile);
 		
 		 
 		 
