@@ -88,7 +88,7 @@ public class ShortCastleRule extends ABaseRule {
 
 	@Action(order = 2)
 	public void Finally(Facts facts) throws Exception {
-		setAction(facts, BoardAction.MOVE_AND_CASTLE);
+		setAction(facts, BoardAction.MOVE_AND_CASTLE_SHORT);
 	}
 
 }

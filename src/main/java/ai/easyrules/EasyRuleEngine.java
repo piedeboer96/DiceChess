@@ -23,10 +23,13 @@ import ai.easyrules.rules.PromoteRule;
 import ai.easyrules.rules.ShortCastleRule;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
+import chess.interfaces.IChessPiece;
 import chess.interfaces.IChessboardSquare;
 import chess.units.ChessPiece;
+import chess.units.King;
 import chess.units.Queen;
 import chess.utility.ChessMove;
+import chess.utility.ChessboardSquare;
 
 public class EasyRuleEngine {
 
@@ -179,7 +182,63 @@ public class EasyRuleEngine {
 			currentPlayer = match.nextPlayer();
 			break;
 
-		case MOVE_AND_CASTLE:
+		case MOVE_AND_CASTLE_LONG:
+			
+			System.out.println("ONLY_MOVE");
+			IChessMove bestMove1 = facts.get(LFacts.BEST_MOVE);
+			char fen = bestMove1.owner().toFen();
+			if (fen=='K'||fen=='k') {
+				
+				System.out.println("Player " + currentPlayer + " with rool " + rollOne + ", " + rollTwo + " move " + bestMove.owner() + "  ----to--->>>  " + bestMove.possibilities());
+				match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
+				
+			}
+			else {
+				IChessPiece king;
+				System.out.println(bestMove1);
+				if (fen=='r') {
+					
+					 king=new King('k',4,0);
+					 match.playMove(king, new ChessboardSquare(2, 0));
+				}
+				else {
+					
+					king=new King('K',4,7);
+					 match.playMove(king, new ChessboardSquare(2, 7));
+				}
+			}
+//			System.out.println("The best move is " + bestMove);
+			
+			break;
+		case MOVE_AND_CASTLE_SHORT:
+
+			System.out.println("ONLY_MOVE");
+			IChessMove bestMove2 = facts.get(LFacts.BEST_MOVE);
+			char fen1 = bestMove2.owner().toFen();
+			if (fen1=='K'||fen1=='k') {
+				
+				System.out.println("Player " + currentPlayer + " with rool " + rollOne + ", " + rollTwo + " move " + bestMove.owner() + "  ----to--->>>  " + bestMove.possibilities());
+				match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
+				
+			}
+			else {
+				IChessPiece king;
+				System.out.println(bestMove2);
+				if (fen1=='r') {
+					
+					 king=new King('k',4,0);
+					 match.playMove(king, new ChessboardSquare(6, 0));
+				}
+				else {
+					
+					king=new King('K',4,7);
+					 match.playMove(king, new ChessboardSquare(6, 7));
+				}
+			}
+//			System.out.println("The best move is " + bestMove);
+			
+			
+			break;
 		case ONLY_MOVE:
 //			System.out.println("ONLY_MOVE");
 			IChessMove bestMove = facts.get(LFacts.BEST_MOVE);

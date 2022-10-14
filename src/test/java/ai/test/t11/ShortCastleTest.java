@@ -29,13 +29,13 @@ public class ShortCastleTest {
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
 		int player = match.getPlayer();
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'K', 'P');
+		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'R', 'P');
 
 		List<IChessMove> moves = match.legalMovesOf(player);
 		List<IChessMove> splitMoves = Utils.splitMoves(moves);
 		System.out.println("All Legal moves ");
 		for (IChessMove mv : splitMoves) {
-			if (mv.owner().toFen() == 'R')
+			if (mv.owner().toFen() == 'K')
 				System.out.println(mv);
 		}
 
@@ -46,7 +46,7 @@ public class ShortCastleTest {
 
 		System.out.println("play-->" + play);
 
-		assertTrue(play.toFile == 5 && play.toRank == 7);
+		assertTrue(play.toFile == 6 && play.toRank == 7);
 
 	}
 

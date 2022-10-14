@@ -9,7 +9,7 @@ import chess.interfaces.IChessMove;
 public abstract class ABaseRule {
 
 	protected int score = 0;
-	
+//	 check or castel
 	public boolean checkRoll(IChessMove move, char rollOne) {
 		return move.owner().toFen() == rollOne || rollOne == 'x';
 	}

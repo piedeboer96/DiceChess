@@ -39,9 +39,9 @@ public class RunGameAIvsHuman {
 		// full pieces
 		startPos = "8/8/8/p/1K6/8/8/k w - - 0 1";
 		startPos = "K/8/8/4b/8/5Q2/8/k w - - 0 1";
-		startPos = "1n1qk3/1r6/8/3p4/4pR2/P2K1p1b/P2p1P2/8 w - - 0 1";
-		startPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
+		startPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+		startPos = "1r6/2p3pp/p1p2k2/4p3/8/8/P1PN2B1/R3K2R w KQkq - 0 1";
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
 		match.loadKings();
