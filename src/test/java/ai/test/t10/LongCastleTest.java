@@ -11,6 +11,8 @@ import ai.easyrules.ResultAI;
 import ai.easyrules.Utils;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
+import chess.interfaces.IChessPiece;
+import chess.utility.ChessboardSquare;
 
 /*
 
@@ -30,7 +32,7 @@ public class LongCastleTest {
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
 		int player = match.getPlayer();
-		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'K', 'p');
+		EasyRuleEngine dumyRuleEngine = new EasyRuleEngine(match, 'K', 'P');
 
 		List<IChessMove> moves = match.legalMovesOf(player);
 		List<IChessMove> splitMoves = Utils.splitMoves(moves);
@@ -47,8 +49,16 @@ public class LongCastleTest {
 
 		
 		System.out.println("result-->" + play);
-		assertTrue(play.toRank == 7 && play.toFile == 2);
-//		assertTrue(destination.rank() == 6 && destination.file() == 7);
+		
+		
+		IChessPiece king = match.get(new ChessboardSquare(2,7));
+		assertTrue(king.toFen()=='K');
+		IChessPiece rook = match.get(new ChessboardSquare(3,7));
+		
+		System.out.println(rook);
+		assertTrue(rook.toFen()=='R');
+
+		
 	}
 
 }
