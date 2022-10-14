@@ -10,19 +10,19 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /*
-
-  unfinish, @eden will finish this
-
+  The knight suicide for nothing, like if its life has no value.
+  
  */
 public class KnightDecision {
 
 	@Test
 	void castleKingPointOfView() {
 
-		String startPos = "rnbqkbnr/8/8/8/8/8/8/R3K2R W - - 0 1";
+		String startPos = "rnbqkb1r/pppppppp/8/4n3/2B5/8/PPPP1PPP/RNBQK1NR w - - 0 1";
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
 		int nextPlayer = match.nextPlayer();
@@ -43,8 +43,9 @@ public class KnightDecision {
 		ChessMove bestMove = dumyRuleEngine.getBestMove();
 		System.out.println("bestMove-->" + bestMove);
 		IChessboardSquare destination = bestMove.possibilities().get(0);
-		assertTrue(destination.rank() == 3 && destination.file() == 7);
-		assertTrue(destination.rank() == 5 && destination.file() == 7);
+		assertFalse(destination.file() == 3 && destination.rank() == 5);
+		assertFalse(destination.file() == 5 && destination.rank() == 5);
+		assertFalse(destination.file() == 6 && destination.rank() == 4);
 	}
 
 }
