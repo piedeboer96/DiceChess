@@ -11,6 +11,8 @@ import ai.easyrules.ResultAI;
 import ai.easyrules.Utils;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
+import chess.interfaces.IChessPiece;
+import chess.utility.ChessboardSquare;
 
 /*
 
@@ -25,7 +27,10 @@ public class ShortCastleTest {
 	@Test
 	void castleKingPointOfView() {
 
-		String startPos = "k7/pppppppp/8/8/8/8/8/2N1K2R w KQkq - 0 1";
+		//String startPos = "k7/pppppppp/8/8/8/8/8/2N1K2R w KQkq - 0 1";
+		String startPos = "1r6/2p3pp/p1p2k2/4p3/8/8/P1PN2B1/R3K2R w KQkq - 0 1";
+		startPos = "1r6/2p3pp/p1p2k2/4p3/8/8/3N2B1/R1N1K2R w KQkq - 0 1";
+		
 		// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
 		int player = match.getPlayer();
@@ -46,7 +51,13 @@ public class ShortCastleTest {
 
 		System.out.println("play-->" + play);
 
-		assertTrue(play.toFile == 6 && play.toRank == 7);
+		
+		IChessPiece king = match.get(new ChessboardSquare(6,7));
+		assertTrue(king.toFen()=='K');
+		IChessPiece rook = match.get(new ChessboardSquare(5,7));
+		
+		System.out.println(rook);
+		assertTrue(rook.toFen()=='R');
 
 	}
 
