@@ -14,6 +14,7 @@ import chess.units.King;
 import chess.units.Pawn;
 import gui.interfaces.IDrawable;
 
+// ...
 public abstract class Chessboard implements IChessboard, IDrawable {
 	/**
 	 * <P>
