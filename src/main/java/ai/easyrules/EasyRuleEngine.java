@@ -179,7 +179,7 @@ public class EasyRuleEngine {
 		result.bestMsgStack = bestMsgStack;
 		switch (action) {
 		case NO_MOVE:
-			System.out.println("Player " + currentPlayer + " with rool " + rollOne + ", " + rollTwo + " can't move any piece ");
+			System.out.println("Player " + currentPlayer + " with roll " + rollOne + ", " + rollTwo + " can't move any piece ");
 			currentPlayer = match.nextPlayer();
 			break;
 
@@ -244,7 +244,7 @@ public class EasyRuleEngine {
 //			System.out.println("ONLY_MOVE");
 			IChessMove bestMove = facts.get(LFacts.BEST_MOVE);
 //			System.out.println("The best move is " + bestMove);
-			System.out.println("Player " + currentPlayer + " with rool " + rollOne + ", " + rollTwo + " move " + bestMove.owner() + "  ----to--->>>  " + bestMove.possibilities());
+			System.out.println("Player " + currentPlayer + " with roll " + rollOne + ", " + rollTwo + " move " + bestMove.owner() + "  ----to--->>>  " + bestMove.possibilities());
 			match.playMove(bestMove.owner(), bestMove.possibilities().get(0));
 			break;
 
