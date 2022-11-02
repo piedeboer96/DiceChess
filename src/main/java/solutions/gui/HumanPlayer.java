@@ -2,6 +2,7 @@ package solutions.gui;
 
 import framework.game.*;
 import solutions.chess.pieces.Pawn;
+import solutions.chess.pieces.Queen;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -9,6 +10,7 @@ import java.util.concurrent.CountDownLatch;
 
 public final class HumanPlayer extends MouseAdapter implements Player {
     private final CountDownLatch[] COUNTDOWNS;
+    private int rolled = -1;
     private Game game;
     private Location[] destinations = {};
     private Location previous;
@@ -32,6 +34,7 @@ public final class HumanPlayer extends MouseAdapter implements Player {
         game = null;
         setup = null;
         team = -1;
+        rolled = -1;
         if (COUNTDOWNS[0] != null) { COUNTDOWNS[0].countDown(); }
     }
 
@@ -53,12 +56,15 @@ public final class HumanPlayer extends MouseAdapter implements Player {
                         // Check for promotion.
                         if (selected.getType() == 1 && pressed.row() == Pawn.PROMOTION_ROWS[team]) {
                             System.out.println("PAWN CAN BE PROMOTED!");
+                            if (team == 0) { game.promote(pressed, Queen.BLACK); }
+                            else { game.promote(pressed, Queen.WHITE); }
                         }
                         COUNTDOWNS[0].countDown();
                     }
                 }
                 selected = null;
             } else if (u != null && (selected != u || pressed != previous) && u.getTeam() == team){
+                System.out.println("FILTERING UNITS BASED ON THE ROLL RESULT " + rolled + " IS SKIPPED!");
                 board.remove(previous);
                 for (Location destination : destinations) { board.remove(destination); }
                 switch(u.getType()) {
@@ -82,6 +88,7 @@ public final class HumanPlayer extends MouseAdapter implements Player {
     public void play() {
         if (game == null || setup == null || team == -1) { return; }
         game.roll();
+        rolled = game.result();
         COUNTDOWNS[0] = new CountDownLatch(1);
         try { COUNTDOWNS[0].await(); }
         catch (InterruptedException ignored) {}

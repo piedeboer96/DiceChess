@@ -7,14 +7,6 @@ import framework.game.Player;
  **/
 public interface UserInteractions {
     /**
-     * Disables user interactions on a controller.
-     * @param controller The number of the controller that should be disabled.
-     *                   This should be either 0 [first controller] or 1 [second controller].
-     * @exception IllegalArgumentException Thrown when controller number is neither 0 nor 1.
-     **/
-    void disable(int controller);
-
-    /**
      * Enables user interactions on a controller.
      * @param controller The number of the controller that should be enabled.
      *                   This should be either 0 [first controller] or 1 [second controller].

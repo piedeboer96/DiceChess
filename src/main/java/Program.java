@@ -14,5 +14,6 @@ public final class Program {
 
         window.attach(game);
         window.activate();
+        System.out.println("GAME ENDED WITH [#FULL MOVES: " + game.getFullMoves() + " | #HALF MOVES: " + game.getHalfMoves() + "]");
     }
 }

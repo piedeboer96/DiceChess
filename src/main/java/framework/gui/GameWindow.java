@@ -15,11 +15,6 @@ public interface GameWindow {
     void attach(Engine e);
 
     /**
-     * Detaches the engine from the game window, making the window lose control over the automated run process.
-     **/
-    void detach();
-
-    /**
      * Gets the console the game window uses to display messages.
      * @return The console the game window has.
      **/

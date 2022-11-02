@@ -98,20 +98,6 @@ public final class DiceChess implements Engine, Game, GameManager, Recordable, R
     }
 
     @Override
-    public void detach() {
-        if (GUI[0] != null) {
-            GUI[0].project(null);
-            GUI[0] = null;
-            if (CONSOLES[0] != null) { CONSOLES[0].writeln("GAME DISCONNECTED FROM THE GUI!"); }
-        }
-
-        if (CONSOLES[0] != null) {
-            CONSOLES[0].writeln("GAME DISCONNECTED FROM THE CONSOLE!");
-            CONSOLES[0] = null;
-        }
-    }
-
-    @Override
     public int getActiveTeam() {
         return VARIABLES[0];
     }

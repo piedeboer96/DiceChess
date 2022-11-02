@@ -2,8 +2,6 @@ package framework.gui;
 
 import framework.game.Location;
 
-import java.awt.Color;
-
 /**
  * Defines a location highlighter.
  **/

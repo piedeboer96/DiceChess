@@ -2,12 +2,12 @@ package solutions.gui;
 
 import framework.game.Player;
 import framework.game.Setup;
-import framework.gui.*;
+import framework.gui.GameWindow;
+import framework.gui.GraphicalUserInterface;
+import framework.gui.UserInteractions;
 import framework.gui.Window;
 import framework.utility.Console;
-import framework.utility.Die;
 import framework.utility.Engine;
-import utility.ImageIconCache;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,7 +18,6 @@ import java.awt.event.WindowEvent;
 
 public final class DiceChessWindow implements GameWindow, GraphicalUserInterface, UserInteractions, Window {
     private final Chessboard        BOARD;
-    private final Die[]             DICE        = { null };
     private final Engine[]          ENGINES     = { null };
     private final HumanPlayer[]     CONTROLLERS = new HumanPlayer[2];
     private final IntegratedConsole CONSOLE;
@@ -46,7 +45,7 @@ public final class DiceChessWindow implements GameWindow, GraphicalUserInterface
         JButton clear = new JButton("CLEAR CONSOLE");
         clear.setFocusPainted(false);
         clear.setBackground(Color.WHITE);
-        clear.addActionListener(event -> { CONSOLE.clear(); });
+        clear.addActionListener(event -> CONSOLE.clear());
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -147,25 +146,13 @@ public final class DiceChessWindow implements GameWindow, GraphicalUserInterface
         if (e == null) { throw new NullPointerException("NULL IS NOT CONSIDERED AN ENGINE!"); }
         ENGINES[0] = e;
     }
-
-    @Override
-    public void detach() {
-        if (ENGINES[0] != null) { ENGINES[0] = null; }
-    }
-
-
+    
     @Override
     public void center() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (screen.width - FRAME.getWidth()) / 2;
         int y = (screen.height - FRAME.getHeight()) / 2;
         FRAME.setLocation(x, y);
-    }
-
-    @Override
-    public void disable(int controller) {
-        if (controller != 0 && controller != 1) { throw new IllegalArgumentException("CONTROLLER NUMBER IS NOT VALID!"); }
-        BOARD.removeMouseListener(CONTROLLERS[controller]);
     }
 
     @Override

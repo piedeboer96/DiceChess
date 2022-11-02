@@ -100,7 +100,7 @@ public enum Square implements Location {
      **/
     public static String translate(Location targetSquare) {
         if (targetSquare == null) { return "-"; }
-        return String.valueOf(FILES[targetSquare.column()]) + String.valueOf(8 - targetSquare.row());
+        return FILES[targetSquare.column()] + String.valueOf(8 - targetSquare.row());
     }
 
     private static void validate(int row, int column) {

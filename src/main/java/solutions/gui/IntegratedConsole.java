@@ -27,17 +27,6 @@ public final class IntegratedConsole extends JScrollPane implements Console {
     }
 
     @Override
-    public String content() {
-        return builder.toString();
-    }
-
-    @Override
-    public void write(String message) {
-        builder.append(message);
-        CONTENT.setText(builder.toString());
-    }
-
-    @Override
     public void writeln(String message) {
         builder.append(message).append('\n');
         CONTENT.setText(builder.toString());

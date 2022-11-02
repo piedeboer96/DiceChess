@@ -1,8 +1,5 @@
 package solutions.chess.pieces;
 
-import framework.game.Location;
-import framework.game.Setup;
-import framework.game.Unit;
 import org.junit.jupiter.api.Test;
 import utility.Exam;
 
@@ -12,29 +9,6 @@ public final class BishopTest implements Exam {
         testGetTeam();
         testGetType();
         testGetNotation();
-        testDestinations();
-    }
-
-    @Test
-    public void testDestinations() {
-        Setup empty = new Setup() {
-            private final Unit[][] GRID = new Unit[8][8];
-
-            @Override
-            public Unit read(Location from) {
-                return GRID[from.row()][from.column()];
-            }
-
-            @Override
-            public String snapshot() {
-                return null;
-            }
-
-            @Override
-            public void recover(String snapshot) {
-
-            }
-        };
     }
 
     @Test

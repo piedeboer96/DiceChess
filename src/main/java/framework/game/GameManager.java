@@ -22,13 +22,6 @@ public interface GameManager {
     void attach(GraphicalUserInterface gui);
 
     /**
-     * Detaches everything that has been attached to the game, making it lose any
-     * functionality gained from having attached the components.
-     **/
-    void detach();
-
-
-    /**
      * Changes the active player to the next player in the queue waiting for his/her turn to play.
      **/
     void nextPlayer();
