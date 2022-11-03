@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import chess.interfaces.IChessboardSquare;
-import chess.units.ChessPiece;
-import chess.utility.ChessMove;
-import chess.utility.ChessboardSquare;
+import phase1version.chess.interfaces.IChessboardSquare;
+import phase1version.chess.units.ChessPiece;
+import phase1version.chess.utility.ChessMove;
+import phase1version.chess.utility.ChessboardSquare;
 
 public class ChessMoveTest
 {

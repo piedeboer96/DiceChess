@@ -2,8 +2,8 @@ package chess;
 
 import org.junit.jupiter.api.Test;
 
-import chess.units.ChessPiece;
-import chess.utility.ChessboardSquare;
+import phase1version.chess.units.ChessPiece;
+import phase1version.chess.utility.ChessboardSquare;
 
 public class ChessPieceTest
 {

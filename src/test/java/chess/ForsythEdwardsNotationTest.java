@@ -2,7 +2,8 @@ package chess;
 
 import org.junit.jupiter.api.Test;
 
-import chess.utility.ChessboardSquare;
+import phase1version.chess.ForsythEdwardsNotation;
+import phase1version.chess.utility.ChessboardSquare;
 
 public class ForsythEdwardsNotationTest
 {

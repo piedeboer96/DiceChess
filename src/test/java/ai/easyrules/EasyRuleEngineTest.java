@@ -5,14 +5,16 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import chess.ChessMatch;
-import chess.interfaces.IChessMatch;
-import chess.interfaces.IChessMove;
-import chess.interfaces.IChessPiece;
-import chess.interfaces.IChessboardSquare;
-import chess.units.Pawn;
-import chess.utility.ChessMove;
-import chess.utility.ChessboardSquare;
+import phase1version.ai.easyrules.EasyRuleEngine;
+import phase1version.ai.easyrules.Utils;
+import phase1version.chess.ChessMatch;
+import phase1version.chess.interfaces.IChessMatch;
+import phase1version.chess.interfaces.IChessMove;
+import phase1version.chess.interfaces.IChessPiece;
+import phase1version.chess.interfaces.IChessboardSquare;
+import phase1version.chess.units.Pawn;
+import phase1version.chess.utility.ChessMove;
+import phase1version.chess.utility.ChessboardSquare;
 
 public class EasyRuleEngineTest {
 

@@ -2,7 +2,7 @@ package chess;
 
 import org.junit.jupiter.api.Test;
 
-import chess.utility.ChessboardSquare;
+import phase1version.chess.utility.ChessboardSquare;
 
 public class ChessboardSquareTest
 {

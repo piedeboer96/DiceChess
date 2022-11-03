@@ -6,11 +6,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import ai.easyrules.EasyRuleEngine;
-import ai.easyrules.ResultAI;
-import ai.easyrules.Utils;
-import chess.ChessMatch;
-import chess.interfaces.IChessMove;
+import phase1version.ai.easyrules.EasyRuleEngine;
+import phase1version.ai.easyrules.ResultAI;
+import phase1version.ai.easyrules.Utils;
+import phase1version.chess.ChessMatch;
+import phase1version.chess.interfaces.IChessMove;
 
 //startPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 public class AnastasiaMateTest {

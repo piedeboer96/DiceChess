@@ -1,18 +1,19 @@
 package ai.test.t10;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import ai.easyrules.EasyRuleEngine;
-import ai.easyrules.ResultAI;
-import ai.easyrules.Utils;
-import chess.ChessMatch;
-import chess.interfaces.IChessMove;
-import chess.interfaces.IChessPiece;
-import chess.utility.ChessboardSquare;
+import phase1version.ai.easyrules.EasyRuleEngine;
+import phase1version.ai.easyrules.ResultAI;
+import phase1version.ai.easyrules.Utils;
+import phase1version.chess.ChessMatch;
+import phase1version.chess.interfaces.IChessMove;
+import phase1version.chess.interfaces.IChessPiece;
+import phase1version.chess.utility.ChessboardSquare;
 
 /*
 
@@ -52,11 +53,11 @@ public class LongCastleTest {
 		
 		
 		IChessPiece king = match.get(new ChessboardSquare(2,7));
-		assertTrue(king.toFen()=='K');
+		assertEquals('K', king.toFen());
 		IChessPiece rook = match.get(new ChessboardSquare(3,7));
 		
 		System.out.println(rook);
-		assertTrue(rook.toFen()=='R');
+		assertEquals('R', rook.toFen());
 
 		
 	}

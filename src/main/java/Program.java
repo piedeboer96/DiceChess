@@ -1,5 +1,5 @@
-import zzz.solutions.game.DiceChess;
-import zzz.solutions.gui.DiceChessWindow;
+import phase2version.solutions.game.DiceChess;
+import phase2version.solutions.gui.DiceChessWindow;
 
 public final class Program {
     public static void main(String[] args) {
