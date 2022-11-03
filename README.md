@@ -2,9 +2,9 @@
 Project 2-1 
 
 
-#Rules:
+# Rules:
 
-The players alternate rolling the dice and, if possible, moving.    
+The players alternate rolling the dice and, if possible, they make a move.    
 On each die, the 1 represents a pawn, 2 a knight, 3 a bishop, 4 a rook, 5 a queen, and 6 a king.  
 The player may move either of the pieces indicated on the two dice.   
 For example, a player rolling a 1 and a 2 may move either a pawn or a knight.  
