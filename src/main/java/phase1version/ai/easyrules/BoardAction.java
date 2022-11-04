@@ -1,0 +1,6 @@
+package phase1version.ai.easyrules;
+
+public enum BoardAction {
+
+	NO_MOVE,ONLY_MOVE, MOVE_AND_PROMOTE, MOVE_AND_CASTLE_SHORT,MOVE_AND_CASTLE_LONG,FINISH_MATCH,ENPASSANT, UNKNOWN 
+}
