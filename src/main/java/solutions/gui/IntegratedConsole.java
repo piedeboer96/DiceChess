@@ -8,7 +8,8 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.Insets;
 
 public final class IntegratedConsole extends JScrollPane implements Console {
-    private final JTextPane CONTENT;
+    private static final long serialVersionUID = 1L;
+	private final JTextPane CONTENT;
     private StringBuilder builder;
 
     public IntegratedConsole() {

@@ -8,7 +8,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public final class PassiveDie extends JComponent {
-    private int team, type;
+    private static final long serialVersionUID = 1L;
+	private int team, type;
     @Override
     public void paintComponent(Graphics g) {
         g.setColor(Configuration.ODD_SQUARE);

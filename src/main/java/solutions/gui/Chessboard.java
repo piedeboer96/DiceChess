@@ -12,7 +12,8 @@ import javax.swing.*;
 import java.awt.Graphics;
 
 public final class Chessboard extends JComponent implements Highlighter, Projector {
-    private final boolean[][] HIGHLIGHT;
+    private static final long serialVersionUID = 1L;
+	private final boolean[][] HIGHLIGHT;
     private final int[] SS, XS, YS;
     private Setup game;
 
