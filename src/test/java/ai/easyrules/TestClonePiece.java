@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
-import phase1version.chess.units.King;
+import chess.units.King;
 
 class TestClonePiece {
 

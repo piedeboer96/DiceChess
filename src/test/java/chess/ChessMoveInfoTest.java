@@ -2,7 +2,7 @@ package chess;
 
 import org.junit.jupiter.api.Test;
 
-import phase1version.chess.utility.ChessMoveInfo;
+import chess.utility.ChessMoveInfo;
 
 public class ChessMoveInfoTest
 {

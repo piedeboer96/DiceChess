@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import phase1version.ai.easyrules.BoardAction;
-import phase1version.ai.easyrules.EasyRuleEngine;
-import phase1version.chess.ChessMatch;
-import phase1version.chess.interfaces.IChessMove;
+import ai.easyrules.BoardAction;
+import ai.easyrules.EasyRuleEngine;
+import chess.ChessMatch;
+import chess.interfaces.IChessMove;
 
 public class PawnMoveAndWinTest {
 
