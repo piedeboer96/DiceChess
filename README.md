@@ -1,7 +1,6 @@
 # DiceChess
 Project 2-1 
 
-
 #Rules:
 
 The players alternate rolling the dice and, if possible, moving.    
@@ -17,7 +16,6 @@ Otherwise, standard chess rules apply, with these exceptions:
 * a player who is in check can only play a legal response to that check (capturing the checking piece, moving the king, or interposing a piece);
 * a player who is in check but does not make a roll allowing a legal response to the check loses that turn, but does not automatically lose the game;
 * except in the unlikely event that the game ends in a draw pursuant to the standard rules of chess, the game ends when one player either checkmates the opponent or captures the opponent's king.
-
 
 # How to play HUMAN VS HUMAN
 - Open the src\main\java\gui\DiceChessWindow.java file
