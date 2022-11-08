@@ -1,5 +1,6 @@
 package ai.mcts;
 
+import chess.ChessMatch;
 import chess.utility.Chessboard;
 import java.util.List;
 
@@ -8,8 +9,14 @@ import static chess.MatchState.ONGOING;
 public class MonteCarloTreeSearch {
 
     UCT uct = new UCT();
+    ChessHelper helper = new ChessHelper();
 
     public Chessboard nextMove(Chessboard board, int team) {
+
+        //
+        String startPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+        ChessMatch match = new ChessMatch(startPos);
+
 
         // basic attributes
         int opponent;
@@ -108,7 +115,7 @@ public class MonteCarloTreeSearch {
         // TODO !!!
         while (gameStatus) {
             // state.swithPlayer();
-            // state.playRandom();
+            helper.playRandom(node);
             // boardStatus = tempState.getBoard().machtState();
         }
     

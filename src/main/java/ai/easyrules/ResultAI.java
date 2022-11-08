@@ -19,7 +19,6 @@ public class ResultAI {
 		this.fromRank = fromRank;
 		this.toFile = toFile;
 		this.toRank = toRank;
-
 	}
 
 	@Override
