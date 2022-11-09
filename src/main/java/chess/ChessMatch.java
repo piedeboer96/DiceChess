@@ -368,4 +368,8 @@ public class ChessMatch extends Chessboard implements IChessMatch
         sb.append(fullMoves);
         return sb.toString();
     }
+    public boolean hasCastled(int team) {
+        if(castleMatrix[0][team] == false || castleMatrix[1][team] == false) return true;
+        return false;
+    }
 }

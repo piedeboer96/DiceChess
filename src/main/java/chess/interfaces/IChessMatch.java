@@ -70,4 +70,11 @@ public interface IChessMatch extends IChessboard
      * @return the next player 
      */
     int  nextPlayer();
+
+    /**
+     *
+     * @param team
+     * @return true if team has castled
+     */
+    boolean hasCastled(int team);
 }
