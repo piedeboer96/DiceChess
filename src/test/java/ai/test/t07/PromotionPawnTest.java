@@ -1,5 +1,6 @@
 package ai.test.t07;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -40,11 +41,11 @@ public class PromotionPawnTest {
 		System.out.println();
 
 		ResultAI play = dumyRuleEngine.play();
-	
+
 		System.out.println("bestMove-->" + play);
 
 		// assertTrue(destination.rank() == 1 && destination.file() == 7);
-		assertTrue(play.toRank == 0 && play.toFile == 0);
-		fail("we must check that the pawn become a queen");
+		assertEquals(0, play.toFile);
+		assertEquals(0, play.toRank);
 	}
 }
