@@ -70,4 +70,6 @@ public interface IChessMatch extends IChessboard
      * @return the next player 
      */
     int  nextPlayer();
+
+    boolean hasCastled(int player);
 }
