@@ -1,5 +1,6 @@
 package ai.mcts;
 
+import chess.ChessMatch;
 import chess.utility.Chessboard;
 
 // TODO: Working with chessMatch not convenient?
@@ -9,8 +10,19 @@ import chess.utility.Chessboard;
 public class State {
 
     /** DiceChess Attributes */
-    Chessboard board;
+    Chessboard board;       // might not be needed
     int team;
+
+    public ChessMatch getMatch() {
+        return match;
+    }
+
+    public void setMatch(ChessMatch match) {
+        this.match = match;
+    }
+
+    ChessMatch match;
+    String fen;
 
     /** UCT Attributes */
     int winCount;
@@ -59,6 +71,10 @@ public class State {
         this.visitCount = visitCount;
     }
 
+    public void setFen(String fen) {
+        this.fen = fen;
+    }
+
     /** AUXILIARY METHODS */
     public boolean isGameGoingOn() {
         if(board.playerIsCheckMated(0) || board.playerIsCheckMated(1))
@@ -67,6 +83,10 @@ public class State {
         return false;
     }
 
+    public String getFen(){
+//        this.getBoard().
+        return "";
+    }
 
 
 }
