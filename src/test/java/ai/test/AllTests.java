@@ -13,7 +13,6 @@ import ai.test.t07.PromotionPawnTest;
 import ai.test.t08.RookNotMovingTest;
 import ai.test.t10.LongCastleTest;
 import ai.test.t11.ShortCastleTest;
-import ai.test.t12.KnightDecision;
 
 @Suite
 @SelectClasses({ 
@@ -27,11 +26,7 @@ import ai.test.t12.KnightDecision;
 	PromotionPawnTest.class,
 	RookNotMovingTest.class,
 	LongCastleTest.class,
-	ShortCastleTest.class,
-	KnightDecision.class
-	
-
-
+	ShortCastleTest.class
 })
 
 public class AllTests {
