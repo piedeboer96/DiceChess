@@ -51,7 +51,7 @@ public class FitnessFunction {
     /**
      *  value is the number of bishop of the Player A
      */
-    static int bishopValue(IChessMatch match){
+    static int bishopValue(IChessMatch match) {
         List<IChessPiece> pieces = match.pieces();
         int count = 0;
         for(IChessPiece piece : pieces) {
@@ -90,11 +90,53 @@ public class FitnessFunction {
         return count;
     }
 
+    static List<IChessboardSquare> weakSquares(IChessMatch match) {
+        List<IChessboardSquare> weakSquares = new ArrayList<>();
+        int strongSquare = 0;
+        int[][] checkingSquares = new int[3][8];
+        for(int i = 0; i < checkingSquares.length; i++) {
+            for(int j = 0; j < checkingSquares[0].length; j++) {
+                checkingSquares[i][j] = strongSquare;
+            }
+        }
+        int team = match.getPlayer();
+        boolean teamIsBlack = team == 0;
+        List<IChessPiece> pieces = match.pieces();
+        for(int fileTemp = 0; fileTemp <= 7; fileTemp++) {
+            boolean pawnFront = false;
+            for(int deltaRank = 0; deltaRank <= 2; deltaRank++) {
+                IChessboardSquare squareTemp;
+                int weakRankTemp;
+                if(teamIsBlack) {
+                    squareTemp = new ChessboardSquare(fileTemp,1 + deltaRank);
+                    weakRankTemp = 2 + deltaRank;
+                } else {
+                    squareTemp = new ChessboardSquare(fileTemp,6 - deltaRank);
+                    weakRankTemp = 5 - deltaRank;
+                }
+                IChessPiece piece = match.get(squareTemp);
+                if(piece instanceof Pawn) pawnFront = true;
+                else if(!(piece instanceof Pawn) && piece != null) pawnFront = false;
+                if(!pawnFront) {
+                    for(int jTemp = fileTemp - 1; jTemp <= fileTemp + 1; jTemp += 2) {
+                        if(jTemp == -1 || jTemp == 8) continue;
+                        checkingSquares[deltaRank][jTemp]++;
+                        if(checkingSquares[deltaRank][jTemp] == 2) {
+                            IChessboardSquare weakSquare = new ChessboardSquare(jTemp, weakRankTemp);
+                            weakSquares.add(weakSquare);
+                        }
+                    }
+                }
+            }
+        }
+        return weakSquares;
+    }
+
     /**
      *  is the number of squares in Player A’s area that cannot be protected by Player A’s pawns.
      */
-    static int Weakcount(IChessMatch match){
-        return 0;
+    static int Weakcount(IChessMatch match) {
+        return weakSquares(match).size();
     }
 
     /**
@@ -103,7 +145,16 @@ public class FitnessFunction {
      * back by enemy pawns
      */
     static int Enemyknightonweak(IChessMatch match) {
-        return 0;
+        int count = 0;
+        List<IChessboardSquare> weakSquares = weakSquares(match);
+        for(IChessboardSquare weakSquare : weakSquares) {
+            IChessPiece piece = match.get(weakSquare);
+            if(piece instanceof Knight && !pieceInTeam(match,piece)) {
+                count++;
+                if(count == 2) return count;
+            }
+        }
+        return count;
     }
 
 
@@ -135,52 +186,23 @@ public class FitnessFunction {
         return 0;
     }
 
-    /**
-     *  is the material value of the pieces of the enemy that are acting on ones king’s adjacent
-     * squares
-     */
-    static int Kingattacked(IChessMatch match) {
-        IChessPiece king = match.getKing(match.getPlayer());
-        int kingRank = king.rank();
-        int kingFile = king.file();
-        List<IChessPiece> pieces = match.pieces();
-        List<IChessboardSquare> kingZone = kingZone(king);
-        int valueOfAttacks = 0;
-
-        for(IChessPiece piece : pieces) {
-            if(pieceInTeam(match,piece)) {
-                List<IChessMove> pieceMoves = match.generateMovesOf(piece);
-                boolean pieceReachZone = false;
-                outerloop:
-                for(IChessMove move : pieceMoves) {
-                    for(IChessboardSquare adjacentSquare : kingZone) {
-                        if(move.canReach(adjacentSquare)) {
-                            pieceReachZone = true;
-                            break outerloop;
-                        }
-                    }
-                }
-                if (pieceReachZone) {
-                    if(piece instanceof Pawn) {
-                        valueOfAttacks += pawnValue(match);
-                    } else if(piece instanceof Knight) {
-                        valueOfAttacks += knightValue(match);
-                    } else if(piece instanceof Bishop) {
-                        valueOfAttacks += bishopValue(match);
-                    } else if(piece instanceof Rook) {
-                        valueOfAttacks += rookValue(match);
-                    } else {
-                        valueOfAttacks += queenValue(match);
-                    }
-                }
-            }
+    static int valueOfPiece(IChessPiece piece) {
+        if(piece instanceof Pawn) {
+            return chromosome.data[0];
+        } else if(piece instanceof Knight) {
+            return chromosome.data[1];
+        } else if(piece instanceof Bishop) {
+            return chromosome.data[2];
+        } else if(piece instanceof Rook) {
+            return chromosome.data[3];
+        } else {
+            return chromosome.data[4];
         }
-        return valueOfAttacks;
     }
 
     /**
      * returns adjacent squares of king
-    */
+     */
     private static List<IChessboardSquare> kingZone(IChessPiece king) {
         int kingRank = king.rank();
         int kingFile = king.file();
@@ -196,12 +218,47 @@ public class FitnessFunction {
         return kingZone;
     }
 
+    static int KingattackedDefended(IChessMatch match, boolean isAttacking) {
+        IChessPiece king = match.getKing(match.getPlayer());
+        int kingRank = king.rank();
+        int kingFile = king.file();
+        List<IChessPiece> pieces = match.pieces();
+        List<IChessboardSquare> kingZone = kingZone(king);
+        int valueOfAttacks = 0;
+        boolean pieceInTeam;
+        for(IChessPiece piece : pieces) {
+            if(isAttacking) pieceInTeam = !pieceInTeam(match,piece);
+            else pieceInTeam = pieceInTeam(match,piece);
+            if(pieceInTeam) {
+                List<IChessMove> pieceMoves = match.generateMovesOf(piece);
+                outerloop:
+                for(IChessMove move : pieceMoves) {
+                    for(IChessboardSquare adjacentSquare : kingZone) {
+                        if(move.canReach(adjacentSquare)) {
+                            valueOfAttacks += valueOfPiece(piece);
+                            break outerloop;
+                        }
+                    }
+                }
+            }
+        }
+        return valueOfAttacks;
+    }
+
+    /**
+     *  is the material value of the pieces of the enemy that are acting on ones king’s adjacent
+     * squares
+     */
+    static int Kingattacked(IChessMatch match) {
+        return KingattackedDefended(match, true);
+    }
+
     /**
      * is the material value of the pieces of the Player A that are acting on Player A’s king’s
      * adjacent squares
      */
     static int Kingdefended(IChessMatch match){
-        return 0;
+        return KingattackedDefended(match, false);
     }
 
     /**
@@ -257,8 +314,8 @@ public class FitnessFunction {
      * square. Bishop pairs are especially strong in open positions where there are no central pawns and
      * the bishops can move freely to create threats
      */
-    static int Bishoppair(IChessMatch match){
-        return 0;
+    static int Bishoppair(IChessMatch match) {
+        return (bishopValue(match) >= 2)? 1 : 0;
     }
 
     /**
@@ -288,15 +345,11 @@ public class FitnessFunction {
         return 0;
     }
 
-    /**
-     *  returns 1 if a given knight is on the squares a1 to a8,a8 to h8,a1 to h1 or h1 to h8.
-     * This is the outest periphery and most of the times knights on these squares are weaker
-     */
-    static int Knightperiphery0(IChessMatch match){
+    static int Knightperiphery(IChessMatch match, int[] bounds) {
         int count = 0;
-        int rank = 0;
+        int rank = bounds[0];
         while(rank != -1) {
-            for(int tempFile = 0; tempFile <= 7; tempFile++) {
+            for(int tempFile = bounds[0]; tempFile <= bounds[1]; tempFile++) {
                 IChessboardSquare squareTemp = new ChessboardSquare(tempFile, rank);
                 IChessPiece piece = match.get(squareTemp);
                 if(piece instanceof Knight && pieceInTeam(match,piece)) {
@@ -304,12 +357,13 @@ public class FitnessFunction {
                     if(count == 2) return count;
                 }
             }
-            if(rank == 0) { rank = 7;
+            if(rank == bounds[0]) { rank = bounds[1];
             } else { rank = -1;}
         }
-        int file = 0;
+        int file = bounds[0];
+        if(bounds[1] - bounds[0] == 1) return count;
         while(file != -1) {
-            for(int tempRank = 1; tempRank <= 6; tempRank++) {
+            for(int tempRank = bounds[0] + 1; tempRank <= bounds[1] - 1; tempRank++) {
                 IChessboardSquare squareTemp = new ChessboardSquare(file, tempRank);
                 IChessPiece piece = match.get(squareTemp);
                 if(piece instanceof Knight && pieceInTeam(match,piece)) {
@@ -317,43 +371,43 @@ public class FitnessFunction {
                     if(count == 2) return count;
                 }
             }
-            if(file == 0) { file = 7;
+            if(file == bounds[0]) { file = bounds[1];
             } else { file = -1;}
         }
         return count;
     }
 
     /**
+     *  returns 1 if a given knight is on the squares a1 to a8,a8 to h8,a1 to h1 or h1 to h8.
+     * This is the outest periphery and most of the times knights on these squares are weaker
+     */
+    static int Knightperiphery0(IChessMatch match) {
+        int[] bounds = {0, 7};
+        return Knightperiphery(match, bounds);
+    }
+
+    /**
      *returns 1 if a given knight is on the squares b2 to b7,b7 to g7,b2 to g2 or g2 to g7.
      */
     static int Knightperiphery1(IChessMatch match){
-        return 0;
+        int[] bounds = {1, 6};
+        return Knightperiphery(match, bounds);
     }
 
     /**
      *  returns 1 if a given knight is on the squares c3 to c6,c6 to f6,c3 to f3 or f3 to f6
      */
     static int Knightperiphery2(IChessMatch match) {
-        int count = 0;
-        for(int tempFile = 2; tempFile <= 5; tempFile++) {
-            for(int rankFile = 2; rankFile <= 5; rankFile++) {
-                if((tempFile == 3 || tempFile == 4) && (rankFile == 3 || rankFile == 4)) continue;
-                IChessboardSquare squareTemp = new ChessboardSquare(tempFile, rankFile);
-                IChessPiece piece = match.get(squareTemp);
-                if(piece instanceof Knight && pieceInTeam(match,piece)) {
-                    count++;
-                    if(count == 2) return count;
-                }
-            }
-        }
-        return count;
+        int[] bounds = {2, 5};
+        return Knightperiphery(match, bounds);
     }
 
     /**
      *  returns 1 if a given knight is on the squares e4, e5,d4 or d5
      */
     static int Knightperiphery3(IChessMatch match){
-        return 0;
+        int[] bounds = {3, 4};
+        return Knightperiphery(match, bounds);
     }
 
     /**
@@ -369,8 +423,17 @@ public class FitnessFunction {
      *  returns 1 if a pawn is doubled pawn. Doubled pawns are considered a disadvantage as
      * they blocked each other, and they are vulnerable to attacks
      */
-    static int Doublepawn(IChessMatch match){
-        return 0;
+    static int Doublepawn(IChessMatch match) {
+        int count = 0;
+        boolean[] pawnInFile = {false, false, false, false, false, false, false, false};
+        List<IChessPiece> pieces = match.pieces();
+        for(IChessPiece piece : pieces) {
+            if(piece instanceof Pawn && pieceInTeam(match, piece)) {
+                if(!pawnInFile[piece.file()]) pawnInFile[piece.file()] = true;
+                else count++;
+            }
+        }
+        return count;
     }
 
     /**
@@ -413,8 +476,29 @@ public class FitnessFunction {
      * returns 1 if a central pawn on column e or d on its initial square is blocked by its own
      * piece which severely decreases the mobility of the pieces
      */
-    static int Blockedpawn(IChessMatch match){
-        return 0;
+    static int Blockedpawn(IChessMatch match) {
+        int count = 0;
+        boolean blackTeam = match.getPlayer() == 0
+        int rank;
+        if(match.getPlayer() == 0) rank = 1;
+        else rank = 6;
+        List<IChessboardSquare> squares = new ArrayList<>();
+        squares.add(new ChessboardSquare(3, rank));
+        squares.add(new ChessboardSquare(4, rank));
+        for(IChessboardSquare square : squares) {
+            IChessPiece piece = match.get(square);
+            if(piece instanceof Pawn && pieceInTeam(match, piece) && isPawnBlocked(match, blackTeam, square.file())) count++;
+        }
+        return count;
+    }
+
+    static boolean isPawnBlocked(IChessMatch match, boolean blackTeam, int file) {
+        int rank;
+        if(blackTeam) rank = 2;
+        else rank = 5;
+        IChessboardSquare square = new ChessboardSquare(file, rank);
+        if(match.get(square) != null) return true;
+        return false;
     }
 
     /**
@@ -533,7 +617,21 @@ public class FitnessFunction {
      * same file or on the same rank. Connected rooks defend each other to create threats in the opposition
      * area because they cannot be captured by queen or king
      */
-    static int Rookcon(IChessMatch match){
+    static int Rookcon(IChessMatch match) {
+        List<IChessPiece> pieces = match.pieces();
+        IChessPiece rook1 = null;
+        IChessPiece rook2 = null;
+        for(IChessPiece piece : pieces) {
+            if(piece instanceof Rook && pieceInTeam(match,piece)) {
+                if(rook1 == null) rook1 = piece;
+                else {
+                    rook2 = piece;
+                    break;
+                }
+            }
+        }
+        if(rook1 == null || rook2 == null) return 0;
+        if(rook1.file() == rook2.file() || rook1.rank() == rook2.rank()) return 1;
         return 0;
     }
 
