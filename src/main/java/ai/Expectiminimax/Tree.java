@@ -8,5 +8,7 @@ public interface Tree
     public final float probability = (1/6);
     public void generateChildren(Node node) throws NoSuchMethodException;
     public void computeLeafNodeValues();
-    public void expectiMiniMax();
+    public void expectiMiniMax() throws NoSuchMethodException;
+
+    public void generateTree(Node root) throws NoSuchMethodException;
 }

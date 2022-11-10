@@ -241,6 +241,146 @@ public class ChessMatch extends Chessboard implements IChessMatch
         nextPlayer();
     }
 
+
+    /** PlayMove without toggle to next Player */
+    public void playMoveNoTogglePlayer(IChessPiece piece, IChessboardSquare destination)
+    {
+        if (piece.team() != player) { throw new IllegalArgumentException("It is not allowed to move the opponent's chess piece."); }
+
+        // Starting with getting the index on which the chess piece is currently stored and
+        // the index where the piece is going to move to.
+        int currentIndex = piece.toIndex();
+        int destinationIndex = destination.toIndex();
+
+        // Getting the occupant of the square where our piece is moving to.
+        IChessPiece occupier = squares[destinationIndex];
+
+        // If there is indeed an occupant, then we have to remove this occupant from the 'un-captured' chess piece list.
+        if (occupier != null) { pieces.remove(occupier); }
+        // Else ff there was no occupant, let's check whether we are a pawn and the destination square
+        // is the en-passant target square. If that's the case, remove the en-passant target square owner.
+        else if (enPassantTargetSquare != null && destination.equals(enPassantTargetSquare) && piece instanceof Pawn)
+        {
+            IChessboardSquare targetOwner;
+
+            // Determining on which square the en-passant target square owner is located.
+            if (player == 0) { targetOwner = new ChessboardSquare(enPassantTargetSquare.file(), enPassantTargetSquare.rank() - 1); }
+            else { targetOwner = new ChessboardSquare(enPassantTargetSquare.file(), enPassantTargetSquare.rank() + 1); }
+
+            // Getting the owner and removing him from our 'un-captured' chess piece list.
+            int enPassantIndex = targetOwner.toIndex();
+            occupier = squares[enPassantIndex];
+            if (occupier != null) { pieces.remove(occupier); }
+            squares[enPassantIndex] = null;
+        }
+
+        // If we remembered an en-passant target square,
+        // then we should nullify this information was only allowed to be used this turn.
+        if (enPassantTargetSquare != null) { enPassantTargetSquare = null; }
+
+        // If we happen to have moved two steps in one go as a pawn,
+        // then we need to tell the opposition that there is a target square for them to eventually use.
+        if (piece instanceof Pawn)
+        {
+            int deltaRank = piece.rank() - destination.rank();
+
+            // Checking whether we went 2 rows down or up to determine the en-passant target square.
+            if (deltaRank == 2) { enPassantTargetSquare = new ChessboardSquare(piece.file(), piece.rank() - 1); }
+            else if (deltaRank == -2) { enPassantTargetSquare = new ChessboardSquare(piece.file(), piece.rank() + 1); }
+        }
+        // Else if we are a king, we should check if we have had any castle opportunities and whether we have used them.
+        else if (piece instanceof King)
+        {
+            int deltaFile = piece.file() - destination.file();
+
+            // Checking whether we castled king side or queen side.
+            if (deltaFile == 2 && castleMatrix[0][player])
+            {
+                IChessboardSquare rookDestination =  new ChessboardSquare(destination.file() + 1, destination.rank());
+                int rookDestinationIndex = destinationIndex + 1;
+                int rookIndex = destinationIndex - 2;
+                IChessPiece rook = squares[rookIndex];
+                rook.setPosition(rookDestination);
+                squares[rookDestinationIndex] = rook;
+                squares[rookIndex] = null;
+            }
+            else if (deltaFile == -2 && castleMatrix[1][player])
+            {
+                IChessboardSquare rookDestination =  new ChessboardSquare(destination.file() - 1, destination.rank());
+                int rookDestinationIndex = destinationIndex - 1;
+                int rookIndex = destinationIndex + 1;
+                IChessPiece rook = squares[rookIndex];
+                rook.setPosition(rookDestination);
+                squares[rookDestinationIndex] = rook;
+                squares[rookIndex] = null;
+            }
+
+            // Since we have moved the king, we no longer have the opportunity to castle at all.
+            castleMatrix[0][player] = false;
+            castleMatrix[1][player] = false;
+
+            // Since we already checked whether we were a pawn or we should just also increase the half move counter.
+            // For more information of the half move counter, just see the parameter documentation.
+            halfMoves++;
+        }
+        // Else if we are a rook, we should check whether we had any opportunity to castle.
+        else if (piece instanceof Rook)
+        {
+            // Checking whether we were on the king side or queen side and whether we had the opportunity to castle.
+            if (piece.file() == 0)
+            {
+                if (destination.file() == 3 && castleMatrix[1][player])
+                {
+                    var king = kings[player];
+                    int kingIndex = king.toIndex();
+                    var kingDestinationSquare = new ChessboardSquare(destination.file() - 1, destination.rank());
+                    int kingDestinationIndex = kingDestinationSquare.toIndex();
+                    squares[kingIndex] = null;
+                    squares[kingDestinationIndex] = king;
+                    king.setPosition(kingDestinationSquare);
+                    castleMatrix[0][player] = false;
+                }
+                castleMatrix[1][player] = false;
+            }
+            else if (piece.file() == 7)
+            {
+
+                if (destination.file() == 5 && castleMatrix[0][player])
+                {
+                    var king = kings[player];
+                    int kingIndex = king.toIndex();
+                    var kingDestinationSquare = new ChessboardSquare(destination.file() + 1, destination.rank());
+                    int kingDestinationIndex = kingDestinationSquare.toIndex();
+                    squares[kingIndex] = null;
+                    squares[kingDestinationIndex] = king;
+                    king.setPosition(kingDestinationSquare);
+                    castleMatrix[1][player] = false;
+                }
+                castleMatrix[0][player] = false;
+            }
+            halfMoves++;
+        }
+        // Else only increment half move counter.
+        else { halfMoves++; }
+
+        // Now it's time to update entries on the board.
+        squares[destinationIndex] = piece;
+        squares[currentIndex] = null;
+
+        // Finally, let's also update the square that the chess piece remembers as its location.
+        piece.setPosition(destination);
+
+        if(piece.promotable())
+        {
+            PromotionScreen popup = new PromotionScreen(Window.instance,"choose promotion", this, piece);
+            popup.setVisible(true);
+            System.out.println("piece is promotable");
+        }
+
+        // Closing the play with giving the turn to the next player.
+//        nextPlayer();
+    }
+
     public void onNoMovesLeft()
     {
         if (playerIsCheckMated(player))
