@@ -23,7 +23,7 @@ public class UCT {
         } else {
             return ((winCount/visitCount) + (c * Math.sqrt((Math.log(visitCountParent)) / visitCount)));
         }
-  
+
     }
 
     /**

@@ -40,9 +40,9 @@ public class Node {
         return false;
     }
     public Node pickRandomChild(Node node) {
-        
+
         Random random = new Random();
-        
+
         int min = 0;
         int max = node.getChildren().size();
         int randomChild = random.nextInt(max + 1 - min) + min;
