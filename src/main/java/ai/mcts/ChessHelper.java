@@ -93,6 +93,7 @@ public class ChessHelper {
     public void executeMove(IChessMove move, Node node) {
 
         ChessMatch match = node.getState().getMatch();
+
         // owner of the move
         IChessPiece moveOwner = move.owner();
         move.possibilities();
@@ -109,11 +110,10 @@ public class ChessHelper {
         match.playMoveNoTogglePlayer(moveOwner, destination);
 
         // update state
-        node.getParent().getState().
-                //node.getState().setFen(match.toFen());
+        node.getState().setFen(match.toFen());
 
-                // check if we won?
-                        match.getState().equals(MatchState.ONGOING);
+        // check if we won?
+        match.getState().equals(MatchState.ONGOING);
 
         // toggle player
         match.nextPlayer();
