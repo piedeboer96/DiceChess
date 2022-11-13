@@ -14,8 +14,8 @@ public class Die extends JComponent
     private final int x, y, width, height;
     private final Color border, fill;
     private enum DieState { IDLE, ROLLED };
-    private DieState state;
-    private char rollResult;
+    private static DieState state;
+    private static char rollResult;
 
     public Die(int x, int y, int width, int height)
     {
@@ -46,7 +46,7 @@ public class Die extends JComponent
 
     public void reset() { state = DieState.IDLE; }
 
-    public void roll(int team)
+    public static void roll(int team)
     {
         if (state == DieState.ROLLED) { return; }
         state = DieState.ROLLED;

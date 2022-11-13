@@ -6,7 +6,6 @@ public class Chromosome {
 
     // all data we will have in the chromosome for each function in the heuristic fitness function
     int[] data;
-
     // use random to randomize the initial values of the data of the chromosomes
     Random random;
 
@@ -26,8 +25,8 @@ public class Chromosome {
     // assign values randomly to the data of the chromosome
     int[] randomNumbers(){
         Random random = new Random();
-        int[] array = new int[36];
-        for(int i =0; i <= data.length; i++){
+        int[] array = new int[20];
+        for(int i =0; i < 20; i++){
             array[i] = random.nextInt()*100; // what value should we multiply by? is 1000 a good value to use?
         }
         return array;
@@ -38,7 +37,7 @@ public class Chromosome {
     void crossoverWith(Chromosome other) {
         int[] chromosome1 = this.firstHalf();
         int[] chromosome2 = other.lastHalf();
-        int[] merge = new int[36];
+        int[] merge = new int[20];
         int count = 0;
 
         for(int i=0; i < chromosome1.length; i++){
@@ -55,10 +54,10 @@ public class Chromosome {
 
     // return the first half of the used chromosome
     private int[] firstHalf() {
-        int[] arr1 = new int[36];
-        int[] arr2 = new int[18];
+        int[] arr1 = new int[20];
+        int[] arr2 = new int[10];
         for(int i =0; i < arr1.length;i++){
-            while(i<18){
+            while(i<10){
                 arr2[i] = arr1[i];
             }
         }
@@ -67,10 +66,10 @@ public class Chromosome {
 
     // return the second half of the used chromosome
     private int[] lastHalf() {
-        int[] arr1 = new int[36];
-        int[] arr2 = new int[18];
+        int[] arr1 = new int[20];
+        int[] arr2 = new int[10];
         for(int i =0; i < arr1.length;i++){
-            while(i>17){
+            while(i>9){
                 arr2[i] = arr1[i];
             }
         }
