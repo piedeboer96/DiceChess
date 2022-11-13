@@ -1,17 +1,16 @@
 package ai.geneticAI;
-
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessPiece;
 import chess.interfaces.IChessboardSquare;
 import chess.units.*;
 import chess.utility.ChessboardSquare;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class FitnessFunction {
-    static Chromosome chromosome;
+    static Chromosome chromosome = new Chromosome();
+
 
     // TODO: initialize the body of the functions
 
@@ -675,21 +674,7 @@ public class FitnessFunction {
                 Knightperiphery0(match) * chromosome.data[17] +
                 Knightperiphery1(match) * chromosome.data[18] +
                 Knightperiphery2(match) * chromosome.data[19] +
-                Knightperiphery3(match) * chromosome.data[20] +
-                Isopawn(match) * chromosome.data[21] +
-                Doublepawn(match) * chromosome.data[22] +
-                Passpawn(match) * chromosome.data[23] +
-                Rookbhdpasspawn(match) * chromosome.data[24] +
-                Backwardpawn(match) * chromosome.data[25] +
-                Rankpassedpawn(match) * chromosome.data[26] +
-                Blockedpawn(match) * chromosome.data[27] +
-                Blockedpassedpawn(match) * chromosome.data[28] +
-                Rookopenfile(match) * chromosome.data[29] +
-                Rooksemiopenfile(match) * chromosome.data[30] +
-                Rookclosedfile(match) * chromosome.data[31] +
-                Rookonseventh(match) * chromosome.data[32] +
-                Rookmob(match) * chromosome.data[33] +
-                Rookcon(match) * chromosome.data[34] +
-                Queenmob(match) * chromosome.data[35];
+                Knightperiphery3(match) * chromosome.data[20];
+
     }
 }
