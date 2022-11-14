@@ -11,15 +11,6 @@ public class State {
     /** DiceChess Attributes */
     Chessboard board;       // probably won't be used?!
     int team;
-
-    public ChessMatch getMatch() {
-        return match;
-    }
-
-    public void setMatch(ChessMatch match) {
-        this.match = match;
-    }
-
     ChessMatch match;
     String fen;
 
@@ -28,14 +19,18 @@ public class State {
     int visitCount;
 
     /** Getters and Setters */
+    public ChessMatch getMatch() {
+        return match;
+    }
+    public void setMatch(ChessMatch match) {
+        this.match = match;
+    }
     public void setTeam(int team){
         this.team = team;
     }
-
     public void setBoard(Chessboard board) {
         this.board = board;
     }
-
     public int getOpponent(int team) {
         int opponent;
 
@@ -46,32 +41,29 @@ public class State {
         }
         return opponent;
     }
-
     public int getWinCount(){
         return winCount;
     }
     public int getVisitCount(){
         return visitCount;
     }
-
     public Chessboard getBoard() {
         return board;
     }
-
     public int getTeam() {
         return team;
     }
-
     public void setWinCount(int winCount) {
         this.winCount = winCount;
     }
-
     public void setVisitCount(int visitCount) {
         this.visitCount = visitCount;
     }
-
     public void setFen(String fen) {
         this.fen = fen;
+    }
+    public String getFen(){
+        return this.match.toFen();
     }
 
     /** AUXILIARY METHODS */
@@ -87,11 +79,6 @@ public class State {
     // increase winCount with specified score
     public void increaseWinCount(int score){
         this.winCount = this.winCount + score;
-    }
-
-    // get fen representation of current board
-    public String getFen(){
-        return this.match.toFen();
     }
 
     // toggle player

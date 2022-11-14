@@ -50,11 +50,8 @@ public class Node {
         return(node.getChildren().get(randomChild));
 
     }
-
     // return the node with max visit count
     public Node getMaxChild() {
-
-
 
         int tempMaxVisitCount = -1000;
 

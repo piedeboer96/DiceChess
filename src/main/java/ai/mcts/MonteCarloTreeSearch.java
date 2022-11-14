@@ -16,9 +16,6 @@ public class MonteCarloTreeSearch {
 
     /**
      * Find the nextMove based on current board (fen) and current team
-     *
-     *
-     *
      * @param fen fen that represents the board
      * @param team current team
      * @return fen-representation of updated board

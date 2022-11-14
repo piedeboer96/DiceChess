@@ -13,6 +13,8 @@ import java.util.List;
 public class ChessHelper {
 
     /**
+     * TODO: dice chess based state generation
+     *
      * Generate all possible states from a given node.
      * @param currentNode node from where we need the possible states
      * @return list of possible states
@@ -27,6 +29,8 @@ public class ChessHelper {
 
         // generate match
         ChessMatch match = new ChessMatch(fen);
+
+        // TODO: INCLUDE DICE ROLL or CALCULATE ALL SPACES
 
         // get legal moves of team
         List<IChessMove> legalMoves = match.generateMovesOf(team);
@@ -85,7 +89,8 @@ public class ChessHelper {
             executeMove(move, node);
         }
 
-        // update winCount or winScore..
+        // update winCount or winScore.. ??
+
 
     }
 
