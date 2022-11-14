@@ -1,11 +1,10 @@
 package ai.mcts;
 
 import chess.ChessMatch;
+import chess.MatchState;
 import chess.utility.Chessboard;
 
-// TODO: Working with chessMatch not convenient?
-
-// TODO: need to bring all legalMoves into new board states ('execute' legal moves')
+// TODO: Working with chessMatch convenient? (cause just board probably not)
 
 public class State {
 
@@ -77,15 +76,32 @@ public class State {
 
     /** AUXILIARY METHODS */
     public boolean isGameGoingOn() {
-        if(board.playerIsCheckMated(0) || board.playerIsCheckMated(1))
+        if(this.match.getState().equals(MatchState.ONGOING))
             return true;
 
         return false;
     }
 
+    public void increaseWinCount(int score){
+        this.winCount = this.winCount + score;
+    }
+
+    // TODO !!!
     public String getFen(){
-//        this.getBoard().
+
+        // need to be implemented
+
         return "";
+    }
+
+    public void switchPlayer(){
+        int currentTeam = this.team;
+
+        if(currentTeam==1){
+            this.team = 2;
+        } else {
+            this.team = 1;
+        }
     }
 
 

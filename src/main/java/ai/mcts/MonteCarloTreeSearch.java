@@ -7,9 +7,12 @@ import static chess.MatchState.ONGOING;
 
 public class MonteCarloTreeSearch {
 
-    //int winScore = 1;
+    // score for winning a game
+    int winningScore = 1;
+    // uct object that contains uct methods
     UCT uct = new UCT();
-
+    // helper methods
+    ChessHelper helper = new ChessHelper();
 
     /**
      * Find the nextMove based on current board (fen) and current team
@@ -19,7 +22,7 @@ public class MonteCarloTreeSearch {
      */
     public String nextMove(String fen, int team) {
 
-        // TODO: where shall we work with match?
+        // TODO: where shall we work with 'match'  (in  state that each node has...)
 
         // basic attributes
         int opponent;
@@ -52,7 +55,8 @@ public class MonteCarloTreeSearch {
             Node bestNode = selection(root);
 
             // expansion - (looks ugly now...)
-            if(bestNode.getState().getMatch().getState().equals(ONGOING)) {
+            ChessMatch currentMatch = bestNode.getState().getMatch();
+            if(currentMatch.getState().equals(ONGOING)) {
                 expansion(bestNode);
             }
 
@@ -62,6 +66,7 @@ public class MonteCarloTreeSearch {
                 exploreNode = bestNode.pickRandomChild(exploreNode);
             }
 
+
             int simulationResult = simulation(exploreNode);
 
             /** BACKPROPAGATION */
@@ -69,9 +74,8 @@ public class MonteCarloTreeSearch {
 
         }
 
-        //Node winner = root.getMaxChild();
+        Node winner = root.getMaxChild();
         //tree.setRoot(winner);
-
 
         //TODO: return fen of winner node
         return null;
@@ -113,23 +117,30 @@ public class MonteCarloTreeSearch {
 
     }
 
+    // TODO: value returned based on win or lose?
     // Simulation
     public int simulation(Node node) {
 
+
+        // copy of node from where we run a simulation
         Node currentNode = node;
-        State currentState = currentNode.getState();
 
-        boolean gameStatus = currentState.isGameGoingOn();
+        // grab the state
+        State currentState = node.getState();
 
-        // while game is in progress
+        // while the game is on based on match attribute in state
+        boolean isGameOn = currentState.isGameGoingOn();
 
-        // TODO !!!
-        while (gameStatus) {
-            // state.switchhPlayer();
-//            helper.playRandom(node);
-            // boardStatus = tempState.getBoard().machtState();
+        // here we can either run playRandom or heuristic play
+        while (isGameOn) {
+             currentState.switchPlayer();
+
+             // this method should update the state 'after the randomPlay'
+             this.helper.playRandom(currentNode);
+
         }
 
+        // should check what this returns.
         return 0;
 
 
@@ -145,8 +156,8 @@ public class MonteCarloTreeSearch {
 
             if(localNode.getState().getTeam() == team) {
 
-                // TODO: how do I do scoring here...
-                //node.getState().addScore(WINSCORE);
+                // increase the score when won
+                node.getState().increaseWinCount(winningScore);
             }
 
             // update to parent
