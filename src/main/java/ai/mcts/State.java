@@ -9,7 +9,7 @@ import chess.utility.Chessboard;
 public class State {
 
     /** DiceChess Attributes */
-    Chessboard board;       // might not be needed
+    Chessboard board;       // probably won't be used?!
     int team;
 
     public ChessMatch getMatch() {
@@ -75,6 +75,8 @@ public class State {
     }
 
     /** AUXILIARY METHODS */
+
+    //  check if match is still going on
     public boolean isGameGoingOn() {
         if(this.match.getState().equals(MatchState.ONGOING))
             return true;
@@ -82,18 +84,17 @@ public class State {
         return false;
     }
 
+    // increase winCount with specified score
     public void increaseWinCount(int score){
         this.winCount = this.winCount + score;
     }
 
-    // TODO !!!
+    // get fen representation of current board
     public String getFen(){
-
-        // need to be implemented
-
-        return "";
+        return this.match.toFen();
     }
 
+    // toggle player
     public void switchPlayer(){
         int currentTeam = this.team;
 

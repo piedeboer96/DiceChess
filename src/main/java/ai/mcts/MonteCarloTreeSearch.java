@@ -16,6 +16,9 @@ public class MonteCarloTreeSearch {
 
     /**
      * Find the nextMove based on current board (fen) and current team
+     *
+     *
+     *
      * @param fen fen that represents the board
      * @param team current team
      * @return fen-representation of updated board
@@ -74,11 +77,12 @@ public class MonteCarloTreeSearch {
 
         }
 
-        Node winner = root.getMaxChild();
-        //tree.setRoot(winner);
 
-        //TODO: return fen of winner node
-        return null;
+        Node winner = root.getMaxChild();
+        tree.setRoot(winner);
+
+
+        return winner.state.getFen();
     }
 
 
@@ -140,7 +144,7 @@ public class MonteCarloTreeSearch {
 
         }
 
-        // should check what this returns.
+        // todo: return value of win or lose?
         return 0;
 
 

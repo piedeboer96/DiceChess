@@ -51,9 +51,28 @@ public class Node {
 
     }
 
-    // TODO !!!
-    public Node getMaxChild(){
-        return null;
+    // return the node with max visit count
+    public Node getMaxChild() {
+
+
+
+        int tempMaxVisitCount = -1000;
+
+        // keep track of node with highest visit count
+        Node tempMaxNode=null;
+
+        // iterate over the children
+        for(Node child: children) {
+
+            if(tempMaxVisitCount < child.getState().getVisitCount()){
+                tempMaxVisitCount = child.getState().getVisitCount();
+                tempMaxNode = child;
+            }
+
+        }
+
+        return tempMaxNode;
+
     }
 
 
