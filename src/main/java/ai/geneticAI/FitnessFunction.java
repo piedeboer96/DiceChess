@@ -169,6 +169,7 @@ public class FitnessFunction {
             for(int rankTemp = 3; rankTemp <= 4; rankTemp++) {
                 squareTemp = new ChessboardSquare(fileTemp, rankTemp);
                 IChessPiece piece = match.get(squareTemp);
+                if (piece == null) continue;
                 if (pieceInTeam(match,piece) && piece instanceof Pawn) {
                     count++;
                 }
@@ -351,6 +352,7 @@ public class FitnessFunction {
             for(int tempFile = bounds[0]; tempFile <= bounds[1]; tempFile++) {
                 IChessboardSquare squareTemp = new ChessboardSquare(tempFile, rank);
                 IChessPiece piece = match.get(squareTemp);
+                if(piece == null) continue;
                 if(piece instanceof Knight && pieceInTeam(match,piece)) {
                     count++;
                     if(count == 2) return count;
@@ -365,6 +367,7 @@ public class FitnessFunction {
             for(int tempRank = bounds[0] + 1; tempRank <= bounds[1] - 1; tempRank++) {
                 IChessboardSquare squareTemp = new ChessboardSquare(file, tempRank);
                 IChessPiece piece = match.get(squareTemp);
+                if(piece == null) continue;
                 if(piece instanceof Knight && pieceInTeam(match,piece)) {
                     count++;
                     if(count == 2) return count;
@@ -673,8 +676,6 @@ public class FitnessFunction {
                 Knightsupport(match) * chromosome.data[16] +
                 Knightperiphery0(match) * chromosome.data[17] +
                 Knightperiphery1(match) * chromosome.data[18] +
-                Knightperiphery2(match) * chromosome.data[19] +
-                Knightperiphery3(match) * chromosome.data[20];
-
+                Knightperiphery2(match) * chromosome.data[19];
     }
 }
