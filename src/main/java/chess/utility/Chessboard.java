@@ -1,20 +1,17 @@
 package chess.utility;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
 import chess.units.King;
 import chess.units.Pawn;
-import gui.interfaces.IDrawable;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessMoveInfo;
 import chess.interfaces.IChessPiece;
 import chess.interfaces.IChessboard;
 import chess.interfaces.IChessboardSquare;
 
-public abstract class Chessboard implements IChessboard, IDrawable {
+public abstract class Chessboard implements IChessboard {
 	/**
 	 * <P>
 	 * { Black Can Castle King Side, White Can Castle King Side }
@@ -304,22 +301,5 @@ public abstract class Chessboard implements IChessboard, IDrawable {
 			}
 		}
 		return false;
-	}
-
-	public void draw(Graphics g, int x, int y, int width, int height) {
-		g.drawRect(x, y, width, height);
-		Color c = g.getColor();
-		Color cNew;
-		if (c.getRed() == 120 && c.getGreen() == 120 && c.getBlue() == 120) {
-			cNew = new Color(36, 36, 36);
-			g.setColor(cNew);
-		} else if (c.getRed() == 36 && c.getGreen() == 36 && c.getBlue() == 36) {
-			cNew = new Color(120, 120, 120);
-			g.setColor(cNew);
-		} else {
-			cNew = new Color(255, 255, 255);
-			g.setColor(cNew);
-		}
-		g.drawString(0 + "," + 0, x + (int) (0.75 * width), y + (int) (0.15 * height));
 	}
 }
