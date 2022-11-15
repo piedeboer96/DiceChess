@@ -76,7 +76,7 @@ public abstract class Chessboard implements IChessboard {
 					}
 					// If the destination square is occupied by an opponent and the current piece is not a pawn,
 					// then we can capture this piece to obtain the destination square.
-					else if (destinationOccupier.opponentOf(piece) && !pieceIsPawn) {
+					else if (destinationOccupier.team() != piece.team() && !pieceIsPawn) {
 						reachableSquares.add(stepDestination);
 					}
 					// Since the destination square is occupied, there is no need to look further in the current direction.
@@ -106,7 +106,7 @@ public abstract class Chessboard implements IChessboard {
 						IChessPiece squareOccupier = get(targetSquare);
 						if (squareOccupier != null) {
 							// If square is occupied and the occupier is an opponent, then we can capture him as a pawn.
-							if (squareOccupier.opponentOf(piece)) {
+							if (squareOccupier.team() != piece.team()) {
 								captureList.add(targetSquare);
 							}
 						}

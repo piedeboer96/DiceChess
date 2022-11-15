@@ -13,11 +13,6 @@ public interface IChessPiece extends IChessboardSquare, IGhost,Cloneable {
 	IChessMoveInfo[] movementInfo();
 
 	/**
-	 * Determines whether both chess pieces are each other's opponent.
-	 **/
-	boolean opponentOf(IChessPiece other);
-
-	/**
 	 * Determines whether a chess piece is allowed to be promoted to another chess
 	 * piece.
 	 **/
@@ -35,7 +30,4 @@ public interface IChessPiece extends IChessboardSquare, IGhost,Cloneable {
 	 * @return An integer that is either 0 or 1.
 	 **/
 	int team();
-
-	
-
 }

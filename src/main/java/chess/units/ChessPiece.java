@@ -38,8 +38,6 @@ public class ChessPiece extends ChessboardSquare implements IChessPiece {
 
 	@Override public IChessMoveInfo[] movementInfo() { return movementInfo; }
 
-	@Override public boolean opponentOf(IChessPiece other) { return team != other.team(); }
-
 	@Override public boolean promotable() { return false; }
 
 	@Override public void setPosition(IChessboardSquare square) {
