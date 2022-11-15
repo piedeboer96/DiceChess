@@ -18,19 +18,6 @@ public class ChessPieceTest
         assert !chessPiece.equals(different);
     }
 
-    @Test public void testFriendOf()
-    {
-        var chessPiece = new ChessPiece('a', 1, 2);
-        var duplicate = new ChessPiece('a', 1, 2);
-        var teamMate = new ChessPiece('b', 1 ,2);
-        var opponent1 = new ChessPiece('A', 1 ,2);
-        var opponent2 = new ChessPiece('B', 1, 2);
-        assert chessPiece.friendOf(duplicate);
-        assert chessPiece.friendOf(teamMate);
-        assert !chessPiece.friendOf(opponent1);
-        assert !chessPiece.friendOf(opponent2);
-    }
-
     @Test public void testOpponentOf()
     {
         var chessPiece = new ChessPiece('a', 1, 2);

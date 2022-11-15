@@ -7,11 +7,6 @@ public interface IChessPiece extends IChessboardSquare, IGhost,Cloneable {
 	boolean equals(IChessPiece other);
 
 	/**
-	 * Determines whether both chess pieces are on the same team.
-	 **/
-	boolean friendOf(IChessPiece other);
-
-	/**
 	 * Gets the fen-representation of the chess piece type and its team.
 	 **/
 	char toFen();

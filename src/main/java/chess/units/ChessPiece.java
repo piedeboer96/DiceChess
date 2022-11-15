@@ -28,10 +28,6 @@ public class ChessPiece extends ChessboardSquare implements IChessPiece {
 
 	@Override public boolean equals(IChessPiece other) { return notation == other.toFen() && equals((IChessboardSquare) other); }
 
-	@Override public boolean friendOf(IChessPiece other) {
-		return team == other.team();
-	}
-
 	@Override public void ghostTo(IChessboardSquare square)
 	{
 		file = square.file();
