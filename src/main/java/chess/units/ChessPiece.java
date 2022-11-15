@@ -26,8 +26,6 @@ public class ChessPiece extends ChessboardSquare implements IChessPiece {
 
 	@Override public Object clone() throws CloneNotSupportedException { return super.clone(); }
 
-	@Override public boolean equals(IChessPiece other) { return notation == other.toFen() && equals((IChessboardSquare) other); }
-
 	@Override public void ghostTo(IChessboardSquare square)
 	{
 		file = square.file();

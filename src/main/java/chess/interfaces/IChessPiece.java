@@ -2,11 +2,6 @@ package chess.interfaces;
 
 public interface IChessPiece extends IChessboardSquare, IGhost,Cloneable {
 	/**
-	 * Determines whether two chess pieces are fundamentally the same object.
-	 **/
-	boolean equals(IChessPiece other);
-
-	/**
 	 * Gets the fen-representation of the chess piece type and its team.
 	 **/
 	char toFen();
