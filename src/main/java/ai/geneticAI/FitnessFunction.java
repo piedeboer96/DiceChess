@@ -15,6 +15,7 @@ public class FitnessFunction {
     // TODO: initialize the body of the functions
 
     private static boolean pieceInTeam(IChessMatch match, IChessPiece piece) {
+        if(piece == null) return false;
         if(match.getPlayer() == piece.team()) return true;
         return false;
     }
@@ -169,8 +170,7 @@ public class FitnessFunction {
             for(int rankTemp = 3; rankTemp <= 4; rankTemp++) {
                 squareTemp = new ChessboardSquare(fileTemp, rankTemp);
                 IChessPiece piece = match.get(squareTemp);
-                if (piece == null) continue;
-                if (pieceInTeam(match,piece) && piece instanceof Pawn) {
+                if (piece instanceof Pawn && pieceInTeam(match, piece)) {
                     count++;
                 }
             }
@@ -342,7 +342,37 @@ public class FitnessFunction {
      * the opponent to play around it
      */
     static int Knightsupport(IChessMatch match){
-        return 0;
+        List<IChessPiece> pieces = match.pieces();
+        boolean isTeamBlack = match.getPlayer() == 0;
+        int count = 0;
+        for(IChessPiece piece : pieces) {
+            if(piece instanceof Knight && pieceInTeam(match,piece)) {
+                if(isTeamBlack) count += knightProtected(match, piece, -1);
+                else count += knightProtected(match, piece, 1);
+            }
+        }
+        return count;
+    }
+
+    /**
+     * @return 1 if knight is protected by pawn and 0 otherwise
+     */
+    static int knightProtected(IChessMatch match, IChessPiece piece, int deltaRank) {
+        IChessboardSquare square1 = null;
+        IChessboardSquare square2 = null;
+        int count = 0;
+        if(piece.file() + 1 <= 7 && piece.rank() + deltaRank >= 0) {
+            square1 = new ChessboardSquare(piece.file() + 1, piece.rank()  + deltaRank);
+        }
+        if(piece.file() - 1 >= 0 && piece.rank() + deltaRank >= 0) {
+            square2 = new ChessboardSquare(piece.file() + 1, piece.rank()  + deltaRank);
+        }
+        if(square1 != null && match.get(square1) instanceof Pawn) {
+            count++;
+        } else if(square2 != null && match.get(square2) instanceof Pawn) {
+            count++;
+        }
+        return count;
     }
 
     static int Knightperiphery(IChessMatch match, int[] bounds) {
