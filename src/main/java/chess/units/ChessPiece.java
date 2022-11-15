@@ -1,16 +1,11 @@
 package chess.units;
 
-import java.awt.Graphics;
-
-import gui.interfaces.IDrawable;
-import gui.utility.Cache;
 import chess.interfaces.IChessMoveInfo;
 import chess.interfaces.IChessPiece;
 import chess.interfaces.IChessboardSquare;
 import chess.utility.ChessboardSquare;
 
-public class ChessPiece extends ChessboardSquare implements IChessPiece, IDrawable {
-	private static final Cache cache = new Cache();
+public class ChessPiece extends ChessboardSquare implements IChessPiece {
 	private final char notation;
 	private boolean hidden;
 
@@ -30,11 +25,6 @@ public class ChessPiece extends ChessboardSquare implements IChessPiece, IDrawab
 	}
 
 	@Override public Object clone() throws CloneNotSupportedException { return super.clone(); }
-	@Override public void draw(Graphics g, int x, int y, int width, int height)
-	{
-		var image = cache.getImage(notation);
-		g.drawImage(image, x, y, width, height, null);
-	}
 
 	@Override public boolean equals(IChessPiece other) { return notation == other.toFen() && equals((IChessboardSquare) other); }
 
