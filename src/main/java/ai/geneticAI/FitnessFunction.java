@@ -473,8 +473,35 @@ public class FitnessFunction {
      * columns and on the given pawn’s column ahead of the pawn. If a pawn is passed it is big threat for
      * the opponent because they are no pawns on the way to prevent it from promoting
      */
-    static int Passpawn(IChessMatch match){
-        return 0;
+    static int Passpawn(IChessMatch match) {
+        int count = 0;
+        boolean isTeamBlack = match.getPlayer() == 0;
+        boolean[] enemyPawnFiles = new boolean[8];
+        int[] enemyPawnRanks = new int[8];
+        List<IChessPiece> pieces = match.pieces();
+        for(IChessPiece piece : pieces) {
+            if(piece instanceof Pawn && !pieceInTeam(match, piece)) {
+                enemyPawnFiles[piece.file()] = true;
+                enemyPawnRanks[piece.file()] = piece.rank();
+            }
+        }
+        int countTemp = 0;
+        for(int i = 0; i <= 7; i++) {
+            if(enemyPawnFiles[i] == false) countTemp++;
+            else countTemp = 0;
+            if(countTemp == 3) break;
+        }
+        if(countTemp < 3) return 0;
+        for(IChessPiece piece : pieces) {
+            if(piece instanceof Pawn && pieceInTeam(match, piece)) {
+                if(isTeamBlack) {
+                    if((piece.file() == 0 || enemyPawnFiles[piece.file() - 1] == false || enemyPawnRanks[piece.file() - 1] <= piece.rank()) && (enemyPawnFiles[piece.file()] == false || enemyPawnRanks[piece.file()] <= piece.rank()) && (piece.file() == 7 || enemyPawnFiles[piece.file() + 1] == false || enemyPawnRanks[piece.file() + 1] <= piece.rank())) count++;
+                } else {
+                    if((piece.file() == 0 || enemyPawnFiles[piece.file() - 1] == false || enemyPawnRanks[piece.file() - 1] >= piece.rank()) && (enemyPawnFiles[piece.file()] == false || enemyPawnRanks[piece.file()] >= piece.rank()) && (piece.file() == 7 || enemyPawnFiles[piece.file() + 1] == false || enemyPawnRanks[piece.file() + 1] >= piece.rank())) count++;
+                }
+            }
+        }
+        return count;
     }
 
     /**
