@@ -40,18 +40,37 @@ public class Node {
         return false;
     }
     public Node pickRandomChild(Node node) {
-        
+
         Random random = new Random();
-        
+
         int min = 0;
         int max = node.getChildren().size();
         int randomChild = random.nextInt(max + 1 - min) + min;
 
         return(node.getChildren().get(randomChild));
 
+    }
+    // return the node with max visit count
+    public Node getMaxChild() {
+
+        int tempMaxVisitCount = -1000;
+
+        // keep track of node with highest visit count
+        Node tempMaxNode=null;
+
+        // iterate over the children
+        for(Node child: children) {
+
+            if(tempMaxVisitCount < child.getState().getVisitCount()){
+                tempMaxVisitCount = child.getState().getVisitCount();
+                tempMaxNode = child;
+            }
+
+        }
+
+        return tempMaxNode;
 
     }
-
 
 
 }

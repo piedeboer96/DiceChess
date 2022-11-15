@@ -1,67 +1,128 @@
 package ai.mcts;
 
+import chess.ChessMatch;
+import chess.MatchState;
 import chess.interfaces.IChessMove;
-import chess.utility.Chessboard;
-import chess.utility.ChessMove;
+import chess.interfaces.IChessPiece;
+import chess.interfaces.IChessboardSquare;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class ChessHelper{
-
-    public List<State> getStatesFromNode(Node currentNode){
-
-        State state = currentNode.state;
-        int team = currentNode.getState().getTeam();
-        Chessboard board =  state.getBoard();
-        List<IChessMove> legalMoves = board.legalMovesOf(team);
-
-        // TODO: how do are doing this regards depth and stochastic feature
-
-        return null;
-    }
-
+public class ChessHelper {
 
     /**
-     * We take in a node that has a state.
-     * The board is represented in the state.
+     * TODO: dice chess based state generation
+     *
+     * Generate all possible states from a given node.
+     * @param currentNode node from where we need the possible states
+     * @return list of possible states
+     */
+    public List<State> getStatesFromNode(Node currentNode){
+
+        List<State> states = new ArrayList<>();
+
+        // get info
+        int team = currentNode.getState().getTeam();
+        String fen = currentNode.getState().getFen();
+
+        // generate match
+        ChessMatch match = new ChessMatch(fen);
+
+        // TODO: INCLUDE DICE ROLL or CALCULATE ALL SPACES
+
+        // get legal moves of team
+        List<IChessMove> legalMoves = match.generateMovesOf(team);
+
+        // iterate over the moves - UGH DOUBLE LOOP...
+        for(IChessMove move: legalMoves) {
+
+            for (IChessboardSquare destination : move.possibilities()) {
+
+                match.playMove(move.owner(), destination);
+
+                // does this update the match ?
+                // player is updated - since we get into new layer
+
+                State state = new State();
+
+                state.setFen(match.toFen());
+                state.setTeam(match.getPlayer());
+
+                states.add(state);
+
+            }
+        }
+
+        return states;
+    }
+
+    /**
+     * We take in a node that has a state which represents the game with FEN.
      * We pick a random legal move, execute this
-     * and update the node it's board after execution of this move.
-     * @param node
+     * and update the node it's fen after execution of this move.
+     * @param node node from which randomPlay-out is done
      */
     public void playRandom(Node node) {
 
-        Node tempNode = node;
-        State state = node.getState();
-        Chessboard board = state.getBoard();
+        // get info
+        int team = node.getState().getTeam();
+        String fen = node.getState().getFen();
 
-        List<IChessMove> legalMoves = board.legalMovesOf(state.getTeam());
+        // build match
+        ChessMatch match = new ChessMatch(fen);
 
-        int amountOfLegalMoves = legalMoves.size();
+        // generate moves from of team at certain node
+        List<IChessMove> legalMoves = match.legalMovesOf(team);
 
+        // random move
+        int maxIndex = legalMoves.size();
+        int minIndex = 0;
+        int randomPick = (int) ((Math.random() * (maxIndex - minIndex)) + minIndex);
 
+        // pick random move
+        IChessMove move = legalMoves.get(randomPick);
 
-        // TODO: ok... work with chessMatch or boardPositions, cause i need some action method to take move a
+        // play while the match is taking place
+        while( match.getState().equals(MatchState.ONGOING) ){
+            executeMove(move, node);
+        }
 
-        /** PROBLEMS
-         *  - what if player cannot make move
-         */
+        // update winCount or winScore.. ??
 
-
-
-    }
-
-    public Chessboard executeMove(Chessboard board, int team) {
-
-        //TODO:
-        // (idea) Use the resultAI class here and incorporate board states ( use easy rules engine?)
-        // (?) change fen into board state, or shall we use fen all the time?
-
-        List<IChessMove> legalMoves = board.legalMovesOf(team);
-
-        return null;
 
     }
 
+    // update state of node after executing a move
+    public void executeMove(IChessMove move, Node node) {
+
+        ChessMatch match = node.getState().getMatch();
+
+        // owner of the move
+        IChessPiece moveOwner = move.owner();
+        move.possibilities();
+
+        // choose random move
+        int upper = move.possibilities().size();
+        int lower = 0;
+        int randomPick = (int) ((Math.random() * (upper - lower)) + lower);
+
+        // pick random destination for move
+        IChessboardSquare destination = move.possibilities().get(randomPick);
+
+        // play move
+        match.playMoveNoTogglePlayer(moveOwner, destination);
+
+        // update state
+        node.getState().setFen(match.toFen());
+
+        // check if we won?
+        match.getState().equals(MatchState.ONGOING);
+
+        // toggle player
+        match.nextPlayer();
+
+    }
 
 }
