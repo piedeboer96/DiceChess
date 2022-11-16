@@ -302,4 +302,36 @@ public abstract class Chessboard implements IChessboard {
 		}
 		return false;
 	}
+
+
+	/**
+	 * Translates the state of board to its respective Forsyth-Edwards Notation.
+	 * @return A string representing the board field of a FEN.
+	 **/
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (int row = 0; row < 8; row++) {
+			int baseIndex = row * 8;
+			int consecutivelyEmpty = 0;
+			for (int column = 0; column < 8; column++) {
+				IChessPiece piece = squares[baseIndex + column];
+				if (piece == null) {
+					consecutivelyEmpty++;
+					continue;
+				} else if (consecutivelyEmpty > 0) {
+					sb.append(consecutivelyEmpty);
+				}
+				sb.append(piece.toFen());
+				consecutivelyEmpty = 0;
+			}
+			if (consecutivelyEmpty > 0) {
+				sb.append(consecutivelyEmpty);
+			}
+			if (row < 7) {
+				sb.append('/');
+			}
+		}
+		return sb.toString();
+	}
 }

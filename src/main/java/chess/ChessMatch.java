@@ -448,26 +448,8 @@ public class ChessMatch extends Chessboard implements IChessMatch
         StringBuilder sb = new StringBuilder();
 
         // Building field 1: The board state
-        for (int rank = 0; rank < 8; rank++)
-        {
-            int baseIndex = rank * 8;
-            int consecutivelyEmpty = 0;
-            for (int file = 0; file < 8; file++)
-            {
-                IChessPiece piece = squares[baseIndex + file];
-                if (piece == null)
-                {
-                    consecutivelyEmpty++;
-                    continue;
-                }
-                else if (consecutivelyEmpty > 0) { sb.append(consecutivelyEmpty); }
-                sb.append(piece.toFen());
-                consecutivelyEmpty = 0;
-            }
-            if (consecutivelyEmpty > 0) { sb.append(consecutivelyEmpty); }
-            if (rank < 7) { sb.append('/'); }
-            else { sb.append(' '); }
-        }
+        sb.append(super.toString());
+        sb.append(' ');
 
         // Building field 2: The turn owner
         if (player == 0) { sb.append('b'); }
