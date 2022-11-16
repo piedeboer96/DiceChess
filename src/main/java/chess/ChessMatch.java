@@ -49,8 +49,6 @@ public class ChessMatch extends Chessboard implements IChessMatch
     {
         super();
         factory = new Factory();
-        state = MatchState.ONGOING;
-
         // Interprets the fen-string of a new fresh game.
         interpret("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
     }
@@ -88,6 +86,10 @@ public class ChessMatch extends Chessboard implements IChessMatch
 
         // Interpreting the number of full moves that have been recorded.
         fullMoves = Integer.parseInt(fields[5]);
+
+        if (halfMoves >= 50) {
+            state = MatchState.DRAW;
+        } else { state= MatchState.ONGOING; }
     }
 
     /**
@@ -237,6 +239,10 @@ public class ChessMatch extends Chessboard implements IChessMatch
             System.out.println("piece is promotable");
         }
 
+        if (halfMoves >= 50) {
+            state = MatchState.DRAW;
+        }
+
         // Closing the play with giving the turn to the next player.
         nextPlayer();
     }
@@ -375,6 +381,10 @@ public class ChessMatch extends Chessboard implements IChessMatch
             PromotionScreen popup = new PromotionScreen(Window.instance,"choose promotion", this, piece);
             popup.setVisible(true);
             System.out.println("piece is promotable");
+        }
+
+        if (halfMoves >= 50) {
+            state = MatchState.DRAW;
         }
 
         // Closing the play with giving the turn to the next player.
