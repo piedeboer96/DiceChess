@@ -182,8 +182,21 @@ public class FitnessFunction {
      * is the number of pawns of Player A adjacent to Player A’s king. Pawn shield is
      * an important parameter for evaluating the king safety
      */
-    static int Kingpawnshield(IChessMatch match){
-        return 0;
+    static int Kingpawnshield(IChessMatch match) {
+        int count = 0;
+        IChessPiece king = match.getKing(match.getPlayer());
+        List<IChessboardSquare> zone = kingZone(king);
+        for (IChessboardSquare square : zone) {
+            IChessPiece piece = match.get(square);
+            if(piece instanceof Pawn && pieceInTeam(match,piece)) {
+                count++;
+                if(count>1){
+                    count=1;
+                    return count;
+                }
+            }
+        }
+        return count;
     }
 
     static int valueOfPiece(IChessPiece piece) {
@@ -448,7 +461,31 @@ public class FitnessFunction {
      * protected by other more valuable pieces
      */
     static int Isopawn(IChessMatch match){
-        return 0;
+        int count = 0;
+        for(int tempFile = 0; tempFile <= 7; tempFile++) {
+            for(int tempRank = 0; tempRank <= 7; tempRank++) {
+                IChessboardSquare squareTemp = new ChessboardSquare(tempFile, tempRank);
+                IChessPiece piece = match.get(squareTemp);
+                if(piece instanceof Pawn && pieceInTeam(match,piece)) {
+                    for (int secTempFile = tempFile-1; secTempFile < tempFile+1 ; secTempFile++) {
+                        for (int secTempRank = tempRank-1; secTempRank < tempRank+1; secTempRank++) {
+                            if(secTempFile!=tempFile && secTempRank!=tempRank){
+                                IChessboardSquare secSquareTemp = new ChessboardSquare(tempFile, tempRank);
+                                IChessPiece secPiece = match.get(squareTemp);
+                                if(secPiece instanceof Pawn && pieceInTeam(match,piece)){
+                                    count++;
+                                }
+                                else{
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (count>0) count = 1;
+        return count;
     }
 
     /**
