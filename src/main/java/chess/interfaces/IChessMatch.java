@@ -29,13 +29,6 @@ public interface IChessMatch extends IChessboard
     void interpret(String fen);
 
     /**
-     * Should be called when the current player has no more moves left.
-     * The match will then determine how it ended (Was it a checkmate or not).
-     **/
-    void onNoMovesLeft();
-
-
-    /**
      * Moves a chess piece from its current square to a destination square.
      * When done moving, gives the turn-to-play to the next player.
      * Remark: In order to use this function properly, see getLegalMoves(int team) from the IChessBoard interface
@@ -72,8 +65,8 @@ public interface IChessMatch extends IChessboard
     int  nextPlayer();
 
     /**
-     *
-     * @param team
+     * Checks whether a team has castled.
+     * @param team The team for which the castling should be checked.
      * @return true if team has castled
      */
     boolean hasCastled(int team);

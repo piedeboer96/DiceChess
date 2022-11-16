@@ -381,17 +381,6 @@ public class ChessMatch extends Chessboard implements IChessMatch
 //        nextPlayer();
     }
 
-    public void onNoMovesLeft()
-    {
-        if (playerIsCheckMated(player))
-        {
-            // If we are checked mated as black, then white must have won.
-            if (player == 0) { state = MatchState.WHITE_WON; }
-            // Else black must have won.
-            else { state = MatchState.BLACK_WON; }
-        } else { state = MatchState.DRAW; }
-    }
-
     public void promote(IChessPiece piece, char decision)
     {
         if (piece == null) { throw new IllegalArgumentException("Can not promote null."); }
@@ -509,7 +498,6 @@ public class ChessMatch extends Chessboard implements IChessMatch
         return sb.toString();
     }
     public boolean hasCastled(int team) {
-        if(castleMatrix[0][team] == false || castleMatrix[1][team] == false) return true;
-        return false;
+        return !castleMatrix[0][team] || !castleMatrix[1][team];
     }
 }
