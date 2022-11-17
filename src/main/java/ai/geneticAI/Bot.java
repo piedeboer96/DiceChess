@@ -37,12 +37,11 @@ import chess.utility.ChessboardSquare;
 public class Bot implements Comparable<Bot> {
     Chromosome chromosome;
     public int wins;
-    int currentPlayer;
+    int currentPlayer=0;
 
     public  Bot(){
         chromosome = new Chromosome();
         wins = 0;
-        currentPlayer=0;
     }
 
 

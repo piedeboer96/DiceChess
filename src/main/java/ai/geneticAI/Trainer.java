@@ -71,20 +71,27 @@ public class Trainer{
         match.loadKings();
         Bot[] bots = {bot1, bot2};
         Die die = new Die();
-        // play the simulation game between the two bots
         int iterations=0;
-        while (match.getState() == MatchState.ONGOING && iterations++ < 500) {
-            // rol and update move of bot
+        while (match.getState() == MatchState.ONGOING && iterations++ < 1000) {
             char rollOne = die.roll(match.getPlayer());
             char rollTwo = die.roll(match.getPlayer());
             IChessMove decision = bots[match.getPlayer()].bestMove(match, rollOne, rollTwo);
-
             match.playMove(decision.owner(), decision.possibilities().get(0));
         }
-        // return the winner
         System.out.println("GAME NUMBER "+ gameNumber++ +" IS OVER!");
-        if (match.getState() == MatchState.BLACK_WON) { return bots[0];}
-        else { return bots[1];}
+        if (match.getState() == MatchState.BLACK_WON) {
+            System.out.println("Black bot won");
+            return bots[0];}
+        else if(match.getState() == MatchState.WHITE_WON) {
+            System.out.println("White bot won");
+            return bots[1];}
+        else if(match.getState() == MatchState.DRAW){
+            System.out.println("Draw ");
+            return bots[1];}
+        else {
+            System.out.println(" there is no winner!");
+            return bots[0];
+        }
     }
 
 
@@ -132,7 +139,6 @@ public class Trainer{
         // select top bot (chromosome)
         Bot max = Collections.max(bots);
         int bestBot = bots.indexOf(max);
-        System.out.println("this is the best bot" + bots.get(bestBot));
         return bots.get(bestBot);
     }
 
