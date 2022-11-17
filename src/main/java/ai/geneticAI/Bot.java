@@ -109,7 +109,6 @@ public class Bot implements Comparable<Bot> {
                 }
             }
         }
-        if (moves.size() == 0) { return null; }
         return (ChessMove) moves.get(index);
     }
 

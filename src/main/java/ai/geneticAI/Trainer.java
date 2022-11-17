@@ -78,9 +78,7 @@ public class Trainer{
             char rollOne = die.roll(match.getPlayer());
             char rollTwo = die.roll(match.getPlayer());
             IChessMove decision = bots[match.getPlayer()].bestMove(match, rollOne, rollTwo);
-            if (decision == null) {
-                match.nextPlayer();
-                continue;}
+
             match.playMove(decision.owner(), decision.possibilities().get(0));
         }
         // return the winner
@@ -134,6 +132,7 @@ public class Trainer{
         // select top bot (chromosome)
         Bot max = Collections.max(bots);
         int bestBot = bots.indexOf(max);
+        System.out.println("this is the best bot" + bots.get(bestBot));
         return bots.get(bestBot);
     }
 
@@ -146,7 +145,6 @@ public class Trainer{
     // let the bots play against each other!
     public static void main(String[] args) {
         train();
-        System.out.println("Done!!");
     }
 
 

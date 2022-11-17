@@ -134,13 +134,7 @@ public class FitnessFunction {
         return weakSquares;
     }
 
-    /**
-     *  is the number of squares in Player A’s area that cannot be protected by Player A’s pawns.
-     */
-    public static int weakCount(IChessMatch match) {
-        if(weakSquares(match) == null) return 0;
-        return weakSquares(match).size();
-    }
+
 
     /**
      * is the number of knights of Player B that are in the weak squares of Player A.
@@ -540,23 +534,7 @@ public class FitnessFunction {
         return count;
     }
 
-    /**
-     * returns 1 if the neighboring pawns of a pawn are ahead of it. Backward pawns are
-     * the last pawn of a pawn chain and even though they are not isolated they can not be defended easily.
-     * So they are considered a disadvantage
-     */
-    public static int backwardPawn(IChessMatch match){
-        return 0;
-    }
 
-    /**
-     *  is the rank of the passed pawn. A passed pawn on rank 7 which means the pawn
-     * is one move away from promoting is a lot more dangerous compared to a passed pawn on its
-     * initial square. Passed pawns with higher ranks have higher priority thus they are an advantage
-     */
-    public static int rankPassedPawn(IChessMatch match){
-        return 0;
-    }
 
     /**
      * returns 1 if a central pawn on column e or d on its initial square is blocked by its own
@@ -800,6 +778,20 @@ public class FitnessFunction {
                 rookOnSeventh(match) * chromosome.data[16] +
                 kingAttacked(match) * chromosome.data[17] +
                 knightSupport(match) * chromosome.data[18] +
-                kingCastled(match) * chromosome.data[19];
+                kingCastled(match) * chromosome.data[19] +
+                enemyKnightOnWeak(match) * chromosome.data[20] +
+                rookOpenFile(match) * chromosome.data[21] +
+                rookCon(match) * chromosome.data[22] +
+                blockedPassedPawn(match) * chromosome.data[23] +
+                blockedPawn(match) * chromosome.data[24] +
+                doublePawn(match) * chromosome.data[25] +
+                rookBhdPassPawn(match) * chromosome.data[26] +
+                isoPawn(match) * chromosome.data[27] +
+                knightPeriphery3(match) * chromosome.data[28] +
+                knightPeriphery1(match) * chromosome.data[39] +
+                bishopPair(match) * chromosome.data[30] +
+                centerPawnCount(match) * chromosome.data[31];
+
+
     }
 }

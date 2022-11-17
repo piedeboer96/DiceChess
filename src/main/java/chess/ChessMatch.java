@@ -377,4 +377,5 @@ public class ChessMatch extends Chessboard implements IChessMatch
         if(castleMatrix[0][team] == false || castleMatrix[1][team] == false) return true;
         return false;
     }
+
 }
