@@ -96,17 +96,23 @@ public class Bot implements Comparable<Bot> {
             list.add(list2);
         }
         int max = 0;
-        int index = 0;
+        int indexOfBestMove = 0;
+        int indexOfBestDestination = 0;
         for (int i = 0; i < list.size(); i++) {
             List<Integer> list2 = list.get(i);
             for(int j =0; j < list2.size(); j++){
                 if(list2.get(j) > max){
                     max = list2.get(j);
-                    index = i;
+                    indexOfBestMove = i;
+                    indexOfBestDestination = j;
                 }
             }
         }
-        return (ChessMove) moves.get(index);
+        if (moves.size() == 0) { return null; }
+        IChessMove foundMaximumMove = moves.get(indexOfBestMove);
+        List<IChessboardSquare> bestMoveDestinations = new ArrayList<>();
+        bestMoveDestinations.add(foundMaximumMove.possibilities().get(indexOfBestDestination));
+        return new ChessMove(foundMaximumMove.owner(), bestMoveDestinations);
     }
 
 

@@ -76,6 +76,10 @@ public class Trainer{
             char rollOne = die.roll(match.getPlayer());
             char rollTwo = die.roll(match.getPlayer());
             IChessMove decision = bots[match.getPlayer()].bestMove(match, rollOne, rollTwo);
+            if(decision == null){
+                match.nextPlayer();
+                continue;
+            }
             match.playMove(decision.owner(), decision.possibilities().get(0));
         }
         System.out.println("GAME NUMBER "+ gameNumber++ +" IS OVER!");
