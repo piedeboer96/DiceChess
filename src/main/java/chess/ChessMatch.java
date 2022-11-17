@@ -490,6 +490,6 @@ public class ChessMatch extends Chessboard implements IChessMatch
         return sb.toString();
     }
     public boolean hasCastled(int team) {
-        return !castleMatrix[0][team] || !castleMatrix[1][team];
+        return castleMatrix[0][team] || castleMatrix[1][team];
     }
 }

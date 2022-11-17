@@ -32,6 +32,7 @@ public class JustShowChessBoard {
 		startPos = "8/P7/8/8/2K5/8/8/k7 w - - 0 1";
 		startPos = "rnbqkb1r/pppppppp/8/4n3/2B5/8/PPPP1PPP/RNBQK1NR w - - 0 1";
 		startPos = "rnbqkb1r/pppppppp/8/4n3/2B5/8/PPPP1PPP/RNBQK1NR w - - 0 1";
+		startPos = "1r6/2p3pp/p1p2k2/4p3/8/8/3N2B1/R1N1K2R w KQkq - 0 1";
 			
 			// Creating a new match.
 		ChessMatch match = new ChessMatch(startPos);
