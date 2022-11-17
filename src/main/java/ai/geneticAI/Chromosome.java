@@ -35,16 +35,16 @@ public class Chromosome {
 
     // cross over the two chromosomes by changing the first half of the first chromosome with the second half of the other chromosome
     void crossoverWith(Chromosome other) {
-        int[] chromosome1 = this.firstHalf(data);
-        int[] chromosome2 = other.lastHalf(data);
+        int[] firstHalfChromosome = this.firstHalf(data);
+        int[] secondHalfChromosome2 = other.lastHalf(data);
         int[] merge = new int[32];
         int count = 0;
 
-        for(int i=0; i < chromosome1.length; i++){
-            merge[i] = chromosome1[i];
+        for(int i=0; i < firstHalfChromosome.length; i++){
+            merge[i] = firstHalfChromosome[i];
             count++;
         }
-        for (int i : chromosome2) {
+        for (int i : secondHalfChromosome2) {
             merge[count] = i;
         }
         data = merge;
