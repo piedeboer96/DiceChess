@@ -86,14 +86,12 @@ public class Bot implements Comparable<Bot> {
         List<IChessMove> moves;
         List<List<Integer>> list = new ArrayList<>();
         moves = generateAllPossibleMoves(match, rollOne, rollTwo);
-        String state = match.toFen();
         for ( IChessMove move : moves) {
             List<Integer> list2 = new ArrayList<>();
             for (IChessboardSquare square : move.possibilities()) {
                 match.playMove(move.owner(), square);
                 int value = evaluateBoardState(match);
                 list2.add(value);
-                match.interpret(state);
             }
             list.add(list2);
         }
