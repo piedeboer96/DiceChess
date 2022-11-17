@@ -23,7 +23,7 @@ public class FitnessFunction {
     /**
      *  value is the number of pawns of the Player A
      */
-    static int pawnValue(IChessMatch match) {
+    public static int pawnValue(IChessMatch match) {
         List<IChessPiece> pieces = match.pieces();
         int count = 0;
         for(IChessPiece piece : pieces) {
@@ -37,7 +37,7 @@ public class FitnessFunction {
     /**
      *  value is the number of knight of the Player A
      */
-    static int knightValue(IChessMatch match){
+    public static int knightValue(IChessMatch match){
         List<IChessPiece> pieces = match.pieces();
         int count = 0;
         for(IChessPiece piece : pieces) {
@@ -51,7 +51,7 @@ public class FitnessFunction {
     /**
      *  value is the number of bishop of the Player A
      */
-    static int bishopValue(IChessMatch match) {
+    public static int bishopValue(IChessMatch match) {
         List<IChessPiece> pieces = match.pieces();
         int count = 0;
         for(IChessPiece piece : pieces) {
@@ -65,7 +65,7 @@ public class FitnessFunction {
     /**
      *  value is the number of rook of the Player A
      */
-    static int rookValue(IChessMatch match){
+    public static int rookValue(IChessMatch match){
         List<IChessPiece> pieces = match.pieces();
         int count = 0;
         for(IChessPiece piece : pieces) {
@@ -79,7 +79,7 @@ public class FitnessFunction {
     /**
      *  value is the number of queen of the Player A
      */
-    static int queenValue(IChessMatch match){
+    public static int queenValue(IChessMatch match){
         List<IChessPiece> pieces = match.pieces();
         int count = 0;
         for(IChessPiece piece : pieces) {
@@ -90,18 +90,17 @@ public class FitnessFunction {
         return count;
     }
 
-    static List<IChessboardSquare> weakSquares(IChessMatch match) {
+    public static List<IChessboardSquare> weakSquares(IChessMatch match) {
         List<IChessboardSquare> weakSquares = new ArrayList<>();
         int strongSquare = 0;
         int[][] checkingSquares = new int[3][8];
         for(int i = 0; i < checkingSquares.length; i++) {
             for(int j = 0; j < checkingSquares[0].length; j++) {
-                checkingSquares[i][j] = strongSquare;
+                if(j == 0 || j == 7) checkingSquares[i][j] = 1;
+                else checkingSquares[i][j] = strongSquare;
             }
         }
-        int team = match.getPlayer();
-        boolean teamIsBlack = team == 0;
-        List<IChessPiece> pieces = match.pieces();
+        boolean teamIsBlack = match.getPlayer() == 0;
         for(int fileTemp = 0; fileTemp <= 7; fileTemp++) {
             boolean pawnFront = false;
             for(int deltaRank = 0; deltaRank <= 2; deltaRank++) {
@@ -115,14 +114,18 @@ public class FitnessFunction {
                     weakRankTemp = 5 - deltaRank;
                 }
                 IChessPiece piece = match.get(squareTemp);
-                if(piece instanceof Pawn) pawnFront = true;
-                else if(!(piece instanceof Pawn) && piece != null) pawnFront = false;
+                if(piece instanceof Pawn && pieceInTeam(match,piece)) {
+                    pawnFront = true;
+                    if(piece.file() == 0 || piece.file() == 7) checkingSquares[deltaRank][piece.file()]--;
+                }
+                else if(piece != null) pawnFront = false;
                 if(!pawnFront) {
                     for(int jTemp = fileTemp - 1; jTemp <= fileTemp + 1; jTemp += 2) {
                         if(jTemp == -1 || jTemp == 8) continue;
+                        IChessboardSquare weakSquare = new ChessboardSquare(jTemp, weakRankTemp);
+                        if(match.get(weakSquare) instanceof Pawn && pieceInTeam(match,piece)) continue;
                         checkingSquares[deltaRank][jTemp]++;
                         if(checkingSquares[deltaRank][jTemp] == 2) {
-                            IChessboardSquare weakSquare = new ChessboardSquare(jTemp, weakRankTemp);
                             weakSquares.add(weakSquare);
                         }
                     }
@@ -135,7 +138,8 @@ public class FitnessFunction {
     /**
      *  is the number of squares in Player A’s area that cannot be protected by Player A’s pawns.
      */
-    static int Weakcount(IChessMatch match) {
+    public static int weakCount(IChessMatch match) {
+        if(weakSquares(match) == null) return 0;
         return weakSquares(match).size();
     }
 
@@ -144,8 +148,9 @@ public class FitnessFunction {
      * These weak squares are called outposts and best squares for knights because they can not be pushed
      * back by enemy pawns
      */
-    static int Enemyknightonweak(IChessMatch match) {
+    public static int enemyKnightOnWeak(IChessMatch match) {
         int count = 0;
+        if(weakSquares(match) == null) return 0;
         List<IChessboardSquare> weakSquares = weakSquares(match);
         for(IChessboardSquare weakSquare : weakSquares) {
             IChessPiece piece = match.get(weakSquare);
@@ -162,7 +167,7 @@ public class FitnessFunction {
      * is the number of pawns of Player A that are in squares e4,e5,d4 or d5. Center
      * pawns are important for controlling the center and decreasing enemy mobility
      */
-    static int Centerpawncount(IChessMatch match){
+    public static int centerPawnCount(IChessMatch match){
         List<IChessPiece> pieces = match.pieces();
         int count = 0;
         IChessboardSquare squareTemp;
@@ -182,7 +187,7 @@ public class FitnessFunction {
      * is the number of pawns of Player A adjacent to Player A’s king. Pawn shield is
      * an important parameter for evaluating the king safety
      */
-    static int Kingpawnshield(IChessMatch match) {
+    public static int kingPawnShield(IChessMatch match) {
         int count = 0;
         IChessPiece king = match.getKing(match.getPlayer());
         List<IChessboardSquare> zone = kingZone(king);
@@ -190,16 +195,13 @@ public class FitnessFunction {
             IChessPiece piece = match.get(square);
             if(piece instanceof Pawn && pieceInTeam(match,piece)) {
                 count++;
-                if(count>1){
-                    count=1;
-                    return count;
-                }
             }
         }
         return count;
     }
 
-    static int valueOfPiece(IChessPiece piece) {
+    /*
+    public static int valueOfPiece(IChessPiece piece) {
         if(piece instanceof Pawn) {
             return chromosome.data[0];
         } else if(piece instanceof Knight) {
@@ -211,7 +213,7 @@ public class FitnessFunction {
         } else {
             return chromosome.data[4];
         }
-    }
+    } */
 
     /**
      * returns adjacent squares of king
@@ -231,13 +233,13 @@ public class FitnessFunction {
         return kingZone;
     }
 
-    static int KingattackedDefended(IChessMatch match, boolean isAttacking) {
+    public static int kingAttackedDefended(IChessMatch match, boolean isAttacking) {
         IChessPiece king = match.getKing(match.getPlayer());
         int kingRank = king.rank();
         int kingFile = king.file();
         List<IChessPiece> pieces = match.pieces();
         List<IChessboardSquare> kingZone = kingZone(king);
-        int valueOfAttacks = 0;
+        int count = 0;
         boolean pieceInTeam;
         for(IChessPiece piece : pieces) {
             if(isAttacking) pieceInTeam = !pieceInTeam(match,piece);
@@ -248,36 +250,36 @@ public class FitnessFunction {
                 for(IChessMove move : pieceMoves) {
                     for(IChessboardSquare adjacentSquare : kingZone) {
                         if(move.canReach(adjacentSquare)) {
-                            valueOfAttacks += valueOfPiece(piece);
+                            count++;
                             break outerloop;
                         }
                     }
                 }
             }
         }
-        return valueOfAttacks;
+        return count;
     }
 
     /**
-     *  is the material value of the pieces of the enemy that are acting on ones king’s adjacent
+     *  is the number of pieces of the enemy that are acting on ones king’s adjacent
      * squares
      */
-    static int Kingattacked(IChessMatch match) {
-        return KingattackedDefended(match, true);
+    public static int kingAttacked(IChessMatch match) {
+        return kingAttackedDefended(match, true);
     }
 
     /**
-     * is the material value of the pieces of the Player A that are acting on Player A’s king’s
+     * is the number of pieces of the Player A that are acting on Player A’s king’s
      * adjacent squares
      */
-    static int Kingdefended(IChessMatch match){
-        return KingattackedDefended(match, false);
+    public static int kingDefended(IChessMatch match){
+        return kingAttackedDefended(match, false);
     }
 
     /**
      * returns 1 if Player A is castled to measure king safety
      */
-    static int Kingcastled(IChessMatch match) {
+    public static int kingCastled(IChessMatch match) {
         if (match.hasCastled(match.getPlayer())) return 1;
         return 0;
     }
@@ -286,7 +288,7 @@ public class FitnessFunction {
      * is the number of squares that a bishop can go to. This type of parameters are calculated
      * seperately for each bishop
      */
-    static int Bishopmob(IChessMatch match) {
+    public static int bishopMob(IChessMatch match) {
         int count = 0;
         List<IChessPiece> pieces = match.pieces();
         for(IChessPiece piece : pieces) {
@@ -305,18 +307,16 @@ public class FitnessFunction {
      * of the board. Bishops are stronger on the large diagonals because they have higher mobility and
      * they are reaching the two central squares simultaneously controlling the center
      */
-    static int Bishoponlarge(IChessMatch match) {
+    public static int bishopOnLarge(IChessMatch match) {
         int count = 0;
-        int team = match.getPlayer();
         for(int i = 7, j = 0; i >= 0 && j <= 7; i--, j++) {
-            IChessboardSquare square1 = new ChessboardSquare(i, j);
+            IChessboardSquare square1 = new ChessboardSquare(j, j);
             IChessboardSquare square2 = new ChessboardSquare(j, i);
             IChessPiece pieceOn1 = match.get(square1);
             IChessPiece pieceOn2 = match.get(square2);
-            if((pieceOn1 instanceof Bishop && pieceInTeam(match,pieceOn1)) || (pieceOn2 instanceof Bishop && pieceInTeam(match,pieceOn2)) ) {
-                count++;
-                if(count == 2) return count;
-            }
+            if((pieceOn1 instanceof Bishop && pieceInTeam(match,pieceOn1))) count++;
+            if(pieceOn2 instanceof Bishop && pieceInTeam(match,pieceOn2)) count++;
+            if(count == 2) return count;
         }
         return count;
     }
@@ -327,14 +327,14 @@ public class FitnessFunction {
      * square. Bishop pairs are especially strong in open positions where there are no central pawns and
      * the bishops can move freely to create threats
      */
-    static int Bishoppair(IChessMatch match) {
+    public static int bishopPair(IChessMatch match) {
         return (bishopValue(match) >= 2)? 1 : 0;
     }
 
     /**
      *  is the number of squares that a specific knight can go to.
      */
-    static int Knightmob(IChessMatch match) {
+    public static int knightMob(IChessMatch match) {
         int count = 0;
         List<IChessPiece> pieces = match.pieces();
         for(IChessPiece piece : pieces) {
@@ -354,7 +354,7 @@ public class FitnessFunction {
      * supported they can stay in an important position for a long number of moves making it harder for
      * the opponent to play around it
      */
-    static int Knightsupport(IChessMatch match){
+    public static int knightSupport(IChessMatch match) {
         List<IChessPiece> pieces = match.pieces();
         boolean isTeamBlack = match.getPlayer() == 0;
         int count = 0;
@@ -370,7 +370,7 @@ public class FitnessFunction {
     /**
      * @return 1 if knight is protected by pawn and 0 otherwise
      */
-    static int knightProtected(IChessMatch match, IChessPiece piece, int deltaRank) {
+    public static int knightProtected(IChessMatch match, IChessPiece piece, int deltaRank) {
         IChessboardSquare square1 = null;
         IChessboardSquare square2 = null;
         int count = 0;
@@ -388,7 +388,7 @@ public class FitnessFunction {
         return count;
     }
 
-    static int Knightperiphery(IChessMatch match, int[] bounds) {
+    private static int knightPeriphery(IChessMatch match, int[] bounds) {
         int count = 0;
         int rank = bounds[0];
         while(rank != -1) {
@@ -426,33 +426,33 @@ public class FitnessFunction {
      *  returns 1 if a given knight is on the squares a1 to a8,a8 to h8,a1 to h1 or h1 to h8.
      * This is the outest periphery and most of the times knights on these squares are weaker
      */
-    static int Knightperiphery0(IChessMatch match) {
+    public static int knightPeriphery0(IChessMatch match) {
         int[] bounds = {0, 7};
-        return Knightperiphery(match, bounds);
+        return knightPeriphery(match, bounds);
     }
 
     /**
      *returns 1 if a given knight is on the squares b2 to b7,b7 to g7,b2 to g2 or g2 to g7.
      */
-    static int Knightperiphery1(IChessMatch match){
+    public static int knightPeriphery1(IChessMatch match){
         int[] bounds = {1, 6};
-        return Knightperiphery(match, bounds);
+        return knightPeriphery(match, bounds);
     }
 
     /**
      *  returns 1 if a given knight is on the squares c3 to c6,c6 to f6,c3 to f3 or f3 to f6
      */
-    static int Knightperiphery2(IChessMatch match) {
+    public static int knightPeriphery2(IChessMatch match) {
         int[] bounds = {2, 5};
-        return Knightperiphery(match, bounds);
+        return knightPeriphery(match, bounds);
     }
 
     /**
      *  returns 1 if a given knight is on the squares e4, e5,d4 or d5
      */
-    static int Knightperiphery3(IChessMatch match){
+    public static int knightPeriphery3(IChessMatch match){
         int[] bounds = {3, 4};
-        return Knightperiphery(match, bounds);
+        return knightPeriphery(match, bounds);
     }
 
     /**
@@ -460,31 +460,23 @@ public class FitnessFunction {
      * are generally considered as a weakness since they cannot be protected by pawns so they should be
      * protected by other more valuable pieces
      */
-    static int Isopawn(IChessMatch match){
+    public static int isoPawn(IChessMatch match) {
         int count = 0;
-        for(int tempFile = 0; tempFile <= 7; tempFile++) {
-            for(int tempRank = 0; tempRank <= 7; tempRank++) {
-                IChessboardSquare squareTemp = new ChessboardSquare(tempFile, tempRank);
-                IChessPiece piece = match.get(squareTemp);
-                if(piece instanceof Pawn && pieceInTeam(match,piece)) {
-                    for (int secTempFile = tempFile-1; secTempFile < tempFile+1 ; secTempFile++) {
-                        for (int secTempRank = tempRank-1; secTempRank < tempRank+1; secTempRank++) {
-                            if(secTempFile!=tempFile && secTempRank!=tempRank){
-                                IChessboardSquare secSquareTemp = new ChessboardSquare(tempFile, tempRank);
-                                IChessPiece secPiece = match.get(squareTemp);
-                                if(secPiece instanceof Pawn && pieceInTeam(match,piece)){
-                                    count++;
-                                }
-                                else{
-                                    continue;
-                                }
-                            }
-                        }
+        List<IChessPiece> pieces = match.pieces();
+        List<IChessPiece> pawnPieces = match.pieces();
+        boolean isTeamBlack = match.getPlayer() == 0;
+        for(IChessPiece piece : pieces) {
+            if(piece instanceof Pawn && pieceInTeam(match,piece)) {
+                boolean hasNeighborPawn = false;
+                for(int tempFile = piece.file() - 1; tempFile <= piece.file() + 1; tempFile++) {
+                    if(tempFile < 0 || tempFile > 7 || tempFile == piece.file()) continue;
+                    for(IChessPiece pawnPiece : pawnPieces) {
+                        if(pawnPiece instanceof Pawn && pieceInTeam(match,pawnPiece) && pawnPiece.file() == tempFile) hasNeighborPawn = true;
                     }
                 }
+                if(!hasNeighborPawn) count++;
             }
         }
-        if (count>0) count = 1;
         return count;
     }
 
@@ -492,7 +484,7 @@ public class FitnessFunction {
      *  returns 1 if a pawn is doubled pawn. Doubled pawns are considered a disadvantage as
      * they blocked each other, and they are vulnerable to attacks
      */
-    static int Doublepawn(IChessMatch match) {
+    public static int doublePawn(IChessMatch match) {
         int count = 0;
         boolean[] pawnInFile = {false, false, false, false, false, false, false, false};
         List<IChessPiece> pieces = match.pieces();
@@ -505,40 +497,35 @@ public class FitnessFunction {
         return count;
     }
 
+    private static List<IChessPiece> passPawns(IChessMatch match) {
+        List<IChessPiece> passPawns = new ArrayList<>();
+        boolean isTeamBlack = match.getPlayer() == 0;
+        List<IChessPiece> pieces = match.pieces();
+        List<IChessPiece> enemyPawnPieces = match.pieces();
+        for(IChessPiece piece : pieces) {
+            if(piece instanceof Pawn && pieceInTeam(match, piece)) {
+                boolean isPassPawn = true;
+                for(IChessPiece enemyPawnPiece : enemyPawnPieces) {
+                    if(isTeamBlack) {
+                        if(enemyPawnPiece instanceof Pawn && !pieceInTeam(match, enemyPawnPiece) && enemyPawnPiece.rank() > piece.rank() && (enemyPawnPiece.file() >= piece.file() - 1 && enemyPawnPiece.file() <= piece.file() + 1)) isPassPawn = false;
+                    } else {
+                        if(enemyPawnPiece instanceof Pawn && !pieceInTeam(match, enemyPawnPiece) && enemyPawnPiece.rank() < piece.rank() && (enemyPawnPiece.file() >= piece.file() - 1 && enemyPawnPiece.file() <= piece.file() + 1)) isPassPawn = false;
+                    }
+                }
+                if(isPassPawn) passPawns.add(piece);
+            }
+        }
+        return passPawns;
+    }
+
     /**
      *  returns 1 if for a given pawn there are no opposing pawns of the enemy on the neighboring
      * columns and on the given pawn’s column ahead of the pawn. If a pawn is passed it is big threat for
      * the opponent because they are no pawns on the way to prevent it from promoting
      */
-    static int Passpawn(IChessMatch match) {
-        int count = 0;
-        boolean isTeamBlack = match.getPlayer() == 0;
-        boolean[] enemyPawnFiles = new boolean[8];
-        int[] enemyPawnRanks = new int[8];
-        List<IChessPiece> pieces = match.pieces();
-        for(IChessPiece piece : pieces) {
-            if(piece instanceof Pawn && !pieceInTeam(match, piece)) {
-                enemyPawnFiles[piece.file()] = true;
-                enemyPawnRanks[piece.file()] = piece.rank();
-            }
-        }
-        int countTemp = 0;
-        for(int i = 0; i <= 7; i++) {
-            if(enemyPawnFiles[i] == false) countTemp++;
-            else countTemp = 0;
-            if(countTemp == 3) break;
-        }
-        if(countTemp < 3) return 0;
-        for(IChessPiece piece : pieces) {
-            if(piece instanceof Pawn && pieceInTeam(match, piece)) {
-                if(isTeamBlack) {
-                    if((piece.file() == 0 || enemyPawnFiles[piece.file() - 1] == false || enemyPawnRanks[piece.file() - 1] <= piece.rank()) && (enemyPawnFiles[piece.file()] == false || enemyPawnRanks[piece.file()] <= piece.rank()) && (piece.file() == 7 || enemyPawnFiles[piece.file() + 1] == false || enemyPawnRanks[piece.file() + 1] <= piece.rank())) count++;
-                } else {
-                    if((piece.file() == 0 || enemyPawnFiles[piece.file() - 1] == false || enemyPawnRanks[piece.file() - 1] >= piece.rank()) && (enemyPawnFiles[piece.file()] == false || enemyPawnRanks[piece.file()] >= piece.rank()) && (piece.file() == 7 || enemyPawnFiles[piece.file() + 1] == false || enemyPawnRanks[piece.file() + 1] >= piece.rank())) count++;
-                }
-            }
-        }
-        return count;
+    public static int passPawn(IChessMatch match) {
+        if(passPawns(match) == null) return 0;
+        return passPawns(match).size();
     }
 
     /**
@@ -546,8 +533,26 @@ public class FitnessFunction {
      * behind a passed pawn it is easier to push to pawn forward as it is always protected by the rook and
      * rook never gets in the way
      */
-    static int Rookbhdpasspawn(IChessMatch match){
-        return 0;
+    public static int rookBhdPassPawn(IChessMatch match) {
+        if(passPawns(match) == null) return 0;
+        int count = 0;
+        List<IChessPiece> passPawns = passPawns(match);
+        List<IChessPiece> pieces = match.pieces();
+        boolean isTeamBlack = match.getPlayer() == 0;
+        for(IChessPiece piece : pieces) {
+            if(piece instanceof Rook && pieceInTeam(match,piece)) {
+                for(IChessPiece passPawn : passPawns) {
+                    if(piece.file() == passPawn.file()) {
+                        if(isTeamBlack) {
+                            if(piece.rank() < passPawn.rank()) count++;
+                        } else {
+                            if(piece.rank() > passPawn.rank()) count++;
+                        }
+                    }
+                }
+            }
+        }
+        return count;
     }
 
     /**
@@ -555,7 +560,7 @@ public class FitnessFunction {
      * the last pawn of a pawn chain and even though they are not isolated they can not be defended easily.
      * So they are considered a disadvantage
      */
-    static int Backwardpawn(IChessMatch match){
+    public static int backwardPawn(IChessMatch match){
         return 0;
     }
 
@@ -564,7 +569,7 @@ public class FitnessFunction {
      * is one move away from promoting is a lot more dangerous compared to a passed pawn on its
      * initial square. Passed pawns with higher ranks have higher priority thus they are an advantage
      */
-    static int Rankpassedpawn(IChessMatch match){
+    public static int rankPassedPawn(IChessMatch match){
         return 0;
     }
 
@@ -572,11 +577,11 @@ public class FitnessFunction {
      * returns 1 if a central pawn on column e or d on its initial square is blocked by its own
      * piece which severely decreases the mobility of the pieces
      */
-    static int Blockedpawn(IChessMatch match) {
+    public static int blockedPawn(IChessMatch match) {
         int count = 0;
         boolean blackTeam = match.getPlayer() == 0;
         int rank;
-        if(match.getPlayer() == 0) rank = 1;
+        if(blackTeam) rank = 1;
         else rank = 6;
         List<IChessboardSquare> squares = new ArrayList<>();
         squares.add(new ChessboardSquare(3, rank));
@@ -588,12 +593,13 @@ public class FitnessFunction {
         return count;
     }
 
-    static boolean isPawnBlocked(IChessMatch match, boolean blackTeam, int file) {
+    public static boolean isPawnBlocked(IChessMatch match, boolean blackTeam, int file) {
         int rank;
         if(blackTeam) rank = 2;
         else rank = 5;
         IChessboardSquare square = new ChessboardSquare(file, rank);
-        if(match.get(square) != null) return true;
+        IChessPiece pieceOnSquare = match.get(square);
+        if(pieceOnSquare != null && pieceInTeam(match, pieceOnSquare)) return true;
         return false;
     }
 
@@ -603,35 +609,74 @@ public class FitnessFunction {
      * pawn on a4 is not blocked by any black pieces. If it is pushed to a5 however it will be considered
      * blocked because there is a black knight on a6
      */
-    static int Blockedpassedpawn(IChessMatch match){
-        return 0;
+    public static int blockedPassedPawn(IChessMatch match) {
+        int count = 0;
+        boolean isTeamBlack = match.getPlayer() == 0;
+        List<IChessPiece> passPawns = passPawns(match);
+        for(IChessPiece passPawn : passPawns) {
+            if(isTeamBlack && passPawn.rank() != 7) {
+                IChessboardSquare square = new ChessboardSquare(passPawn.file(), passPawn.rank() + 1);
+                IChessPiece pieceOnSquare = match.get(square);
+                if(pieceOnSquare != null && !pieceInTeam(match, pieceOnSquare)) count++;
+            } else if(!isTeamBlack && passPawn.rank() != 0) {
+                IChessboardSquare square = new ChessboardSquare(passPawn.file(), passPawn.rank() - 1);
+                IChessPiece pieceOnSquare = match.get(square);
+                if(pieceOnSquare != null && !pieceInTeam(match, pieceOnSquare)) count++;
+            }
+        }
+        return count;
     }
 
     /**
      * returns 1 if a given rook is on a file with no pawns from either side. Rooks are stronger
      * on open columns because they can move freely
      */
-    static int Rookopenfile(IChessMatch match){
-        return 0;
+    public static int rookOpenFile(IChessMatch match){
+        List<IChessPiece> pieces = match.pieces();
+        int count = 0;
+        for(IChessPiece piece : pieces) {
+            if (piece instanceof Rook && pieceInTeam(match,piece)) {
+                int rookFile = piece.file();
+                boolean rookOnOpenFile = true;
+                for(int rankTemp = 0; rankTemp <= 7; rankTemp++) {
+                    if(rankTemp == piece.rank()) continue;
+                    IChessboardSquare squareTemp = new ChessboardSquare(rookFile, rankTemp);
+                    if(match.get(squareTemp) instanceof Pawn) {
+                        rookOnOpenFile = false;
+                        break;
+                    }
+                }
+                if(rookOnOpenFile) {
+                    count++;
+                    if(count == 2) return count;
+                }
+            }
+        }
+        return count;
     }
 
     /**
      * returns 1 if a given rook is on a file with no pawns from its own side. Rooks are
      * strong on semi-open files as well
      */
-    static int Rooksemiopenfile(IChessMatch match) {
+    public static int rookSemiOpenFile(IChessMatch match) {
         List<IChessPiece> pieces = match.pieces();
         int count = 0;
         for(IChessPiece piece : pieces) {
             if (piece instanceof Rook && pieceInTeam(match,piece)) {
                 int rookFile = piece.file();
+                boolean rookOnSemiOpenFile = true;
                 for(int rankTemp = 0; rankTemp <= 7; rankTemp++) {
                     if(rankTemp == piece.rank()) continue;
                     IChessboardSquare squareTemp = new ChessboardSquare(rookFile, rankTemp);
-                    if(!(match.get(squareTemp) instanceof Pawn) || !(pieceInTeam(match,piece))) continue;
+                    if(match.get(squareTemp) instanceof Pawn && pieceInTeam(match,match.get(squareTemp))) {
+                        rookOnSemiOpenFile = false;
+                        break;
+                    }
+                }
+                if(rookOnSemiOpenFile) {
                     count++;
                     if(count == 2) return count;
-                    break;
                 }
             }
         }
@@ -643,27 +688,27 @@ public class FitnessFunction {
      * files are considered a disadvantage as they have lower file mobility and no access to the important
      * squares of the game especially in the middlegame and endgame.
      */
-    static int Rookclosedfile(IChessMatch match){
+    public static int rookClosedFile(IChessMatch match){
         List<IChessPiece> pieces = match.pieces();
         int count = 0;
         for(IChessPiece piece : pieces) {
             if (piece instanceof Rook && pieceInTeam(match,piece)) {
-                int rookFile = piece.file();
-                boolean pawnTeam = false;
-                boolean pawnOpponent = false;
+                boolean friendPawnOnfile = false;
+                boolean enemyPawnOnfile = false;
                 for(int rankTemp = 0; rankTemp <= 7; rankTemp++) {
                     if(rankTemp == piece.rank()) continue;
-                    IChessboardSquare squareTemp = new ChessboardSquare(rookFile, rankTemp);
-                    if((match.get(squareTemp) instanceof Pawn) && pieceInTeam(match,piece)) {
-                        pawnTeam = true;
-                    } else if((match.get(squareTemp) instanceof Pawn) && !pieceInTeam(match,piece)) {
-                        pawnOpponent = true;
-                    }
-                    if(pawnTeam && pawnOpponent) {
-                        count++;
-                        if(count == 2) return count;
+                    IChessboardSquare squareTemp = new ChessboardSquare(piece.file(), rankTemp);
+                    IChessPiece pieceOnSquare = match.get(squareTemp);
+                    if(pieceOnSquare instanceof Pawn) {
+                        if(pieceInTeam(match,pieceOnSquare)) friendPawnOnfile = true;
+                        else enemyPawnOnfile = true;
+                        if(friendPawnOnfile && enemyPawnOnfile) {
+                            count++;
+                            break;
+                        }
                     }
                 }
+                if(count == 2) return count;
             }
         }
         return count;
@@ -674,7 +719,7 @@ public class FitnessFunction {
      * that would be the rank 7 for black rank 2. Rooks on seventh rank are dangerous and a classical
      * theme in chess for creating major threats at once
      */
-    static int Rookonseventh(IChessMatch match) {
+    public static int rookOnSeventh(IChessMatch match) {
         int count = 0;
         int seventhRank;
         if(match.getPlayer() == 0) { seventhRank = 7;
@@ -694,7 +739,7 @@ public class FitnessFunction {
     /**
      * returns the number of squares a rook can move to.
      */
-    static int Rookmob(IChessMatch match) {
+    public static int rookMob(IChessMatch match) {
         int count = 0;
         List<IChessPiece> pieces = match.pieces();
         for(IChessPiece piece : pieces) {
@@ -713,7 +758,7 @@ public class FitnessFunction {
      * same file or on the same rank. Connected rooks defend each other to create threats in the opposition
      * area because they cannot be captured by queen or king
      */
-    static int Rookcon(IChessMatch match) {
+    public static int rookCon(IChessMatch match) {
         List<IChessPiece> pieces = match.pieces();
         IChessPiece rook1 = null;
         IChessPiece rook2 = null;
@@ -734,7 +779,7 @@ public class FitnessFunction {
     /**
      * returns the number of squares a queen can move to
      */
-    static int Queenmob(IChessMatch match) {
+    public static int queenMob(IChessMatch match) {
         int count = 0;
         List<IChessPiece> pieces = match.pieces();
         for(IChessPiece piece : pieces) {
@@ -756,20 +801,20 @@ public class FitnessFunction {
                 bishopValue(match) * chromosome.data[2] +
                 rookValue(match) * chromosome.data[3] +
                 queenValue(match) * chromosome.data[4] +
-                Weakcount(match) * chromosome.data[5] +
-                Enemyknightonweak(match) * chromosome.data[6] +
-                Centerpawncount(match) * chromosome.data[7] +
-                Kingpawnshield(match) * chromosome.data[8] +
-                Kingattacked(match) * chromosome.data[9] +
-                Kingdefended(match) * chromosome.data[10] +
-                Kingcastled(match) * chromosome.data[11] +
-                Bishopmob(match) * chromosome.data[12] +
-                Bishoponlarge(match) * chromosome.data[13] +
-                Bishoppair( match) * chromosome.data[14] +
-                Knightmob(match) * chromosome.data[15] +
-                Knightsupport(match) * chromosome.data[16] +
-                Knightperiphery0(match) * chromosome.data[17] +
-                Knightperiphery1(match) * chromosome.data[18] +
-                Knightperiphery2(match) * chromosome.data[19];
+                bishopMob(match) * chromosome.data[5] +
+                rookMob(match) * chromosome.data[6] +
+                passPawn(match) * chromosome.data[7] +
+                kingPawnShield(match) * chromosome.data[8] +
+                bishopOnLarge(match) * chromosome.data[9] +
+                rookSemiOpenFile(match) * chromosome.data[10] +
+                knightMob(match) * chromosome.data[11] +
+                knightPeriphery0(match) * chromosome.data[12] +
+                rookClosedFile(match) * chromosome.data[13] +
+                knightPeriphery2(match) * chromosome.data[14] +
+                queenMob(match) * chromosome.data[15] +
+                rookOnSeventh(match) * chromosome.data[16] +
+                kingAttacked(match) * chromosome.data[17] +
+                knightSupport(match) * chromosome.data[18] +
+                kingCastled(match) * chromosome.data[19];
     }
 }
