@@ -237,6 +237,10 @@ public class ChessMatch extends Chessboard implements IChessMatch
             System.out.println("piece is promotable");
         }
 
+        if(halfMoves >= 50){
+            state = MatchState.DRAW;
+        }
+
         // Closing the play with giving the turn to the next player.
         nextPlayer();
     }

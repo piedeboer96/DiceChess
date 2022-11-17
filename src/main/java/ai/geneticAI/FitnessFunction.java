@@ -12,7 +12,6 @@ public class FitnessFunction {
     static Chromosome chromosome = new Chromosome();
 
 
-    // TODO: initialize the body of the functions
 
     private static boolean pieceInTeam(IChessMatch match, IChessPiece piece) {
         if(piece == null) return false;
@@ -200,20 +199,6 @@ public class FitnessFunction {
         return count;
     }
 
-    /*
-    public static int valueOfPiece(IChessPiece piece) {
-        if(piece instanceof Pawn) {
-            return chromosome.data[0];
-        } else if(piece instanceof Knight) {
-            return chromosome.data[1];
-        } else if(piece instanceof Bishop) {
-            return chromosome.data[2];
-        } else if(piece instanceof Rook) {
-            return chromosome.data[3];
-        } else {
-            return chromosome.data[4];
-        }
-    } */
 
     /**
      * returns adjacent squares of king
@@ -424,7 +409,7 @@ public class FitnessFunction {
 
     /**
      *  returns 1 if a given knight is on the squares a1 to a8,a8 to h8,a1 to h1 or h1 to h8.
-     * This is the outest periphery and most of the times knights on these squares are weaker
+     * This is the outest periphery and most of the time knights on these squares are weaker
      */
     public static int knightPeriphery0(IChessMatch match) {
         int[] bounds = {0, 7};

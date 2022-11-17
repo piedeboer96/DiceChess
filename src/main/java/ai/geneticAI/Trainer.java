@@ -1,6 +1,7 @@
 package ai.geneticAI;
-import ai.easyrules.BoardAction;
 import chess.ChessMatch;
+import chess.MatchState;
+import chess.interfaces.IChessMove;
 import gui.die.Die;
 import java.util.*;
 
@@ -12,9 +13,8 @@ public class Trainer{
     static final int population = 20; // population
     static final int generations = 100; // generation
     static final double mutateFactor = 0.007; // mutation factor
+    static int gameNumber = 1;
 
-
-    public Trainer() {}
 
 
     /**
@@ -27,6 +27,7 @@ public class Trainer{
     }
 
 
+
     /**
      *
      */
@@ -35,6 +36,7 @@ public class Trainer{
         crossover();
         mutation();
     }
+
 
 
     /**
@@ -57,46 +59,34 @@ public class Trainer{
     }
 
 
+
     /**
-     *
-     * @param bot1
-     * @param bot2
-     * @return
+     * @param bot1 first player (Black player)
+     * @param bot2 second player (White player)
+     * @return the winner between these two players
      */
     private static Bot matchBots(Bot bot1, Bot bot2) {
-        // switch between the bots and see who is the current one to organise the move turn between them
-        Bot[] botNum = {bot1, bot2};
-        // full pieces
         String startPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-        //
-        Die die = new Die();
-        // Creating a new match.
         ChessMatch match = new ChessMatch(startPos);
         match.loadKings();
-        //play the game
-        int currentPlayer;
-        int i = 0;
-        int maxMove = 1000;
-        try {
-            while (i++ < maxMove) {
-                currentPlayer= match.getPlayer();
-                char rollOne = die.roll(currentPlayer);
-                char rollTwo = die.roll(currentPlayer);
-                bot1 = botNum[0];
-                bot2= botNum[1];
-                BoardAction play1 = bot1.play().action;
-                BoardAction play2 = bot2.play().action;
-                if(play1 == BoardAction.FINISH_MATCH || play2 == BoardAction.FINISH_MATCH ){
-                    break;
-                }
-            }
-        } catch(IllegalArgumentException e){System.out.println("GAME IS OVER!!");}
-        // check out which player stays till the end
-        if(match.getPlayer() == 0){
-            return bot1;
-        }else{
-            return bot2;
+        Bot[] bots = {bot1, bot2};
+        Die die = new Die();
+        // play the simulation game between the two bots
+        int iterations=0;
+        while (match.getState() == MatchState.ONGOING && iterations++ < 500) {
+            // rol and update move of bot
+            char rollOne = die.roll(match.getPlayer());
+            char rollTwo = die.roll(match.getPlayer());
+            IChessMove decision = bots[match.getPlayer()].bestMove(match, rollOne, rollTwo);
+            if (decision == null) {
+                match.nextPlayer();
+                continue;}
+            match.playMove(decision.owner(), decision.possibilities().get(0));
         }
+        // return the winner
+        System.out.println("GAME NUMBER "+ gameNumber++ +" IS OVER!");
+        if (match.getState() == MatchState.BLACK_WON) { return bots[0];}
+        else { return bots[1];}
     }
 
 
@@ -114,6 +104,8 @@ public class Trainer{
             }
         }
     }
+
+
 
 
     /**
@@ -154,6 +146,7 @@ public class Trainer{
     // let the bots play against each other!
     public static void main(String[] args) {
         train();
+        System.out.println("Done!!");
     }
 
 
