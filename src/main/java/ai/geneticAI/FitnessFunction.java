@@ -200,6 +200,7 @@ public class FitnessFunction {
         return count;
     }
 
+    /*
     public static int valueOfPiece(IChessPiece piece) {
         if(piece instanceof Pawn) {
             return chromosome.data[0];
@@ -212,7 +213,7 @@ public class FitnessFunction {
         } else {
             return chromosome.data[4];
         }
-    }
+    } */
 
     /**
      * returns adjacent squares of king
@@ -238,7 +239,7 @@ public class FitnessFunction {
         int kingFile = king.file();
         List<IChessPiece> pieces = match.pieces();
         List<IChessboardSquare> kingZone = kingZone(king);
-        int valueOfAttacks = 0;
+        int count = 0;
         boolean pieceInTeam;
         for(IChessPiece piece : pieces) {
             if(isAttacking) pieceInTeam = !pieceInTeam(match,piece);
@@ -249,18 +250,18 @@ public class FitnessFunction {
                 for(IChessMove move : pieceMoves) {
                     for(IChessboardSquare adjacentSquare : kingZone) {
                         if(move.canReach(adjacentSquare)) {
-                            valueOfAttacks += valueOfPiece(piece);
+                            count++;
                             break outerloop;
                         }
                     }
                 }
             }
         }
-        return valueOfAttacks;
+        return count;
     }
 
     /**
-     *  is the material value of the pieces of the enemy that are acting on ones king’s adjacent
+     *  is the number of pieces of the enemy that are acting on ones king’s adjacent
      * squares
      */
     public static int kingAttacked(IChessMatch match) {
@@ -268,7 +269,7 @@ public class FitnessFunction {
     }
 
     /**
-     * is the material value of the pieces of the Player A that are acting on Player A’s king’s
+     * is the number of pieces of the Player A that are acting on Player A’s king’s
      * adjacent squares
      */
     public static int kingDefended(IChessMatch match){
