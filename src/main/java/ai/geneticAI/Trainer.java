@@ -136,6 +136,7 @@ public class Trainer{
             for (int i = 0; i < bots.size(); i++) {
                 for (int j = i + 1; j < bots.size(); j++) {
                     if (i != j) {
+                        ////
                         matchBots(bots.get(i), bots.get(j)).wins++;
                     }
                 }
