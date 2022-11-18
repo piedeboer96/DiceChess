@@ -234,7 +234,7 @@ public class ChessMatch extends Chessboard implements IChessMatch
         {
             PromotionScreen popup = new PromotionScreen(Window.instance,"choose promotion", this, piece);
             popup.setVisible(true);
-            System.out.println("piece is promotable");
+            //System.out.println("piece is promotable");
         }
 
         if(halfMoves >= 50){

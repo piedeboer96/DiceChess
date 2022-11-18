@@ -4,6 +4,7 @@ import chess.MatchState;
 import chess.interfaces.IChessMove;
 import gui.die.Die;
 import java.util.*;
+import java.util.Objects;
 
 
 
@@ -72,7 +73,7 @@ public class Trainer{
         Bot[] bots = {bot1, bot2};
         Die die = new Die();
         int iterations=0;
-        while (match.getState() == MatchState.ONGOING && iterations++ < 1000) {
+        while (iterations++ < 2000) {
             char rollOne = die.roll(match.getPlayer());
             char rollTwo = die.roll(match.getPlayer());
             IChessMove decision = bots[match.getPlayer()].bestMove(match, rollOne, rollTwo);
@@ -80,21 +81,20 @@ public class Trainer{
                 match.nextPlayer();
                 continue;
             }
-            match.playMove(decision.owner(), decision.possibilities().get(0));
+            if(decision.owner().team() == match.getPlayer()) {
+                match.playMove(decision.owner(), decision.possibilities().get(0));
+            }
         }
         System.out.println("GAME NUMBER "+ gameNumber++ +" IS OVER!");
-        if (match.getState() == MatchState.BLACK_WON) {
+        if (match.getPlayer() == bots[0].currentPlayer){
             System.out.println("Black bot won");
             return bots[0];}
-        else if(match.getState() == MatchState.WHITE_WON) {
+        else if(match.getPlayer() == bots[1].currentPlayer) {
             System.out.println("White bot won");
-            return bots[1];}
-        else if(match.getState() == MatchState.DRAW){
-            System.out.println("Draw ");
             return bots[1];}
         else {
             System.out.println(" there is no winner!");
-            return bots[0];
+            return new Bot();
         }
     }
 

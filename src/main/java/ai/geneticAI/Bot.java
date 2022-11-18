@@ -37,11 +37,11 @@ import chess.utility.ChessboardSquare;
 public class Bot implements Comparable<Bot> {
     Chromosome chromosome;
     public int wins;
-    int currentPlayer=0;
-
+    int currentPlayer;
     public  Bot(){
         chromosome = new Chromosome();
         wins = 0;
+        currentPlayer=0;
     }
 
 
@@ -89,9 +89,11 @@ public class Bot implements Comparable<Bot> {
         for ( IChessMove move : moves) {
             List<Integer> list2 = new ArrayList<>();
             for (IChessboardSquare square : move.possibilities()) {
-                match.playMove(move.owner(), square);
-                int value = evaluateBoardState(match);
-                list2.add(value);
+                if(move.owner().team() == match.getPlayer()) {
+                    match.playMove(move.owner(), square);
+                    int value = evaluateBoardState(match);
+                    list2.add(value);
+                }
             }
             list.add(list2);
         }
@@ -108,12 +110,14 @@ public class Bot implements Comparable<Bot> {
                 }
             }
         }
-        if (moves.size() == 0) { return null; }
+        if (moves.size() == 0) {return null;}
         IChessMove foundMaximumMove = moves.get(indexOfBestMove);
         List<IChessboardSquare> bestMoveDestinations = new ArrayList<>();
         bestMoveDestinations.add(foundMaximumMove.possibilities().get(indexOfBestDestination));
         return new ChessMove(foundMaximumMove.owner(), bestMoveDestinations);
     }
+
+
 
 
     /**

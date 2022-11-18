@@ -353,10 +353,10 @@ public class FitnessFunction {
         IChessboardSquare square1 = null;
         IChessboardSquare square2 = null;
         int count = 0;
-        if(piece.file() + 1 <= 7 && piece.rank() + deltaRank >= 0) {
+        if(piece.file() + 1 < 7 && piece.rank() + deltaRank < 7) {
             square1 = new ChessboardSquare(piece.file() + 1, piece.rank()  + deltaRank);
         }
-        if(piece.file() - 1 >= 0 && piece.rank() + deltaRank >= 0) {
+        if(piece.file() - 1 > 0 && piece.rank() + deltaRank <7) {
             square2 = new ChessboardSquare(piece.file() + 1, piece.rank()  + deltaRank);
         }
         if(square1 != null && match.get(square1) instanceof Pawn) {
@@ -788,10 +788,10 @@ public class FitnessFunction {
                 rookBhdPassPawn(match) * chromosome.data[26] +
                 isoPawn(match) * chromosome.data[27] +
                 knightPeriphery3(match) * chromosome.data[28] +
-                knightPeriphery1(match) * chromosome.data[39] +
+                knightPeriphery1(match) * chromosome.data[29] +
                 bishopPair(match) * chromosome.data[30] +
                 centerPawnCount(match) * chromosome.data[31];
-
-
     }
+
+
 }
