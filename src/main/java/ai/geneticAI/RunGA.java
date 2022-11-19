@@ -1,23 +1,25 @@
 package ai.geneticAI;
 import chess.ChessMatch;
-import chess.MatchState;
 import chess.interfaces.IChessMove;
 import gui.DiceChessWindow;
-import gui.die.Die;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 
 
 public class RunGA {
     
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, FileNotFoundException {
 
         RunGA runGame = new RunGA();
         runGame.game();
 
     }
 
-    public void game() throws InterruptedException {
+    public void game() throws InterruptedException, FileNotFoundException {
         // Creating a new window.
         DiceChessWindow window = new DiceChessWindow(800, 640, false);
         // full pieces
@@ -25,12 +27,12 @@ public class RunGA {
         // Creating a new match.
         ChessMatch match = new ChessMatch(startPos);
         match.loadKings();
-        // roll the dice
-        Die die = new Die();
         // Displays the match
         window.display(match);
         // initialize the best chromosome with the values from the file bestChromosome
-        Bot bot = Trainer.bestBot();
+        int[] data = readFile("bestChromosomeData.txt");
+        Chromosome bestChromosome = new Chromosome(data);
+        Bot bot = new Bot(bestChromosome);
         //play the game
         int iteration=0;
         while (iteration++ < 1000) {
@@ -46,11 +48,12 @@ public class RunGA {
             if (decision == null) {
                 continue;
             }
-            match.playMove(decision.owner(), decision.possibilities().get(0));
-
+            if(decision.owner().team() == match.getPlayer()) {
+                match.playMove(decision.owner(), decision.possibilities().get(0));
+            }
             window.refresh();
 
-            sleep(500);
+            sleep(800);
 
             window.display(match);
         }
@@ -67,5 +70,28 @@ public class RunGA {
             e.printStackTrace();
         }
     }
-        
+
+    /**
+     * @param fileToread
+     * @return
+     * @throws FileNotFoundException
+     */
+    public static int[] readFile(String fileToread) throws FileNotFoundException {
+        File file = new File(fileToread);
+        Scanner scanner = new Scanner(file);
+        int count = 0;
+        while (scanner.hasNextInt()) {
+            count++;
+            scanner.nextInt();
+        }
+        int[] arr = new int[count];
+        Scanner scanner1 = new Scanner(file);
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = scanner1.nextInt();
+        }
+        return arr;
+    }
+
+
+
 }

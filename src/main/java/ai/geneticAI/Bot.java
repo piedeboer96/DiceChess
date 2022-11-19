@@ -2,36 +2,10 @@ package ai.geneticAI;
 import java.util.ArrayList;
 import java.util.List;
 
-import ai.easyrules.BoardAction;
-import ai.easyrules.LFacts;
-import ai.easyrules.ResultAI;
-import ai.easyrules.Utils;
-import ai.easyrules.rules.EscapeFromEatRule;
-import ai.easyrules.rules.MoveForwardRule;
-import chess.ChessMatch;
-import org.jeasy.rules.api.Facts;
-import org.jeasy.rules.api.Rule;
-import org.jeasy.rules.api.RuleListener;
-import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.core.DefaultRulesEngine;
-import ai.easyrules.rules.AttackRule;
-import ai.easyrules.rules.KingDeadRule;
-import ai.easyrules.rules.LongCastleRule;
-import ai.easyrules.rules.MoveByPositionRule;
-import ai.easyrules.rules.MoveToMateRule;
-import ai.easyrules.rules.NewBestActionRule;
-import ai.easyrules.rules.NotSuicideRule;
-import ai.easyrules.rules.PromoteRule;
-import ai.easyrules.rules.ShortCastleRule;
 import chess.interfaces.IChessMatch;
 import chess.interfaces.IChessMove;
-import chess.interfaces.IChessPiece;
 import chess.interfaces.IChessboardSquare;
-import chess.units.ChessPiece;
-import chess.units.King;
-import chess.units.Queen;
 import chess.utility.ChessMove;
-import chess.utility.ChessboardSquare;
 
 
 public class Bot implements Comparable<Bot> {
@@ -40,6 +14,12 @@ public class Bot implements Comparable<Bot> {
     int currentPlayer;
     public  Bot(){
         this.chromosome = new Chromosome();
+        this.wins = 0;
+        this.currentPlayer=0;
+    }
+
+    public  Bot(Chromosome bestChromosome){
+        this.chromosome = bestChromosome;
         this.wins = 0;
         this.currentPlayer=0;
     }
