@@ -10,11 +10,11 @@ import java.util.concurrent.TimeUnit;
 
 
 
-public class RunGA {
+public class RunGeneticAlgorithmBot {
     
     public static void main(String[] args) throws InterruptedException, FileNotFoundException {
 
-        RunGA runGame = new RunGA();
+        RunGeneticAlgorithmBot runGame = new RunGeneticAlgorithmBot();
         runGame.game();
 
     }

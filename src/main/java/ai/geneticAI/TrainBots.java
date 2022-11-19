@@ -11,7 +11,7 @@ import java.util.*;
 
 
 
-public class Trainer{
+public class TrainBots {
 
     static List<Bot> bots; // chromosomes
     static final int population = 20; // population
@@ -155,7 +155,6 @@ public class Trainer{
 
 
     /**
-     *
      * @param args
      */
     // let the bots play against each other!
