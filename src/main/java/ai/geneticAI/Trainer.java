@@ -1,10 +1,8 @@
 package ai.geneticAI;
 import chess.ChessMatch;
-import chess.MatchState;
 import chess.interfaces.IChessMove;
 import gui.die.Die;
 import java.util.*;
-import java.util.Objects;
 
 
 
@@ -73,12 +71,11 @@ public class Trainer{
         Bot[] bots = {bot1, bot2};
         Die die = new Die();
         int iterations=0;
-        while (iterations++ < 2000) {
+        while (iterations++ < 5000) {
             char rollOne = die.roll(match.getPlayer());
             char rollTwo = die.roll(match.getPlayer());
             IChessMove decision = bots[match.getPlayer()].bestMove(match, rollOne, rollTwo);
             if(decision == null){
-                match.nextPlayer();
                 continue;
             }
             if(decision.owner().team() == match.getPlayer()) {
@@ -94,7 +91,7 @@ public class Trainer{
             return bots[1];}
         else {
             System.out.println(" there is no winner!");
-            return new Bot();
+            return bots[0];
         }
     }
 
@@ -133,15 +130,17 @@ public class Trainer{
      * @return
      */
     public static Bot bestBot() {
+        bots = new ArrayList<>();
+        for(int x =0; x < population; x++) {
+            bots.add(new Bot());
+        }
             for (int i = 0; i < bots.size(); i++) {
                 for (int j = i + 1; j < bots.size(); j++) {
                     if (i != j) {
-                        ////
                         matchBots(bots.get(i), bots.get(j)).wins++;
                     }
                 }
             }
-        // select top bot (chromosome)
         Bot max = Collections.max(bots);
         int bestBot = bots.indexOf(max);
         return bots.get(bestBot);

@@ -30,7 +30,8 @@ public class RunGA {
         // Displays the match
         window.display(match);
         //play the game
-        while (match.getState() == MatchState.ONGOING) {
+        int iteration=0;
+        while (iteration++ < 1000) {
             int currentPlayer = match.getPlayer();
             // first we need fire the roll
             char rollOne = window.getDice().roll(currentPlayer)[0];
