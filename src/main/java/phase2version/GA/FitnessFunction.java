@@ -375,17 +375,14 @@ public class FitnessFunction {
         IChessboardSquare square1 = null;
         IChessboardSquare square2 = null;
         int count = 0;
-        if(piece.file() + 1 <= 7 && piece.rank() + deltaRank >= 0) {
+        if(piece.file() + 1 <= 7 && piece.rank() + deltaRank >= 0 && piece.rank() + deltaRank <= 7) {
             square1 = new ChessboardSquare(piece.file() + 1, piece.rank()  + deltaRank);
         }
-        if(piece.file() - 1 >= 0 && piece.rank() + deltaRank >= 0) {
+        if(piece.file() - 1 >= 0 && piece.rank() + deltaRank >= 0 && piece.rank() + deltaRank <= 7) {
             square2 = new ChessboardSquare(piece.file() + 1, piece.rank()  + deltaRank);
         }
-        if(square1 != null && match.get(square1) instanceof Pawn) {
-            count++;
-        } else if(square2 != null && match.get(square2) instanceof Pawn) {
-            count++;
-        }
+        if(square1 != null && match.get(square1) instanceof Pawn && pieceInTeam(match,match.get(square1))) count++;
+        else if(square2 != null && match.get(square2) instanceof Pawn && pieceInTeam(match,match.get(square2))) count++;
         return count;
     }
 
