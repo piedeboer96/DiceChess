@@ -24,7 +24,7 @@ public class TrainBots {
      *
      */
     private static void train() {
-        for(int i = 0; i < generations-1; i++) {
+        for(int i = 0; i < generations; i++) {
             nextGeneration();
             count++;
         }
@@ -120,7 +120,6 @@ public class TrainBots {
 
 
 
-
     /**
      *
      */
@@ -134,15 +133,20 @@ public class TrainBots {
 
     /**
      * @return best bot
-     */ //Todo: how do we make the function only match bots from last generation?
+     */
     public static Bot bestBot() {
-        if (count == 98) {
+        if (count == 99) {
             selection();
+            Bot max = Collections.max(bots);
+            int bestBot = bots.indexOf(max);
+            Bot bot = bots.get(bestBot);
+            System.out.println("Best BOT IS SUCCESSFULLY SELECTED!");
+            return bot;
         }
-        Bot max = Collections.max(bots);
-        int bestBot = bots.indexOf(max);
-        Bot bot = bots.get(bestBot);
-        return bot;
+        else{
+            System.out.println("SOMETHING WENT WRONG!");
+            return null;
+        }
     }
 
 
