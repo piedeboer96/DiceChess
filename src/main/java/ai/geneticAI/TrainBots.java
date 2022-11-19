@@ -2,7 +2,6 @@ package ai.geneticAI;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
 import gui.die.Die;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -76,7 +75,7 @@ public class TrainBots {
         Bot[] bots = {bot1, bot2};
         Die die = new Die();
         int iterations=0;
-        while (iterations++ < 250) {
+        while (iterations++ < 1000) {
             char rollOne = die.roll(match.getPlayer());
             char rollTwo = die.roll(match.getPlayer());
             IChessMove decision = bots[match.getPlayer()].bestMove(match, rollOne, rollTwo);
@@ -131,21 +130,16 @@ public class TrainBots {
 
 
     /**
-     *
-     * @return
-     */
+     * @return best bot
+     */ //Todo: how do we make the function only match bots from last generation?
     public static Bot bestBot() {
-        bots = new ArrayList<>();
-        for(int x =0; x < population; x++) {
-            bots.add(new Bot());
-        }
-            for (int i = 0; i < bots.size(); i++) {
-                for (int j = i + 1; j < bots.size(); j++) {
-                    if (i != j) {
-                        matchBots(bots.get(i), bots.get(j)).wins++;
-                    }
+        for (int i = 0; i < population; i++) {
+            for (int j = i + 1; j < population; j++) {
+                if (i != j) {
+                    matchBots(bots.get(i), bots.get(j)).wins++;
                 }
             }
+        }
         Bot max = Collections.max(bots);
         int bestBot = bots.indexOf(max);
         Bot bot = bots.get(bestBot);
@@ -159,14 +153,16 @@ public class TrainBots {
      */
     // let the bots play against each other!
     public static void main(String[] args) throws IOException {
-
+        // match all bots with each other
         train();
-
-        File file = new File("bestChromosomeData.txt");
-        FileWriter fileWriter = new FileWriter(file);
-        PrintWriter printWriter = new PrintWriter(fileWriter);
-        printWriter.println(bestBot().chromosome.toString());
-        printWriter.close();
+        // play matches between bots from last generation and choose the best bot among them
+        //bestBot();
+        // write the best bot data into a file to use it later when initialising new best bot
+//        File file = new File("bestChromosomeData.txt");
+//        FileWriter fileWriter = new FileWriter(file);
+//        PrintWriter printWriter = new PrintWriter(fileWriter);
+//        printWriter.println(bestBot().chromosome.toString());
+//        printWriter.close();
     }
 
 

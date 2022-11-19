@@ -1,17 +1,21 @@
 package ai.geneticAI;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
+import chess.interfaces.IChessboardSquare;
 import gui.DiceChessWindow;
+import gui.interfaces.IHighlighter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 
 
 public class RunGeneticAlgorithmBot {
-    
+
+
     public static void main(String[] args) throws InterruptedException, FileNotFoundException {
 
         RunGeneticAlgorithmBot runGame = new RunGeneticAlgorithmBot();
@@ -34,27 +38,24 @@ public class RunGeneticAlgorithmBot {
         Chromosome bestChromosome = new Chromosome(data);
         Bot bot = new Bot(bestChromosome);
         //play the game
-        int iteration=0;
+        int iteration = 0;
         while (iteration++ < 1000) {
+            IHighlighter highlighter = window.getHighlighter();
             int currentPlayer = match.getPlayer();
             // first we need fire the roll
             char rollOne = window.getDice().roll(currentPlayer)[0];
             char rollTwo = window.getDice().roll(currentPlayer)[0];
-
             sleep(500);
-
             // assign the object bot to the best bot in the GA population
             IChessMove decision = bot.bestMove(match, rollOne, rollTwo);
             if (decision == null) {
                 continue;
             }
-            if(decision.owner().team() == match.getPlayer()) {
+            if (decision.owner().team() == match.getPlayer()) {
                 match.playMove(decision.owner(), decision.possibilities().get(0));
             }
             window.refresh();
-
             sleep(800);
-
             window.display(match);
         }
     }
@@ -70,6 +71,8 @@ public class RunGeneticAlgorithmBot {
             e.printStackTrace();
         }
     }
+
+
 
     /**
      * @param fileToread
