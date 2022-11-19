@@ -2,6 +2,11 @@ package ai.geneticAI;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
 import gui.die.Die;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 
@@ -71,7 +76,7 @@ public class Trainer{
         Bot[] bots = {bot1, bot2};
         Die die = new Die();
         int iterations=0;
-        while (iterations++ < 5000) {
+        while (iterations++ < 250) {
             char rollOne = die.roll(match.getPlayer());
             char rollTwo = die.roll(match.getPlayer());
             IChessMove decision = bots[match.getPlayer()].bestMove(match, rollOne, rollTwo);
@@ -143,7 +148,8 @@ public class Trainer{
             }
         Bot max = Collections.max(bots);
         int bestBot = bots.indexOf(max);
-        return bots.get(bestBot);
+        Bot bot = bots.get(bestBot);
+        return bot;
     }
 
 
@@ -153,8 +159,15 @@ public class Trainer{
      * @param args
      */
     // let the bots play against each other!
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
         train();
+
+        File file = new File("bestChromosomeData.txt");
+        FileWriter fileWriter = new FileWriter(file);
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        printWriter.println(bestBot().chromosome.toString());
+        printWriter.close();
     }
 
 

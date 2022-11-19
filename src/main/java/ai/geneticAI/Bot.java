@@ -39,9 +39,9 @@ public class Bot implements Comparable<Bot> {
     public int wins;
     int currentPlayer;
     public  Bot(){
-        chromosome = new Chromosome();
-        wins = 0;
-        currentPlayer=0;
+        this.chromosome = new Chromosome();
+        this.wins = 0;
+        this.currentPlayer=0;
     }
 
 
@@ -118,6 +118,14 @@ public class Bot implements Comparable<Bot> {
     }
 
 
+
+    /**
+     * @return
+     */
+    @Override
+    public String toString() {
+        return this.chromosome.toString();
+    }
 
 
     /**

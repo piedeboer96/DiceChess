@@ -27,7 +27,7 @@ public class Chromosome {
         Random random = new Random();
         int[] array = new int[32];
         for(int i =0; i < 32; i++){
-            array[i] = random.nextInt()*1000; // what value should we multiply by? is 1000 a good value to use?
+            array[i] = random.nextInt()*100; // what value should we multiply by? is 1000 a good value to use?
         }
         return array;
     }
@@ -35,8 +35,8 @@ public class Chromosome {
 
     // cross over the two chromosomes by changing the first half of the first chromosome with the second half of the other chromosome
     void crossoverWith(Chromosome other) {
-        int[] firstHalfChromosome = this.firstHalf(data);
-        int[] secondHalfChromosome2 = other.lastHalf(data);
+        int[] firstHalfChromosome = this.firstHalf();
+        int[] secondHalfChromosome2 = other.lastHalf();
         int[] merge = new int[32];
         int count = 0;
 
@@ -53,7 +53,7 @@ public class Chromosome {
 
 
     // return the first half of the used chromosome
-    private int[] firstHalf(int[] data) {
+    private int[] firstHalf() {
         int[] arr1 = data;
         int[] arr2 = new int[16];
         for(int i =0; i < 16;i++){
@@ -63,7 +63,7 @@ public class Chromosome {
     }
 
     // return the second half of the used chromosome
-    private int[] lastHalf(int[] data) {
+    private int[] lastHalf() {
         int[] arr = data;
         int[] arr1 = new int[16];
         for (int x = 0; x < 16; x++) {
@@ -83,12 +83,24 @@ public class Chromosome {
         int[] arr = new int[data.length];
         for(int i=0; i < data.length; i++){
             if(random.nextDouble() < 0.007) {
-                arr[i] = random.nextInt() * 1000; // what value should we multiply by? is 1000 a good value to use?
+                arr[i] = random.nextInt() * 100; // what value should we multiply by? is 1000 a good value to use?
             } else {
                 arr[i] = data[i];
             }
         }
         data = arr;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public String toString() {
+        String myString = "";
+        for(int i=0; i<data.length; i++){
+            myString += "value of index "+ i + " is " + data[i] +"\n";
+        }
+        return myString;
     }
 
 

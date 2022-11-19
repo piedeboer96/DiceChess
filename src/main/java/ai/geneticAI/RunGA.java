@@ -29,6 +29,8 @@ public class RunGA {
         Die die = new Die();
         // Displays the match
         window.display(match);
+        // initialize the best chromosome with the values from the file bestChromosome
+        Bot bot = Trainer.bestBot();
         //play the game
         int iteration=0;
         while (iteration++ < 1000) {
@@ -40,7 +42,6 @@ public class RunGA {
             sleep(500);
 
             // assign the object bot to the best bot in the GA population
-            Bot bot = Trainer.bestBot();
             IChessMove decision = bot.bestMove(match, rollOne, rollTwo);
             if (decision == null) {
                 continue;
