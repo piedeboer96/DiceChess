@@ -17,15 +17,16 @@ public class TrainBots {
     static final int generations = 100; // generation
     static final double mutateFactor = 0.007; // mutation factor
     static int gameNumber = 1;
-
+    static int count = 0;
 
 
     /**
      *
      */
     private static void train() {
-        for(int i = 0; i < generations; i++) {
+        for(int i = 0; i < generations-1; i++) {
             nextGeneration();
+            count++;
         }
     }
 
@@ -46,9 +47,11 @@ public class TrainBots {
      *
      */
     private static void selection() {
-        bots = new ArrayList<>();
-        for(int x =0; x < population; x++){
-            bots.add(new Bot());
+        if(count ==0) {
+            bots = new ArrayList<>();
+            for (int x = 0; x < population; x++) {
+                bots.add(new Bot());
+            }
         }
         for (int i = 0; i < bots.size(); i++){
             for(int j = i + 1; j < bots.size(); j++){
@@ -133,12 +136,8 @@ public class TrainBots {
      * @return best bot
      */ //Todo: how do we make the function only match bots from last generation?
     public static Bot bestBot() {
-        for (int i = 0; i < population; i++) {
-            for (int j = i + 1; j < population; j++) {
-                if (i != j) {
-                    matchBots(bots.get(i), bots.get(j)).wins++;
-                }
-            }
+        if (count == 98) {
+            selection();
         }
         Bot max = Collections.max(bots);
         int bestBot = bots.indexOf(max);
@@ -153,16 +152,19 @@ public class TrainBots {
      */
     // let the bots play against each other!
     public static void main(String[] args) throws IOException {
+
         // match all bots with each other
         train();
+
         // play matches between bots from last generation and choose the best bot among them
-        //bestBot();
+        bestBot();
+
         // write the best bot data into a file to use it later when initialising new best bot
-//        File file = new File("bestChromosomeData.txt");
-//        FileWriter fileWriter = new FileWriter(file);
-//        PrintWriter printWriter = new PrintWriter(fileWriter);
-//        printWriter.println(bestBot().chromosome.toString());
-//        printWriter.close();
+        File file = new File("bestChromosomeData.txt");
+        FileWriter fileWriter = new FileWriter(file);
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        printWriter.println(bestBot().chromosome.toString());
+        printWriter.close();
     }
 
 
