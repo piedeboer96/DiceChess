@@ -102,6 +102,8 @@ public class ChessMatch extends Chessboard implements IChessMatch
         } else { player = 1; }
         return player;
     }
+    
+
 
     public void playMove(IChessPiece piece, IChessboardSquare destination)
     {
