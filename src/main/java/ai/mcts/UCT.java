@@ -32,24 +32,14 @@ public class UCT {
      * @return node with max uct
      */
     public Node getMaxUCT(Node node) {
-
         double maxUCT = Integer.MIN_VALUE;
-
         Node bestNode = node;
-
         for(Node i: node.children) {
-
             if(maxUCT < uct(i)) {
                 bestNode = i;
                 maxUCT = uct(i);
             }
-
         }
-
         return bestNode;
-
-
     }
-
-
 }
