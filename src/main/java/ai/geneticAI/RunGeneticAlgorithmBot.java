@@ -39,8 +39,7 @@ public class RunGeneticAlgorithmBot {
         Bot bot = new Bot(bestChromosome);
         //play the game
         int iteration = 0;
-        while (iteration++ < 1000) {
-            IHighlighter highlighter = window.getHighlighter();
+        while (iteration++ < 2000) {
             int currentPlayer = match.getPlayer();
             // first we need fire the roll
             char rollOne = window.getDice().roll(currentPlayer)[0];
@@ -60,7 +59,6 @@ public class RunGeneticAlgorithmBot {
         }
     }
 
-
     /**
      * @param sec
      */
@@ -71,7 +69,6 @@ public class RunGeneticAlgorithmBot {
             e.printStackTrace();
         }
     }
-
 
 
     /**

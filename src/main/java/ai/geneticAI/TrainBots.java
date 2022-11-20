@@ -1,6 +1,7 @@
 package ai.geneticAI;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
+import chess.interfaces.IChessPiece;
 import gui.die.Die;
 import java.io.File;
 import java.io.FileWriter;
@@ -18,6 +19,7 @@ public class TrainBots {
     static final double mutateFactor = 0.007; // mutation factor
     static int gameNumber = 1;
     static int count = 0;
+    static Random random = new Random();
 
 
     /**
@@ -78,7 +80,7 @@ public class TrainBots {
         Bot[] bots = {bot1, bot2};
         Die die = new Die();
         int iterations=0;
-        while (iterations++ < 1000) {
+        while (iterations++ < 500) {
             char rollOne = die.roll(match.getPlayer());
             char rollTwo = die.roll(match.getPlayer());
             IChessMove decision = bots[match.getPlayer()].bestMove(match, rollOne, rollTwo);
@@ -90,15 +92,28 @@ public class TrainBots {
             }
         }
         System.out.println("GAME NUMBER "+ gameNumber++ +" IS OVER!");
-        if (match.getPlayer() == bots[0].currentPlayer){
-            System.out.println("Black bot won");
+        List <Integer> blackBot = new ArrayList<>();
+        List <Integer> whiteBot = new ArrayList<>();
+        List<IChessPiece> pieces = match.pieces();
+
+        for(IChessPiece piece : pieces){
+            if(piece.team() == bots[0].currentPlayer) {
+                blackBot.add(1);
+            }
+            else if (piece.team() == bots[1].currentPlayer) {
+                    whiteBot.add(1);
+            }
+        }
+        if(blackBot.size() > whiteBot.size()){
+            System.out.println("black win");
             return bots[0];}
-        else if(match.getPlayer() == bots[1].currentPlayer) {
-            System.out.println("White bot won");
-            return bots[1];}
-        else {
-            System.out.println(" there is no winner!");
-            return bots[0];
+        else if (blackBot.size() < whiteBot.size()){
+            System.out.println("white win");
+            return bots[1];
+            }
+        else{
+            System.out.println("draw!!!!!!!!!!");
+            return bots[random.nextInt(2)];
         }
     }
 
@@ -135,7 +150,7 @@ public class TrainBots {
      * @return best bot
      */
     public static Bot bestBot() {
-        if (count == 99) {
+        if (count == 100) {
             selection();
             Bot max = Collections.max(bots);
             int bestBot = bots.indexOf(max);
@@ -152,17 +167,12 @@ public class TrainBots {
 
 
     /**
-     * @param args
+     * @param args main
      */
-    // let the bots play against each other!
     public static void main(String[] args) throws IOException {
-
         // match all bots with each other
         train();
-
         // play matches between bots from last generation and choose the best bot among them
-        bestBot();
-
         // write the best bot data into a file to use it later when initialising new best bot
         File file = new File("bestChromosomeData.txt");
         FileWriter fileWriter = new FileWriter(file);
