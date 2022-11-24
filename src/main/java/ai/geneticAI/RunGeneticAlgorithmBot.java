@@ -43,7 +43,7 @@ public class RunGeneticAlgorithmBot {
             // first we need fire the roll
             char rollOne = window.getDice().roll(currentPlayer)[0];
             char rollTwo = window.getDice().roll(currentPlayer)[0];
-            sleep(500);
+            sleep(10);
             // assign the object bot to the best bot in the GA population
             IChessMove decision = bot.bestMove(match, rollOne, rollTwo);
             if (decision == null) {
@@ -53,7 +53,7 @@ public class RunGeneticAlgorithmBot {
                 match.playMove(decision.owner(), decision.possibilities().get(0));
             }
             window.refresh();
-            sleep(300);
+            sleep(500);
             System.out.println("move number "+ iteration);
             window.display(match);
         }

@@ -80,7 +80,7 @@ public class TrainBots {
         Bot[] bots = {bot1, bot2};
         Die die = new Die();
         int iterations=0;
-        while (iterations++ < 500) {
+        while (iterations++ < 400) {
             char rollOne = die.roll(match.getPlayer());
             char rollTwo = die.roll(match.getPlayer());
             IChessMove decision = bots[match.getPlayer()].bestMove(match, rollOne, rollTwo);
@@ -190,7 +190,7 @@ public class TrainBots {
      *
      */
     static void mutation() {
-        for(Bot bot : bots) { //todo
+        for(Bot bot : bots) {
             bot.chromosome.mutate(mutateFactor);
         }
     }
