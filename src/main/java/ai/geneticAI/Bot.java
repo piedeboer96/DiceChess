@@ -20,8 +20,6 @@ public class Bot implements Comparable<Bot> {
 
     public  Bot(Chromosome bestChromosome){
         this.chromosome = bestChromosome;
-        this.wins = 0;
-        this.currentPlayer=0;
     }
 
 
@@ -114,7 +112,7 @@ public class Bot implements Comparable<Bot> {
      */
     @Override
     public int compareTo(Bot object) {
-        return object.wins-wins;
+        return wins-object.wins;
     }
 
 

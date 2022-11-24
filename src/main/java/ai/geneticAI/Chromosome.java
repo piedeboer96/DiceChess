@@ -34,7 +34,7 @@ public class Chromosome {
 
 
     // cross over the two chromosomes by changing the first half of the first chromosome with the second half of the other chromosome
-    void crossoverWith(Chromosome other) {
+    Bot crossoverWith(Chromosome other) {
         int[] firstHalfChromosome = this.firstHalf();
         int[] secondHalfChromosome2 = other.lastHalf();
         int[] merge = new int[32];
@@ -44,11 +44,12 @@ public class Chromosome {
             merge[i] = firstHalfChromosome[i];
             count++;
         }
-        for (int i : secondHalfChromosome2) {
-            merge[count] = i;
+        for (int i=0; i < secondHalfChromosome2.length; i++) {
+            merge[count++] = secondHalfChromosome2[i];
         }
         data = merge;
-        new Chromosome(data);
+        Chromosome chromosome = new Chromosome(data);
+        return new Bot(chromosome);
     }
 
 

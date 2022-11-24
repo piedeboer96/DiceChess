@@ -1,13 +1,9 @@
 package ai.geneticAI;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
-import chess.interfaces.IChessboardSquare;
 import gui.DiceChessWindow;
-import gui.interfaces.IHighlighter;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -34,12 +30,15 @@ public class RunGeneticAlgorithmBot {
         // Displays the match
         window.display(match);
         // initialize the best chromosome with the values from the file bestChromosome
-        int[] data = readFile("bestChromosomeData.txt");
+        int[] data = new int[]{-635905676,-1240317172,-69408920,1922620828,1750874928,1543847188,1563878404,1520025588,-1467867512,-660880356,
+                1913333096,-27847748,761270876,-398238436,1815001324,786660816,-275824428,1497654488,1620462048,-1377927316,-2067614428,-2110487464
+        ,-1169846808,-2021274444,1535554924,1092210256,718919520,-464597412,-1897612592,682982004,857083444,-1581611588};
+
         Chromosome bestChromosome = new Chromosome(data);
         Bot bot = new Bot(bestChromosome);
         //play the game
         int iteration = 0;
-        while (iteration++ < 2000) {
+        while (iteration++ < 1000) {
             int currentPlayer = match.getPlayer();
             // first we need fire the roll
             char rollOne = window.getDice().roll(currentPlayer)[0];
@@ -54,7 +53,8 @@ public class RunGeneticAlgorithmBot {
                 match.playMove(decision.owner(), decision.possibilities().get(0));
             }
             window.refresh();
-            sleep(800);
+            sleep(300);
+            System.out.println("move number "+ iteration);
             window.display(match);
         }
     }

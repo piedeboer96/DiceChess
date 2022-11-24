@@ -232,12 +232,12 @@ public class ChessMatch extends Chessboard implements IChessMatch
         // Finally, let's also update the square that the chess piece remembers as its location.
         piece.setPosition(destination);
 
-        if(piece.promotable())
-        {
-            PromotionScreen popup = new PromotionScreen(Window.instance,"choose promotion", this, piece);
-            popup.setVisible(true);
-            //System.out.println("piece is promotable");
-        }
+//        if(piece.promotable())
+//        {
+//            PromotionScreen popup = new PromotionScreen(Window.instance,"choose promotion", this, piece);
+//            popup.setVisible(true);
+//            //System.out.println("piece is promotable");
+//        }
 
         if(halfMoves >= 50){
             state = MatchState.DRAW;

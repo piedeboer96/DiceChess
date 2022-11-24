@@ -71,6 +71,7 @@ public class ChessPiece extends ChessboardSquare implements IChessPiece, IDrawab
 
 	@Override public char toFen() { return notation; }
 
+
 	@Override public String toString()
 	{
 		return " [fen=" + notation + ", team=" + team + ", file=" + file + ", rank=" + rank + "]";

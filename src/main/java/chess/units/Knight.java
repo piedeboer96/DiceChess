@@ -6,7 +6,7 @@ import chess.interfaces.IChessMoveInfo;
 public final class Knight extends ChessPiece
 {
     private static final IChessMoveInfo[] information = getMovementInformation();
-    public static final int pointValue = 350;
+    public static final int pointValue = 400;
 
     public Knight(char fen, int file, int rank)
     {

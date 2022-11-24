@@ -2,6 +2,7 @@ package ai.geneticAI;
 import chess.ChessMatch;
 import chess.interfaces.IChessMove;
 import chess.interfaces.IChessPiece;
+import chess.units.*;
 import gui.die.Die;
 import java.io.File;
 import java.io.FileWriter;
@@ -12,7 +13,6 @@ import java.util.*;
 
 
 public class TrainBots {
-
     static List<Bot> bots; // chromosomes
     static final int population = 20; // population
     static final int generations = 100; // generation
@@ -92,26 +92,60 @@ public class TrainBots {
             }
         }
         System.out.println("GAME NUMBER "+ gameNumber++ +" IS OVER!");
-        List <Integer> blackBot = new ArrayList<>();
-        List <Integer> whiteBot = new ArrayList<>();
+        int blackBot =0;
+        int whiteBot =0;
         List<IChessPiece> pieces = match.pieces();
 
         for(IChessPiece piece : pieces){
             if(piece.team() == bots[0].currentPlayer) {
-                blackBot.add(1);
+                if(piece instanceof Bishop){
+                    blackBot += Bishop.pointValue;
+                }
+                if (piece instanceof King){
+                    blackBot +=King.pointValue;
+                }
+                if (piece instanceof Knight){
+                    blackBot +=Knight.pointValue;
+                }
+                if (piece instanceof Pawn){
+                    blackBot +=Pawn.pointValue;
+                }
+                if (piece instanceof Queen){
+                    blackBot +=Queen.pointValue;
+                }
+                if (piece instanceof Rook){
+                    blackBot +=Rook.pointValue;
+                }
             }
             else if (piece.team() == bots[1].currentPlayer) {
-                    whiteBot.add(1);
+                if(piece instanceof Bishop){
+                    whiteBot+=Bishop.pointValue;
+                }
+                if (piece instanceof King){
+                    whiteBot+=King.pointValue;
+                }
+                if (piece instanceof Knight){
+                    whiteBot+=Knight.pointValue;
+                }
+                if (piece instanceof Pawn){
+                    whiteBot+=Pawn.pointValue;
+                }
+                if (piece instanceof Queen){
+                    whiteBot+=Queen.pointValue;
+                }
+                if (piece instanceof Rook){
+                    whiteBot+=Rook.pointValue;
+                }
             }
         }
-        if(blackBot.size() > whiteBot.size()){
+        if(blackBot > whiteBot){
             System.out.println("black win");
             return bots[0];}
-        else if (blackBot.size() < whiteBot.size()){
+        else if (blackBot < whiteBot){
             System.out.println("white win");
             return bots[1];
             }
-        else{
+        else {
             System.out.println("draw!!!!!!!!!!");
             return bots[random.nextInt(2)];
         }
@@ -120,17 +154,16 @@ public class TrainBots {
 
 
     /**
-     *
+     * @param min
+     * @param max
+     * @return
      */
-    static void crossover() {
-        Random random = new Random();
-        for (int i=0; i <= 9; i++){
-            Bot first = bots.get(random.nextInt(10));
-            Bot second = bots.get(random.nextInt(10));
-            if (first != second) {
-                first.chromosome.crossoverWith(second.chromosome);
-            }
+    private static int getRandomNumberInRange(int min, int max) {
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
         }
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
     }
 
 
@@ -138,8 +171,26 @@ public class TrainBots {
     /**
      *
      */
+    static void crossover() {
+        List<Bot> crossedList = new ArrayList<>();
+        while(crossedList.size() != bots.size()){
+            Bot first = bots.get(getRandomNumberInRange(9,19));
+            Bot second = bots.get(getRandomNumberInRange(9,19));
+            if (first != second) {
+                crossedList.add(first.chromosome.crossoverWith(second.chromosome));
+            }
+        }
+        bots = crossedList;
+        }
+
+
+
+
+    /**
+     *
+     */
     static void mutation() {
-        for(Bot bot : bots) {
+        for(Bot bot : bots) { //todo
             bot.chromosome.mutate(mutateFactor);
         }
     }
@@ -150,18 +201,12 @@ public class TrainBots {
      * @return best bot
      */
     public static Bot bestBot() {
-        if (count == 100) {
             selection();
             Bot max = Collections.max(bots);
             int bestBot = bots.indexOf(max);
             Bot bot = bots.get(bestBot);
             System.out.println("Best BOT IS SUCCESSFULLY SELECTED!");
             return bot;
-        }
-        else{
-            System.out.println("SOMETHING WENT WRONG!");
-            return null;
-        }
     }
 
 
