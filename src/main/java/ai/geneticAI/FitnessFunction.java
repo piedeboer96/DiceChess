@@ -134,7 +134,12 @@ public class FitnessFunction {
         return weakSquares;
     }
 
-
+    /**
+     * is the number of squares in Player A’s area that cannot be protected by Player A’s pawns.
+     */
+    public static int weakCount(IChessMatch match) {
+        return weakSquares(match).size();
+    }
 
     /**
      * is the number of knights of Player B that are in the weak squares of Player A.
@@ -143,7 +148,6 @@ public class FitnessFunction {
      */
     public static int enemyKnightOnWeak(IChessMatch match) {
         int count = 0;
-        if(weakSquares(match) == null) return 0;
         List<IChessboardSquare> weakSquares = weakSquares(match);
         for(IChessboardSquare weakSquare : weakSquares) {
             IChessPiece piece = match.get(weakSquare);
@@ -474,6 +478,15 @@ public class FitnessFunction {
         return count;
     }
 
+    /**
+     * returns 1 if the neighboring pawns of a pawn are ahead of it. Backward pawns are
+     * the last pawn of a pawn chain and even though they are not isolated they can not be defended easily.
+     * So they are considered a disadvantage.
+     */
+    public static int backwardPawn() {
+        return 0;
+    }
+
     private static List<IChessPiece> passPawns(IChessMatch match) {
         List<IChessPiece> passPawns = new ArrayList<>();
         boolean isTeamBlack = match.getPlayer() == 0;
@@ -501,8 +514,21 @@ public class FitnessFunction {
      * the opponent because they are no pawns on the way to prevent it from promoting
      */
     public static int passPawn(IChessMatch match) {
-        if(passPawns(match) == null) return 0;
         return passPawns(match).size();
+    }
+
+    /**
+     * is the rank of the passed pawn. A passed pawn on rank 7 which means the pawn
+     * is one move away from promoting is a lot more dangerous compared to a passed pawn on its
+     * initial square. Passed pawns with higher ranks have higher priority thus they are an advantage.
+     */
+    public static int rankPassedPawn(IChessMatch match) {
+        List<IChessPiece> passedPawns = passPawns(match);
+        int rankPassedPawnCount = 0;
+        for (IChessPiece passedPawn : passedPawns) {
+            rankPassedPawnCount += passedPawn.rank();
+        }
+        return rankPassedPawnCount;
     }
 
     /**
@@ -511,7 +537,6 @@ public class FitnessFunction {
      * rook never gets in the way
      */
     public static int rookBhdPassPawn(IChessMatch match) {
-        if(passPawns(match) == null) return 0;
         int count = 0;
         List<IChessPiece> passPawns = passPawns(match);
         List<IChessPiece> pieces = match.pieces();
@@ -755,9 +780,8 @@ public class FitnessFunction {
         return count;
     }
 
-
-    static int evaluate(IChessMatch match) {
-        return pawnValue(match) * chromosome.data[0] +
+    static int evaluationFunction(IChessMatch match) {
+        return  pawnValue(match) * chromosome.data[0] +
                 knightValue(match) * chromosome.data[1] +
                 bishopValue(match) * chromosome.data[2] +
                 rookValue(match) * chromosome.data[3] +
@@ -789,6 +813,15 @@ public class FitnessFunction {
                 knightPeriphery1(match) * chromosome.data[29] +
                 bishopPair(match) * chromosome.data[30] +
                 centerPawnCount(match) * chromosome.data[31];
+    }
+
+
+    static int evaluate(IChessMatch match) {
+        int currentPlayerScore = evaluationFunction(match);
+        match.nextPlayer();
+        int opponentPlayerScore = evaluationFunction(match);
+        match.nextPlayer();
+        return currentPlayerScore - opponentPlayerScore;
     }
 
 
