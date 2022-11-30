@@ -437,6 +437,28 @@ public class FitnessFunction {
     }
 
     /**
+     * returns true if the piece is an isolated pawn of the current player
+     */
+    public static boolean isIsoPawn(IChessMatch match, IChessPiece piece) {
+        List<IChessPiece> pawnPieces = match.pieces();
+        if(piece instanceof Pawn && pieceInTeam(match,piece)) {
+            boolean hasNeighborPawn = false;
+            outerloop:
+            for(int tempFile = piece.file() - 1; tempFile <= piece.file() + 1; tempFile++) {
+                if(tempFile < 0 || tempFile > 7 || tempFile == piece.file()) continue;
+                for(IChessPiece pawnPiece : pawnPieces) {
+                    if(pawnPiece instanceof Pawn && pieceInTeam(match,pawnPiece) && pawnPiece.file() == tempFile) {
+                        hasNeighborPawn = true;
+                        break outerloop;
+                    }
+                }
+            }
+            if(!hasNeighborPawn) return true;
+        }
+        return false;
+    }
+
+    /**
      * returns 1 if a given pawn has no neighboring pawns of the same color. Isolated pawns
      * are generally considered as a weakness since they cannot be protected by pawns so they should be
      * protected by other more valuable pieces
@@ -444,19 +466,8 @@ public class FitnessFunction {
     public static int isoPawn(IChessMatch match) {
         int count = 0;
         List<IChessPiece> pieces = match.pieces();
-        List<IChessPiece> pawnPieces = match.pieces();
-        boolean isTeamBlack = match.getPlayer() == 0;
         for(IChessPiece piece : pieces) {
-            if(piece instanceof Pawn && pieceInTeam(match,piece)) {
-                boolean hasNeighborPawn = false;
-                for(int tempFile = piece.file() - 1; tempFile <= piece.file() + 1; tempFile++) {
-                    if(tempFile < 0 || tempFile > 7 || tempFile == piece.file()) continue;
-                    for(IChessPiece pawnPiece : pawnPieces) {
-                        if(pawnPiece instanceof Pawn && pieceInTeam(match,pawnPiece) && pawnPiece.file() == tempFile) hasNeighborPawn = true;
-                    }
-                }
-                if(!hasNeighborPawn) count++;
-            }
+            if(isIsoPawn(match, piece)) count++;
         }
         return count;
     }
@@ -483,8 +494,33 @@ public class FitnessFunction {
      * the last pawn of a pawn chain and even though they are not isolated they can not be defended easily.
      * So they are considered a disadvantage.
      */
-    public static int backwardPawn() {
-        return 0;
+    public static int backwardPawn(IChessMatch match) {
+        int count = 0;
+        List<IChessPiece> pieces = match.pieces();
+        List<IChessPiece> pawnPieces = match.pieces();
+        boolean isTeamBlack = match.getPlayer() == 0;
+        for(IChessPiece piece : pieces) {
+            if(piece instanceof Pawn && pieceInTeam(match, piece) && !isIsoPawn(match, piece)) {
+                boolean hasNeighborPawnNotAhead = false;
+                outerloop:
+                for(int tempFile = piece.file() - 1; tempFile <= piece.file() + 1; tempFile++) {
+                    if(tempFile < 0 || tempFile > 7 || tempFile == piece.file()) continue;
+                    for(IChessPiece pawnPiece : pawnPieces) {
+                        if(pawnPiece instanceof Pawn && pieceInTeam(match,pawnPiece) && pawnPiece.file() == tempFile) {
+                            if(isTeamBlack && pawnPiece.rank() <= piece.rank()) {
+                                hasNeighborPawnNotAhead = true;
+                                break outerloop;
+                            } else if(!isTeamBlack && pawnPiece.rank() >= piece.rank()) {
+                                hasNeighborPawnNotAhead = true;
+                                break outerloop;
+                            }
+                        }
+                    }
+                }
+                if(!hasNeighborPawnNotAhead) count++;
+            }
+        }
+        return count;
     }
 
     private static List<IChessPiece> passPawns(IChessMatch match) {
@@ -525,8 +561,10 @@ public class FitnessFunction {
     public static int rankPassedPawn(IChessMatch match) {
         List<IChessPiece> passedPawns = passPawns(match);
         int rankPassedPawnCount = 0;
+        boolean isTeamBlack = match.getPlayer() == 0;
         for (IChessPiece passedPawn : passedPawns) {
-            rankPassedPawnCount += passedPawn.rank();
+            if(!isTeamBlack) rankPassedPawnCount += (7 - passedPawn.rank());
+            else rankPassedPawnCount += passedPawn.rank();
         }
         return rankPassedPawnCount;
     }
