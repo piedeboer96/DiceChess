@@ -623,7 +623,7 @@ public class FitnessFunction {
         else rank = 5;
         IChessboardSquare square = new ChessboardSquare(file, rank);
         IChessPiece pieceOnSquare = match.get(square);
-        if(pieceOnSquare != null && pieceInTeam(match, pieceOnSquare)) return true;
+        if(pieceInTeam(match, pieceOnSquare)) return true;
         return false;
     }
 
