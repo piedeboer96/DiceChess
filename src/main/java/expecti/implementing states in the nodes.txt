@@ -1,0 +1,216 @@
+get the moves of the the entire team using:
+legalMovesOf(int team) 	ChessBoard
+returns IChessMove[]
+IChessMove
+
+
+
+get the current piece position (to move from) using:
+getPosition() 	ChessPiece
+returns int[rank, file]
+
+
+get the state of the game:
+ChessMatch(String fen)     ChessMatch
+returns the state that can be used for the evaluation
+
+
+make a move for the child node:
+playMove(IChessPiece piece, IChessboardSquare destination)
+plays the chesspiece (owner of IChessMove to the destination)
+
+
+
+
+
+
+
+
+
+
+
+
+remake of IChessMove:  DONE
+
+current state:
+1 IChessMove object contains all the moves according to 1 movementInformation of a piece
+
+desired state:
+1 IChessMove object contains all the moves of 1 specific piece
+
+todo:
+make a method looping through all the pieces on the board and assigning the correct IChessMove to Them
+or 
+modify the current methods to already have that
+
+
+
+
+
+
+store the state of the game in the exceptiminimax tree:    DONE
+
+todo:
+store the fenstring ChessMatch, and build the game based on that for simulation (playmove() ChessMatch) or evaluation
+
+
+
+
+
+generate the entire tree:   DONE
+tips:
+use queue and put all children in it, except if ply = depth*3 (isRoot = true)
+
+
+
+evaluate based on the state:
+evaluate all team 0 nodes
+
+
+evaluate based on the children values:		DONE
+search through the entire tree
+
+
+calculate the error of the first based on the 2:
+
+
+
+
+chance nodes at ply:		team 0 nodes at ply:			team 1 nodes at ply:
+3				1					2
+5				4					6
+7				8					10
+9				12					14
+
+
+
+
+
+
+
+
+TODO (refactored code):
+1. generate a chess game, based on the DiceChess class                              --> DONE
+2. generate a movement from a movementopportunity instance                          --> DONE
+3. update the chess game by playing that move                                       --> DONE
+4. copy the updated game                                                            --> DONE   (maybe optimize)
+5. revert to the previous move                                                      --> DONE   (maybe optimize)
+6. repeat from step 2, until all movements of a team have been played               --> DONE
+
+7.11 study the current evaluation function                                          --> DONE
+7.12 implement the evaluation function from the GA                                  --> DONE   (get better evaluations for the evaluator)
+7.2 implement a dummy eval, that only counts the amount of pieces on the board      --> NOT NEEDED
+
+8. compute the leaf node values                                                     --> DONE
+
+9. integrate the ai into the game, so it can play                                   --> ___________________________________________________________________________________________________________________
+
+10. comment code                                                                    --> DONE
+
+
+
+
+
+
+Scoreboard:
+
+1. backwardPawn:
+-1 for each backward pawn (*-1)
+
+2. bishopMob:
+1 for each square it can move to (*1)
+
+3. bishopOnLarge:
+5 for each bishop (*5)
+
+4. bishopPair:
+6 if true (*6)
+
+5. bishopValue:
+9 for each bishop (*9)
+
+6. blockedPassedPawn:
+-2 for each blocked pawn (*-2)
+
+7. blockedPawn:
+-5 for each blocked pawn (*-5)
+
+8. centerPawnCount:
+2 for each center pawn (*2)
+
+9. doublePawn:
+-3 for each double pawn (*-3)
+
+10. enemyKnightOnWeak:
+-5 for each knight on weak (*-5)
+
+11. isoPawn:
+-2 for each isolated pawn (*-2)
+
+12. kingAttacked:
+-8 for each attack opportunity (*-8)
+
+13. kingCastled:
+____________________________________________________________________________________  1
+
+14. kingDefended:
+7 for each defend opportunity (*7)
+
+15. kingPawnShield:
+4 for each pawnshield (*4)
+
+16. knightMob:
+1 for each square it can move to (*1)
+
+17. knightSupport:
+2 for each knight supported (*2)
+
+18. knight periphery0-3:
+?????????????????????????????????????????????????????????????????????????????????????  all 0
+
+19. knightValue:
+9 for each knight (*9)
+
+20. passPawn:
+5 for each passPawn (*5)
+
+21. pawnValue:
+3 for each pawn (*3)
+
+22. queenMob:
+1 for each square it can move to (*1)
+
+23. queenValue:
+15 for each queen (*15)
+
+24. rankPassedPawn:
+1 for passive calculations (*1)
+
+25. rookBhdPassPawn:
+1 for passive calculations (*1)
+
+26. rookClosedFile:
+-2 for each closed file rook (*-2)
+
+27. rookCon:
+4 for connected rooks (*4)
+
+28. rookMob:
+1 for each square it can move to (*1)
+
+29. rookOnSeventh:
+7* for each rook on seventh rank (*7)
+
+30. rookOpenFile:
+1 for each open rook (*1)
+
+31. rookSemiOpenFile:
+0
+
+32. rookValue:
+10 for each rook (*10)
+
+33. weakcount:
+-1 for each weak square (*-1)
+
+
