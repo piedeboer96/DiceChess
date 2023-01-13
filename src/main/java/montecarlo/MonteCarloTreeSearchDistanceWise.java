@@ -156,9 +156,7 @@ public class MonteCarloTreeSearchDistanceWise {
 
     // Expansion
     public boolean performExpansion(MonteCarloNode node, DiceChess game, List<Opportunity> movementOpportunities) {
-        int size = movementOpportunities.size(); // 2 operations , O(2)
-
-        if(size==0){
+        if (game.getState() != GameState.ONGOING || movementOpportunities.size() == 0) {
             return false;
         }
 
