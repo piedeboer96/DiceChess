@@ -17,7 +17,7 @@ public final class DiceChess {
     private final Chessboard B = new Chessboard();
     private final Die D = new DefaultDie();
 
-    public Stack<String> getHISTORY() {
+    public Stack<String> getHistory() {
         return HISTORY;
     }
 

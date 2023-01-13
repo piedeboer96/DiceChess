@@ -4,7 +4,6 @@ import dice.Die;
 import game.DiceChess;
 import game.GameState;
 import learningagent.datapipeline.Outcome;
-import learningagent.datapipeline.WLD;
 import player.ChessLunatic;
 import player.Human;
 import simulation.Player;
@@ -47,7 +46,7 @@ public class SelfPlay {
             game.update(nextState);
         }
 
-        Stack<String> HISTORY = game.getHISTORY();
+        Stack<String> HISTORY = game.getHistory();
 
         while (HISTORY.size() > 1) {
             String FEN = HISTORY.pop();
