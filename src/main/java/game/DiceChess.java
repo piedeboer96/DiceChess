@@ -16,6 +16,11 @@ import java.util.Stack;
 public final class DiceChess {
     private final Chessboard B = new Chessboard();
     private final Die D = new DefaultDie();
+
+    public Stack<String> getHISTORY() {
+        return HISTORY;
+    }
+
     private final Stack<String> HISTORY = new Stack<>();
     private int activeColor, fullMoves, halfMoves;
     private GameState state;
@@ -254,6 +259,9 @@ public final class DiceChess {
         } else {
             state = GameState.ONGOING;
         }
+
+        HISTORY.push(FEN);
+
     }
 
     @Override
