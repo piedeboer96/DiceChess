@@ -9,7 +9,7 @@ public class MonteCarloNode {
     private final MonteCarloNode PARENT;
 
     // team & state
-    private final int TEAM;
+    private final int COLOR;
     private final String FEN;
 
     // uct
@@ -20,7 +20,7 @@ public class MonteCarloNode {
     // constructor
     public MonteCarloNode(String FEN, MonteCarloNode parent, int team) {
         this.FEN = FEN;
-        this.TEAM = team;
+        this.COLOR = team;
         PARENT = parent;
         CHILDREN = new ArrayList<>();
     }
@@ -58,8 +58,8 @@ public class MonteCarloNode {
         return winCount;
     }
 
-    public int getTeam() {
-        return TEAM;
+    public int getColor() {
+        return COLOR;
     }
 }
 

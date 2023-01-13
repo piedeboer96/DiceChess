@@ -219,7 +219,7 @@ public class MonteCarloTreeSearch {
         while(tempNode != null) {
             tempNode.incrementVisitCount();
 
-            if(tempNode.getTeam() == winningTeam) {
+            if(tempNode.getColor() == winningTeam) {
                 // increase the score for the team that won
                 tempNode.incrementWinCount();
             }
