@@ -31,7 +31,6 @@ public class Bot implements Comparable<Bot> {
             game.switchActiveColor();
             return;
         }
-
         int minimumOpponentValue = Integer.MAX_VALUE;
         ChessPiece owner = null;
         Movement best = null;
