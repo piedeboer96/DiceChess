@@ -11,6 +11,7 @@ public class Lunatic implements Player {
     private final Random RND = new Random();
     @Override
     public String play(int roll, DiceChess game) {
+
         var opportunities = game.getTeamOpportunities(game.getActiveColor(), roll);
         if (opportunities.size()>0){
             int randomOpportunityIndex = RND.nextInt(opportunities.size());

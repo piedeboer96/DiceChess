@@ -9,8 +9,6 @@ import java.util.List;
 
 public class ExpectiminimaxState implements State
 {
-    // the FEN representation of the current game state
-    private String snapshot;
 
     // the DiceChess match at the current node
     private DiceChess match;
@@ -34,7 +32,6 @@ public class ExpectiminimaxState implements State
      */
         public ExpectiminimaxState(String snapshot, int rolled)
         {
-            this.snapshot = snapshot;
             match = new DiceChess(snapshot);
             this.rolled = rolled;
         }
@@ -69,37 +66,34 @@ public class ExpectiminimaxState implements State
         {
             return match.getTeamOpportunities(team, rolled);
         }
-
     }
 
     @Override
     public int getStateEvaluation()
     {
        Evaluator eval = new Evaluator(match);
+       return eval.getEvaluation();
 
-       if(match.getActiveColor() == 0)
-       {
-           return switch (match.getState())
-                   {
-                       case DRAW -> 0;
-                       case BLACK_WON -> eval.getQueenValue()*100;
-                       case WHITE_WON -> eval.getQueenValue()*-100;
-                       default -> eval.getEvaluation();
-                   };
-       }
-       else
-       {
-           return switch (match.getState())
-                   {
-                       case DRAW -> 0;
-                       case BLACK_WON -> eval.getQueenValue()*-100;
-                       case WHITE_WON -> eval.getQueenValue()*100;
-                       default -> eval.getEvaluation();
-                   };
-       }
-
-
-
+//       if(match.getActiveColor() == 0)
+//       {
+//           return switch (match.getState())
+//                   {
+//                       case DRAW -> 0;
+//                       case BLACK_WON -> eval.getQueenValue()*100;
+//                       case WHITE_WON -> eval.getQueenValue()*-100;
+//                       default -> eval.getEvaluation();
+//                   };
+//       }
+//       else
+//       {
+//           return switch (match.getState())
+//                   {
+//                       case DRAW -> 0;
+//                       case BLACK_WON -> eval.getQueenValue()*-100;
+//                       case WHITE_WON -> eval.getQueenValue()*100;
+//                       default -> eval.getEvaluation();
+//                   };
+//       }
 
     }
 

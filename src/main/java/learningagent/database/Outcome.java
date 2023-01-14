@@ -1,4 +1,4 @@
-package learningagent.datapipeline;
+package learningagent.database;
 
 public class Outcome {
 

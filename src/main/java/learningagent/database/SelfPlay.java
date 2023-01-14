@@ -3,10 +3,12 @@ package learningagent.database;
 import dice.Die;
 import game.DiceChess;
 import game.GameState;
-import learningagent.datapipeline.Outcome;
+import player.ChessGenetic;
 import player.ChessLunatic;
 import player.Human;
 import simulation.Player;
+
+import java.io.FileNotFoundException;
 import java.sql.*;
 
 
@@ -19,10 +21,24 @@ public class SelfPlay {
     Player r1 = new ChessLunatic();
     Player r2 = new ChessLunatic();
 
+    // Two GA chess players
+    Player ga1 = new ChessGenetic();
+    Player ga2 = new ChessGenetic();
+
+    public SelfPlay() throws FileNotFoundException {
+    }
 
     // This method generates one outcome list using two random chess players
-    public ArrayList<Outcome> playChess() {
-        return (simulate(r1, r2));
+    //      0 = random bot
+    //      1 = genetic bot
+    public ArrayList<Outcome> playChess(int playerType) {
+
+        if(playerType==0){
+            return (simulate(r1, r2));
+        } else {
+            return (simulate(ga1, ga2));
+        }
+
     }
 
     // Simulate one match and generate list with simplified FEN with outcome information
@@ -70,7 +86,7 @@ public class SelfPlay {
     /**
      * DATABASE
      */
-    public void writeOutcomesToDB(int numberOfGames) {
+    public void writeOutcomesToDB(int numberOfGames, int playerType) {
         // JDBC driver name and database URL
         final String DB_URL = "jdbc:mysql://localhost:3306/ChessDB";
         final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -97,7 +113,7 @@ public class SelfPlay {
             // HERE WE RUN GAMES THAT WE ADD TO THE DATABASE
             for (int i = 0; i < numberOfGames; i++) {
 
-                ArrayList<Outcome> outcomes = playChess();
+                ArrayList<Outcome> outcomes = playChess(playerType);
 
                 for (Outcome outcome : outcomes) {
 
@@ -117,7 +133,6 @@ public class SelfPlay {
                 }
 
             }
-
 
             // Clean-up environment
             stmt.close();

@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class Trainer {
     private static final double MUTATION_FACTOR = 0.007; // mutation factor
-    private static final int GENERATIONS = 200; // generation
+    private static final int GENERATIONS = 2000; // generation
     private static final int POPULATION = 20; // population
     private static final Random RANDOM = new Random();
     private List<Bot> bots = new ArrayList<>(POPULATION); // chromosomes
@@ -71,8 +71,8 @@ public class Trainer {
     private void crossover() {
         List<Bot> crossedList = new ArrayList<>();
         while(crossedList.size() != POPULATION){
-            Bot first = bots.get(RANDOM.nextInt(4,10));
-            Bot second = bots.get(RANDOM.nextInt(4,10));
+            Bot first = bots.get(RANDOM.nextInt(9,20));
+            Bot second = bots.get(RANDOM.nextInt(9,20));
             if (first != second) {
                 crossedList.add(first.getChromosome().crossoverWith(second.getChromosome()));
             }
@@ -99,6 +99,8 @@ public class Trainer {
         // match all bots with each other
         Trainer t = new Trainer();
         t.train();
+        // play matches between bots from last generation and choose the best bot among them
+        // write the best bot data into a file to use it later when initialising new best bot
         File file = new File("bestChromosomeData.txt");
         FileWriter fileWriter = new FileWriter(file);
         PrintWriter printWriter = new PrintWriter(fileWriter);

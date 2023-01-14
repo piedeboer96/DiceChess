@@ -18,6 +18,9 @@ public interface Evaluation
     final int kingCastled = 58;
     final int kingDefended = 25;
     final int kingPawnShield = 24;
+
+
+
     final int knightMob = 3;
     final int knightSupport = 28;
     final int knightPeriphery0 = -24;
@@ -42,12 +45,16 @@ public interface Evaluation
     final int kingEaten = -2*queenValue;
 
 
+    final int kingValue = -2*queenValue;
+    final int kingZoneAttacked = 0;
+
+
     /**
      * array containing all the evaluation weights
      */
     final int[] eval = {backwardPawn, bishopMob, bishopOnLarge,bishopPair, bishopValue , blockedPassedPawn,
             blockedPawn , centerPawnCount, doublePawn,  enemyKnightOnWeak, isoPawn ,
-            kingAttacked, kingCastled, kingDefended,  kingPawnShield, knightMob,
+            kingAttacked, kingCastled, kingDefended,  kingPawnShield,kingValue,kingZoneAttacked, knightMob,
             knightSupport , knightPeriphery0 , knightPeriphery1 , knightPeriphery2,
             knightPeriphery3,  knightValue , passPawn , pawnValue , queenMob ,queenValue,
             rankPassedPawn , rookBhdPassPawn , rookClosedFile , rookCon , rookMob , rookOnSeventh,
