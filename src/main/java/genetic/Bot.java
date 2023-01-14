@@ -3,6 +3,7 @@ package genetic;
 import game.*;
 import utility.Promotion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bot implements Comparable<Bot> {
@@ -26,40 +27,39 @@ public class Bot implements Comparable<Bot> {
     }
 
     public void play(DiceChess game, int roll) {
-        List<Opportunity> l = game.getTeamOpportunities(game.getActiveColor(), roll);
-        if (l.size() == 0) {
+        List<Opportunity> opportunities = game.getTeamOpportunities(game.getActiveColor());
+        if (opportunities.size() == 0) {                             //  O(n log n)
             game.switchActiveColor();
             return;
         }
 
-        int minimumOpponentValue = Integer.MAX_VALUE;
-        ChessPiece owner = null;
-        Movement best = null;
-        for (Opportunity o : l) {
-            for (int i = 0; i < o.size(); i++) {
-                Movement m = o.select(i);
+        List<List<Integer>> opportunityEvaluations = new ArrayList<>();
+        for (Opportunity mo : opportunities) {                                  // O(n)
+            List<Integer> movementEvaluations = new ArrayList<>(mo.options().size());
+            for (int i = 0; i < mo.size(); i++)                       {  // O(n^2)
+                Movement m = mo.select(i);
                 game.register(m);
-                if (game.getState() == GameState.ONGOING && Promotion.isEligible(o.owner(), m.endpoint())) {
-                    game.promote(m.endpoint(), ChessPiece.get(5, game.getActiveColor()));
-                }
                 game.switchActiveColor();
-                int evaluation;
-                switch (game.getState()) {
-                    case ONGOING -> evaluation = FUNCTION.evaluate(CHROMOSOME, game);
-                    case DRAW -> evaluation = 0;
-                    default -> evaluation = Integer.MIN_VALUE;
-                }
-                if (evaluation < minimumOpponentValue) {
-                    best = m;
-                    owner = o.owner();
-                }
+                int evaluation = FUNCTION.evaluate(CHROMOSOME, game);
+                movementEvaluations.add(evaluation);
                 game.revert();
             }
+            opportunityEvaluations.add(movementEvaluations);
         }
-        game.register(best);
-        if (game.getState() == GameState.ONGOING && Promotion.isEligible(owner, best.endpoint())) {
-            game.promote(best.endpoint(), ChessPiece.get(5, game.getActiveColor()));
+        int bestOpportunityIndex = -1, bestMoveIndex = -1, minimumValue = Integer.MAX_VALUE;
+        for (int i = 0; i < opportunityEvaluations.size(); i++) {                 // O(n)
+            List<Integer> movementEvaluations = opportunityEvaluations.get(i);
+            for (int j = 0; j < movementEvaluations.size(); j++) {                // O(n^2)
+                if (minimumValue > movementEvaluations.get(j)) {                  // O(n log n)
+                    bestOpportunityIndex = i;
+                    bestMoveIndex = j;
+                    minimumValue = movementEvaluations.get(j);
+                }
+            }
         }
+        Opportunity bestOpportunity = opportunities.get(bestOpportunityIndex);
+        Movement m = bestOpportunity.select(bestMoveIndex);
+        game.register(m);
         game.switchActiveColor();
     }
 
