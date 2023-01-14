@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class Trainer {
     private static final double MUTATION_FACTOR = 0.007; // mutation factor
-    private static final int GENERATIONS = 2000; // generation
+    private static final int GENERATIONS = 200; // generation
     private static final int POPULATION = 20; // population
     private static final Random RANDOM = new Random();
     private List<Bot> bots = new ArrayList<>(POPULATION); // chromosomes
@@ -101,7 +101,7 @@ public class Trainer {
         t.train();
         // play matches between bots from last generation and choose the best bot among them
         // write the best bot data into a file to use it later when initialising new best bot
-        File file = new File("bestChromosomeData.txt");
+        File file = new File("bestChromosomeData2.txt");
         FileWriter fileWriter = new FileWriter(file);
         PrintWriter printWriter = new PrintWriter(fileWriter);
         printWriter.println(t.bestBot().getChromosome().toString());

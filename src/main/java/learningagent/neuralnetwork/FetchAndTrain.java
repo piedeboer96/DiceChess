@@ -5,7 +5,7 @@ import learningagent.database.OneHotEncoding;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
+
 
 /**
  * 1. Fetch the data from SQL Database table 'chess_games' inside ChessDB
@@ -32,8 +32,8 @@ public class FetchAndTrain {
     public void fetchAndTrain(long maxIterations) throws SQLException {
 
         ChessDataRetriever dataRetriever
-                = new ChessDataRetriever("jdbc:mysql://localhost:3306/ChessDB", "cakeboy", "cake043");
-        dataRetriever.setQuery("SELECT FEN, blackWins, whiteWins, draws FROM chess_games");
+                = new ChessDataRetriever("jdbc:mysql://localhost:3306/chess", "cakeboy", "cake043");
+        dataRetriever.setQuery("SELECT FEN, blackWins, whiteWins, draws FROM genetic_dice");
         ResultSet resultSet = dataRetriever.getResultSet();
 
         int i=0;
@@ -41,8 +41,8 @@ public class FetchAndTrain {
             while (resultSet.next() && i<maxIterations) {
 
                 String FEN = resultSet.getString("FEN");
-                int whiteWins = resultSet.getInt("whiteWins");
                 int blackWins = resultSet.getInt("blackWins");
+                int whiteWins = resultSet.getInt("whiteWins");
                 int draws = resultSet.getInt("draws");
 
 
