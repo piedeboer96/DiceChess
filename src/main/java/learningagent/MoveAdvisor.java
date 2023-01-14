@@ -30,54 +30,16 @@ public class MoveAdvisor {
     OneHotEncoding hotEncoder = new OneHotEncoding();
 
     /** BEST MOVE FOR TEAM */
-    public String getMostPromisingBoardPosition(ArrayList<String> boardPositions, int team) {
+    public double getMostPromisingBoardPosition(String fen, int team) {
+        // Board position
+        String boardFEN = fen.split(" ", 2)[0];
 
-        double bestBlack = 0.0;
-        double bestWhite = 0.0;
+        // Encode and generate NN prediction
+        double[] encodedFEN = hotEncoder.oneHotEncodeSimplifiedFEN(boardFEN);
+        double[] prediction = nn.predict(encodedFEN);
 
-        String tempFEN = "";
-        String boardFEN = "";
-
-        String bestBoardBLACK = "";
-        String bestBoardWHITE = "";
-
-        double blackWP;
-        double whiteWP;
-
-        double[] encodedFEN;
-        double[] prediction;
-
-        for(int i=0; i<boardPositions.size(); i++){
-
-            // Board position
-            tempFEN = boardPositions.get(i);
-            boardFEN = tempFEN.split(" ", 2)[0];
-
-            // Encode and generate NN prediction
-            encodedFEN = hotEncoder.oneHotEncodeSimplifiedFEN(boardFEN);
-            prediction = nn.predict(encodedFEN);
-
-            blackWP = prediction[0];
-            whiteWP = prediction[1];
-
-            if(blackWP>bestBlack){
-                bestBlack=blackWP;
-                bestBoardBLACK=tempFEN;
-            }
-
-            if(whiteWP> bestWhite){
-                bestWhite=whiteWP;
-                bestBoardWHITE=tempFEN;
-            }
-
-        }
-
-        if(team==0){
-            return bestBoardBLACK;
-        } else {
-            return bestBoardWHITE;
-        }
-
+        //
+        return prediction[team];
     }
 
 }
