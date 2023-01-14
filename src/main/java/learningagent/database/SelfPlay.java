@@ -3,9 +3,7 @@ package learningagent.database;
 import dice.Die;
 import game.DiceChess;
 import game.GameState;
-import player.ChessGenetic;
-import player.ChessLunatic;
-import player.Human;
+import player.*;
 import simulation.Player;
 
 import java.io.FileNotFoundException;
@@ -18,12 +16,12 @@ import java.util.*;
 public class SelfPlay {
 
     // Two random chess players
-    Player r1 = new ChessLunatic();
-    Player r2 = new ChessLunatic();
+    Player r1 = new Lunatic();
+    Player r2 = new Lunatic();
 
     // Two GA chess players
-    Player ga1 = new ChessGenetic();
-    Player ga2 = new ChessGenetic();
+    Player ga1 = new Darwin();
+    Player ga2 = new Darwin();
 
     public SelfPlay() throws FileNotFoundException {
     }
