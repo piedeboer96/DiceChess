@@ -280,35 +280,40 @@ public class FitnessFunction {
     }
 
     /**
-     *  is the number of pieces of the enemy that are acting on ones king’s adjacent
-     * squares
+     *  is the number of pieces of the enemy that are acting on the king’s square
      */
     public int kingAttacked(int color, BoardProperties properties) {
-        return kingAttackedDefended(color, properties, true);
+        return kingAttackedDefended(color, properties, true, false);
     }
 
-    public int kingAttackedDefended(int color, BoardProperties properties, boolean opponentIsAttacking) {
+    public int kingAttackedDefended(int color, BoardProperties properties, boolean opponentIsAttacking, boolean kingZoneIsAttacked) {
         int count = 0;
         List<Square> zone;
         List<Opportunity> opportunities;
 
         switch (color) {
             case 0 -> {
-                zone = kingZone(properties.BLACK_KING);
-                if (opponentIsAttacking) {
-                    opportunities = properties.WHITE_MOVES;
+                if(!opponentIsAttacking || kingZoneIsAttacked) zone = kingZone(properties.BLACK_KING);
+                else {
+                    zone = new ArrayList<>();
                     Square kingLocation = properties.BLACK_KING;
                     zone.add(kingLocation);
+                }
+                if (opponentIsAttacking) {
+                    opportunities = properties.WHITE_MOVES;
                 } else {
                     opportunities = properties.BLACK_MOVES;
                 }
             }
             case 1 -> {
-                zone = kingZone(properties.WHITE_KING);
-                if (opponentIsAttacking) {
-                    opportunities = properties.BLACK_MOVES;
+                if(!opponentIsAttacking || kingZoneIsAttacked) zone = kingZone(properties.WHITE_KING);
+                else {
+                    zone = new ArrayList<>();
                     Square kingLocation = properties.WHITE_KING;
                     zone.add(kingLocation);
+                }
+                if (opponentIsAttacking) {
+                    opportunities = properties.BLACK_MOVES;
                 } else {
                     opportunities = properties.WHITE_MOVES;
                 }
@@ -341,7 +346,7 @@ public class FitnessFunction {
      * adjacent squares
      */
     public int kingDefended(int color, BoardProperties properties){
-        return kingAttackedDefended(color, properties, false);
+        return kingAttackedDefended(color, properties, false, false);
     }
 
     /**
@@ -372,6 +377,17 @@ public class FitnessFunction {
     }
 
     /**
+     * value is 1 if the Player A has a king
+     */
+    public int kingValue(int color, BoardProperties properties) {
+        return switch (color) {
+            case 0 -> properties.BLACK_KING == null ? 0 : 1;
+            case 1 -> properties.WHITE_KING == null ? 0 : 1;
+            default -> throw new IllegalStateException("Color is not an integer between 0 and 1.");
+        };
+    }
+
+    /**
      * returns adjacent squares of king
      */
     private List<Square> kingZone(Square kingLocation) {
@@ -388,6 +404,14 @@ public class FitnessFunction {
             }
         }
         return zone;
+    }
+
+    /**
+     *  is the number of pieces of the enemy that are acting on ones king’s adjacent
+     * squares
+     */
+    public int kingZoneAttacked(int color, BoardProperties properties) {
+        return kingAttackedDefended(color, properties, true, true);
     }
 
     /**
@@ -913,27 +937,29 @@ public class FitnessFunction {
                 kingCastled(color, properties) * data[12] +
                 kingDefended(color, properties) * data[13] +
                 kingPawnShield(color, properties) * data[14] +
-                knightMob(color, properties) * data[15] +
-                knightSupport(color, properties) * data[16] +
-                knightPeriphery0(color, properties) * data[17] +
-                knightPeriphery1(color, properties) * data[18] +
-                knightPeriphery2(color, properties) * data[19] +
-                knightPeriphery3(color, properties) * data[20] +
-                knightValue(color, properties) * data[21] +
-                passPawn(color, properties) * data[22] +
-                pawnValue(color, properties) * data[23] +
-                queenMob(color, properties) * data[24] +
-                queenValue(color, properties) * data[25] +
-                rankPassedPawn(color, properties) * data[26] +
-                rookBhdPassPawn(color, properties) * data[27] +
-                rookClosedFile(color, properties) * data[28] +
-                rookCon(color, properties) * data[29] +
-                rookMob(color, properties) * data[30] +
-                rookOnSeventh(color, properties) * data[31] +
-                rookOpenFile(color, properties) * data[32] +
-                rookSemiOpenFile(color, properties) * data[33] +
-                rookValue(color, properties) * data[34] +
-                weakCount(color, properties) * data[35];
+                kingValue(color, properties) * data[15] +
+                kingZoneAttacked(color, properties) * data[16] +
+                knightMob(color, properties) * data[17] +
+                knightSupport(color, properties) * data[18] +
+                knightPeriphery0(color, properties) * data[19] +
+                knightPeriphery1(color, properties) * data[20] +
+                knightPeriphery2(color, properties) * data[21] +
+                knightPeriphery3(color, properties) * data[22] +
+                knightValue(color, properties) * data[23] +
+                passPawn(color, properties) * data[24] +
+                pawnValue(color, properties) * data[25] +
+                queenMob(color, properties) * data[26] +
+                queenValue(color, properties) * data[27] +
+                rankPassedPawn(color, properties) * data[28] +
+                rookBhdPassPawn(color, properties) * data[29] +
+                rookClosedFile(color, properties) * data[30] +
+                rookCon(color, properties) * data[31] +
+                rookMob(color, properties) * data[32] +
+                rookOnSeventh(color, properties) * data[33] +
+                rookOpenFile(color, properties) * data[34] +
+                rookSemiOpenFile(color, properties) * data[35] +
+                rookValue(color, properties) * data[36] +
+                weakCount(color, properties) * data[37];
     }
 
     private int evaluationFunction(int[] data, int color, BoardProperties properties) {
@@ -952,27 +978,30 @@ public class FitnessFunction {
                 kingCastled(color, properties) * data[12] +
                 kingDefended(color, properties) * data[13] +
                 kingPawnShield(color, properties) * data[14] +
-                knightMob(color, properties) * data[15] +
-                knightSupport(color, properties) * data[16] +
-                knightPeriphery0(color, properties) * data[17] +
-                knightPeriphery1(color, properties) * data[18] +
-                knightPeriphery2(color, properties) * data[19] +
-                knightPeriphery3(color, properties) * data[20] +
-                knightValue(color, properties) * data[21] +
-                passPawn(color, properties) * data[22] +
-                pawnValue(color, properties) * data[23] +
-                queenMob(color, properties) * data[24] +
-                queenValue(color, properties) * data[25] +
-                rankPassedPawn(color, properties) * data[26] +
-                rookBhdPassPawn(color, properties) * data[27] +
-                rookClosedFile(color, properties) * data[28] +
-                rookCon(color, properties) * data[29] +
-                rookMob(color, properties) * data[30] +
-                rookOnSeventh(color, properties) * data[31] +
-                rookOpenFile(color, properties) * data[32] +
-                rookSemiOpenFile(color, properties) * data[33] +
-                rookValue(color, properties) * data[34] +
-                weakCount(color, properties) * data[35];
+                kingValue(color, properties) * data[15] +
+                kingZoneAttacked(color, properties) * data[16] +
+                knightMob(color, properties) * data[17] +
+                knightSupport(color, properties) * data[18] +
+                knightPeriphery0(color, properties) * data[19] +
+                knightPeriphery1(color, properties) * data[20] +
+                knightPeriphery2(color, properties) * data[21] +
+                knightPeriphery3(color, properties) * data[22] +
+                knightValue(color, properties) * data[23] +
+                passPawn(color, properties) * data[24] +
+                pawnValue(color, properties) * data[25] +
+                queenMob(color, properties) * data[26] +
+                queenValue(color, properties) * data[27] +
+                rankPassedPawn(color, properties) * data[28] +
+                rookBhdPassPawn(color, properties) * data[29] +
+                rookClosedFile(color, properties) * data[30] +
+                rookCon(color, properties) * data[31] +
+                rookMob(color, properties) * data[32] +
+                rookOnSeventh(color, properties) * data[33] +
+                rookOpenFile(color, properties) * data[34] +
+                rookSemiOpenFile(color, properties) * data[35] +
+                rookValue(color, properties) * data[36] +
+                weakCount(color, properties) * data[37];
+
     }
 
     public int evaluate(Chromosome c, DiceChess game) {
