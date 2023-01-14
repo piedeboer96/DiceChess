@@ -22,27 +22,6 @@ public class ExpectiMiniMaxNode implements Node
     int team;
 
 
-    // not used
-//    public ExpectiMiniMaxNode(Node parent, int childNumber)
-//    {
-//        this.ply = parent.getPly()+1;
-//    this.childNumber = childNumber;
-//    this.parent = parent;
-//    isChance = !parent.isChanceNode() && !parent.isRootNode();
-//    children = new ArrayList<Node>();
-//
-//
-//        if(parent.getParent().getTeam() == 0)
-//        {
-//            team = 1;
-//        }
-//        if(parent.getParent().getTeam() == 1)
-//        {
-//            team = 0;
-//        }
-//    }
-
-
     /**
      * This node is used to construct max/min nodes, excluding the root node
      * @param parent the parent of the constructed node
@@ -73,8 +52,6 @@ public class ExpectiMiniMaxNode implements Node
                 team = 0;
             }
         }
-
-
         this.state = state;
     }
 
@@ -184,11 +161,9 @@ public class ExpectiMiniMaxNode implements Node
             throw new IllegalStateException("not applicable to this node");
         }
         double currentValue = 0;
-        int i = 0;
         for(Node child : children)
         {
             currentValue += child.getState().getStateEvaluation();
-            i++;
         }
         return currentValue/MAX_OPTIONS;
     }

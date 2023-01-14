@@ -4,7 +4,7 @@ import java.sql.*;
 
 /**
  * Explanation:
- *      This class allows you to establish a connection to your MySQL database and execute a query to retrieve the data.
+ *      This class allows to establish a connection to a MySQL database and execute a query to retrieve the data.
  *      The key here is the setFetchSize(Integer.MIN_VALUE) statement in the getResultSet method.
  *      This tells the MySQL JDBC driver to stream the data as it is retrieved, rather than loading it into memory all at once.
  */

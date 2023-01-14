@@ -1,24 +1,25 @@
 package genetic;
 
-import game.*;
-import utility.Promotion;
+import game.DiceChess;
+import game.Movement;
+import game.Opportunity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bot implements Comparable<Bot> {
+public class ChessBot implements Comparable<ChessBot> {
     private final Chromosome CHROMOSOME;
     private final FitnessFunction FUNCTION = new FitnessFunction();
     public int wins;
     int currentPlayer;
 
-    public Bot() {
+    public ChessBot() {
         CHROMOSOME = new Chromosome();
         wins = 0;
         currentPlayer = 0;
     }
 
-    public Bot(Chromosome bestChromosome) {
+    public ChessBot(Chromosome bestChromosome) {
         CHROMOSOME = bestChromosome;
     }
 
@@ -26,8 +27,8 @@ public class Bot implements Comparable<Bot> {
         return CHROMOSOME;
     }
 
-    public void play(DiceChess game, int roll) {
-        List<Opportunity> opportunities = game.getTeamOpportunities(game.getActiveColor(), roll);
+    public void play(DiceChess game) {
+        List<Opportunity> opportunities = game.getTeamOpportunities(game.getActiveColor());
         if (opportunities.size() == 0) {                             //  O(n log n)
             game.switchActiveColor();
             return;
@@ -68,7 +69,7 @@ public class Bot implements Comparable<Bot> {
      * @return return the sort of best objects in a decreasing order
      */
     @Override
-    public int compareTo(Bot object) {
+    public int compareTo(ChessBot object) {
         return wins - object.wins;
     }
 }
