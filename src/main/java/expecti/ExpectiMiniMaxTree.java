@@ -13,10 +13,38 @@ import java.util.Queue;
 public class ExpectiMiniMaxTree implements Tree
 {
 
+
+
+
+
     public final String STATE;
     public List<Node> leaves = new ArrayList<>();
 
     List<Node> allChildren = new ArrayList<Node>();
+
+    private int[] weights = new int[38];
+
+    {
+        try {
+            File file = new File("src/main/java/expecti/weights.txt");
+
+            BufferedReader read = new BufferedReader(new FileReader(file));
+            String value;
+            int index = 0;
+            while(index != 37)
+            {
+                value = read.readLine();
+                weights[index] = Integer.parseInt(value);
+                System.out.println(weights[index]);
+                index++;
+            }
+            read.close();
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     /**
@@ -28,8 +56,9 @@ public class ExpectiMiniMaxTree implements Tree
     public ExpectiMiniMaxTree(String fen, int rolled)
     {
 
+        System.out.println("weights: "+weights[12] +"_______________________________________________________________________");
 
-        ExpectiminimaxState firstState = new ExpectiminimaxState(fen, rolled);
+        ExpectiminimaxState firstState = new ExpectiminimaxState(fen, rolled, weights);
         if(firstState.getAllLegalMoves().size() == 0)
         {
             STATE = firstState.toString();
@@ -92,7 +121,7 @@ public class ExpectiMiniMaxTree implements Tree
                         newMatch.promote(m.endpoint(), queen);
                     }
                     newMatch.switchActiveColor();
-                    ExpectiminimaxState newState = new ExpectiminimaxState(newMatch.toString());
+                    ExpectiminimaxState newState = new ExpectiminimaxState(newMatch.toString(), weights);
                     ExpectiMiniMaxNode child = new ExpectiMiniMaxNode(node, totalChildrenCreated, newState);
                     if (leafCheck(child)) {
                         child.setleaf();
@@ -125,7 +154,7 @@ public class ExpectiMiniMaxTree implements Tree
                         newMatch.promote(m.endpoint(), queen);
                     }
                     newMatch.switchActiveColor();
-                    ExpectiminimaxState newState = new ExpectiminimaxState(newMatch.toString());
+                    ExpectiminimaxState newState = new ExpectiminimaxState(newMatch.toString(), weights);
                     ExpectiMiniMaxNode child = new ExpectiMiniMaxNode(node, totalChildrenCreated, newState);
                     if(leafCheck(child))
                     {

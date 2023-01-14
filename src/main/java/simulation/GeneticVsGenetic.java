@@ -1,12 +1,13 @@
 package simulation;
 import player.Darwin;
+import player.Gambler;
 
 import java.io.FileNotFoundException;
 
 public class GeneticVsGenetic {
     public static void main(String[] args) throws FileNotFoundException {
         var simulator = new DefaultSimulator();
-        Player p1 = new Darwin();
+        Player p1 = new Gambler();
         Player p2 = new Darwin();
         int[] winCounts = new int[2];
         for (int i = 0; i < 10000; i++) {
