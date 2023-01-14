@@ -66,7 +66,7 @@ public class SelfPlay {
             String FEN = HISTORY.pop();
             String boardFen = FEN.split(" ", 2)[0];
 
-            if (isFenVisited(FEN, outcomes)) {
+            if (isFenVisited(boardFen, outcomes)) {
                 // REPEATED POSITION
             } else {
                 Outcome o = new Outcome(boardFen);
