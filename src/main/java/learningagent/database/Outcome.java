@@ -3,22 +3,21 @@ package learningagent.database;
 public class Outcome {
 
     private final String fen;
-    private int WhiteWINS;
     private int BlackWINS;
+    private int WhiteWINS;
     private int DRAWS;
 
     public Outcome(String fen) {
         this.fen = fen;
-        WhiteWINS = 0;
         BlackWINS = 0;
-    }
-
-    public void incrementWhiteWINS() {
-        this.WhiteWINS++;
+        WhiteWINS = 0;
     }
 
     public void incrementBlackWhiteWINS() {
         this.BlackWINS++;
+    }
+    public void incrementWhiteWINS() {
+        this.WhiteWINS++;
     }
 
     public void incrementDraws(){
@@ -29,12 +28,12 @@ public class Outcome {
         return this.fen;
     }
 
-    public int getWhiteWINS(){
-        return this.WhiteWINS;
-    }
-
     public int getBlackWINS(){
         return this.BlackWINS;
+    }
+
+    public int getWhiteWINS(){
+        return this.WhiteWINS;
     }
 
     public int getDRAWS(){
