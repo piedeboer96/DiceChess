@@ -113,10 +113,10 @@ public class MonteCarloTreeSearch {
         while(dc.getState()==GameState.ONGOING){
 
             List<Opportunity> opportunities = dc.getTeamOpportunities(dc.getActiveColor());
-            int randomIndex = RND.nextInt(opportunities.size());
+            int randomIndex = RND.nextInt(0, opportunities.size());
 
             Opportunity mo = opportunities.get(randomIndex);
-            int randomIndex2 = RND.nextInt(mo.size());
+            int randomIndex2 = RND.nextInt(0, mo.size());
 
             Movement m = mo.select(randomIndex2);
             dc.register(m);
