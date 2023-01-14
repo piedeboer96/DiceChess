@@ -27,7 +27,7 @@ public class Bot implements Comparable<Bot> {
     }
 
     public void play(DiceChess game, int roll) {
-        List<Opportunity> opportunities = game.getTeamOpportunities(game.getActiveColor());
+        List<Opportunity> opportunities = game.getTeamOpportunities(game.getActiveColor(), roll);
         if (opportunities.size() == 0) {                             //  O(n log n)
             game.switchActiveColor();
             return;
