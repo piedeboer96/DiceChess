@@ -15,9 +15,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import static genetic.Chromosome.bounds;
+
 public class Trainer {
     private static final double MUTATION_FACTOR = 0.007; // mutation factor
-    private static final int GENERATIONS = 200; // generation
+    private static int GENERATIONS = 200; // generation
     private static final int POPULATION = 20; // population
     private static final Random RANDOM = new Random();
     private List<Bot> bots = new ArrayList<>(POPULATION); // chromosomes
@@ -51,7 +53,7 @@ public class Trainer {
         Collections.sort(bots);
     }
 
-    private Bot matchBots(Bot bot1, Bot bot2) {
+    public Bot matchBots(Bot bot1, Bot bot2) {
         DiceChess game = new DiceChess();
         Bot[] bots = {bot1, bot2};
         while (game.getState() == GameState.ONGOING) {
@@ -71,10 +73,28 @@ public class Trainer {
     private void crossover() {
         List<Bot> crossedList = new ArrayList<>();
         while(crossedList.size() != POPULATION){
-            Bot first = bots.get(RANDOM.nextInt(9,20));
-            Bot second = bots.get(RANDOM.nextInt(9,20));
+            Bot first = bots.get(RANDOM.nextInt(POPULATION / 2,POPULATION));
+            Bot second = bots.get(RANDOM.nextInt(POPULATION / 2,POPULATION));
             if (first != second) {
                 crossedList.add(first.getChromosome().crossoverWith(second.getChromosome()));
+            }
+        }
+        bots = crossedList;
+    }
+
+    // The best 5 also pass to the next generation
+    private void elitistCrossover() {
+        List<Bot> crossedList = new ArrayList<>();
+        int i = 0;
+        while(i < (POPULATION / 4)) {
+            crossedList.add(bots.get(i));
+            i++;
+        }
+        while(crossedList.size() != POPULATION) {
+            Bot first = bots.get(RANDOM.nextInt(POPULATION / 2,POPULATION));
+            Bot second = bots.get(RANDOM.nextInt(POPULATION / 2,POPULATION));
+            if (first != second) {
+                crossedList.add(first.getChromosome().crossoverRate(second.getChromosome(), 0.25));
             }
         }
         bots = crossedList;
@@ -95,13 +115,18 @@ public class Trainer {
         return bot;
     }
 
+    // FOR EXPERIMENTS
+    private void setGenerations(int generation) {
+        GENERATIONS = generation;
+    }
+
     public static void main(String[] args) throws IOException {
         // match all bots with each other
         Trainer t = new Trainer();
         t.train();
         // play matches between bots from last generation and choose the best bot among them
         // write the best bot data into a file to use it later when initialising new best bot
-        File file = new File("bestChromosomeData2.txt");
+        File file = new File("bestChromosomeData.txt");
         FileWriter fileWriter = new FileWriter(file);
         PrintWriter printWriter = new PrintWriter(fileWriter);
         printWriter.println(t.bestBot().getChromosome().toString());
