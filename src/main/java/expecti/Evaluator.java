@@ -8,7 +8,7 @@ public class Evaluator implements Evaluation
      * construct the Object used for getting the evaluation values
      */
     private final FitnessFunction FUNCTION = new FitnessFunction();
-
+    private int[] weights;
 
     /**
      * final evaluation, including the weights
@@ -20,9 +20,9 @@ public class Evaluator implements Evaluation
      * The constructor of the Evaluator object, this object is used solely to get the final evaluation value
      * @param game the Dicechess game at the current node
      */
-    Evaluator(DiceChess game)
+    Evaluator(DiceChess game, int[] weights)
     {
-    evaluation = FUNCTION.evaluate(game,eval);
+    evaluation = FUNCTION.evaluate(game,weights);
     }
 
 

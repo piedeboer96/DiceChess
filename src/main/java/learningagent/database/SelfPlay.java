@@ -66,14 +66,14 @@ public class SelfPlay {
             String FEN = HISTORY.pop();
             String boardFen = FEN.split(" ", 2)[0];
 
-            if (isFenVisited(FEN, outcomes)) {
+            if (isFenVisited(boardFen, outcomes)) {
                 // REPEATED POSITION
             } else {
                 Outcome o = new Outcome(boardFen);
                 switch (game.getState()) {
                     case DRAW -> o.incrementDraws();
-                    case WHITE_WON -> o.incrementWhiteWINS();
                     case BLACK_WON -> o.incrementBlackWhiteWINS();
+                    case WHITE_WON -> o.incrementWhiteWINS();
                 }
                 outcomes.add(o);
             }
@@ -86,7 +86,7 @@ public class SelfPlay {
      */
     public void writeOutcomesToDB(int numberOfGames, int playerType) {
         // JDBC driver name and database URL
-        final String DB_URL = "jdbc:mysql://localhost:3306/ChessDB";
+        final String DB_URL = "jdbc:mysql://localhost:3306/chess";
         final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
         //  Database credentials
@@ -115,16 +115,16 @@ public class SelfPlay {
 
                 for (Outcome outcome : outcomes) {
 
-                    String sql = "INSERT INTO chess_games (FEN, WhiteWins, BlackWins, Draws) VALUES (?, ?, ?, ?) "
-                            + "ON DUPLICATE KEY UPDATE WhiteWins = WhiteWins + ?, BlackWins = BlackWins + ?, Draws = Draws + ?";
+                    String sql = "INSERT INTO genetic_dice (FEN, blackWins, whiteWins, Draws) VALUES (?, ?, ?, ?) "
+                            + "ON DUPLICATE KEY UPDATE blackWins = blackWins + ?, whiteWins = whiteWins + ?, Draws = Draws + ?";
 
                     PreparedStatement preparedStmt = conn.prepareStatement(sql);
                     preparedStmt.setString(1, outcome.getFen());
-                    preparedStmt.setInt(2, outcome.getWhiteWINS());
-                    preparedStmt.setInt(3, outcome.getBlackWINS());
+                    preparedStmt.setInt(2, outcome.getBlackWINS());
+                    preparedStmt.setInt(3, outcome.getWhiteWINS());
                     preparedStmt.setInt(4, outcome.getDRAWS());
-                    preparedStmt.setInt(5, outcome.getWhiteWINS());
-                    preparedStmt.setInt(6, outcome.getBlackWINS());
+                    preparedStmt.setInt(5, outcome.getBlackWINS());
+                    preparedStmt.setInt(6, outcome.getWhiteWINS());
                     preparedStmt.setInt(7, outcome.getDRAWS());
                     preparedStmt.execute();
 
@@ -169,8 +169,8 @@ public class SelfPlay {
             return false;
         }
 
-        for (int i = 0; i < outcomes.size(); i++) {
-            if (outcomes.get(i).getFen().equals(FEN)) {
+        for (Outcome outcome : outcomes) {
+            if (outcome.getFen().equals(FEN)) {
                 return true;
             }
         }

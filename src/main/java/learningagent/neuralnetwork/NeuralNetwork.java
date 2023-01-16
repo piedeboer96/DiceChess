@@ -1,5 +1,7 @@
 package learningagent.neuralnetwork;
 
+import learningagent.neuralnetwork.csvhelp.CSVtoArray;
+
 /**
  *
  * Neural Network
@@ -25,6 +27,9 @@ public class NeuralNetwork {
 
     // Activation function
     private ActivationFunction activationFunction;
+
+    // Helpers CSV
+    CSVtoArray csvRead = new CSVtoArray();
 
     public NeuralNetwork(int inputNodes, int hiddenNodes, int outputNodes, ActivationFunction activationFunction) {
 
@@ -56,6 +61,22 @@ public class NeuralNetwork {
         }
     }
 
+    public NeuralNetwork(){
+
+        this.inputNodes = 384;
+        this.hiddenNodes = 512;
+        this.outputNodes = 2;
+        this.activationFunction = new SigmoidActivationFunction();
+
+        this.biasesHidden = csvRead.readCSVto1DDoubleArray("biasHidden");
+        this.biasesOutput = csvRead.readCSVto1DDoubleArray("biasOutput");
+        this.weightsInputToHidden = csvRead.readCSVto2DDoubleArray("weightsInputHidden");
+        this.weightsHiddenToOutput = csvRead.readCSVto2DDoubleArray("weightsHiddenOutput");
+
+        System.out.println("Neural Activated");
+
+    }
+
     // We predict the winProbability for black and white
     //      index 0 = black
     //      index 1 = white
@@ -82,6 +103,7 @@ public class NeuralNetwork {
             sum += biasesOutput[i];
             output[i] = activationFunction.apply(sum);
         }
+
 
         return output;
     }
@@ -115,7 +137,7 @@ public class NeuralNetwork {
         double[] outputError = new double[outputNodes];
         for (int i = 0; i < outputNodes; i++) {
             outputError[i] = target[i] - output[i];
-
+//            System.out.println(outputError[i]);
         }
 
         // Compute the error of the hidden layer
@@ -165,23 +187,6 @@ public class NeuralNetwork {
 
     public double[] getBiasesOutput() {
         return biasesOutput;
-    }
-
-    // To quickly use a trained network we want to set these
-    public void setWeightsInputToHidden(double[][] weightsInputToHidden) {
-        this.weightsInputToHidden = weightsInputToHidden;
-    }
-
-    public void setBiasesHidden(double[] biasesHidden) {
-        this.biasesHidden = biasesHidden;
-    }
-
-    public void setWeightsHiddenToOutput(double[][] weightsHiddenToOutput) {
-        this.weightsHiddenToOutput = weightsHiddenToOutput;
-    }
-
-    public void setBiasesOutput(double[] biasesOutput) {
-        this.biasesOutput = biasesOutput;
     }
 
 }

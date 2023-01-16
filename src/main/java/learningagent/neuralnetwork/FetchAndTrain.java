@@ -2,10 +2,12 @@ package learningagent.neuralnetwork;
 
 import learningagent.database.ChessDataRetriever;
 import learningagent.database.OneHotEncoding;
+import learningagent.neuralnetwork.csvhelp.ArrayToCSV;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
+
 
 /**
  * 1. Fetch the data from SQL Database table 'chess_games' inside ChessDB
@@ -16,6 +18,10 @@ import java.util.Arrays;
  */
 public class FetchAndTrain {
 
+
+    /** CSV HELPER */
+    ArrayToCSV csvWriter = new ArrayToCSV();
+
     /** ENCODER */
     OneHotEncoding hotEncoder = new OneHotEncoding();
 
@@ -25,52 +31,58 @@ public class FetchAndTrain {
     // 384 nodes for board position
     // 256 hidden nodes
     // 2 output nodes
-    NeuralNetwork nn = new NeuralNetwork(384,256,2, SigmoidActivationFunction);
-    double learningRate = 0.001;
+    NeuralNetwork nn = new NeuralNetwork(384,512,2, SigmoidActivationFunction);
+    double learningRate = 0.0005;
 
     /** FETCH AND TRAIN FOR COLOUR */
-    public void fetchAndTrain(long maxIterations) throws SQLException {
+    public void fetchAndTrain() throws SQLException {
 
         ChessDataRetriever dataRetriever
-                = new ChessDataRetriever("jdbc:mysql://localhost:3306/ChessDB", "cakeboy", "cake043");
-        dataRetriever.setQuery("SELECT FEN, blackWins, whiteWins, draws FROM chess_games");
+                = new ChessDataRetriever("jdbc:mysql://localhost:3306/chess", "cakeboy", "cake043");
+        dataRetriever.setQuery("SELECT FEN, blackWins, whiteWins, draws FROM genetic_dice");
         ResultSet resultSet = dataRetriever.getResultSet();
 
-        int i=0;
+        double start = System.currentTimeMillis();
 
-            while (resultSet.next() && i<maxIterations) {
+        while (resultSet.next()) {
 
-                String FEN = resultSet.getString("FEN");
-                int whiteWins = resultSet.getInt("whiteWins");
-                int blackWins = resultSet.getInt("blackWins");
-                int draws = resultSet.getInt("draws");
+            String FEN = resultSet.getString("FEN");
+            int blackWins = resultSet.getInt("blackWins");
+            int whiteWins = resultSet.getInt("whiteWins");
+            int draws = resultSet.getInt("draws");
 
-
-
-                if(blackWins==0 && whiteWins==0 && draws==0){
-                    System.out.println("ERROR");
-                    break;
-                }
-
-                // Use the data to train your neural network
-                double[] encodedFEN  = hotEncoder.oneHotEncodeSimplifiedFEN(FEN);
-
-                double targetBlack = (double) (blackWins) / (double)  (whiteWins+blackWins+draws);
-                double targetWhite = (double) (whiteWins) / (double)  (whiteWins+blackWins+draws);
-
-                double[] target = {targetBlack, targetWhite};
-
-                // Feed this to the network
-                nn.train(encodedFEN,target,learningRate);
-
-                i++;
-
+            if(blackWins==0 && whiteWins==0 && draws==0){
+                System.out.println("ERROR");
+                break;
             }
 
+            // Use the data to train your neural network
+            double[] encodedFEN  = hotEncoder.oneHotEncodeSimplifiedFEN(FEN);
+
+            double targetBlack = (double) (blackWins) / (double)  (whiteWins+blackWins+draws);
+            double targetWhite = (double) (whiteWins) / (double)  (whiteWins+blackWins+draws);
+
+            double[] target = {targetBlack, targetWhite};
+
+            // Feed this to the network
+            nn.train(encodedFEN,target,learningRate);
+
+        }
 
 
 
+        System.out.println("Data exhausted or max iterations reached");
 
+        System.out.print(" " );
+        System.out.println(System.currentTimeMillis() - start);;
+
+        // BIASES (1D-ARRAY)
+        csvWriter.save1DArrayToCSV(nn.getBiasesHidden(), "biasHidden");
+        csvWriter.save1DArrayToCSV(nn.getBiasesOutput(), "biasOutput");
+
+        // WEIGHTS (2D-ARRAY)
+        csvWriter.save2DArrayToCSV(nn.getWeightsInputToHidden(), "weightsInputHidden");
+        csvWriter.save2DArrayToCSV(nn.getWeightsHiddenToOutput(), "weightsHiddenOutput");
 
 
     }
@@ -78,7 +90,7 @@ public class FetchAndTrain {
     /** TRAIN THE NETWORK */
     public static void main(String[] args) throws SQLException {
         FetchAndTrain f = new FetchAndTrain();
-        f.fetchAndTrain(100000);
+        f.fetchAndTrain();
     }
 
 
