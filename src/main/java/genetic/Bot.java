@@ -26,6 +26,8 @@ public class Bot implements Comparable<Bot> {
         return CHROMOSOME;
     }
 
+    public void setWins(int wins) { this.wins = wins; }
+
     public void play(DiceChess game, int roll) {
         List<Opportunity> opportunities = game.getTeamOpportunities(game.getActiveColor(), roll);
         if (opportunities.size() == 0) {                             //  O(n log n)
@@ -35,12 +37,12 @@ public class Bot implements Comparable<Bot> {
 
         List<List<Integer>> opportunityEvaluations = new ArrayList<>();
         for (Opportunity mo : opportunities) {                                  // O(n)
-            List<Integer> movementEvaluations = new ArrayList<>(mo.options().size());
+            List<Double> movementEvaluations = new ArrayList<>(mo.options().size());
             for (int i = 0; i < mo.size(); i++)                       {  // O(n^2)
                 Movement m = mo.select(i);
                 game.register(m);
                 game.switchActiveColor();
-                int evaluation = FUNCTION.evaluate(CHROMOSOME, game);
+                double evaluation = FUNCTION.evaluate(CHROMOSOME, game);
                 movementEvaluations.add(evaluation);
                 game.revert();
             }

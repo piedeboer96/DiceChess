@@ -45,7 +45,11 @@ public class Trainer {
         for (int i = 0; i < POPULATION; i++){
             for(int j = i + 1; j < POPULATION; j++){
                 if(i != j) {
-                    matchBots(bots.get(i), bots.get(j)).wins++;
+                    int totalGames = 30;
+                    for (int games = 0; games < 3; games++) {
+                        if (games < totalGames / 2) matchBots(bots.get(i), bots.get(j)).wins++;
+                        else matchBots(bots.get(j), bots.get(i)).wins++;
+                    }
                 }
             }
         }
@@ -60,7 +64,7 @@ public class Trainer {
             int dieRoll = RANDOM.nextInt(1, 7);
             bots[game.getActiveColor()].play(game, dieRoll);
         }
-        System.out.println("Finished game " + gamesFinished++);
+        //System.out.println("Finished game " + gamesFinished++);
 
         return switch (game.getState()) {
             case BLACK_WON -> bot1;
@@ -121,7 +125,8 @@ public class Trainer {
     }
 
     public static void main(String[] args) throws IOException {
-        // match all bots with each other
+         /*
+         // match all bots with each other
         Trainer t = new Trainer();
         t.train();
         // play matches between bots from last generation and choose the best bot among them
@@ -131,5 +136,17 @@ public class Trainer {
         PrintWriter printWriter = new PrintWriter(fileWriter);
         printWriter.println(t.bestBot().getChromosome().toString());
         printWriter.close();
+        */
+        double[] geneticDataNew = {-51, 13, 88, 6, 323, -31, -47, 50, -30, -45, 12, -401, 69, 57, 95, 3700, -24, 7, 89, -81, -9, 48, -30, 218, 74, 100, 4, 961, 39, 87, -60, 75, 9, 23, 45, 59, 515, -29};
+        double[] geneticData = {-33, 9, 53, 56, 304, -12, -39, 66, -30, -80, -23, -431, 95, 31, 44, 3903, -47, 0, 68, -92, 31, 49, 51, 338, 87, 100, 3, 814, -15, 59, -54, 85, 3, 65, 74, 81, 434, -1};
+        Bot geneticNewBot = new Bot(new Chromosome(geneticDataNew));
+        Bot geneticBot = new Bot(new Chromosome(geneticData));
+        Trainer t = new Trainer();
+        for (int i = 0; i < 1000; i++) {
+            t.matchBots(geneticBot, geneticNewBot).wins++;
+            t.matchBots(geneticNewBot, geneticBot).wins++;
+        }
+        System.out.println("GeneticBot wins: " + geneticBot.wins);
+        System.out.println("GeneticNewBot wins: " + geneticNewBot.wins);
     }
 }

@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class Chromosome {
     // all data we will have in the chromosome for each function in the heuristic fitness function
-    private final int[] DATA;
+    private final double[] DATA;
     // use random to randomize the initial values of the data of the chromosomes
     private final Random RANDOM = new Random();
 
@@ -13,16 +13,16 @@ public class Chromosome {
     }
 
     // same thing here, but we can sign the data manually.
-    public Chromosome(int[] data) {
+    public Chromosome(double[] data) {
         DATA = data;
     }
 
-    public int[] getData() {
+    public double[] getData() {
         return DATA;
     }
 
     // CHANGED UPPERBOUNDS TO 1 INTEGER HIGHER
-    public static int[][] bounds = {
+    public static double[][] bounds = {
             {-70, 31},
             {0, 16},
             {0, 101},
@@ -72,10 +72,10 @@ public class Chromosome {
 
     // assign values randomly to the data of the chromosome
     // CHANGED BOUNDS TO CALL bounds SO IT IS NOT FIXED
-    public int[] chromosomeBodyInitialization() {
-        int[] array = new int[bounds.length];
+    public double[] chromosomeBodyInitialization() {
+        double[] array = new double[bounds.length];
         for (int i = 0; i < bounds.length; i++) {
-            array[i] = RANDOM.nextInt(bounds[i][0], bounds[i][1]);
+            array[i] = RANDOM.nextDouble(bounds[i][0], bounds[i][1]);
         }
         return array;
     }
@@ -83,7 +83,7 @@ public class Chromosome {
     // cross over the two chromosomes by changing the first half of the first chromosome with the second half of the other chromosome
     // CHANGED FIXED NUMBERS TO VARIABLES, SO IF WE CHANGE THE LENGTH OF THE DATA OF THE CHROMOSOME THERE'S NO PROBLEM.
     Bot crossoverWith(Chromosome other) {
-        int[] merged = new int[DATA.length];
+        double[] merged = new double[DATA.length];
         System.arraycopy(DATA, 0, merged, 0, DATA.length / 2);
         System.arraycopy(other.DATA, DATA.length / 2, merged, DATA.length / 2, DATA.length - DATA.length / 2);
         Chromosome chromosome = new Chromosome(merged);
@@ -92,8 +92,8 @@ public class Chromosome {
 
     // CROSSING OVER WITH SOME RATE (BEST 0.25)
     Bot crossoverRate(Chromosome other, double crossoverFactor) {
-        int[] merged = new int[DATA.length];
-        int[] CURRENT_DATA = DATA;
+        double[] merged = new double[DATA.length];
+        double[] CURRENT_DATA = DATA;
         for(int i = 0; i < merged.length; i++) {
             double d = RANDOM.nextDouble();
             if (d < crossoverFactor) {
@@ -111,7 +111,7 @@ public class Chromosome {
         for (int i = 0; i < DATA.length; i++) {
             double d = RANDOM.nextDouble();
             if (d < mutateFactor) {
-                DATA[i] = RANDOM.nextInt(bounds[i][0], bounds[i][1]);
+                DATA[i] = RANDOM.nextDouble(bounds[i][0], bounds[i][1]);
             }
         }
     }

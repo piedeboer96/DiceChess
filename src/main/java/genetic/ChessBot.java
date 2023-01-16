@@ -36,12 +36,12 @@ public class ChessBot implements Comparable<ChessBot> {
 
         List<List<Integer>> opportunityEvaluations = new ArrayList<>();
         for (Opportunity mo : opportunities) {                                  // O(n)
-            List<Integer> movementEvaluations = new ArrayList<>(mo.options().size());
+            List<Double> movementEvaluations = new ArrayList<>(mo.options().size());
             for (int i = 0; i < mo.size(); i++)                       {  // O(n^2)
                 Movement m = mo.select(i);
                 game.register(m);
                 game.switchActiveColor();
-                int evaluation = FUNCTION.evaluate(CHROMOSOME, game);
+                double evaluation = FUNCTION.evaluate(CHROMOSOME, game);
                 movementEvaluations.add(evaluation);
                 game.revert();
             }

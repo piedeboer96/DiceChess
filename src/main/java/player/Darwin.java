@@ -22,7 +22,7 @@ public final class Darwin implements Player {
 
     public Darwin() throws FileNotFoundException {
         List<Integer> list = readFile("bestChromosomeData.txt");
-        int[] finalList = new int[list.size()];
+        double[] finalList = new double[list.size()];
         for(int i=0; i<list.size(); i++){
             finalList[i] = list.get(i);
         }
