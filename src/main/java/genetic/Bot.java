@@ -35,7 +35,7 @@ public class Bot implements Comparable<Bot> {
             return;
         }
 
-        List<List<Integer>> opportunityEvaluations = new ArrayList<>();
+        List<List<Double>> opportunityEvaluations = new ArrayList<>();
         for (Opportunity mo : opportunities) {                                  // O(n)
             List<Double> movementEvaluations = new ArrayList<>(mo.options().size());
             for (int i = 0; i < mo.size(); i++)                       {  // O(n^2)
@@ -48,9 +48,10 @@ public class Bot implements Comparable<Bot> {
             }
             opportunityEvaluations.add(movementEvaluations);
         }
-        int bestOpportunityIndex = -1, bestMoveIndex = -1, minimumValue = Integer.MAX_VALUE;
+        int bestOpportunityIndex = -1, bestMoveIndex = -1;
+        double minimumValue = Integer.MAX_VALUE;
         for (int i = 0; i < opportunityEvaluations.size(); i++) {                 // O(n)
-            List<Integer> movementEvaluations = opportunityEvaluations.get(i);
+            List<Double> movementEvaluations = opportunityEvaluations.get(i);
             for (int j = 0; j < movementEvaluations.size(); j++) {                // O(n^2)
                 if (minimumValue > movementEvaluations.get(j)) {                  // O(n log n)
                     bestOpportunityIndex = i;
