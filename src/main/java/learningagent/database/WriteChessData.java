@@ -23,7 +23,7 @@ public class WriteChessData {
         // 0 is random
         // 1 is genetic
         int playerType = 1;
-        int numberOfGames = 10000;
+        int numberOfGames = 100000;
 
         // write x number of games to the database
         sp.writeOutcomesToDB(numberOfGames, playerType);

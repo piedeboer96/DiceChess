@@ -22,6 +22,8 @@ public final class DefaultSimulator implements Simulator {
             String nextState = players[game.getActiveColor()].play(d.roll(), game);
             game = new DiceChess(nextState);
         }
+
+        System.out.println("game won by " + game.getState());
         return switch (game.getState()) {
             case DRAW      -> null;
             case BLACK_WON -> p1;

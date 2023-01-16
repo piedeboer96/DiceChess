@@ -145,12 +145,14 @@ public class MonteCarloTreeSearch {
         // Analaysis: assignemnt of variables barely influeces the time complexity
         DiceChess game = new DiceChess(node.getFEN());                                      //3 operations, O(3)
         List<Opportunity> movementOpportunities = game.getTeamOpportunities(game.getActiveColor());    //3 operations , O(3)
+
         return performExpansion(node, game, movementOpportunities);
     }
 
     public boolean expand(MonteCarloNode node, int dieRoll) {
         DiceChess game = new DiceChess(node.getFEN());
         List<Opportunity> movementOpportunities = game.getTeamOpportunities(game.getActiveColor(), dieRoll);
+
         return performExpansion(node, game, movementOpportunities);
     }
 

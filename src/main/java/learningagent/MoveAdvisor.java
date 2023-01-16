@@ -24,13 +24,16 @@ public class MoveAdvisor {
     // 2 output nodes [0=blackWP, 1=whiteWP]
     // sigmoid activation functions
     ActivationFunction SigmoidActivationFunction = new SigmoidActivationFunction();
-    NeuralNetwork nn = new NeuralNetwork(384,256,2, SigmoidActivationFunction);
+    //NeuralNetwork nn = new NeuralNetwork(384,256,2, SigmoidActivationFunction);
+    NeuralNetwork nn = new NeuralNetwork();
 
     /** ENCODER */
     OneHotEncoding hotEncoder = new OneHotEncoding();
 
     /** BEST MOVE FOR TEAM */
     public double getMostPromisingBoardPosition(String fen, int team) {
+
+
         // Board position
         String boardFEN = fen.split(" ", 2)[0];
 
