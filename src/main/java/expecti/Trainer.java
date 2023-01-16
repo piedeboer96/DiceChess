@@ -6,7 +6,7 @@ import java.io.*;
 
 public class Trainer
 {
-    static int iterations = 1   ;
+    static int iterations = 160;
     static int[] collection = new int[39];
     static int[] newValues = new int[38];
     static int[] newCollection = new int[39];
