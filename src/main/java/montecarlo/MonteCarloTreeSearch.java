@@ -107,6 +107,8 @@ public class MonteCarloTreeSearch {
     }
 
     // simulation
+
+    // UCT
     public int simulation(MonteCarloNode node){
         DiceChess dc = new DiceChess(node.getFEN());
 
@@ -130,16 +132,17 @@ public class MonteCarloTreeSearch {
         };
     }
 
+
+
+
     // Selection
     public MonteCarloNode selection(MonteCarloNode node) {
-
         if(node.getChildren().size()==0){
             return node;
         }
-
         return uct.getMaxUCT(node);
-
     }
+
 
     public boolean expand(MonteCarloNode node) {
         // Analaysis: assignemnt of variables barely influeces the time complexity

@@ -134,6 +134,7 @@ public class MonteCarloTreeSearchDistanceWise {
         };
     }
      */
+
     public int simulation(MonteCarloNode node) {
         DiceChess dc = new DiceChess(node.getFEN());
         while (dc.getState() == GameState.ONGOING) {
@@ -152,15 +153,58 @@ public class MonteCarloTreeSearchDistanceWise {
         };
     }
 
-    // Selection
-    public MonteCarloNode selection(MonteCarloNode node) {
 
+//    public int simulation(MonteCarloNode node) {
+//        DiceChess dc = new DiceChess(node.getFEN());
+//        while (dc.getState() == GameState.ONGOING) {
+//            List<Opportunity> opportunities = dc.getTeamOpportunities(dc.getActiveColor());
+//            int randomIndex = ThreadLocalRandom.current().nextInt(opportunities.size());
+//            Opportunity mo = opportunities.get(randomIndex);
+//            int randomIndex2 = ThreadLocalRandom.current().nextInt(mo.size());
+//            Movement m = mo.select(randomIndex2);
+//            dc.register(m);
+//            List<MonteCarloNode> children = node.getChildren();
+//            for (MonteCarloNode child : children) {
+//                if (m.endpoint().equals(child)) {
+//                    child.incrementRaveVisit();
+//                    if (dc.getState() == GameState.BLACK_WON && child.getColor() == 0) {
+//                        child.incrementRaveWin();
+//                    } else if (dc.getState() == GameState.WHITE_WON && child.getColor() == 1) {
+//                        child.incrementRaveWin();
+//                    }
+//                    break;
+//                }
+//            }
+//        }
+//        return switch (dc.getState()) {
+//            case BLACK_WON -> 0;
+//            case WHITE_WON -> 1;
+//            case DRAW -> -1;
+//            default -> throw new IllegalStateException("Something goes wrong with the state check.");
+//        };
+//    }
+
+
+
+    // Selection
+    // UCT
+
+//    public MonteCarloNode selection(MonteCarloNode node) {
+//
+//        if(node.getChildren().size()==0){
+//            return node;
+//        }
+//
+//        return uct.getMaxUCT(node);
+//
+//    }
+
+
+    public MonteCarloNode selection(MonteCarloNode node) {
         if(node.getChildren().size()==0){
             return node;
         }
-
         return uct.getMaxUCT(node);
-
     }
 
     public boolean expand(MonteCarloNode node) {

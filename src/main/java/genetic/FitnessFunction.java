@@ -353,28 +353,34 @@ public class FitnessFunction {
      * is the number of pawns of Player A adjacent to Player A’s king. Pawn shield is
      * an important parameter for evaluating the king safety
      */
+//    public int kingPawnShield(int color, BoardProperties properties) {
+//        int count = 0;
+//        switch (color) {
+//            case 0 -> {
+//                List<Square> zone = kingZone(properties.BLACK_KING);
+//                for (Square s : zone) {
+//                    if (properties.BLACK_PAWNS.contains(s)) {
+//                        count++;
+//                    }
+//                }
+//            }
+//            case 1 -> {
+//                List<Square> zone = kingZone(properties.WHITE_KING);
+//                for (Square s : zone) {
+//                    if (properties.WHITE_PAWNS.contains(s)) {
+//                        count++;
+//                    }
+//                }
+//            }
+//        }
+//        return count;
+//    }
     public int kingPawnShield(int color, BoardProperties properties) {
-        int count = 0;
-        switch (color) {
-            case 0 -> {
-                List<Square> zone = kingZone(properties.BLACK_KING);
-                for (Square s : zone) {
-                    if (properties.BLACK_PAWNS.contains(s)) {
-                        count++;
-                    }
-                }
-            }
-            case 1 -> {
-                List<Square> zone = kingZone(properties.WHITE_KING);
-                for (Square s : zone) {
-                    if (properties.WHITE_PAWNS.contains(s)) {
-                        count++;
-                    }
-                }
-            }
-        }
-        return count;
+        List<Square> zone = color == 0 ? kingZone(properties.BLACK_KING) : kingZone(properties.WHITE_KING);
+        List<Square> pawns = color == 0 ? properties.BLACK_PAWNS : properties.WHITE_PAWNS;
+        return (int) zone.stream().filter(pawns::contains).count();
     }
+
 
     /**
      * value is 1 if the Player A has a king
@@ -417,21 +423,28 @@ public class FitnessFunction {
     /**
      * is the number of squares that a specific knight can go to.
      */
+//    public int knightMob(int color, BoardProperties properties) {
+//        List<Opportunity> opportunities;
+//        switch (color) {
+//            case 0 -> opportunities = properties.BLACK_MOVES;
+//            case 1 -> opportunities = properties.WHITE_MOVES;
+//            default ->  throw new IllegalArgumentException();
+//        }
+//        int count = 0;
+//        for (Opportunity mo : opportunities) {
+//            ChessPiece p = mo.owner();
+//            if (p.type() == 2 && p.color() == color) {
+//                count += mo.size();
+//            }
+//        }
+//        return count;
+//    }
     public int knightMob(int color, BoardProperties properties) {
-        List<Opportunity> opportunities;
-        switch (color) {
-            case 0 -> opportunities = properties.BLACK_MOVES;
-            case 1 -> opportunities = properties.WHITE_MOVES;
-            default ->  throw new IllegalArgumentException();
-        }
-        int count = 0;
-        for (Opportunity mo : opportunities) {
-            ChessPiece p = mo.owner();
-            if (p.type() == 2 && p.color() == color) {
-                count += mo.size();
-            }
-        }
-        return count;
+        List<Opportunity> opportunities = color == 0 ? properties.BLACK_MOVES : properties.WHITE_MOVES;
+        return opportunities.stream()
+                .filter(o -> o.owner().type() == 2 && o.owner().color() == color)
+                .mapToInt(Opportunity::size)
+                .sum();
     }
 
     /**
@@ -477,42 +490,49 @@ public class FitnessFunction {
         return count;
     }
 
+//    private int knightPeriphery(int color, BoardProperties properties, int[] bounds) {
+//        List<Square> knightLocations;
+//        switch (color) {
+//            case 0 -> knightLocations = properties.BLACK_KNIGHTS;
+//            case 1 -> knightLocations = properties.WHITE_KNIGHTS;
+//            default -> throw new IllegalArgumentException();
+//        }
+//
+//        int count = 0;
+//        int rankUpperbound = 1 + bounds[1];
+//        for (int rank = 1 + bounds[0]; rank <= rankUpperbound; rank += (bounds[1] - bounds[0])){
+//            for(char file = (char) (97 + bounds[0]); file <= (char) (97 + bounds[1]); file++) {
+//                Square s = Square.get(file, rank);
+//                if (knightLocations.contains(s)) {
+//                    count++;
+//                    if (count == 2) {
+//                        return count;
+//                    }
+//                }
+//            }
+//        }
+//
+//        char fileUpperbound = (char) (97 + bounds[1]);
+//        for (char file = (char) (97 + bounds[0]); file <= fileUpperbound; file += (bounds[1] - bounds[0])) {
+//            for (int rank = 2 + bounds[0]; rank <= bounds[1]; rank++) {
+//                Square s = Square.get(file, rank);
+//                if (knightLocations.contains(s)) {
+//                    count++;
+//                    if (count == 2) {
+//                        return count;
+//                    }
+//                }
+//            }
+//        }
+//        return count;
+//    }
     private int knightPeriphery(int color, BoardProperties properties, int[] bounds) {
-        List<Square> knightLocations;
-        switch (color) {
-            case 0 -> knightLocations = properties.BLACK_KNIGHTS;
-            case 1 -> knightLocations = properties.WHITE_KNIGHTS;
-            default -> throw new IllegalArgumentException();
-        }
-
-        int count = 0;
-        int rankUpperbound = 1 + bounds[1];
-        for (int rank = 1 + bounds[0]; rank <= rankUpperbound; rank += (bounds[1] - bounds[0])){
-            for(char file = (char) (97 + bounds[0]); file <= (char) (97 + bounds[1]); file++) {
-                Square s = Square.get(file, rank);
-                if (knightLocations.contains(s)) {
-                    count++;
-                    if (count == 2) {
-                        return count;
-                    }
-                }
-            }
-        }
-
-        char fileUpperbound = (char) (97 + bounds[1]);
-        for (char file = (char) (97 + bounds[0]); file <= fileUpperbound; file += (bounds[1] - bounds[0])) {
-            for (int rank = 2 + bounds[0]; rank <= bounds[1]; rank++) {
-                Square s = Square.get(file, rank);
-                if (knightLocations.contains(s)) {
-                    count++;
-                    if (count == 2) {
-                        return count;
-                    }
-                }
-            }
-        }
-        return count;
+        List<Square> knightLocations = color == 0 ? properties.BLACK_KNIGHTS : properties.WHITE_KNIGHTS;
+        return (int) knightLocations.stream().filter(s -> s.file() >= (char) (97 + bounds[0]) && s.file() <= (char) (97 + bounds[1])
+                && (s.rank() == bounds[0] + 1 || s.rank() == bounds[1]
+                || s.file() == (char) (97 + bounds[0]) || s.file() == (char) (97 + bounds[1]))).count();
     }
+
 
     /**
      *  returns 1 if a given knight is on the squares a1 to a8,a8 to h8,a1 to h1 or h1 to h8.
