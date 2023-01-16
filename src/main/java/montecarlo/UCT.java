@@ -105,7 +105,10 @@ public class UCT {
                     maxUCT = value;
                 }
             }
-            iteration = bestNode;
+            if (bestNode != null) {
+                iteration = bestNode;
+            }
+
             maxUCT = -1;
         }
         return bestNode;

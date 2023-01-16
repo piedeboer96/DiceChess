@@ -44,6 +44,7 @@ public class MonteCarloTreeSearch {
             game.switchActiveColor();
             return game.toString();
         }
+
         MonteCarloNode randomChild = pickRandomChild(selectedLeaf);
         int winColor = simulation(randomChild);
         backPropagation(randomChild, winColor);
@@ -140,7 +141,7 @@ public class MonteCarloTreeSearch {
         if(node.getChildren().size()==0){
             return node;
         }
-        return uct.getMaxUCT(node);
+        return uct.getMaxUCTRAVE(node);
     }
 
 
