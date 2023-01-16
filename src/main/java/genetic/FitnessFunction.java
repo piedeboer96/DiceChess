@@ -3,7 +3,9 @@ package genetic;
 import game.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public class FitnessFunction {
 
@@ -378,6 +380,9 @@ public class FitnessFunction {
     public int kingPawnShield(int color, BoardProperties properties) {
         List<Square> zone = color == 0 ? kingZone(properties.BLACK_KING) : kingZone(properties.WHITE_KING);
         List<Square> pawns = color == 0 ? properties.BLACK_PAWNS : properties.WHITE_PAWNS;
+//        List<Square> zone = Collections.synchronizedList(color == 0 ? kingZone(properties.BLACK_KING) : kingZone(properties.WHITE_KING));
+//        List<Square> pawns = Collections.synchronizedList(color == 0 ? properties.BLACK_PAWNS : properties.WHITE_PAWNS);
+//        return (int) zone.parallelStream().filter(pawns::contains).count(); this would make it parallel but im not 100% that is working
         return (int) zone.stream().filter(pawns::contains).count();
     }
 
@@ -411,6 +416,7 @@ public class FitnessFunction {
         }
         return zone;
     }
+
 
     /**
      *  is the number of pieces of the enemy that are acting on ones king’s adjacent
@@ -490,6 +496,13 @@ public class FitnessFunction {
         return count;
     }
 
+    /*
+     public int kingPawnShield(int color, BoardProperties properties) {
+        List<Square> zone = color == 0 ? kingZone(properties.BLACK_KING) : kingZone(properties.WHITE_KING);
+        List<Square> pawns = color == 0 ? properties.BLACK_PAWNS : properties.WHITE_PAWNS;
+        return (int) zone.stream().filter(pawns::contains).count();
+    }
+     */
 //    private int knightPeriphery(int color, BoardProperties properties, int[] bounds) {
 //        List<Square> knightLocations;
 //        switch (color) {
