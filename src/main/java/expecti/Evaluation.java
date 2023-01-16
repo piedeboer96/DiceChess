@@ -8,7 +8,7 @@ public interface Evaluation
      * The getEvaluation() method returns the evaluation of the game
      * @return int representing the evaluation function result
      */
-    public int getEvaluation();
+    public double getEvaluation();
 
     /**
      * This method returns the value of the queen, useful for calculating the value of the king

@@ -47,7 +47,7 @@ public interface Node {
      * @return an int that is the minimum evaluation score the current node can pick
      * @throws IllegalStateException
      */
-    public int getMinChildValue();
+    public double getMinChildValue();
 
 
     /**

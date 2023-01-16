@@ -134,17 +134,17 @@ public class ExpectiMiniMaxNode implements Node
     }
 
     @Override
-    public int getMinChildValue()
+    public double getMinChildValue()
     {
         if(isChance || isLeaf || team == 2)
         {
             throw new IllegalStateException("not applicable to this node");
         }
-        int currentValue = Integer.MAX_VALUE;
+        double currentValue = Integer.MAX_VALUE;
 
         for (Node child : children)
         {
-            int potentialValue = child.getState().getStateEvaluation();
+            double potentialValue = child.getState().getStateEvaluation();
             if (currentValue > potentialValue)
             {
                 currentValue = potentialValue;

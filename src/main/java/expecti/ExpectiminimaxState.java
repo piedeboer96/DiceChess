@@ -16,7 +16,7 @@ public class ExpectiminimaxState implements State
     // the dice value rolled, only used by the root node
     private int rolled;
 
-    private int[] weights;
+    private double[] weights;
 
     //hardcoded evaluation function
 
@@ -32,7 +32,7 @@ public class ExpectiminimaxState implements State
      * @param snapshot the FEN representation of the current game state
      * @param rolled the dice value rolled, to determine allLegalMoves()
      */
-        public ExpectiminimaxState(String snapshot, int rolled, int[] weights)
+        public ExpectiminimaxState(String snapshot, int rolled, double[] weights)
         {
             match = new DiceChess(snapshot);
             this.rolled = rolled;
@@ -44,7 +44,7 @@ public class ExpectiminimaxState implements State
      * this constructor is used for all max/min nodes, excluding the root node
      * @param fen the current fen of the state
      */
-        public ExpectiminimaxState(String fen, int[] weights)
+        public ExpectiminimaxState(String fen, double[] weights)
         {
             this.match = new DiceChess(fen);
             this.weights = weights;
@@ -73,7 +73,7 @@ public class ExpectiminimaxState implements State
     }
 
     @Override
-    public int getStateEvaluation()
+    public double getStateEvaluation()
     {
        Evaluator eval = new Evaluator(match, weights);
        return eval.getEvaluation();

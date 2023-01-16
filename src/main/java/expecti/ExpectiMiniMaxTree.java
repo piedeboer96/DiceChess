@@ -26,7 +26,7 @@ public class ExpectiMiniMaxTree implements Tree
 
     List<Node> allChildren = new ArrayList<Node>();
 
-    private int[] weights = new int[38];
+    private double[] weights = new double[38];
 
     {
         try {
@@ -187,7 +187,7 @@ public class ExpectiMiniMaxTree implements Tree
         @Override
         public void computeLeafNodeValues() {
             for (Node n : leaves) {
-                int eval = n.getState().getStateEvaluation();
+                double eval = n.getState().getStateEvaluation();
                 n.setExpecti(eval);
             }
         }

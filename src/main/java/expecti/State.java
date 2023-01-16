@@ -25,7 +25,7 @@ public interface State
      * getStateEvaluation() evaluates the chessboard, used to determine the 'goodness' of a move
      * @return must still be implemented___________________________________________________________________________________
      */
-    public int getStateEvaluation();
+    public double getStateEvaluation();
 
 
     /**

@@ -7,9 +7,9 @@ import java.io.*;
 public class Trainer
 {
     static int iterations = 160;
-    static int[] collection = new int[39];
-    static int[] newValues = new int[38];
-    static int[] newCollection = new int[39];
+    static double[] collection = new double[39];
+    static double[] newValues = new double[38];
+    static double[] newCollection = new double[39];
     public static void main(String[] args)
     {
 
@@ -54,10 +54,10 @@ public class Trainer
     }
 
 
-    public static int[] addition(int[] newValues, int[] collection, int newWeight)
+    public static double[] addition(double[] newValues, double[] collection, double newWeight)
     {
-        int currentIteration = collection[38];
-        int[] newCollection = new int[39];
+        double currentIteration = collection[38];
+        double[] newCollection = new double[39];
 
         for(int i = 0; i < newCollection.length-1; i++)
         {
@@ -69,7 +69,7 @@ public class Trainer
         return newCollection;
     }
 
-    public static String toString(int[] newCollection)
+    public static String toString(double[] newCollection)
     {
         StringBuilder myString = new StringBuilder();
         for(int i=0; i< newCollection.length; i++){
