@@ -1,7 +1,5 @@
 package learningagent.neuralnetwork;
 
-import learningagent.neuralnetwork.ActivationFunction;
-
 public class LeakyReLUActivationFunction implements ActivationFunction {
     private double alpha;
 
@@ -16,5 +14,9 @@ public class LeakyReLUActivationFunction implements ActivationFunction {
         } else {
             return alpha * input;
         }
+    }
+    @Override       //TODO: implement...
+    public double derivative(double input) {
+        return 0;
     }
 }

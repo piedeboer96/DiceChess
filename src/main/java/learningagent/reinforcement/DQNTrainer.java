@@ -2,7 +2,6 @@ package learningagent.reinforcement;
 
 import dice.DefaultDie;
 import game.DiceChess;
-import dice.Die;
 import game.GameState;
 import game.Movement;
 import game.Opportunity;
@@ -14,13 +13,38 @@ import java.util.*;
 /**
  * Deep Q-network reinforcement learning that uses neural network
  * to predict strength move strength.
+ *
+ * How it works:
+ *
+ *      The Q-learning process uses the predictions of existing trained neural network ass starting point.
+ *      It updates the weights of the network based on the observed rewards and the Q-values calculated from the Q-function.
+ *
+ *      By fine-tuning the pre-trained neural network during the Q-learning process,
+ *      the agent can gain stronger performance than the existing neural network,
+ *      as it adapts to the specific characteristics of the problem it is trying to solve.
+ *
+ * More information:
+ *
+ *      The `train()` method checks for the game state after each move using the statement
+ *      "game.getState()==(...)" and assigns a reward of 1.0 or -1.0 respectively if the game is won or lost.
+ *      If the game is ongoing, the agent uses the win probability predicted by the neural network as the reward.
+ *      The method also saves the trained values after each 100 training epochs using the saveModel() method,
+ *      it also stops the training after a certain number of training epochs.
+ *
  */
+
+// TODO:
+//  (1) Do i correctly included 'REWARDS' [yes]
+//  (2) is the no-moves element correctly done
+//  (3) make the genetic adversarial
+//  (4) update or not-update based on adversarial moves
 
 public class DQNTrainer {
 
     // DiceChess
     private DiceChess game;
     private DefaultDie dice;
+    private final Random RND = new Random();
 
     // Neural Network
     private NeuralNetwork nn;
@@ -35,25 +59,31 @@ public class DQNTrainer {
     private int trainingEpochs = 10000;
     private int currentEpoch = 0;
 
+    // Constructor
     public DQNTrainer() {
 
-        // TODO: return a trained neural network here
-        nn = new NeuralNetwork();
-        game = new DiceChess();
+        nn = new NeuralNetwork();           // get a trained neural network
+        game = new DiceChess();             // a fresh game
+
     }
 
-    public void train() {
+    // Train method
+    public void train(long trainingEpochs) {
 
+        // number of iterations
         while (currentEpoch < trainingEpochs) {
 
             // build a new game
             DiceChess game = new DiceChess();
 
-            //TODO: what if we cannot make a move
+            // currentBoard;
+            String currentBoard = game.toString();
+
+            // game loop
             while (game.getState() == GameState.ONGOING) {
 
                 // current board
-                String currentBoard = game.toString();
+                currentBoard = game.toString();
 
                 // black turn
                 if (game.getActiveColor() == 0) {
@@ -79,15 +109,20 @@ public class DQNTrainer {
                         }
                     }
 
-
                     // select action using epsilon-greedy policy
                     Movement action;
                     if (Math.random() < epsilon) {
                         // explore --> RANDOM MOVE BASED ON EPSILON
-                        // TODO: playing with epsilon allows explore/exploit balance
+
+                        // NOTE:
+                        //      In this phase, you are not updating the network weights because you are trying to explore new states and actions,
+                        //      rather than exploiting the knowledge that the network already has.
 
                         // pick random move aka action
                         action = allMoves.get((int) (Math.random() * allMoves.size()));
+
+                        // register the action
+                        game.register(action);
 
                     } else {
                         // exploit --> BEST MOVE
@@ -111,36 +146,41 @@ public class DQNTrainer {
                             game.revert();
                         }
 
-
                         action = bestMove;
 
-                        // actually make the move
+                        // register action          [MIGHT BREAK OUT OF LOOP, UPDATE AS NEEDED]
                         game.register(action);
-                        // TODO: GAME OVER? DOES THIS SWITCH THE PLAYER?
+
+                        // update the neural network
+                        nn.update(currentBoard, maxQ,  0);
 
                     }
 
 
                 }
 
-                // ADVERSARIAL TURN
+                // adversarial turn
+                var opportunities = game.getTeamOpportunities(game.getActiveColor(), dice.roll());
+                if (opportunities.size()>0){
+                    int randomOpportunityIndex = RND.nextInt(opportunities.size());
+                    Opportunity opp = opportunities.get(randomOpportunityIndex);
+                    int randomMovementIndex = RND.nextInt(opp.size());
+                    Movement m = opp.select(randomMovementIndex);
+                    game.register(m);
+                    // HERE WE DON'T UPDATE - we do however give a fix fine when we loose!
+                } else {
+                    // no moves available
+                    game.switchActiveColor();       // switch
+                    continue;                       // go back to start
+                }
 
-
-                // TODO: PLAY ADVERSARIAL (OPTIMAL) MOVE * we will work from here [!]
-                //game.playAdversarial;
-                //game.updateBoard;
-
-                //TODO: what if no move possible?
                 String nextBoard = game.toString();
                 String nextBoardFEN = nextBoard.split(" ", 2)[0];
                 double[] encodeNextBoard = encode.oneHotEncodeSimplifiedFEN(nextBoardFEN);
                 double[] predictNextBoard = nn.predict(encodeNextBoard);
 
-                // reward time
+                // check for game state and assign reward
                 double reward = predictNextBoard[0];
-
-                //TODO: add reward based on win/lose
-
 
                 // update Q-value
                 String simpleCurrentBoard = currentBoard.split(" ", 2)[0];
@@ -151,15 +191,14 @@ public class DQNTrainer {
                 double maxQ = Double.NEGATIVE_INFINITY;
 
                 // get again all moves
-                // (we need to roll die)
-                List<Opportunity> opportunities = game.getTeamOpportunities(0, dice.roll());
+                opportunities = game.getTeamOpportunities(0, dice.roll());
 
                 // what if legal moves is 0
                 if (opportunities.size() == 0) {
 
                     // switch player
                     game.switchActiveColor();
-                    continue;       //TODO: check where we are going here...
+                    continue;
                 }
 
                 // build all moves
@@ -185,17 +224,92 @@ public class DQNTrainer {
                     if (nextQ > maxQ) {
                         maxQ = nextQ;
                     }
+
+                    game.revert();
+
                 }
 
                 double newQ = q + learningRate * (reward + discountFactor * maxQ - q);
 
-                // TODO : this nn update method.. spicy
-                //nn.update(currentBoard, action, newQ, BLACK);
+                // TODO : do i need the action here...  (newQ captures
+                // NOTE:
+                //  In the update method, the newQ value captures the information
+                //  about the action that was taken, as well as the new Q-value for that action.
+                //  So, you don't need to pass the action as an argument to the update method,
+                //  since the newQ value already contains that information
+                //
+                int black = 0;
+                nn.update(currentBoard, newQ, black);
 
 
             }
+
+            // GAME IS OVER
+            double reward;
+            double newQ;
+
+            // reward based on win-lose
+            if(game.getState() == GameState.BLACK_WON) {
+                reward =  1.0;
+            } else if(game.getState() == GameState.WHITE_WON){
+                reward =  -1.0;
+            } else {        // DRAW
+                reward = 0.0;
+            }
+
+            //NOTE:
+            // In this case, since the game is over, there is no next state and no next Q-value.
+            // Set the nextQ to the final reward.
+
+            // update the neural accordingly
+            newQ = reward;
+            nn.update(currentBoard, newQ, 0);
+
+            // ONE TRAINING OVER
+            currentEpoch++;
+            if (currentEpoch % 100 == 0) {
+                // save model every 100
+
+                //TODO: need to add this method...
+                //nn.saveModel();
+            }
         }
+
+
     }
+
+
+//    public static void main(String[] args) {
+//
+//        DQNTrainer trainer = new DQNTrainer();
+//        trainer.train();
+//        NeuralNetwork nn = trainer.getTrainedModel();
+//
+//        DiceChess game = new DiceChess();
+//        while (game.getState() == GameState.ONGOING) {
+//            String currentBoard = game.getCurrentBoard();
+//            List<String> moves = game.getMoves(currentBoard, Player.BLACK);
+//
+//            String action;
+//            double maxQ = Double.NEGATIVE_INFINITY;
+//            String bestMove = null;
+//            for (String move : moves) {
+//                double q = nn.predict(move, Player.BLACK);
+//                if (q > maxQ) {
+//                    maxQ = q;
+//                    bestMove = move;
+//                }
+//            }
+//            action = bestMove;
+//            game.play(action);
+//            game.updateBoard();
+//        }
+//        if (game.getState() == GameState.BLACKWINS) {
+//            System.out.println("Black wins!");
+//        } else {
+//            System.out.println("White wins!");
+//        }
+//    }
 }
 
 

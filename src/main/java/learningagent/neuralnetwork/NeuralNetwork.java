@@ -1,5 +1,7 @@
 package learningagent.neuralnetwork;
 
+import game.Movement;
+import learningagent.database.OneHotEncoding;
 import learningagent.neuralnetwork.csvhelp.CSVtoArray;
 
 /**
@@ -8,6 +10,8 @@ import learningagent.neuralnetwork.csvhelp.CSVtoArray;
  * - Xavier weight initialization
  * - Two training targets (blackWP, whiteWP)
  * - Sigmoid activation function for all layers
+ *
+ * This neural network has an additional function 'update' for q-learning.
  */
 public class NeuralNetwork {
 
@@ -30,6 +34,9 @@ public class NeuralNetwork {
 
     // Helpers CSV
     CSVtoArray csvRead = new CSVtoArray();
+
+    // Encoding
+    OneHotEncoding encode = new OneHotEncoding();
 
     public NeuralNetwork(int inputNodes, int hiddenNodes, int outputNodes, ActivationFunction activationFunction) {
 
@@ -168,6 +175,121 @@ public class NeuralNetwork {
             biasesOutput[i] += learningRate * outputError[i];
         }
     }
+
+    // Update the neural network using Q-Learning
+    public void update(String currentBoard, double newQ, int team) {
+
+        // LearningRate
+        double learningRate = 0.001;
+
+        // Encode the current board state
+        String boardFen = currentBoard.split(" ", 2)[0];
+        double[] encodedBoardPosition = encode.oneHotEncodeSimplifiedFEN(boardFen);
+
+        // Get the current Q-value for the selected action from the neural network
+        double[] predictions = predict(encodedBoardPosition);
+        double currentQ = predictions[team];        // black
+
+        // Calculate the target Q-value for the selected action
+        double targetQ = currentQ + learningRate * (newQ - currentQ);
+
+        // Forward pass (hidden output)
+        double[] hiddenOutput = new double[hiddenNodes];
+        for (int i = 0; i < hiddenNodes; i++) {
+            double sum = 0;
+            for (int j = 0; j < inputNodes; j++) {
+                sum += encodedBoardPosition[j] * weightsInputToHidden[j][i];
+            }
+            sum += biasesHidden[i];
+            hiddenOutput[i] = activationFunction.apply(sum);
+        }
+
+        // Output layer
+        double[] output = new double[outputNodes];
+        for (int i = 0; i < outputNodes; i++) {
+            double sum = 0;
+            for (int j = 0; j < hiddenNodes; j++) {
+                sum += hiddenOutput[j] * weightsHiddenToOutput[j][i];
+            }
+            sum += biasesOutput[i];
+            output[i] = activationFunction.apply(sum);
+        }
+
+
+        // Update the weights and biases of the neural network
+        // Input layer to hidden layer
+        for (int i = 0; i < inputNodes; i++) {
+            for (int j = 0; j < hiddenNodes; j++) {
+                weightsInputToHidden[i][j] += learningRate * (targetQ - currentQ) * encodedBoardPosition[i] * activationFunction.derivative(hiddenOutput[j]);
+            }
+        }
+        // Hidden layer bias
+        for (int i = 0; i < hiddenNodes; i++) {
+            biasesHidden[i] += learningRate * (targetQ - currentQ) * activationFunction.derivative(hiddenOutput[i]);
+        }
+        // Hidden layer to output layer
+        for (int i = 0; i < hiddenNodes; i++) {
+            for (int j = 0; j < outputNodes; j++) {
+                weightsHiddenToOutput[i][j] += learningRate * (targetQ - currentQ) * hiddenOutput[i] * activationFunction.derivative(output[j]);
+            }
+        }
+        // Output layer bias
+        for (int i = 0; i < outputNodes; i++) {
+            biasesOutput[i] += learningRate * (targetQ - currentQ) * activationFunction.derivative(output[i]);
+        }
+    }
+
+//    public void update(String currentBoard, Movement action, double newQ, Player player) {
+//
+//        // Encode the board state
+//        double[] encodedBoardPosition = encode.oneHotEncodeSimplifiedFEN(currentBoard);
+//        // Forward pass
+//        double[] hiddenOutputs = new double[hiddenNodes];
+//        for (int i = 0; i < hiddenNodes; i++) {
+//            double sum = 0;
+//            for (int j = 0; j < inputNodes; j++) {
+//                sum += encodedBoardPosition[j] * weightsInputToHidden[j][i];
+//            }
+//            sum += biasesHidden[i];
+//            hiddenOutputs[i] = activationFunction.apply(sum);
+//        }
+//        // Output layer
+//        double[] output = new double[outputNodes];
+//        for (int i = 0; i < outputNodes; i++) {
+//            double sum = 0;
+//            for (int j = 0; j < hiddenNodes; j++) {
+//                sum += hiddenOutputs[j] * weightsHiddenToOutput[j][i];
+//            }
+//            sum += biasesOutput[i];
+//            output[i] = activationFunction.apply(sum);
+//        }
+//        // Compute the error for the output layer
+//        double[] errorsOutput = new double[outputNodes];
+//        int playerIdx = player.ordinal();
+//        errorsOutput[playerIdx] = output[playerIdx] - newQ;
+//        // Backpropagation: compute the error for the hidden layer
+//        double[] errorsHidden = new double[hiddenNodes];
+//        for (int i = 0; i < hiddenNodes; i++) {
+//            double error = 0;
+//            for (int j = 0; j < outputNodes; j++) {
+//                error += errorsOutput[j] * weightsHiddenToOutput[i][j];
+//            }
+//            errorsHidden[i] = error * activationFunction.derivative(hiddenOutputs[i]);
+//        }
+//        // Update the weights and biases
+//        for (int i = 0; i < hiddenNodes; i++) {
+//            for (int j = 0; j < outputNodes; j++) {
+//                weightsHiddenToOutput[i][j] -= learningRate * errorsOutput[j] * hiddenOutputs[i];
+//            }
+//            biasesOutput[i] -= learningRate * errorsOutput[i];
+//        }
+//        for (int i = 0; i < inputNodes; i++) {
+//            for (int j = 0; j < hiddenNodes; j++) {
+//                weightsInputToHidden[i][j] -= learningRate * errorsHidden[j] * encodedBoardPosition[i];
+//            }
+//            biasesHidden[i] -= learningRate * errorsHidden[i];
+//        }
+//    }
 
 
     /** GETTERS AND SETTERS */
