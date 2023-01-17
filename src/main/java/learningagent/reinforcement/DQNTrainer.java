@@ -34,23 +34,23 @@ import java.util.*;
  */
 
 // TODO:
-//  (1) Do i correctly included 'REWARDS' [yes]
-//  (2) is the no-moves element correctly done
-//  (3) make the genetic adversarial
-//  (4) update or not-update based on adversarial moves
+//      (1) Do i correctly included 'REWARDS' [I think yes.]
+//      (2) is the no-moves element correctly done
+//      (3) make the adversarial 'genetic'
+//      (4) update or not-update based on adversarial moves
 
 public class DQNTrainer {
 
     // DiceChess
     private DiceChess game;
-    private DefaultDie dice;
+    private DefaultDie dice = new DefaultDie();
     private final Random RND = new Random();
 
     // Neural Network
     private NeuralNetwork nn;
 
     // Encoder
-    private OneHotEncoding encode;
+    private OneHotEncoding encode = new OneHotEncoding();
 
     // Q-Learning parameters
     private double epsilon = 0.1; // exploration rate
@@ -67,8 +67,8 @@ public class DQNTrainer {
 
     }
 
-    // Train method
-    public void train(long trainingEpochs) {
+    // Train method -- train for white
+    public void train() {
 
         // number of iterations
         while (currentEpoch < trainingEpochs) {
@@ -85,6 +85,7 @@ public class DQNTrainer {
                 // current board
                 currentBoard = game.toString();
 
+                System.out.println("start: " + game.getActiveColor());
                 // black turn
                 if (game.getActiveColor() == 0) {
 
@@ -123,6 +124,7 @@ public class DQNTrainer {
 
                         // register the action
                         game.register(action);
+                        game.switchActiveColor();
 
                     } else {
                         // exploit --> BEST MOVE
@@ -131,12 +133,13 @@ public class DQNTrainer {
                         for (Movement move : allMoves) {
 
                             game.register(move);
+
                             String FEN = game.toString();
                             String boardFen = FEN.split(" ", 2)[0];
-                            double[] encodedBoardPosition = encode.oneHotEncodeSimplifiedFEN(boardFen);
 
+                            double[] encodedBoardPosition = encode.oneHotEncodeSimplifiedFEN(boardFen);
                             double[] predictions = nn.predict(encodedBoardPosition);
-                            double q = predictions[0];         // only want black
+                            double q = predictions[0];         // only want white
 
                             if (q > maxQ) {
                                 maxQ = q;
@@ -150,6 +153,7 @@ public class DQNTrainer {
 
                         // register action          [MIGHT BREAK OUT OF LOOP, UPDATE AS NEEDED]
                         game.register(action);
+                        game.switchActiveColor();
 
                         // update the neural network
                         nn.update(currentBoard, maxQ,  0);
@@ -160,13 +164,18 @@ public class DQNTrainer {
                 }
 
                 // adversarial turn
+                System.out.println("always 1: " + game.getActiveColor());
+
+
                 var opportunities = game.getTeamOpportunities(game.getActiveColor(), dice.roll());
-                if (opportunities.size()>0){
+                if (opportunities.size()>0) {
                     int randomOpportunityIndex = RND.nextInt(opportunities.size());
                     Opportunity opp = opportunities.get(randomOpportunityIndex);
                     int randomMovementIndex = RND.nextInt(opp.size());
                     Movement m = opp.select(randomMovementIndex);
+                    System.out.println(game.getActiveColor());
                     game.register(m);
+                    game.switchActiveColor();
                     // HERE WE DON'T UPDATE - we do however give a fix fine when we loose!
                 } else {
                     // no moves available
@@ -174,12 +183,14 @@ public class DQNTrainer {
                     continue;                       // go back to start
                 }
 
+                // we need to stay in the adversarial it's turn...  (we get in this code if their was no game over..)
+
                 String nextBoard = game.toString();
                 String nextBoardFEN = nextBoard.split(" ", 2)[0];
                 double[] encodeNextBoard = encode.oneHotEncodeSimplifiedFEN(nextBoardFEN);
                 double[] predictNextBoard = nn.predict(encodeNextBoard);
 
-                // check for game state and assign reward
+                // check for game state and assign reward (migh
                 double reward = predictNextBoard[0];
 
                 // update Q-value
@@ -211,6 +222,7 @@ public class DQNTrainer {
                     }
                 }
 
+                System.out.println("here 0 " + game.getActiveColor() );
 
                 for (Movement nextMove : allMoves) {
 
@@ -228,6 +240,8 @@ public class DQNTrainer {
                     game.revert();
 
                 }
+
+                // THE RE
 
                 double newQ = q + learningRate * (reward + discountFactor * maxQ - q);
 
@@ -263,6 +277,7 @@ public class DQNTrainer {
 
             // update the neural accordingly
             newQ = reward;
+            System.out.println(" FINISH: " + reward);
             nn.update(currentBoard, newQ, 0);
 
             // ONE TRAINING OVER
@@ -279,37 +294,11 @@ public class DQNTrainer {
     }
 
 
-//    public static void main(String[] args) {
-//
-//        DQNTrainer trainer = new DQNTrainer();
-//        trainer.train();
-//        NeuralNetwork nn = trainer.getTrainedModel();
-//
-//        DiceChess game = new DiceChess();
-//        while (game.getState() == GameState.ONGOING) {
-//            String currentBoard = game.getCurrentBoard();
-//            List<String> moves = game.getMoves(currentBoard, Player.BLACK);
-//
-//            String action;
-//            double maxQ = Double.NEGATIVE_INFINITY;
-//            String bestMove = null;
-//            for (String move : moves) {
-//                double q = nn.predict(move, Player.BLACK);
-//                if (q > maxQ) {
-//                    maxQ = q;
-//                    bestMove = move;
-//                }
-//            }
-//            action = bestMove;
-//            game.play(action);
-//            game.updateBoard();
-//        }
-//        if (game.getState() == GameState.BLACKWINS) {
-//            System.out.println("Black wins!");
-//        } else {
-//            System.out.println("White wins!");
-//        }
-//    }
+
+    public static void main(String[] args) {
+        DQNTrainer dqnTrainer = new DQNTrainer();
+        dqnTrainer.train();
+    }
 }
 
 
