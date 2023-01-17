@@ -8,6 +8,7 @@ import game.Opportunity;
 import learningagent.database.OneHotEncoding;
 import learningagent.neuralnetwork.NeuralNetwork;
 
+import java.sql.SQLOutput;
 import java.util.*;
 
 /**
@@ -85,7 +86,7 @@ public class DQNTrainer {
                 // current board
                 currentBoard = game.toString();
 
-                System.out.println("start: " + game.getActiveColor());
+//                System.out.println("start: " + game.getActiveColor());
                 // black turn
                 if (game.getActiveColor() == 0) {
 
@@ -164,7 +165,7 @@ public class DQNTrainer {
                 }
 
                 // adversarial turn
-                System.out.println("always 1: " + game.getActiveColor());
+//                System.out.println("always 1: " + game.getActiveColor());
 
 
                 var opportunities = game.getTeamOpportunities(game.getActiveColor(), dice.roll());
@@ -222,7 +223,7 @@ public class DQNTrainer {
                     }
                 }
 
-                System.out.println("here 0 " + game.getActiveColor() );
+                //System.out.println("here 0 " + game.getActiveColor() );
 
                 for (Movement nextMove : allMoves) {
 
@@ -295,6 +296,7 @@ public class DQNTrainer {
 
 
 
+    // Test the training =)
     public static void main(String[] args) {
         DQNTrainer dqnTrainer = new DQNTrainer();
         dqnTrainer.train();
