@@ -9,7 +9,7 @@ public class BattleGround {
 //        var simulator = new GraphicalSimulator(100);
         var simulator = new DefaultSimulator();
 
-        Player p1 =  new Lunatic();                    // BLACK
+        Player p1 =  new Darwin();                     // BLACK
         Player p2 =  new CasinoNeural();               // WHITE
 
         int[] winCounts = new int[2];
