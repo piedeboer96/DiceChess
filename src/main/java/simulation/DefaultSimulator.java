@@ -23,7 +23,7 @@ public final class DefaultSimulator implements Simulator {
             game = new DiceChess(nextState);
         }
 
-        System.out.println("game won by " + game.getState());
+//        System.out.println("game won by " + game.getState());
         return switch (game.getState()) {
             case DRAW      -> null;
             case BLACK_WON -> p1;

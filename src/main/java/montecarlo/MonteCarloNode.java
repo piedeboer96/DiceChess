@@ -16,8 +16,7 @@ public class MonteCarloNode {
     private int visitCount;
     private int winCount;
 
-    private double raveWin;
-    private double raveVisit;
+
     // constructor
     public MonteCarloNode(String FEN, MonteCarloNode parent, int team) {
         this.FEN = FEN;
@@ -25,6 +24,8 @@ public class MonteCarloNode {
         PARENT = parent;
         CHILDREN = new ArrayList<>();
     }
+
+
 
     public String getFEN() {
         return FEN;
@@ -46,35 +47,18 @@ public class MonteCarloNode {
     public void incrementVisitCount(){
         visitCount++;
     }
-
     public void incrementWinCount(){
         winCount++;
     }
-
     public int getVisitCount() {
         return visitCount;
     }
-
     public int getWinCount() {
         return winCount;
     }
-
     public int getColor() {
         return COLOR;
     }
-    public void incrementRaveVisit() {
-        this.raveVisit++;
-    }
 
-    public void incrementRaveWin() {
-        this.raveWin++;
-    }
-
-    public double getRaveWin() {
-        return raveWin;
-    }
-    public double getRaveVisit() {
-        return raveVisit;
-    }
 }
 

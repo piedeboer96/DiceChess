@@ -17,25 +17,6 @@ public class MonteCarloTreeSearchDistanceWise {
 
     private static final Random RND = new Random();
 
-    // illegal testing time
-    public static void main(String[] args) {
-        MonteCarloTreeSearchDistanceWise mcts = new MonteCarloTreeSearchDistanceWise();
-
-        DiceChess game = new DiceChess();
-        String[] activeColor = {"Black", "White"};
-
-        while (game.getState() == GameState.ONGOING){
-            int dieRoll = RND.nextInt(1, 7);
-            System.out.println(activeColor[game.getActiveColor()] + " rolled a " + dieRoll);
-            System.out.println();
-            String nextState = mcts.solve(dieRoll, game);
-            game = new DiceChess(nextState);
-            System.out.println(game.getBoard().visualize());
-            System.out.println();
-        }
-    }
-
-
     // Possible inspect the movementGenerator to get the 'exact' time complexity?
     // - can we assume one statement is 0(1)
     // - O(n) amount of moves ? , expansionParameter controls if u can make everyting explode
@@ -77,11 +58,8 @@ public class MonteCarloTreeSearchDistanceWise {
 
 
         int size = node.getChildren().size();
-
         int randomInt = RND.nextInt(size);
-
         List<MonteCarloNode> children = node.getChildren();
-
         return (children.get(randomInt));
 
     }
@@ -109,34 +87,9 @@ public class MonteCarloTreeSearchDistanceWise {
 
     }
 
-    // simulation
-    /*
-    public int simulation(MonteCarloNode node){
-        DiceChess dc = new DiceChess(node.getFEN());
-
-        while(dc.getState()==GameState.ONGOING){
-
-            List<Opportunity> opportunities = dc.getTeamOpportunities(dc.getActiveColor());
-            int randomIndex = RND.nextInt(opportunities.size());
-
-            Opportunity mo = opportunities.get(randomIndex);
-            int randomIndex2 = RND.nextInt(mo.size());
-
-            Movement m = mo.select(randomIndex2);
-            dc.register(m);
-        }
-
-        return switch(dc.getState()){
-            case BLACK_WON -> 0;
-            case WHITE_WON -> 1;
-            case DRAW -> -1;
-            default -> throw new IllegalStateException("Something goes wrong with the state check.");
-        };
-    }
-     */
-
     public int simulation(MonteCarloNode node) {
         DiceChess dc = new DiceChess(node.getFEN());
+
         while (dc.getState() == GameState.ONGOING) {
             List<Opportunity> opportunities = dc.getTeamOpportunities(dc.getActiveColor());
             int randomIndex = ThreadLocalRandom.current().nextInt(opportunities.size());
@@ -152,53 +105,6 @@ public class MonteCarloTreeSearchDistanceWise {
             default -> throw new IllegalStateException("Something goes wrong with the state check.");
         };
     }
-
-
-//    public int simulation(MonteCarloNode node) {
-//        DiceChess dc = new DiceChess(node.getFEN());
-//        while (dc.getState() == GameState.ONGOING) {
-//            List<Opportunity> opportunities = dc.getTeamOpportunities(dc.getActiveColor());
-//            int randomIndex = ThreadLocalRandom.current().nextInt(opportunities.size());
-//            Opportunity mo = opportunities.get(randomIndex);
-//            int randomIndex2 = ThreadLocalRandom.current().nextInt(mo.size());
-//            Movement m = mo.select(randomIndex2);
-//            dc.register(m);
-//            List<MonteCarloNode> children = node.getChildren();
-//            for (MonteCarloNode child : children) {
-//                if (m.endpoint().equals(child)) {
-//                    child.incrementRaveVisit();
-//                    if (dc.getState() == GameState.BLACK_WON && child.getColor() == 0) {
-//                        child.incrementRaveWin();
-//                    } else if (dc.getState() == GameState.WHITE_WON && child.getColor() == 1) {
-//                        child.incrementRaveWin();
-//                    }
-//                    break;
-//                }
-//            }
-//        }
-//        return switch (dc.getState()) {
-//            case BLACK_WON -> 0;
-//            case WHITE_WON -> 1;
-//            case DRAW -> -1;
-//            default -> throw new IllegalStateException("Something goes wrong with the state check.");
-//        };
-//    }
-
-
-
-    // Selection
-    // UCT
-
-//    public MonteCarloNode selection(MonteCarloNode node) {
-//
-//        if(node.getChildren().size()==0){
-//            return node;
-//        }
-//
-//        return uct.getMaxUCT(node);
-//
-//    }
-
 
     public MonteCarloNode selection(MonteCarloNode node) {
         if(node.getChildren().size()==0){
@@ -219,7 +125,6 @@ public class MonteCarloTreeSearchDistanceWise {
         List<Opportunity> movementOpportunities = game.getTeamOpportunities(game.getActiveColor(), dieRoll);
         return performExpansion(node, game, movementOpportunities);
     }
-
 
     // Expansion
     public boolean performExpansion(MonteCarloNode node, DiceChess game, List<Opportunity> movementOpportunities) {
@@ -449,6 +354,10 @@ class KingCaptureDistance {
         return MOVEMENT;
     }
 }
+
+
+
+
 
 
 //class BackPropagationTask extends RecursiveTask<Void> {

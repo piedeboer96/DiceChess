@@ -14,25 +14,6 @@ public class MonteCarloTreeSearch {
 
     private static final Random RND = new Random();
 
-    // illegal testing time
-    public static void main(String[] args) {
-        MonteCarloTreeSearch mcts = new MonteCarloTreeSearch();
-
-        DiceChess game = new DiceChess();
-        String[] activeColor = {"Black", "White"};
-
-        for (int i = 0; i < 12; i++){
-            int dieRoll = RND.nextInt(1, 7);
-            System.out.println(activeColor[game.getActiveColor()] + " rolled a " + dieRoll);
-            System.out.println();
-            String nextState = mcts.solve(dieRoll, game);
-            game = new DiceChess(nextState);
-            System.out.println(game.getBoard().visualize());
-            System.out.println();
-        }
-    }
-
-
     // Possible inspect the movementGenerator to get the 'exact' time complexity?
     // - can we assume one statement is 0(1)
     // - O(n) amount of moves ? , expansionParameter controls if u can make everyting explode
@@ -91,8 +72,6 @@ public class MonteCarloTreeSearch {
 
         MonteCarloNode bestNode = null;
 
-
-
         for(MonteCarloNode u: node.getChildren()) {
 
             if(u.getWinCount() > winCount){
@@ -141,7 +120,7 @@ public class MonteCarloTreeSearch {
         if(node.getChildren().size()==0){
             return node;
         }
-        return uct.getMaxUCTRAVE(node);
+        return uct.getMaxUCT(node);
     }
 
 
@@ -235,4 +214,23 @@ public class MonteCarloTreeSearch {
 
         }
     }
+
+    // illegal testing time
+//    public static void main(String[] args) {
+//        MonteCarloTreeSearch mcts = new MonteCarloTreeSearch();
+//
+//        DiceChess game = new DiceChess();
+//        String[] activeColor = {"Black", "White"};
+//
+//        for (int i = 0; i < 12; i++){
+//            int dieRoll = RND.nextInt(1, 7);
+//            System.out.println(activeColor[game.getActiveColor()] + " rolled a " + dieRoll);
+//            System.out.println();
+//            String nextState = mcts.solve(dieRoll, game);
+//            game = new DiceChess(nextState);
+//            System.out.println(game.getBoard().visualize());
+//            System.out.println();
+//        }
+//    }
+
 }

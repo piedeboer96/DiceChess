@@ -167,7 +167,6 @@ public class DQNTrainer {
                 // adversarial turn
 //                System.out.println("always 1: " + game.getActiveColor());
 
-
                 var opportunities = game.getTeamOpportunities(game.getActiveColor(), dice.roll());
                 if (opportunities.size()>0) {
                     int randomOpportunityIndex = RND.nextInt(opportunities.size());
@@ -246,7 +245,7 @@ public class DQNTrainer {
 
                 double newQ = q + learningRate * (reward + discountFactor * maxQ - q);
 
-                // TODO : do i need the action here...  (newQ captures
+
                 // NOTE:
                 //  In the update method, the newQ value captures the information
                 //  about the action that was taken, as well as the new Q-value for that action.
@@ -279,6 +278,7 @@ public class DQNTrainer {
             // update the neural accordingly
             newQ = reward;
             System.out.println(" FINISH: " + reward);
+
             nn.update(currentBoard, newQ, 0);
 
             // ONE TRAINING OVER
