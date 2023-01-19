@@ -12,30 +12,24 @@ import java.sql.*;
 
 import java.util.*;
 
-// TODO: build dataset that self-plays also with the different AIs
+/**
+ * Class to simulate selfplay to build database.
+ */
 public class SelfPlay {
 
-    // Two random chess players
-    Player r1 = new Lunatic();
-    Player r2 = new Lunatic();
-
-    // Two GA chess players
     Player ga1 = new Darwin();
     Player ga2 = new Darwin();
 
     public SelfPlay() throws FileNotFoundException {
     }
 
-    // This method generates one outcome list using two random chess players
-    //      0 = random bot
-    //      1 = genetic bot
-    public ArrayList<Outcome> playChess(int playerType) {
+    /**
+     * Generate games using Genetic Algorithm playouts.
+     * @return ArrayList of game outcomes
+     */
+    public ArrayList<Outcome> playChess() {
 
-        if(playerType==0){
-            return (simulate(r1, r2));
-        } else {
-            return (simulate(ga1, ga2));
-        }
+        return simulate(ga1,ga2);
 
     }
 
@@ -84,7 +78,7 @@ public class SelfPlay {
     /**
      * DATABASE
      */
-    public void writeOutcomesToDB(int numberOfGames, int playerType) {
+    public void writeOutcomesToDB(int numberOfGames) {
         // JDBC driver name and database URL
         final String DB_URL = "jdbc:mysql://localhost:3306/chess";
         final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -111,9 +105,11 @@ public class SelfPlay {
             // HERE WE RUN GAMES THAT WE ADD TO THE DATABASE
             for (int i = 0; i < numberOfGames; i++) {
 
-                ArrayList<Outcome> outcomes = playChess(playerType);
+                ArrayList<Outcome> outcomes = playChess();
 
                 for (Outcome outcome : outcomes) {
+
+                    System.out.println(outcome.getFen());
 
                     String sql = "INSERT INTO genetic_dice (FEN, blackWins, whiteWins, Draws) VALUES (?, ?, ?, ?) "
                             + "ON DUPLICATE KEY UPDATE blackWins = blackWins + ?, whiteWins = whiteWins + ?, Draws = Draws + ?";
@@ -160,9 +156,7 @@ public class SelfPlay {
 
     }
 
-    /**
-     * AUXILIARY
-     */
+
     // Helper method that checks if FEN was already visited
     public boolean isFenVisited(String FEN, ArrayList<Outcome> outcomes) {
         if (outcomes == null || outcomes.size() == 0) {
@@ -171,6 +165,7 @@ public class SelfPlay {
 
         for (Outcome outcome : outcomes) {
             if (outcome.getFen().equals(FEN)) {
+                System.out.println("Visited: " + outcome.getFen());
                 return true;
             }
         }

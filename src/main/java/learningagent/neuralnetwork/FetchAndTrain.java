@@ -31,8 +31,8 @@ public class FetchAndTrain {
     // 384 nodes for board position
     // 256 hidden nodes
     // 2 output nodes
-    NeuralNetwork nn = new NeuralNetwork(384,512,2, SigmoidActivationFunction);
-    double learningRate = 0.0005;
+    NeuralNetwork nn = new NeuralNetwork(384,256,2, SigmoidActivationFunction);
+    double learningRate = 0.001;
 
     /** FETCH AND TRAIN FOR COLOUR */
     public void fetchAndTrain() throws SQLException {
@@ -44,12 +44,15 @@ public class FetchAndTrain {
 
         double start = System.currentTimeMillis();
 
-        while (resultSet.next()) {
+        int i=0;
+        while (resultSet.next() && i<5) {
 
             String FEN = resultSet.getString("FEN");
             int blackWins = resultSet.getInt("blackWins");
             int whiteWins = resultSet.getInt("whiteWins");
             int draws = resultSet.getInt("draws");
+
+            System.out.println(FEN + " | BLACK: " + blackWins + " WHITE: " + whiteWins + " D: " + draws);
 
             if(blackWins==0 && whiteWins==0 && draws==0){
                 System.out.println("ERROR");
@@ -58,8 +61,10 @@ public class FetchAndTrain {
 
             // Use the data to train your neural network
             double[] encodedFEN  = hotEncoder.oneHotEncodeSimplifiedFEN(FEN);
+            System.out.println(Arrays.toString(encodedFEN));
 
             double targetBlack = (double) (blackWins) / (double)  (whiteWins+blackWins+draws);
+            System.out.println(targetBlack);
             double targetWhite = (double) (whiteWins) / (double)  (whiteWins+blackWins+draws);
 
             double[] target = {targetBlack, targetWhite};
@@ -67,6 +72,7 @@ public class FetchAndTrain {
             // Feed this to the network
             nn.train(encodedFEN,target,learningRate);
 
+            i++;
         }
 
 

@@ -11,6 +11,7 @@ public class Outcome {
         this.fen = fen;
         BlackWINS = 0;
         WhiteWINS = 0;
+        DRAWS = 0;
     }
 
     public void incrementBlackWhiteWINS() {
@@ -19,10 +20,10 @@ public class Outcome {
     public void incrementWhiteWINS() {
         this.WhiteWINS++;
     }
-
     public void incrementDraws(){
         this.DRAWS++;
     }
+
 
     public String getFen(){
         return this.fen;
@@ -42,7 +43,7 @@ public class Outcome {
 
     @Override
     public String toString(){
-        return ("FEN, " + this.fen + " ,W " + this.WhiteWINS + " ,B " + this.BlackWINS + " ,D " + DRAWS);
+        return ("FEN, " + this.fen + " ,B " + this.BlackWINS + " ,W " + this.WhiteWINS + " ,D " + DRAWS);
     }
 
 

@@ -1,12 +1,22 @@
 package learningagent.database;
 
+import java.util.Arrays;
+
 /**
  * This class contains a method to encode the simplified FEN into an input vector of 0s and 1s
  * to feed the neural network.
  */
 public class OneHotEncoding {
 
-    // TODO: verify the method (test cases.. , by hand)
+
+
+    /**
+     * This method takes a board FEN as input
+     * and brings it into 1s and 0s to be used
+     * as input to the neural network.
+     * @param fen FEN representing the board position
+     * @return encoded array of 0s and 1s
+     */
     public double[] oneHotEncodeSimplifiedFEN(String fen) {
         double[] encoded = new double[384];
         int index = 0;
@@ -84,6 +94,7 @@ public class OneHotEncoding {
         }
         return encoded;
     }
+
 
 }
 
