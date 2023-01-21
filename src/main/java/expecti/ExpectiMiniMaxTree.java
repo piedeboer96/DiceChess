@@ -137,7 +137,7 @@ public class ExpectiMiniMaxTree implements Tree
                 for (int j = 0; j <currentMoves.size(); j++) {
                     Movement m = currentMoves.select(j);
                     newMatch.register(m);
-                    if (Promotion.isEligible(currentMoves.owner(), m.endpoint())) {
+                    if (newMatch.getState() == GameState.ONGOING && Promotion.isEligible(currentMoves.owner(), m.endpoint())) {
                         ChessPiece queen = ChessPiece.get(5, newMatch.getActiveColor());
                         newMatch.promote(m.endpoint(), queen);
                     }
