@@ -18,13 +18,17 @@ public class Trainer
             try
             {
                 File file = new File("src/main/java/expecti/weights.txt");
+                File file150 = new File("src/main/java/expecti/weights50.txt");
+                File file100 = new File("src/main/java/expecti/weights50.txt");
 
                 BufferedReader read = new BufferedReader(new FileReader(file));
+                System.out.println("successfully read");
                 String value;
                 int index = 0;
                 while((value = read.readLine()) != null)
                 {
-                collection[index] = Integer.parseInt(value);
+                    System.out.println("successfully reached first while-loop");
+                collection[index] = Double.parseDouble(value);
                 System.out.println(collection[index]);
                 index++;
                 }
@@ -39,6 +43,20 @@ public class Trainer
                 System.out.println(newCollectionString);
 
 
+                if(i ==15)
+                {
+                    FileWriter fileWriter = new FileWriter(file100);
+                    PrintWriter printWriter = new PrintWriter(fileWriter);
+                    printWriter.print(newCollectionString);
+                    printWriter.close();
+                }
+                if(i ==65)
+                {
+                    FileWriter fileWriter = new FileWriter(file150);
+                    PrintWriter printWriter = new PrintWriter(fileWriter);
+                    printWriter.print(newCollectionString);
+                    printWriter.close();
+                }
                 FileWriter fileWriter = new FileWriter(file);
                 PrintWriter printWriter = new PrintWriter(fileWriter);
                 printWriter.print(newCollectionString);

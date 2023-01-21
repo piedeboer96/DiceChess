@@ -38,7 +38,7 @@ public class ExpectiMiniMaxTree implements Tree
             while(index != 37)
             {
                 value = read.readLine();
-                weights[index] = Integer.parseInt(value);
+                weights[index] = Double.parseDouble(value);
                 System.out.println(weights[index]);
                 index++;
             }
