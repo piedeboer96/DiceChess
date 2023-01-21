@@ -59,9 +59,6 @@ public class ExpectiMiniMaxTree implements Tree
      */
     public ExpectiMiniMaxTree(String fen, int rolled)
     {
-
-        System.out.println("weights: "+weights[12] +"_______________________________________________________________________");
-
         ExpectiminimaxState firstState = new ExpectiminimaxState(fen, rolled, weights);
         if(firstState.getAllLegalMoves().size() == 0)
         {
@@ -71,9 +68,29 @@ public class ExpectiMiniMaxTree implements Tree
         {
             Node root = new ExpectiMiniMaxNode(true, firstState);
             allChildren.add(root);
-            generateTree(root);
 
-            STATE = expectiMiniMax();
+            //looks if the opponent king can be directly attacked
+            int[] override = DirectAttack(allChildren.get(0));
+            if(override != null)
+            {
+                List<Opportunity> allMoves = root.getState().getAllLegalMoves();
+                Opportunity currentMoves = allMoves.get(override[0]);
+                Square move = currentMoves.options().get(override[1]);
+
+                System.out.println("This direct attack chosen__________________________________________________________________________________");
+
+                Movement m = new Movement(currentMoves.origin(), move);
+                DiceChess newMatch = new DiceChess(fen);
+                newMatch.register(m);
+                newMatch.switchActiveColor();
+                STATE = newMatch.toString();
+
+            }
+            else
+            {
+                generateTree(root);
+                STATE = expectiMiniMax();
+            }
         }
     }
 
@@ -223,6 +240,13 @@ public class ExpectiMiniMaxTree implements Tree
             Node root = allChildren.get(0);
             root.setExpecti(root.getMaxChildValue());
 
+            for(int i = 0; i < root.getChildren().size(); i++)
+            {
+                System.out.println("root child "+i+": "+root.getChildren().get(i).getExpectiValue());
+            }
+            System.out.println("root value");
+            System.out.println("end evaluation: "+root.getExpectiValue());
+
             return getFinalFen(root);
         }
 
@@ -273,5 +297,47 @@ public class ExpectiMiniMaxTree implements Tree
     public boolean leafCheck(Node node)
     {
         return node.getPly() == (((depth-1)*4)+2);      // checks if the node is at a leaf and sets its leaf value to true
+    }
+
+
+
+    public Square findOpponentKingLocation(Chessboard b, int opponentColor) {
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                Square s = Square.get(x, y);
+                ChessPiece p = b.read(s);
+                if (p != null && p.type() == 6 && p.color() == opponentColor) {
+                    return s;
+                }
+            }
+        }
+        throw new IllegalStateException("Could not find the opponent king.");
+    }
+
+    public int[] DirectAttack(Node root)
+    {
+        DiceChess game =  root.getState().getMatch();
+        Chessboard b = game.getBoard();
+        List<Opportunity> allMoves = root.getState().getAllLegalMoves();
+        int opponentColor = 0;
+        if(game.getActiveColor() == 0)
+        {
+            opponentColor = 1;
+        }
+
+        Square oppKing = findOpponentKingLocation(b, opponentColor);
+
+        for(int i = 0; i < allMoves.size(); i++)
+        {
+            for(int j = 0; j < allMoves.get(i).options().size(); j++)
+            {
+                if(allMoves.get(i).options().get(j) == oppKing)
+                {
+                    int[] move = {i,j};
+                    return move;
+                }
+            }
+        }
+    return null;
     }
 }
