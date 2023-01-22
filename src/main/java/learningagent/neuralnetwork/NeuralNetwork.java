@@ -71,7 +71,7 @@ public class NeuralNetwork {
     public NeuralNetwork(){
 
         this.inputNodes = 384;
-        this.hiddenNodes = 512;
+        this.hiddenNodes = 256;
         this.outputNodes = 2;
         this.activationFunction = new SigmoidActivationFunction();
 

@@ -22,7 +22,7 @@ public class Evaluator implements Evaluation
      */
     Evaluator(DiceChess game, double[] weights)
     {
-    evaluation = FUNCTION.evaluate(game,weights);
+//    evaluation = FUNCTION.evaluate(game,weights);
     }
 
 

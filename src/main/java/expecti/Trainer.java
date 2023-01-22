@@ -37,7 +37,7 @@ public class Trainer
 
                 genetic.Trainer t = new genetic.Trainer();
                 t.train();
-                newValues = t.bestBot().getChromosome().getData();
+//                newValues = t.bestBot().getChromosome().getData();
                 newCollection = addition(newValues, collection, 1);
                 String newCollectionString = toString(newCollection);
                 System.out.println(newCollectionString);
