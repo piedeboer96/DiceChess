@@ -14,11 +14,8 @@ import static genetic.Chromosome.bounds;
 
 public class HillClimbing {
     private Bot bot = firstBot();
-
-    int bestBot = 0;
     private double increaseRate;
     private int parameter = 0;
-
     private int direction = 1;
 
     public Bot firstBot() {
@@ -29,16 +26,16 @@ public class HillClimbing {
         return new Bot(new Chromosome(data));
     }
 
-    public Bot newBot(boolean improved) {
+    public Bot newBot() {
         double[] oldData = bot.getChromosome().getData();
         double[] data = new double[bounds.length];
         System.arraycopy(oldData, 0, data, 0, bounds.length);
-        if(improved) data[parameter] = nextParamValue(data[parameter]);
+        data[parameter] = nextParamValue(data[parameter]);
         return new Bot(new Chromosome(data));
     }
 
-    public void newBestBot(boolean improved) {
-        Bot newBot = newBot(improved);
+    public Bot newBestBot() {
+        Bot newBot = newBot();
         Trainer t = new Trainer();
         int games = 100;
         for (int i = 0; i < games; i++) {
@@ -51,10 +48,7 @@ public class HillClimbing {
         bots.add(bot);
         bots.add(newBot);
         Bot max = Collections.max(bots);
-        bestBot = bots.indexOf(max);
-        bot = bots.get(bestBot);
-        System.out.println("Therefore, the bot that has " + bot.wins + " wins is the current bot");
-        bot.setWins(0);
+        return bots.get(bots.indexOf(max));
     }
 
     public double nextParamValue(double currentParamValue) {
@@ -68,8 +62,8 @@ public class HillClimbing {
         while((!directionCheck[0] || !directionCheck[1]) && nextParamValue(data[parameter]) >= bounds[parameter][0] && nextParamValue(data[parameter]) < bounds[parameter][1]) {
             // System.out.println("Since there is a direction that has not been explored (leftExplored: " + directionCheck[0] + ", rightExplored: " + directionCheck[1] + "), we find the newBestBot");
             // System.out.println("The next parameter value is: " + nextImprovedParamValue(data[parameter]) + ", and the current value is: " + data[parameter]);
-            newBestBot(true);
-            if(bestBot == 0) {
+            Bot bestBot = newBestBot();
+            if(bestBot == bot) {
                 if(direction == 1) {
                     directionCheck[1] = true;
                     direction = -1;
@@ -81,6 +75,9 @@ public class HillClimbing {
                     direction = 1;
                 }
             }
+            bot = bestBot;
+            System.out.println("Therefore, the bot that has " + bot.wins + " wins is the current bot");
+            bot.setWins(0);
             data = bot.getChromosome().getData();
             if(firstCheck) firstCheck = false;
             // System.out.println("The next parameter value is: " + nextImprovedParamValue(data[parameter]));
@@ -88,7 +85,7 @@ public class HillClimbing {
         System.out.println("The final parameter value is: " + data[parameter]);
     }
 
-    public void trainImproved() {
+    public void train() {
         for (parameter = 0; parameter < bounds.length; parameter++) {
             optimumWeight();
             System.out.println("Parameter finished");
@@ -100,7 +97,7 @@ public class HillClimbing {
         for (double rate : increaseRates) {
             increaseRate = rate;
             System.out.println("The increaseRate is: " + increaseRate);
-            trainImproved();
+            train();
         }
     }
 
