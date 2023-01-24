@@ -417,7 +417,7 @@ public class QLearningAgent {
 
         // Training
         QLearningAgent qAgent = new QLearningAgent(q, 0.01, 0.95, CHROMOSOME);
-        qAgent.trainAndSaveNetwork(100);
+        qAgent.trainAndSaveNetwork(10);
 
 
 
