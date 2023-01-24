@@ -17,7 +17,13 @@ Otherwise, standard chess rules apply, with these exceptions:
 * a player who is in check but does not make a roll allowing a legal response to the check loses that turn, but does not automatically lose the game;
 * except in the unlikely event that the game ends in a draw pursuant to the standard rules of chess, the game ends when one player either checkmates the opponent or captures the opponent's king.
 
-# How to play the game.
+# How to play the game against AI
 - Open the src\main\java\RunGame.java file
 - Select your opponent by changing the array index at line 24. Your default opponent is our best performing agent; the ExpectiMiniMax agent.
+- Compile and run the RunGame.java, have fun and enjoy.
+
+# How to spectate a game between AI
+- Open the src\main\java\RunGame.java file
+- Select the two agents you would like to see play against each other.
+- Replace the human player with the AI you would like to spectate.
 - Compile and run the RunGame.java, have fun and enjoy.
