@@ -6,7 +6,7 @@ import java.io.*;
 
 public class Trainer
 {
-    static int iterations = 160;
+    static int iterations = 8;
     static double[] collection = new double[39];
     static double[] newValues = new double[38];
     static double[] newCollection = new double[39];
@@ -18,13 +18,17 @@ public class Trainer
             try
             {
                 File file = new File("src/main/java/expecti/weights.txt");
+                File file150 = new File("src/main/java/expecti/weights50.txt");
+                File file100 = new File("src/main/java/expecti/weights50.txt");
 
                 BufferedReader read = new BufferedReader(new FileReader(file));
+                System.out.println("successfully read");
                 String value;
                 int index = 0;
                 while((value = read.readLine()) != null)
                 {
-                collection[index] = Integer.parseInt(value);
+                    System.out.println("successfully reached first while-loop");
+                collection[index] = Double.parseDouble(value);
                 System.out.println(collection[index]);
                 index++;
                 }
@@ -33,12 +37,26 @@ public class Trainer
 
                 genetic.Trainer t = new genetic.Trainer();
                 t.train();
-                newValues = t.bestBot().getChromosome().getData();
+//                newValues = t.bestBot().getChromosome().getData();
                 newCollection = addition(newValues, collection, 1);
                 String newCollectionString = toString(newCollection);
                 System.out.println(newCollectionString);
 
 
+                if(i ==15)
+                {
+                    FileWriter fileWriter = new FileWriter(file100);
+                    PrintWriter printWriter = new PrintWriter(fileWriter);
+                    printWriter.print(newCollectionString);
+                    printWriter.close();
+                }
+                if(i ==65)
+                {
+                    FileWriter fileWriter = new FileWriter(file150);
+                    PrintWriter printWriter = new PrintWriter(fileWriter);
+                    printWriter.print(newCollectionString);
+                    printWriter.close();
+                }
                 FileWriter fileWriter = new FileWriter(file);
                 PrintWriter printWriter = new PrintWriter(fileWriter);
                 printWriter.print(newCollectionString);

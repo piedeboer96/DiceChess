@@ -53,12 +53,15 @@ public class Bot implements Comparable<Bot> {
         for (int i = 0; i < opportunityEvaluations.size(); i++) {                 // O(n)
             List<Double> movementEvaluations = opportunityEvaluations.get(i);
             for (int j = 0; j < movementEvaluations.size(); j++) {                // O(n^2)
-                if (minimumValue > movementEvaluations.get(j)) {                  // O(n log n)
+                if (minimumValue >= movementEvaluations.get(j)) {                  // O(n log n)
                     bestOpportunityIndex = i;
                     bestMoveIndex = j;
                     minimumValue = movementEvaluations.get(j);
                 }
             }
+        }
+        if (bestMoveIndex == -1) {
+            throw new IllegalStateException("Something has gone wrong in finding the best move!");
         }
         Opportunity bestOpportunity = opportunities.get(bestOpportunityIndex);
         Movement m = bestOpportunity.select(bestMoveIndex);

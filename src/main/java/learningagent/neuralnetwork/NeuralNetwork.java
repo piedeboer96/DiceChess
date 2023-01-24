@@ -1,8 +1,7 @@
 package learningagent.neuralnetwork;
 
+import game.Movement;
 import learningagent.database.OneHotEncoding;
-import learningagent.neuralnetwork.activationfunction.ActivationFunction;
-import learningagent.neuralnetwork.activationfunction.SigmoidActivationFunction;
 import learningagent.neuralnetwork.csvhelp.CSVtoArray;
 
 /**
@@ -27,6 +26,7 @@ public class NeuralNetwork {
     private double[] biasesHidden;
     private double[][] weightsHiddenToOutput;
     private double[] biasesOutput;
+
 
 
     // Activation function
@@ -81,22 +81,6 @@ public class NeuralNetwork {
         this.weightsHiddenToOutput = csvRead.readCSVto2DDoubleArray("weightsHiddenOutput");
 
         System.out.println("Neural Activated");
-
-    }
-
-    public NeuralNetwork(int q){
-
-        this.inputNodes = 384;
-        this.hiddenNodes = 256;
-        this.outputNodes = 2;
-        this.activationFunction = new SigmoidActivationFunction();
-
-        this.biasesHidden = csvRead.readCSVto1DDoubleArray("biasHiddenQ");
-        this.biasesOutput = csvRead.readCSVto1DDoubleArray("biasOutputQ");
-        this.weightsInputToHidden = csvRead.readCSVto2DDoubleArray("weightsInputHiddenQ");
-        this.weightsHiddenToOutput = csvRead.readCSVto2DDoubleArray("weightsHiddenOutputQ");
-
-        System.out.println("Q-network activated");
 
     }
 
@@ -189,6 +173,69 @@ public class NeuralNetwork {
         }
         for (int i = 0; i < outputNodes; i++) {
             biasesOutput[i] += learningRate * outputError[i];
+        }
+    }
+
+    // Update the neural network using Q-Learning
+    public void update(String currentBoard, double newQ, int team) {
+
+        // LearningRate
+        double learningRate = 0.001;
+
+        // Encode the current board state
+        String boardFen = currentBoard.split(" ", 2)[0];
+        double[] encodedBoardPosition = encode.oneHotEncodeSimplifiedFEN(boardFen);
+
+        // Get the current Q-value for the selected action from the neural network
+        double[] predictions = predict(encodedBoardPosition);
+        double currentQ = predictions[team];        // white
+
+        // Calculate the target Q-value for the selected action
+        double targetQ = currentQ + learningRate * (newQ - currentQ);
+
+        // Forward pass (hidden output)
+        double[] hiddenOutput = new double[hiddenNodes];
+        for (int i = 0; i < hiddenNodes; i++) {
+            double sum = 0;
+            for (int j = 0; j < inputNodes; j++) {
+                sum += encodedBoardPosition[j] * weightsInputToHidden[j][i];
+            }
+            sum += biasesHidden[i];
+            hiddenOutput[i] = activationFunction.apply(sum);
+        }
+
+        // Output layer
+        double[] output = new double[outputNodes];
+        for (int i = 0; i < outputNodes; i++) {
+            double sum = 0;
+            for (int j = 0; j < hiddenNodes; j++) {
+                sum += hiddenOutput[j] * weightsHiddenToOutput[j][i];
+            }
+            sum += biasesOutput[i];
+            output[i] = activationFunction.apply(sum);
+        }
+
+
+        // Update the weights and biases of the neural network
+        // Input layer to hidden layer
+        for (int i = 0; i < inputNodes; i++) {
+            for (int j = 0; j < hiddenNodes; j++) {
+                weightsInputToHidden[i][j] += learningRate * (targetQ - currentQ) * encodedBoardPosition[i] * activationFunction.derivative(hiddenOutput[j]);
+            }
+        }
+        // Hidden layer bias
+        for (int i = 0; i < hiddenNodes; i++) {
+            biasesHidden[i] += learningRate * (targetQ - currentQ) * activationFunction.derivative(hiddenOutput[i]);
+        }
+        // Hidden layer to output layer
+        for (int i = 0; i < hiddenNodes; i++) {
+            for (int j = 0; j < outputNodes; j++) {
+                weightsHiddenToOutput[i][j] += learningRate * (targetQ - currentQ) * hiddenOutput[i] * activationFunction.derivative(output[j]);
+            }
+        }
+        // Output layer bias
+        for (int i = 0; i < outputNodes; i++) {
+            biasesOutput[i] += learningRate * (targetQ - currentQ) * activationFunction.derivative(output[i]);
         }
     }
 
