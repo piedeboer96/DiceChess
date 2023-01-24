@@ -9,7 +9,6 @@ import java.util.Arrays;
 public class OneHotEncoding {
 
 
-
     /**
      * This method takes a board FEN as input
      * and brings it into 1s and 0s to be used
@@ -94,6 +93,7 @@ public class OneHotEncoding {
         }
         return encoded;
     }
+
 
 
 }

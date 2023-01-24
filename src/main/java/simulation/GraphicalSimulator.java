@@ -10,6 +10,7 @@ import player.Human;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 /**
  * Defines a simulator to run simulations while visualizing each simulation such that the human eye can follow
@@ -34,7 +35,7 @@ public final class GraphicalSimulator implements Simulator {
     }
 
     @Override
-    public Player simulate(Player p1, Player p2) {
+    public Player simulate(Player p1, Player p2) throws IOException {
         Projector window = new Projector();
         DiceChess game = new DiceChess();
         window.display(game.getBoard());

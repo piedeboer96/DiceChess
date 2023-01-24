@@ -1052,4 +1052,3 @@ public class FitnessFunction {
         return currentPlayerScore - opponentPlayerScore;
     }
 }
-

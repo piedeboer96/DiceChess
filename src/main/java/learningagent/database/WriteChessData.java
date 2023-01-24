@@ -19,7 +19,7 @@ public class WriteChessData {
 
     public static void main(String[] args) {
 
-        int numberOfGames = 1;
+        int numberOfGames = 500000;
         sp.writeOutcomesToDB(numberOfGames);
 
     }

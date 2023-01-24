@@ -5,13 +5,15 @@ import game.DiceChess;
 import game.GameState;
 import player.Human;
 
+import java.io.IOException;
+
 /**
  * Defines a simulator to run simulations without visualizing the simulation.
  * @version 1.0
  **/
 public final class DefaultSimulator implements Simulator {
     @Override
-    public Player simulate(Player p1, Player p2) {
+    public Player simulate(Player p1, Player p2) throws IOException {
         if (p1 instanceof Human || p2 instanceof Human) {
             throw new IllegalArgumentException("Not allowed to do back-end simulation with a human player.");
         }

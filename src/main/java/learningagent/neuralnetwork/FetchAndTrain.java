@@ -2,7 +2,10 @@ package learningagent.neuralnetwork;
 
 import learningagent.database.ChessDataRetriever;
 import learningagent.database.OneHotEncoding;
+import learningagent.neuralnetwork.activationfunction.ActivationFunction;
+import learningagent.neuralnetwork.activationfunction.SigmoidActivationFunction;
 import learningagent.neuralnetwork.csvhelp.ArrayToCSV;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,10 +31,8 @@ public class FetchAndTrain {
     /** NEURAL NETWORK */
     ActivationFunction SigmoidActivationFunction = new SigmoidActivationFunction();
 
-    // 384 nodes for board position
-    // 256 hidden nodes
-    // 2 output nodes
-    NeuralNetwork nn = new NeuralNetwork(384,256,2, SigmoidActivationFunction);
+
+    NeuralNetwork nn = new NeuralNetwork();
     double learningRate = 0.001;
 
     /** FETCH AND TRAIN FOR COLOUR */
@@ -45,7 +46,7 @@ public class FetchAndTrain {
         double start = System.currentTimeMillis();
 
         int i=0;
-        while (resultSet.next() && i<5) {
+        while (resultSet.next() && i<10000) {
 
             String FEN = resultSet.getString("FEN");
             int blackWins = resultSet.getInt("blackWins");
@@ -67,11 +68,12 @@ public class FetchAndTrain {
             System.out.println(targetBlack);
             double targetWhite = (double) (whiteWins) / (double)  (whiteWins+blackWins+draws);
 
-            double[] target = {targetBlack, targetWhite};
+            double target[] = {targetBlack, targetWhite};
 
             // Feed this to the network
             nn.train(encodedFEN,target,learningRate);
 
+            System.out.println(i);
             i++;
         }
 

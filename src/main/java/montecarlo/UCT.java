@@ -1,12 +1,6 @@
 package montecarlo;
 
-/**
- * Upper Confidence Bound for trees selection policy.
- * Balances exploration and exploitation of the tree.
- * @version 1.0
- */
 public class UCT {
-
 
     /**
      * Calculates the upper confidence bound of a node
@@ -26,9 +20,6 @@ public class UCT {
             return ((winCount / visitCount) + (c * Math.sqrt((Math.log(visitCountParent)) / visitCount)));
         }
     }
-
-
-
 
     /**
      * Finds the leaf node with the highest upper confidence bound.
@@ -56,5 +47,22 @@ public class UCT {
         return bestNode;
     }
 
-
+    /**
+     * Selects the child node with the highest upper confidence bound.
+     *
+     * @param node The node from where the search should be started.
+     * @return The child node with the highest upper confidence bound.
+     */
+    public MonteCarloNode selectChild(MonteCarloNode node) {
+        double max = -1;
+        MonteCarloNode bestChild = null;
+        for (MonteCarloNode child : node.getChildren()) {
+            double uct = calculateUCT(child);
+            if (uct > max) {
+                max = uct;
+                bestChild = child;
+            }
+        }
+        return bestChild;
+    }
 }

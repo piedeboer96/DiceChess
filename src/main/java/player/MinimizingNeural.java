@@ -7,13 +7,14 @@ import game.Opportunity;
 import learningagent.MoveAdvisor;
 import simulation.Player;
 
+import java.io.IOException;
 import java.util.List;
 
 public final class MinimizingNeural implements Player {
     private final MoveAdvisor ADVISOR = new MoveAdvisor();
 
     @Override
-    public String play(int roll, DiceChess game) {
+    public String play(int roll, DiceChess game) throws IOException {
         if (game.getState() != GameState.ONGOING) {
             throw new IllegalArgumentException("Can not play a move as game is already over.");
         }

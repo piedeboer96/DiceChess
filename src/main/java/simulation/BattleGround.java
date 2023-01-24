@@ -1,19 +1,20 @@
 package simulation;
 import player.*;
 
-import java.io.FileNotFoundException;
+import javax.swing.*;
+import java.io.IOException;
 
 public class BattleGround {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
 
-//        var simulator = new GraphicalSimulator(100);
+       //var simulator = new GraphicalSimulator(500);
         var simulator = new DefaultSimulator();
 
-        Player p1 =  new Darwin();                     // BLACK
-        Player p2 =  new CasinoNeural();               // WHITE
+        Player p1 =   new MinimizingNeural();      // BLACK
+        Player p2 =   new AgentQ2();      // WHITE
 
         int[] winCounts = new int[2];
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 25; i++) {
             Player winner = simulator.simulate(p1, p2);
             if (winner == p1) { winCounts[0]++; }
             else { winCounts[1]++; }
@@ -23,4 +24,8 @@ public class BattleGround {
         System.out.println("Black won: " + winCounts[0]);
         System.out.println("White won: " + winCounts[1]);
     }
+
+
+
+
 }

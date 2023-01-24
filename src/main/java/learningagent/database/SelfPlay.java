@@ -7,6 +7,7 @@ import player.*;
 import simulation.Player;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.*;
 
 
@@ -17,8 +18,8 @@ import java.util.*;
  */
 public class SelfPlay {
 
-    Player ga1 = new Darwin();
-    Player ga2 = new Darwin();
+    Player ga1 = new Lunatic();
+    Player ga2 = new Lunatic();
 
     public SelfPlay() throws FileNotFoundException {
     }
@@ -27,14 +28,14 @@ public class SelfPlay {
      * Generate games using Genetic Algorithm playouts.
      * @return ArrayList of game outcomes
      */
-    public ArrayList<Outcome> playChess() {
+    public ArrayList<Outcome> playChess() throws IOException {
 
         return simulate(ga1,ga2);
 
     }
 
     // Simulate one match and generate list with simplified FEN with outcome information
-    public ArrayList<Outcome> simulate(Player p1, Player p2) {
+    public ArrayList<Outcome> simulate(Player p1, Player p2) throws IOException {
 
         // outcomes
         ArrayList<Outcome> outcomes = new ArrayList<>();
@@ -109,7 +110,7 @@ public class SelfPlay {
 
                 for (Outcome outcome : outcomes) {
 
-                    System.out.println(outcome.getFen());
+//                    System.out.println(outcome.getFen());
 
                     String sql = "INSERT INTO genetic_dice (FEN, blackWins, whiteWins, Draws) VALUES (?, ?, ?, ?) "
                             + "ON DUPLICATE KEY UPDATE blackWins = blackWins + ?, whiteWins = whiteWins + ?, Draws = Draws + ?";
@@ -165,7 +166,7 @@ public class SelfPlay {
 
         for (Outcome outcome : outcomes) {
             if (outcome.getFen().equals(FEN)) {
-                System.out.println("Visited: " + outcome.getFen());
+                //System.out.println("Visited: " + outcome.getFen());
                 return true;
             }
         }

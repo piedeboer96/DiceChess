@@ -1,5 +1,7 @@
 package simulation;
 
+import java.io.IOException;
+
 /**
  * Defines a simulator to run dice chess game simulations.
  * @version 1.0
@@ -14,5 +16,5 @@ public interface Simulator {
      *         p2, if the color white has won. <br>
      *         null, if the simulation ended with a tie.
      **/
-    Player simulate(Player p1, Player p2);
+    Player simulate(Player p1, Player p2) throws IOException;
 }

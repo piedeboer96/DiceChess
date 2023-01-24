@@ -7,6 +7,9 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    maven {
+        url "https://dl4j-repo.s3.amazonaws.com/maven"
+    }
 }
 
 dependencies {
@@ -14,11 +17,41 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
     testImplementation 'org.junit.platform:junit-platform-suite-api:1.9.1'
     testImplementation 'org.junit.platform:junit-platform-suite-engine:1.9.1'
-    
+
     implementation 'org.jeasy:easy-rules-core:4.1.0'
     implementation 'org.slf4j:slf4j-api:2.0.3'
     implementation 'org.slf4j:slf4j-simple:2.0.3'
     implementation 'mysql:mysql-connector-java:8.0.30'
+
+    //implementation 'org.deeplearning4j:deeplearning4j-core:1.0.0-alpha'
+    //implementation 'org.nd4j:nd4j-native-platform:1.0.0-alpha'
+    //implementation 'org.datavec:datavec-api:1.0.0-alpha'
+    //implementation 'org.datavec:datavec-data-codec:1.0.0-alpha'
+    //implementation 'org.datavec:datavec-data-transform:1.0.0-beta7'
+    //implementation 'org.datavec:datavec-data-image:1.0.0-alpha'
+
+    // https://mvnrepository.com/artifact/org.datavec/datavec-api
+//    implementation group: 'org.datavec', name: 'datavec-api', version: '1.0.0-beta7'
+
+
+
+    // CORRECT FROM MVN REPOSITORIES.COM
+
+    // https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-core
+    implementation group: 'org.deeplearning4j', name: 'deeplearning4j-core', version: '1.0.0-alpha'
+
+    // https://mvnrepository.com/artifact/org.nd4j/nd4j-native
+    testImplementation group: 'org.nd4j', name: 'nd4j-native', version: '1.0.0-alpha'
+
+    // https://mvnrepository.com/artifact/org.datavec/datavec-data
+    implementation group: 'org.datavec', name: 'datavec-data', version: '1.0.0-alpha', ext: 'pom'
+
+    // https://mvnrepository.com/artifact/org.datavec/datavec-api
+    implementation group: 'org.datavec', name: 'datavec-api', version: '1.0.0-alpha'
+
+
+    implementation 'org.nd4j:nd4j-native-platform:1.0.0-alpha'
+
 }
 
 test {
