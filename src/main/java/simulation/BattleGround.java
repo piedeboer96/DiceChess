@@ -11,7 +11,7 @@ public class BattleGround {
 
 
 
-        Player p1 =  new Gambler();                     // BLACK
+        Player p1 =  new GamblerOld();                     // BLACK
         Player p2 =  new HappyBeam(1);       // WHITE
 
         int[] winCounts = new int[2];
@@ -21,10 +21,10 @@ public class BattleGround {
             else { winCounts[1]++; }
 
         }
-        File newSample = new File("src/main/java/expecti/FINAL-BeamSearchvsExpecti.txt");
+        File newSample = new File("src/main/java/expecti/FINAL-BeamSearchvsExpectiOld.txt");
         FileWriter fileWriter = new FileWriter(newSample);
         PrintWriter printWriter = new PrintWriter(fileWriter);
-        printWriter.print("Expecti150: "+winCounts[0] + "\n");
+        printWriter.print("ExpectiOld: "+winCounts[0] + "\n");
         printWriter.print("Beam-Search: "+winCounts[1]);
         printWriter.close();
 
@@ -43,7 +43,7 @@ public class BattleGround {
         newSample = new File("src/main/java/expecti/FINAL-BeamSearchvs150.txt");
         fileWriter = new FileWriter(newSample);
         printWriter = new PrintWriter(fileWriter);
-        printWriter.print("Expecti50: "+winCounts[0] + "\n");
+        printWriter.print("Expecti150: "+winCounts[0] + "\n");
         printWriter.print("Beam-Search: "+winCounts[1]);
         printWriter.close();
 
