@@ -26,8 +26,6 @@ public class HappyBeam implements Player {
         }
         game.switchActiveColor();
 
-        game.switchActiveColor();
-
         return game.toString();
     }
 }
