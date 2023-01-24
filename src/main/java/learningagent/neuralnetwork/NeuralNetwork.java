@@ -2,6 +2,8 @@ package learningagent.neuralnetwork;
 
 import game.Movement;
 import learningagent.database.OneHotEncoding;
+import learningagent.neuralnetwork.activationfunction.ActivationFunction;
+import learningagent.neuralnetwork.activationfunction.SigmoidActivationFunction;
 import learningagent.neuralnetwork.csvhelp.CSVtoArray;
 
 /**
@@ -26,7 +28,6 @@ public class NeuralNetwork {
     private double[] biasesHidden;
     private double[][] weightsHiddenToOutput;
     private double[] biasesOutput;
-
 
 
     // Activation function
