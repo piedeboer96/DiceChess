@@ -18,6 +18,6 @@ public final class RunGame {
 
         Human h = new Human();
         GraphicalSimulator s = new GraphicalSimulator();
-        s.simulate(AI[4], h);
+        s.simulate(AI[2], h);
     }
 }
