@@ -17,13 +17,7 @@ Otherwise, standard chess rules apply, with these exceptions:
 * a player who is in check but does not make a roll allowing a legal response to the check loses that turn, but does not automatically lose the game;
 * except in the unlikely event that the game ends in a draw pursuant to the standard rules of chess, the game ends when one player either checkmates the opponent or captures the opponent's king.
 
-# How to play HUMAN VS HUMAN
-- Open the src\main\java\gui\DiceChessWindow.java file
-- To roll the dice, tap the field where the die can be seen
-- Enjoy...
-
-# How to play HUMAN VS AI
-- Run the RunGameAIvsHuman (the path: src\main\java\examples\RunGameAIvsHuman)
-- Click on the dice field each turn to roll the dice (even the AI turn)
-- Make possible move... After the ai played.. Roll again!
-- Enjoy
+# How to play the game.
+- Open the src\main\java\RunGame.java file
+- Select your opponent by changing the array index at line 24. Your default opponent is our best performing agent; the ExpectiMiniMax agent.
+- Compile and run the RunGame.java, have fun and enjoy.
