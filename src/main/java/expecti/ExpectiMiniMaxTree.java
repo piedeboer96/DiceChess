@@ -16,11 +16,6 @@ import java.util.Queue;
 
 public class ExpectiMiniMaxTree implements Tree
 {
-
-
-
-
-
     public final String STATE;
     public List<Node> leaves = new ArrayList<>();
 
@@ -28,27 +23,7 @@ public class ExpectiMiniMaxTree implements Tree
 
     private double[] weights = new double[38];
 
-    {
-        try {
-            File file = new File("src/main/java/expecti/weights.txt");
 
-            BufferedReader read = new BufferedReader(new FileReader(file));
-            String value;
-            int index = 0;
-            while(index != 37)
-            {
-                value = read.readLine();
-                weights[index] = Double.parseDouble(value);
-                System.out.println(weights[index]);
-                index++;
-            }
-            read.close();
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     /**
@@ -57,8 +32,45 @@ public class ExpectiMiniMaxTree implements Tree
      * @param rolled the dice value rolled
      * @throws NoSuchMethodException
      */
-    public ExpectiMiniMaxTree(String fen, int rolled)
+    public ExpectiMiniMaxTree(String fen, int rolled, int version)
     {
+        File file = new File("src/main/java/expecti/weights.txt");
+        if(version == 150)
+        {
+            file = new File("src/main/java/expecti/weights150.txt");
+        }
+        if(version == 50)
+        {
+            file = new File("src/main/java/expecti/weights50.txt");
+        }
+        if(version == -1)
+        {
+            file = new File("src/main/java/expecti/weightsOld.txt");
+        }
+
+
+            try {
+
+
+                BufferedReader read = new BufferedReader(new FileReader(file));
+                String value;
+                int index = 0;
+                while(index != 37)
+                {
+                    value = read.readLine();
+                    weights[index] = Double.parseDouble(value);
+                    //System.out.println(weights[index]+"weights");
+                    index++;
+                }
+                read.close();
+            }
+            catch (IOException e)
+            {
+                throw new RuntimeException(e);
+            }
+
+
+
         ExpectiminimaxState firstState = new ExpectiminimaxState(fen, rolled, weights);
         if(firstState.getAllLegalMoves().size() == 0)
         {
@@ -170,7 +182,7 @@ public class ExpectiMiniMaxTree implements Tree
                 {
                     Movement m = currentMoves.select(j);
                     newMatch.register(m);
-                    if (Promotion.isEligible(currentMoves.owner(), m.endpoint())) {
+                    if (newMatch.getState() == GameState.ONGOING && Promotion.isEligible(currentMoves.owner(), m.endpoint())) {
                         ChessPiece queen = ChessPiece.get(5, newMatch.getActiveColor());
                         newMatch.promote(m.endpoint(), queen);
                     }
@@ -205,6 +217,7 @@ public class ExpectiMiniMaxTree implements Tree
         public void computeLeafNodeValues() {
             for (Node n : leaves) {
                 double eval = n.getState().getStateEvaluation();
+                //System.out.println(eval +":   evaluation");
                 n.setExpecti(eval);
             }
         }

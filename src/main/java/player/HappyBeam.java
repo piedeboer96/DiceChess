@@ -22,8 +22,8 @@ public class HappyBeam implements Player {
         Movement movement = bs.bestMove();
         if (movement != null) {
             game.register(movement);
-            game.switchActiveColor();
         }
+        game.switchActiveColor();
 
         return game.toString();
     }
